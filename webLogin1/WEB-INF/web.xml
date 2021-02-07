@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+    
+    
+    
+    
+  <description>WEB</description>
+  <display-name>WEB</display-name>
+
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>Servlet.Login</servlet-class>
+    
+   </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>Servlet.Register</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
+  
+ 
+  <servlet>
+    <servlet-name>Panel</servlet-name>
+    <servlet-class>Servlet.Panel</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>Panel</servlet-name>
+    <url-pattern>/Panel</url-pattern>
+  </servlet-mapping>
+  
+  
+<servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>Servlet.Logout</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+
+
+  <welcome-file-list>
+	<welcome-file>/index.jsp</welcome-file>
+	
+  </welcome-file-list>
+
+
+  <!-- Session Configuration -->
+<session-config>
+        <session-timeout>1</session-timeout>
+</session-config>
+
+<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/web</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+
+
+</web-app>
