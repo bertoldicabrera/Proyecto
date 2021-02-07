@@ -78,7 +78,7 @@ public class CrearBase {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		String url = sp.getMysql_url();//+sp.getMysql_dbname();
+		String url = sp.getMysql_url();
 		try {
 			con = DriverManager.getConnection(url, sp.getMysql_user(), sp.getMysql_password());
 		} catch (SQLException e) {
@@ -102,7 +102,7 @@ public class CrearBase {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		String url = sp2.getMysql_url();//+sp.getMysql_dbname();
+		String url = sp2.getMysql_url();
 		try {
 			con = DriverManager.getConnection(url, sp2.getMysql_user(), sp2.getMysql_password());
 		} catch (SQLException e) {
