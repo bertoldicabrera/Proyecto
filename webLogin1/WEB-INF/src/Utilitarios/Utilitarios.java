@@ -19,7 +19,6 @@ public class Utilitarios {
 	
 	
 	public Utilitarios() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static boolean isPoolEnabled() {
@@ -31,7 +30,6 @@ public class Utilitarios {
 			isPoolEnabled = (pool_enabled == 1) ? true : false;
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isPoolEnabled;
@@ -39,7 +37,6 @@ public class Utilitarios {
 	
 	public static void printCompleteDateTime() {
 		System.out.print(getCompleteDateTime()+"==>");
-//		System.out.print(new Date().toString()+"==>");
 	}
 	
 	public static void printTime() {
@@ -85,11 +82,7 @@ public class Utilitarios {
 			int cont2 =0;
 			printTime();
 			System.out.print("Server is running...\n");
-//			try {
-//				printTimer();
-//			} catch (InterruptedException e1) {
-//				e1.printStackTrace();
-//			}
+
 			while (isStillRunning) {
 				cont+=1;
 				if (cont==81 || cont==161) {
@@ -101,7 +94,6 @@ public class Utilitarios {
 					cont2+=1;
 					if (cont2%7==0) {
 						int numeroRandom = (int) (Math.random() * cont2) + 1;
-//						System.out.print("numeroRandom:"+Integer.toString(numeroRandom)+ " cont2:"+Integer.toString(cont2)+"\n");
 						if (numeroRandom >= cont2/2) {
 							System.out.print("......si, aun esta corriendo XD... ....\n");
 						} else {
@@ -115,22 +107,14 @@ public class Utilitarios {
 				try {
 					TimeUnit.MILLISECONDS.sleep(30);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				try {
-//					Thread.sleep(100);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}			
 			}
 		}
 	}
 
 
 	public static void printTimer() throws InterruptedException {
-		// TODO Auto-generated method stub
 		String text;
 		char[] animationChars = new char[] {'|', '/', '-', '\\'};
 	    for (int i = 0; i < 1000; i++) {
@@ -145,34 +129,6 @@ public class Utilitarios {
 	    }
 		
 
-//		int i=1, j=1;
-//		while (i <25) {
-//			switch (j) {
-//			case 1: 
-//				TimeUnit.MILLISECONDS.sleep(200);
-//				text = "|\r";
-//				System.out.print(text);
-//				break;
-//			case 2: 
-//				TimeUnit.MILLISECONDS.sleep(200);
-//				text = "/\r";
-//				System.out.print(text);
-//				break;
-//			case 3: 
-//				TimeUnit.MILLISECONDS.sleep(200);
-//				text = "-\r";
-//				System.out.print(text);
-//				break;
-//			case 4: 
-//				TimeUnit.MILLISECONDS.sleep(200);
-//				text = "\\\r";
-//				System.out.print(text);
-//				j=0;
-//				break;
-//			}
-//			i+=1;
-//			j+=1;
-//		}
 
 	}
 
@@ -190,7 +146,6 @@ public class Utilitarios {
 				size = rs.getRow();  
 				rs.beforeFirst();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}

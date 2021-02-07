@@ -43,17 +43,13 @@ public class CrearBase {
 		vars.add("CREATE TABLE usuarios (id int(11) AUTO_INCREMENT PRIMARY KEY," +
 											 "email varchar(100) NOT NULL," +
 											 "password varchar(128)NOT NULL," +
-											 "name varchar(100) NOT NULL );");
-			
+											 "name varchar(100) NOT NULL );");	
 		
 		//el hash es un sha-256 "password"
 		vars.add("Insert into usuarios values (1,'test@test.com' ,'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86','test');");
 		vars.add("Insert into usuarios values (2,'test1@test.com' ,'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86','test1');");
 		
-		
-		
-		
-		
+
 		Statement stmt = null;
 		int i=1;
 		for(String sql : vars) {            
