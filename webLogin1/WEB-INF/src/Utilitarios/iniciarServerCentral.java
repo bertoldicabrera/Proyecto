@@ -8,12 +8,10 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.concurrent.TimeUnit;
-
 import javax.persistence.PersistenceException;
+import excepciones.*;
 
-import logica.Fachada;
-import logica.excepciones.ServidorException;
-import persistencia.excepciones.PersistenciaException;
+
 
 public class iniciarServerCentral {
 	
@@ -61,7 +59,7 @@ public class iniciarServerCentral {
 		{
 			try {
 				throw new ServidorException(msg.errorIO);
-			} catch (ServidorException e1) {
+			} catch (PersistenciaException e1) {
 				e.getMessage();
 			}
 		}
