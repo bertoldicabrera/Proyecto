@@ -1,0 +1,27 @@
+package Persistencia.Dao;
+
+import java.util.List;
+
+import Logica.*;
+
+import Persistencia.*.poolDeConexiones.IConexion;
+
+
+public interface IDaoJugador  {
+	
+	//public boolean member (int cedula) throws PersistenciaException;
+	public boolean member (int cedula, IConexion con) throws PersistenciaException;
+	
+	//public Ninio find (int cedula) throws PersistenciaException;
+	public Ninio find (int cedula, IConexion con) throws PersistenciaException;
+	
+	//public void insert (Ninio nin) throws PersistenciaException;
+	public void insert (Ninio nin, IConexion con) throws PersistenciaException;
+	
+	//public void delete (int cedula) throws PersistenciaException;
+	public void delete(int cedula, IConexion con) throws PersistenciaException;
+	
+	//public List<voJuguetes> listarNinios() throws PersistenciaException;
+	public List <voNinio> listarNinios(IConexion con) throws PersistenciaException;
+
+}

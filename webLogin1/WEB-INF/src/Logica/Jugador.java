@@ -1,7 +1,7 @@
-package PersistenciaSql;
+package Logica;
 
 
-public class User {
+public class Jugador {
 	
 
 	 	public String userName;
@@ -9,7 +9,7 @@ public class User {
 	    public  int  id;
 	    public String password;
 	    
-	    public User( String nom,String mail, int codId, String pass) {
+	    public Jugador( String nom,String mail, int codId, String pass) {
 	    	this.userName=nom;
 	    	this.email=mail;
 	    	this.id=codId;

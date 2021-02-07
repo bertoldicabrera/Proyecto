@@ -1,4 +1,4 @@
-package PersistenciaSql;
+package Persistencia.Dao;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,8 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import VO.VOClientes;
-public class DAO {
+import Logica.Vo.VOClientes;
+import Persistencia.Consultas.Queries;
+public class DaoJugador {
 	//Data Access Object
 
 

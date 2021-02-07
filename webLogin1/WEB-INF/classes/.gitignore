@@ -1,6 +1,9 @@
+/Excepciones/
+/Exception/
 /Logica/
-/PersistenciaSql/
-/Servlet/
 /Utilitarios/
+/PersistenciaSql/
+/Persistencia/
+/Servlet/
 /VO/
-/excepciones/
+/Dao/

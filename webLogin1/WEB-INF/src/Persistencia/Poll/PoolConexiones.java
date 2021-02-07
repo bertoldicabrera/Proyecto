@@ -1,4 +1,4 @@
-package PersistenciaSql;
+package Persistencia.Poll;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
-import VO.VOClientes;
+import Logica.Vo.VOClientes;
 
 public class PoolConexiones {
 

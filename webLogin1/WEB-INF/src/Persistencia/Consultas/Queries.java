@@ -1,4 +1,4 @@
-package PersistenciaSql;
+package Persistencia.Consultas;
 
 public class Queries {
 

@@ -1,4 +1,4 @@
-package PersistenciaSql;
+package Persistencia.Poll;
 
 import java.rmi.Remote;
 import java.sql.Connection;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import Logica.Validador;
-import PersistenciaSql.DAO;
+import Persistencia.Dao.DaoJugador;
  
 public class Register extends HttpServlet {
  
@@ -43,7 +43,7 @@ public class Register extends HttpServlet {
         Pattern p = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         Matcher m = p.matcher(emailUsuario);
         Validador v = new Validador();
-        DAO d = new DAO();
+        DaoJugador d = new DaoJugador();
         //Comienzo con las validaciones
         
         

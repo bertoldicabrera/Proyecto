@@ -1,4 +1,4 @@
-package excepciones;
+package Logica.Excepciones;
 
 public class ServidorException extends Exception {
 	public ServidorException() {}

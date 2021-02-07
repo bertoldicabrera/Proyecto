@@ -9,7 +9,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.PersistenceException;
-import excepciones.*;
+
+import Logica.Excepciones.*;
 
 
 

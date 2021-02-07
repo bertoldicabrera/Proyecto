@@ -1,4 +1,4 @@
-package VO;
+package Logica.Vo;
 
 import java.io.Serializable;
 public class VOClientes implements Serializable{
