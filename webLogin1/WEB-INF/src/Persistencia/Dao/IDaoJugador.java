@@ -1,27 +1,34 @@
 package Persistencia.Dao;
 
+import java.io.FileNotFoundException;
+import java.io.*;
+import java.sql.*;
+import java.sql.SQLException;
+import java.util.*;
 import java.util.List;
 
 import Logica.*;
-
-import Persistencia.*.poolDeConexiones.IConexion;
+import Logica.Vo.VOClientes;
+import Persistencia.*;
 
 
 public interface IDaoJugador  {
 	
-	//public boolean member (int cedula) throws PersistenciaException;
-	public boolean member (int cedula, IConexion con) throws PersistenciaException;
+
+	 public void Connect() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException;
 	
-	//public Ninio find (int cedula) throws PersistenciaException;
-	public Ninio find (int cedula, IConexion con) throws PersistenciaException;
+	 public void disconnect() throws SQLException, ClassNotFoundException;
 	
-	//public void insert (Ninio nin) throws PersistenciaException;
-	public void insert (Ninio nin, IConexion con) throws PersistenciaException;
+	 public boolean isAcountExists(String email, String password) throws SQLException;
 	
-	//public void delete (int cedula) throws PersistenciaException;
-	public void delete(int cedula, IConexion con) throws PersistenciaException;
+	 public boolean isEmailRegistered(String email) throws SQLException;
 	
-	//public List<voJuguetes> listarNinios() throws PersistenciaException;
-	public List <voNinio> listarNinios(IConexion con) throws PersistenciaException;
+	 public void registerUser(String email, String password, String name) throws SQLException;
+	 
+	 public String getNameByEmail(String email) throws SQLException;
+	 
+	 public ArrayList<VOClientes> allUsers() throws SQLException;
+	 
+	
 
 }
