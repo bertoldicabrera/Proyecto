@@ -14,7 +14,7 @@ import Logica.Excepciones.*;
 
 
 
-public class iniciarServerCentral {
+public class IniciarServerCentral {
 	
 	static boolean isStillRunning = false;
 	public static MensajesPersonalizados msg = new MensajesPersonalizados();

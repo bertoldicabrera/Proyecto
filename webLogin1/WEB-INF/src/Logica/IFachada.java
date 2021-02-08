@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import Logica.*;
+import Logica.Excepciones.LogicaException;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
 import Persistencia.*;

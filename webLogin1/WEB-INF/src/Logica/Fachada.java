@@ -12,14 +12,16 @@ import com.mysql.jdbc.Connection;
 
 import Persistencia.*;
 import Persistencia.Dao.IDaoJugador;
+import Persistencia.Factory.IFabricaAbstracta;
 import Utilitarios.*;
 import Logica.*;
+import Logica.Excepciones.LogicaException;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Interfaz.IPoolConexiones;
 import Logica.Vo.VOJugador;
 
 
-public abstract class Fachada extends UnicastRemoteObject implements IFachada {
+public class Fachada extends UnicastRemoteObject implements IFachada {
 	private static Fachada instancia;
 	private IDaoJugador daoN;
 	private IPoolConexiones ipool;
@@ -36,7 +38,7 @@ public abstract class Fachada extends UnicastRemoteObject implements IFachada {
 
 			String nomFab = sp.getFabricaAbstracta();
 			fabrica = (IFabricaAbstracta) Class.forName(nomFab.trim()).newInstance();
-			daoN = fabrica.crearIDaoNinios();
+			daoN = fabrica.crearIDaoJugador();
 		} catch (IOException e) {
 			throw new PersistenciaException(mensg.errorIO);
 		} catch (InstantiationException e) {
