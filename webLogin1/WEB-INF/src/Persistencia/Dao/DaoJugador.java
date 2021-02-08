@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import Logica.Jugador;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
@@ -73,7 +72,20 @@ public Jugador find(String email, IConexion con) throws PersistenciaException {
 
 @Override
 public void insert(Jugador jug, IConexion con) throws PersistenciaException {
-	// TODO Auto-generated method stub
+	try{
+		consultas cons = new consultas();
+		String insert = cons.insertUser();
+		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
+		pstmt.setString(1, jug.getEmail());
+		pstmt.setString (2, jug.getPassword());
+		pstmt.setString (3, jug.getUserName());
+		pstmt.executeUpdate ();
+		pstmt.close ();
+	}
+	catch (SQLException e)
+	{
+	throw new PersistenciaException (mensg.errorSQLInsertUser);
+	}
 	
 }
 @Override

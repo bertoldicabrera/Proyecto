@@ -30,7 +30,7 @@ public class MensajesPersonalizados {
 	public String warningServidorSinHttps;
 	public String infoServerInit, errorSQLDeleteusuario,errorSQLListarUsuarios, errorSQLConsultarDescripcion,
 	errorSQLConsultarCantidadDePuntos, errorSQLFindUsuario, errorFachadaNuevoUsuario, errorFachadaYaExisteUsuario,
-	errorFachadaNoExisteUsuario,errorFachadaListUsuarios, errorGraficaNoHayUsuario, errorIO;
+	errorFachadaNoExisteUsuario,errorFachadaListUsuarios, errorGraficaNoHayUsuario, errorIO, errorSQLInsertUser;
 
 
 	
@@ -81,7 +81,7 @@ public class MensajesPersonalizados {
 		warningServidorSinHttps 			= p.getProperty("warningServidorSinHttps");    
 		infoServerInit 						= p.getProperty("infoServerInit"); 
 		errorIO								= p.getProperty("errorIO"); 
-
+		errorSQLInsertUser					= p.getProperty("errorSQLInsertUser");
 		;
 	}
 
