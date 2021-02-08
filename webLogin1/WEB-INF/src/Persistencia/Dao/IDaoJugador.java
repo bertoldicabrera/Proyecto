@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.List;
 
 import Logica.*;
-import Logica.Vo.VOClientes;
+import Logica.Vo.VOJugador;
 import Persistencia.*;
 
 
@@ -27,7 +27,7 @@ public interface IDaoJugador  {
 	 
 	 public String getNameByEmail(String email) throws SQLException;
 	 
-	 public ArrayList<VOClientes> allUsers() throws SQLException;
+	 public ArrayList<VOJugador> allUsers() throws SQLException;
 	 
 	
 

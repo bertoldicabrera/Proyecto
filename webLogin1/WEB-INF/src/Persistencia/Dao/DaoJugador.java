@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import Logica.Vo.VOClientes;
+import Logica.Vo.VOJugador;
 import Persistencia.Consultas.Queries;
 public class DaoJugador {
 	//Data Access Object
@@ -107,15 +107,15 @@ private Connection connection;
 	        return Name;
 	        
 	    }
-	    public ArrayList<VOClientes> allUsers() throws SQLException
+	    public ArrayList<VOJugador> allUsers() throws SQLException
 	    {	
-	    	ArrayList<VOClientes> arre= new ArrayList<VOClientes>();
+	    	ArrayList<VOJugador> arre= new ArrayList<VOJugador>();
 	    	Queries Consult= new Queries();
 	    	String query = Consult.allUsersQuery();
 	    	PreparedStatement ps = connection.prepareStatement(query);
 	    	ResultSet rs = ps.executeQuery();
 	    	while(rs.next()){
-	    		VOClientes nuevo= new VOClientes(rs.getString("name"),rs.getInt("id"), rs.getString("email") );
+	    		VOJugador nuevo= new VOJugador(rs.getString("name"),rs.getInt("id"), rs.getString("email") );
 	    		
 	    		arre.add(nuevo);
 	    		

@@ -10,22 +10,16 @@ import java.util.List;
 
 import com.mysql.jdbc.Connection;
 
-import persistencia.baseDeDatos.daos.IDaoNinios;
-import persistencia.baseDeDatos.daos.daoNinios;
-import persistencia.sistemaDeArchivos.poolDeConexiones.PoolConexionesArchivos;
-import persistencia.baseDeDatos.poolDeConexiones.IConexion;
-import persistencia.baseDeDatos.poolDeConexiones.PoolConexiones;
-import persistencia.excepciones.PersistenciaException;
-import persistencia.factory.IFabricaAbstracta;
+import Persistencia.*;
+import Persistencia.Dao.IDaoJugador;
 import Utilitarios.*;
-import logica.IFachada;
-import logica.Juguete;
-import logica.Ninio;
-import logica.excepciones.*;
-import logica.interfaces.IPoolConexiones;
-import logica.valueObjects.*;
+import Logica.*;
+import Logica.Excepciones.PersistenciaException;
+import Logica.Interfaz.IPoolConexiones;
+import Logica.Vo.VOJugador;
 
-public class Fachada extends UnicastRemoteObject implements IFachada {
+
+public abstract class Fachada extends UnicastRemoteObject implements IFachada {
 	private static Fachada instancia;
 	private IDaoJugador daoN;
 	private IPoolConexiones ipool;
@@ -60,13 +54,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return instancia;
 	}
 
-	public void nuevoNinio(voNinio voN) throws PersistenciaException, LogicaException {
+	public void nuevoJugador(VOJugador voN) throws PersistenciaException, LogicaException {
 		System.out.println(" ipool.obtenerConexion(true) Dentro de fachada nuevo ninio");
 		IConexion icon = ipool.obtenerConexion(true);
 		System.out.println("despues de  ipool.obtenerConexion(true) Dentro de fachada nuevo ninio");
-		int cedula = voN.getCedula();
+		int email = voN.getemail();
 		try {
-			if (daoN.member(cedula, icon)) {
+			if (daoN.member(email, icon)) {
 				//// cuando se llama a la capa de persistencia, hay que encerrar en try para
 				//// capturar y liberar
 				ipool.liberarConexion(icon, false);
@@ -74,7 +68,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			} else {
 				String apellido = voN.getApellido();
 				String nombre = voN.getNombre();
-				Ninio nin = new Ninio(cedula, nombre, apellido);
+				Ninio nin = new Ninio(email, nombre, apellido);
 				System.out.println(nin.getNombre());
 				daoN.insert(nin, icon);
 				ipool.liberarConexion(icon, true);
@@ -86,39 +80,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	}
 
-	public void nuevoJuguete(voJuguetes voj) throws RemoteException, LogicaException, PersistenciaException {
-		IConexion icon = ipool.obtenerConexion(true);
-		int cedula = voj.getCedulaNinio();
-
-		try {
-			if (daoN.member(cedula, icon)) {
-
-				String descripcion = voj.getDescripcion();
-
-				Ninio auxNinio = daoN.find(cedula, icon);
-				int indice = auxNinio.cantJuguetes(icon);
-				if (auxNinio.tieneJuguete(indice, icon)) {
-					ipool.liberarConexion(icon, false);
-					throw new LogicaException(mensg.errorFachadaYaExisteJuguete);
-
-				} else {
-					Juguete nuevoJ = new Juguete(descripcion, indice, cedula);
-					auxNinio.addJuguete(nuevoJ, icon);
-					ipool.liberarConexion(icon, true);
-				}
-
-			} else {
-				ipool.liberarConexion(icon, false);
-				throw new LogicaException(mensg.errorFachadaNoExisteNinio);
-			}
-		} catch (Exception e) {
-			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaNuevoJuguete);
-		}
-
+	
 	}
 
-	public List<voNinio> listarNinios() throws RemoteException, PersistenciaException, LogicaException {
+	public List<VOJugador> listarJugadores() throws RemoteException, PersistenciaException, LogicaException {
 		IConexion icon = ipool.obtenerConexion(false);
 		List<voNinio> ninios = null;
 		try {
@@ -131,68 +96,18 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return ninios;
 	}
 
-	public List<voJuguetes> listarJuguetes(int cedula) throws PersistenciaException, LogicaException {
-		IConexion icon = ipool.obtenerConexion(false);
-		List<voJuguetes> jug = null;
+	
 
-		try {
-			if (daoN.member(cedula, icon)) {
-				Ninio auxNinio = daoN.find(cedula, icon);
-				jug = auxNinio.listarjuguetes(icon);
-				ipool.liberarConexion(icon, true);
-				if (jug.isEmpty()) {
-					ipool.liberarConexion(icon, false);
-					throw new LogicaException(mensg.errorFachadaNoJuguetesNinio);
-				}
-			} else {
-				ipool.liberarConexion(icon, false);
-				throw new LogicaException(mensg.errorFachadaNoExisteNinio);
-			}
-		} catch (Exception e) {
-			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaListJuguetes);
-		}
-		return jug;
-	}
-
-	public String darDescripcion(int cedula, int num) throws RemoteException, PersistenciaException, LogicaException {
-		IConexion icon = ipool.obtenerConexion(false);
-		String descripcion = "";
-
-		try {
-			if (daoN.member(cedula, icon)) {
-				Ninio auxNinio = daoN.find(cedula, icon);
-
-				if (auxNinio.tieneJuguete(num, icon)) {
-
-					descripcion = auxNinio.obtenerJuguete(num, icon).getDescripcion();
-					ipool.liberarConexion(icon, true);
-				} else {
-					ipool.liberarConexion(icon, false);
-
-					throw new LogicaException(mensg.errorFachadaNoJugueteByCINinio);
-				}
-			} else {
-				ipool.liberarConexion(icon, false);
-				throw new LogicaException(mensg.errorFachadaNoExisteNinio);
-			}
-		} catch (Exception e) {
-			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaGetDescripcion);
-		}
-		return descripcion;
-	}
-
-	public void borrarNinioJuguetes(int cedula) throws RemoteException, LogicaException, PersistenciaException {
+	public void borrarJugadores(String email) throws RemoteException, LogicaException, PersistenciaException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
-			if (daoN.member(cedula, icon)) {
-				Ninio auxNinio = daoN.find(cedula, icon);
-				// if(auxNinio.tieneJuguete(cedula, icon))//AC� SE ROMPIA POR ESO LO SAQUE
+			if (daoN.member(email, icon)) {
+				Ninio auxNinio = daoN.find(email, icon);
+				// if(auxNinio.tieneJuguete(email, icon))//AC� SE ROMPIA POR ESO LO SAQUE
 				// {
 				auxNinio.borrarJuguetes(icon);
 				// }
-				daoN.delete(cedula, icon);
+				daoN.delete(email, icon);
 				ipool.liberarConexion(icon, true);
 			} else {
 				ipool.liberarConexion(icon, false);

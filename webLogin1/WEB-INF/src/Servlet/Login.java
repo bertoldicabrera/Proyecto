@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import Logica.Validador;
-import Logica.Vo.VOClientes;
+import Logica.Vo.VOJugador;
 import Persistencia.Dao.DaoJugador;
  
 public class Login extends HttpServlet {
@@ -129,16 +129,16 @@ public class Login extends HttpServlet {
     	
     	
 		
-    	ArrayList<VOClientes> arreVOR1 = (ArrayList<VOClientes>) sessi.getAttribute("arre");
+    	ArrayList<VOJugador> arreVOR1 = (ArrayList<VOJugador>) sessi.getAttribute("arre");
 		if (arreVOR1 == null)
 		{
-			arreVOR1 = new ArrayList<VOClientes>();
+			arreVOR1 = new ArrayList<VOJugador>();
 			for (int i=0;i<userDao.allUsers().size();i++)
 				arreVOR1.add(userDao.allUsers().get(i));
 		}else
 		{
 			sessi.setAttribute("arre", null);
-			arreVOR1 = new ArrayList<VOClientes>();
+			arreVOR1 = new ArrayList<VOJugador>();
 			for (int i=0;i<userDao.allUsers().size();i++)
 				arreVOR1.add(userDao.allUsers().get(i));
 		}

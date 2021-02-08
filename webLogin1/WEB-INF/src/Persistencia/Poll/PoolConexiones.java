@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
-import Logica.Vo.VOClientes;
+import Logica.Vo.VOJugador;
+import Persistencia.Conexion;
 
 public class PoolConexiones {
 

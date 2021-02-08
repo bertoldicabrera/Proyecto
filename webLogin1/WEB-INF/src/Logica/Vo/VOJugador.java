@@ -1,7 +1,7 @@
 package Logica.Vo;
 
 import java.io.Serializable;
-public class VOClientes implements Serializable{
+public class VOJugador implements Serializable{
 
 private static final long serialVersionUID = 1L;
 
@@ -9,7 +9,7 @@ private  String name;
 private  int  id;
 private  String  email;
 
-public VOClientes(String nom, int cod,  String  mail)
+public VOJugador(String nom, int cod,  String  mail)
 {
   name=nom;
   id=cod;
