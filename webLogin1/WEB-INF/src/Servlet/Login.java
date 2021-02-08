@@ -22,7 +22,10 @@ import Persistencia.Dao.DaoJugador;
  
 public class Login extends HttpServlet {
  
-    @Override
+   
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         /* En este proyecto; este servlet no recibe ni debe recibir nada por GET, 
@@ -79,7 +82,8 @@ public class Login extends HttpServlet {
                                 //Significa que la cuenta si existe
                                 //OBTENGO EL NOMBRE DEL USUARIO Y LO GUARDO EN UNA SESION
                             	
-                                String NombreUsuario = d.getNameByEmail(email);
+                                String NombreUsuario = d.getNameByEmail(email, con)
+                                		
                                 session.setAttribute("sessionNombre", NombreUsuario);
                                 session.setAttribute("sessionEmail", email);
                                 ///test

@@ -23,6 +23,7 @@ import Logica.Vo.VOJugador;
 
 
 public class Fachada extends UnicastRemoteObject implements IFachada {
+	private static final long serialVersionUID = 1L;
 	private static Fachada instancia;
 	private IDaoJugador daoJug;
 	private IPoolConexiones ipool;
@@ -62,62 +63,57 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		String email = voJug.GetEmail();
 		try {
 			if (daoJug.member(email, icon)) {
-				//// cuando se llama a la capa de persistencia, hay que encerrar en try para
-				//// capturar y liberar
+				
 				ipool.liberarConexion(icon, false);
 				throw new LogicaException(mensg.errorFachadaYaExisteUsuario);
 			} else {
-				String apellido = voJug.getApellido();
-				String nombre = voJug.getNombre();
-				Ninio nin = new Ninio(email, nombre, apellido);
-				System.out.println(nin.getNombre());
+				String password = voJug.GetPassword();
+				String nombre = voJug.GetName();
+				
+				Jugador nin = new Jugador(nombre,email,0, password);
+				
 				daoJug.insert(nin, icon);
 				ipool.liberarConexion(icon, true);
 			}
 		} catch (Exception e) {
 			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaNuevoJuginio);
+			throw new LogicaException(mensg.errorFachadaNuevoUsuario);
 		}
 
 	}
 
-	
-	}
 
 	public List<VOJugador> listarJugadores() throws RemoteException, PersistenciaException, LogicaException {
 		IConexion icon = ipool.obtenerConexion(false);
-		List<voJuginio> ninios = null;
+		List<VOJugador> jug = null;
 		try {
-			ninios = daoJug.listarJugadores(icon);
+			jug = daoJug.listarJugadores(icon);
 		} catch (Exception e) {
-			throw new LogicaException(mensg.errorFachadaListNinios);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
 		} finally {
 			ipool.liberarConexion(icon, true);
 		}
-		return ninios;
+		return jug;
 	}
 
 	
 
-	public void borrarJugadores(String email) throws RemoteException, LogicaException, PersistenciaException {
+	public void borrarJugador(String email) throws RemoteException, LogicaException, PersistenciaException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
 			if (daoJug.member(email, icon)) {
-				Ninio auxNinio = daoJug.find(email, icon);
-				// if(auxNinio.tieneJuguete(email, icon))//AC� SE ROMPIA POR ESO LO SAQUE
-				// {
-				auxNinio.borrarJuguetes(icon);
-				// }
 				daoJug.delete(email, icon);
 				ipool.liberarConexion(icon, true);
 			} else {
 				ipool.liberarConexion(icon, false);
-				throw new LogicaException(mensg.errorFachadaNoExisteNinio);
+				throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
 			}
 		} catch (Exception e) {
 			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaDeleteJuguetesByCINinio);
+			throw new LogicaException(mensg.errorFachadaDeleteUsuario);
 		}
 	}
+
+	
 
 }

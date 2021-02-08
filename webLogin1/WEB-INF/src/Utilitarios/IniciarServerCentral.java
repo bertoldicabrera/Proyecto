@@ -7,9 +7,9 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.concurrent.TimeUnit;
-import javax.persistence.PersistenceException;
 
+
+import Logica.Fachada;
 import Logica.Excepciones.*;
 
 
@@ -19,7 +19,7 @@ public class IniciarServerCentral {
 	static boolean isStillRunning = false;
 	public static MensajesPersonalizados msg = new MensajesPersonalizados();
 	
-	public static void main(String[] args) throws PersistenceException  {
+	public static void main(String[] args) throws  PersistenciaException, ServidorException  {
 		System.out.println(msg.infoServerInit);
 		System.out.println(msg.warningServidorSinHttps);
 		try {
@@ -58,11 +58,7 @@ public class IniciarServerCentral {
 			e.printStackTrace();
 		} catch (IOException e) // si ocurre cualquier otro error de E/S
 		{
-			try {
-				throw new ServidorException(msg.errorIO);
-			} catch (PersistenciaException e1) {
-				e.getMessage();
-			}
+			throw new ServidorException(msg.errorIO);
 		}
 //		Utilitarios.isStillRunning(isStillRunning);
 	}

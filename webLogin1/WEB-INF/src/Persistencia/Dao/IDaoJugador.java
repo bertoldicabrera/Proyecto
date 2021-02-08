@@ -28,10 +28,10 @@ public interface IDaoJugador  {
 	//public Listar jugadores
 	public List <VOJugador> listarJugadores(IConexion con) throws PersistenciaException;
 
-	public boolean isAcountExists(String email, String password) throws SQLException;
+	public boolean isAcountExists(String email, String password,IConexion con) throws PersistenciaException;
 	
 	 
-	public String getNameByEmail(String email) throws SQLException;
+	public String getNameByEmail(String email,IConexion con) throws PersistenciaException;
 	
 	
 }

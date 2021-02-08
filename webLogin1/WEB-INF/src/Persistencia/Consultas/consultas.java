@@ -3,7 +3,7 @@ package Persistencia.Consultas;
 public class consultas {
 
 	
-	public  String belongEmailPassword ()
+	public  String existEmailPassword ()
 	{
 		
 	String query = 
@@ -38,10 +38,10 @@ public class consultas {
 		return query;
 	}
 	
-	public String allUsersQuery()
+	public String listarJug()
 	{
 		String query =
-		"SELECT id, email, name FROM usuarios"+
+		"SELECT name, id, email  FROM usuarios"+
 		" order by id";
 				return query;
 	}
@@ -51,5 +51,8 @@ public class consultas {
 		return query;
 	}
 	
-	
+	public String borrarJugador() {
+		String query="DELETE FROM usuarios where email=(?)";
+		return query;
+	}
 }

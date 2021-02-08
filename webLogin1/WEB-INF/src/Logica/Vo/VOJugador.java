@@ -7,13 +7,14 @@ private static final long serialVersionUID = 1L;
 
 private  String name;
 private  int  id;
-private  String  email;
+private  String  email, password;
 
-public VOJugador(String nom, int cod,  String  mail)
+public VOJugador(String nom, int cod,  String  mail, String pass)
 {
   name=nom;
   id=cod;
   email=mail;
+  password=pass;
 }
 
 public String GetName()
@@ -28,6 +29,11 @@ public int GetId()
 public String GetEmail()
 {
   return email;
+}
+
+public String GetPassword() {
+	// TODO Auto-generated method stub
+	return password;
 }
 
 }
