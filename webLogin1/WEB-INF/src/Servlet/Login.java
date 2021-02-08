@@ -19,21 +19,22 @@ import org.apache.commons.codec.digest.DigestUtils;
 import Logica.Validador;
 import Logica.Vo.VOJugador;
 import Persistencia.Dao.DaoJugador;
+import Utilitarios.MensajesPersonalizados;
+import Utilitarios.SystemProperties;
+import Logica.IFachada;
  
 public class Login extends HttpServlet {
  
-   
+	public IFachada modelo;
+	static SystemProperties sp; 
+	public static MensajesPersonalizados msg = new MensajesPersonalizados();
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        /* En este proyecto; este servlet no recibe ni debe recibir nada por GET, 
-         * asi que si se lleva a entrar al servelt
-         * usando el metodo GET solamente redireccion al index.jsp
-         */
-    
-    	
     	response.sendRedirect("login.jsp");
     }
  
@@ -86,8 +87,7 @@ public class Login extends HttpServlet {
                                 		
                                 session.setAttribute("sessionNombre", NombreUsuario);
                                 session.setAttribute("sessionEmail", email);
-                                ///test
-                                //***************
+                          
                                 CargarArreglo(session, d);
 
                                 error=false;
