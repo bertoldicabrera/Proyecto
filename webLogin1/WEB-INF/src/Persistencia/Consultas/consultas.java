@@ -1,6 +1,6 @@
 package Persistencia.Consultas;
 
-public class Queries {
+public class consultas {
 
 	
 	public  String belongEmailPassword ()
@@ -45,5 +45,11 @@ public class Queries {
 		" order by id";
 				return query;
 	}
+	public String obtenerJugador() {
+		String query="select u.id,  u.name, u.password from usuarios u"
+			       + " where u.email=(?)";
+		return query;
+	}
+	
 	
 }
