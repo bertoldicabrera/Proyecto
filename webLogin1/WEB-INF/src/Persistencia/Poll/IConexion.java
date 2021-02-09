@@ -1,10 +1,8 @@
 package Persistencia.Poll;
 
-import java.rmi.Remote;
 import java.sql.Connection;
 
-public interface IConexion extends Remote {
+public interface IConexion {
 
-	public void Connect(Connection con);
-	public Connection getConnection();
+	public Connection getConnection(); 
 }

@@ -28,7 +28,7 @@ public class MensajesPersonalizados {
 	public String errorFachadaConectarse;
 	public String errorFachadaGetInstancia;
 	public String warningServidorSinHttps;
-	public String infoServerInit, errorSQLDeleteusuario,errorSQLListarUsuarios, errorSQLConsultarDescripcion,
+	public String infoServerInit, errorPoolObtenerClass,errorSQLDeleteusuario,errorSQLListarUsuarios, errorSQLConsultarDescripcion,
 	errorSQLConsultarCantidadDePuntos, errorSQLFindUsuario, errorFachadaNuevoUsuario, errorFachadaYaExisteUsuario,
 	errorFachadaNoExisteUsuario,errorFachadaListUsuarios, errorGraficaNoHayUsuario, errorIO, errorSQLInsertUser, errorFachadaDeleteUsuario;
 
@@ -83,6 +83,7 @@ public class MensajesPersonalizados {
 		errorIO								= p.getProperty("errorIO"); 
 		errorSQLInsertUser					= p.getProperty("errorSQLInsertUser");
 		errorFachadaDeleteUsuario			= p.getProperty("errorFachadaDeleteUsuario");
+		errorPoolObtenerClass				=p.getProperty("errorPoolObtenerClass");
 	}
 
 }

@@ -8,7 +8,7 @@ import Persistencia.Dao.*;
 public interface IFabricaAbstracta {
 
 	public IDaoJugador crearIDaoJugador();
-	public IDaoJugador crearIDaoJugador(String email);
+	//public IDaoJugador crearIDaoJugador(String email);
 	
 }
 

@@ -24,8 +24,7 @@ public class SystemProperties implements Serializable  {
 	private String nivel_tran;
 	private String pool_enabled;
 	private String pool_className;
-	private String daoJuguetes_className;
-	private String daoNinios_className;
+	private String daoJugador_className;
 	private String fabricaabstracta;
 	private String nombreDirectorioArchivos;
 	
@@ -50,8 +49,7 @@ public class SystemProperties implements Serializable  {
 		nivel_tran          = p.getProperty("nivel_tran");
 		pool_enabled		= p.getProperty("pool_enabled");
 		pool_className			= p.getProperty("pool_className");
-		daoJuguetes_className	= p.getProperty("daoJuguetes_className");
-		daoNinios_className		= p.getProperty("daoNinios_className");
+		daoJugador_className	= p.getProperty("daoJugador_className");
 		fabricaabstracta		=p.getProperty("fabricaabstracta");
 		nombreDirectorioArchivos=p.getProperty("nombreDirectorioArchivos");
 		
@@ -108,13 +106,11 @@ public class SystemProperties implements Serializable  {
 		return pool_className; 
 	}
 	
-	public String getdaoJuguetes_className() {
-		return daoJuguetes_className; 
+	public String getdaoJugador_className() {
+		return daoJugador_className; 
 	}
 	
-	public String getdaoNinios_className() {
-		return daoNinios_className; 
-	}
+
 	public String getFabricaAbstracta() {
 		return fabricaabstracta; 
 	}

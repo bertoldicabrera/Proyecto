@@ -10,9 +10,9 @@ public class FabricaMySQL implements IFabricaAbstracta{
 	}
 
 	//fernando: verificar que fue necesario crear un constructor sin la cedula para la fabrica
-	public IDaoJugador crearIDaoJugador(String email) {
-		return null;// new DaoJugador(email);
-	}
+//	public IDaoJugador crearIDaoJugador(String email) {
+//		return null;// new DaoJugador(email);
+//	}
 
 	
 	

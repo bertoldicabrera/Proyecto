@@ -23,7 +23,7 @@ import Logica.Vo.VOJugador;
 
 
 public class Fachada extends UnicastRemoteObject implements IFachada {
-	private static final long serialVersionUID = 1L;
+
 	private static Fachada instancia;
 	private IDaoJugador daoJug;
 	private IPoolConexiones ipool;

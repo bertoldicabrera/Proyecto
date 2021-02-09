@@ -8,8 +8,8 @@ import java.util.List;
 import Logica.Jugador;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
-import Persistencia.Conexion;
 import Persistencia.Consultas.consultas;
+import Persistencia.Poll.Conexion;
 import Persistencia.Poll.IConexion;
 import Utilitarios.MensajesPersonalizados;
 public class DaoJugador implements IDaoJugador, Serializable {
