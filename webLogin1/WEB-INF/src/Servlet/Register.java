@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,11 +15,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import Logica.IFachada;
 import Logica.Validador;
 import Logica.Vo.VOJugador;
-import Persistencia.Dao.DaoJugador;
  
 public class Register extends HttpServlet {
  
-	public IFachada fachada;
+	public IFachada fa;
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +47,7 @@ public class Register extends HttpServlet {
         Pattern p = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         Matcher m = p.matcher(emailUsuario);
         Validador v = new Validador();
-        DaoJugador d = new DaoJugador();
+        
         //Comienzo con las validaciones
         
         
@@ -69,7 +67,7 @@ public class Register extends HttpServlet {
                     if(password.equals(confirm_password)){
                         try {
                            
-                                if(fachada.userRegistrado(emailUsuario)){
+                                if(fa.userRegistrado(emailUsuario)){
                                 	session.setAttribute("error", "Esta direccion de correo ya fue registrada");
                                 } else {
                                     
@@ -80,7 +78,7 @@ public class Register extends HttpServlet {
                                 	VOJugador vo= new VOJugador(nombreUsuario, 0, emailUsuario, encriptPassword);
                                 	
                                     //Llegado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
-                                	fachada.nuevoJugador(vo);
+                                	fa.nuevoJugador(vo);
                                     
                                     registroexitoso=true;
                                 }

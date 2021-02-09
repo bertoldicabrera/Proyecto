@@ -10,8 +10,8 @@ import java.rmi.registry.LocateRegistry;
 
 
 import Logica.Fachada;
-import Logica.Excepciones.*;
-
+import Logica.Excepciones.ServidorException;
+import Logica.Excepciones.PersistenciaException;
 
 
 public class IniciarServerCentral {
@@ -19,7 +19,7 @@ public class IniciarServerCentral {
 	static boolean isStillRunning = false;
 	public static MensajesPersonalizados msg = new MensajesPersonalizados();
 	
-	public static void main(String[] args) throws  PersistenciaException, ServidorException  {
+	public static void main(String[] args) throws  PersistenciaException  {
 		System.out.println(msg.infoServerInit);
 		System.out.println(msg.warningServidorSinHttps);
 		try {
@@ -37,6 +37,7 @@ public class IniciarServerCentral {
 			}
 			// publico el objeto remoto en dicha ip y puerto
 			String ruta = "//" + ip + ":" + puerto + "/" + nombreAPublicar;
+			System.out.println(" Linea 40 server central");
 			Fachada fachadaLogica = Fachada.getInstancia();
 
 			System.out.println("Antes de publicar");
@@ -58,9 +59,13 @@ public class IniciarServerCentral {
 			e.printStackTrace();
 		} catch (IOException e) // si ocurre cualquier otro error de E/S
 		{
-			throw new ServidorException(msg.errorIO);
+			try {
+				throw new ServidorException(msg.errorIO);
+			} catch (ServidorException e1) {
+				e.getMessage();
+			};
 		}
-//		Utilitarios.isStillRunning(isStillRunning);
+
 	}
 
 

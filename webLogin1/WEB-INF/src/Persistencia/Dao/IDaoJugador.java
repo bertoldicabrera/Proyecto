@@ -1,7 +1,6 @@
 package Persistencia.Dao;
 
 
-import java.sql.SQLException;
 import java.util.List;
 
 import Logica.Jugador;

@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,15 +19,11 @@ import Logica.Validador;
 import Logica.Excepciones.LogicaException;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
-import Persistencia.Dao.DaoJugador;
-import Utilitarios.MensajesPersonalizados;
-import Utilitarios.SystemProperties;
 import Logica.IFachada;
-import Logica.Jugador;
  
 public class Login extends HttpServlet {
  
-	public IFachada fachada;
+	public IFachada fac;
 	
 	
 	
@@ -81,14 +75,14 @@ public class Login extends HttpServlet {
                 if (v.isUsernameOrPasswordValid(password)) {
                         try {
                            
-                            if (fachada.cuentaValida(email, password)) {
+                            if (fac.validarCuenta(email, password)) {
                                 //Significa que la cuenta si existe
                                 //OBTENGO EL NOMBRE DEL USUARIO Y LO GUARDO EN UNA SESION
-                            	String NombreUsuario=fachada.darNombre(email);
+                            	String NombreUsuario=fac.darNombre(email);
                                 session.setAttribute("sessionNombre", NombreUsuario);
                                 session.setAttribute("sessionEmail", email);
                           
-                                CargarArreglo(session, fachada);
+                                CargarArreglo(session, fac);
 
                                 error=false;
                                 

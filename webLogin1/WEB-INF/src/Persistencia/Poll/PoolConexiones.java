@@ -49,7 +49,7 @@ public class PoolConexiones {
 		}
 		if (Utilitarios.isPoolEnabled()) { // if la propiedad pool_enabled esta en =0 entonces no uso memoria
 			try {
-				String driver = sp.getMysql_driver();
+				driver = sp.getMysql_driver();
 				Class.forName(driver);
 				url = sp.getMysql_url();
 				user = sp.getMysql_user();

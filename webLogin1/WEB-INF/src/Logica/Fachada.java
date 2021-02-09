@@ -1,21 +1,15 @@
 package Logica;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
 
-import Persistencia.*;
 import Persistencia.Dao.IDaoJugador;
 import Persistencia.Factory.IFabricaAbstracta;
 import Persistencia.Poll.IConexion;
 import Utilitarios.*;
-import Logica.*;
 import Logica.Excepciones.LogicaException;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Interfaz.IPoolConexiones;
@@ -34,13 +28,17 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	public Fachada() throws RemoteException, PersistenciaException {
 		try {
 			sp = new SystemProperties();
+			System.out.println(" Linea 37 fachada");
 			String poolConcreto = sp.getpool_className();
 			System.out.println(poolConcreto + "*************#########*********");
 			ipool = (IPoolConexiones) Class.forName(poolConcreto.trim()).newInstance();
-
+			System.out.println("*************#####2####*********");
 			String nomFab = sp.getFabricaAbstracta();
+			System.out.println("*************#####3####*********");
 			fabrica = (IFabricaAbstracta) Class.forName(nomFab.trim()).newInstance();
+			System.out.println("*************#####4####*********");
 			daoJug = fabrica.crearIDaoJugador();
+			System.out.println("*************#####5####*********");
 		} catch (IOException e) {
 			throw new PersistenciaException(mensg.errorIO);
 		} catch (InstantiationException e) {
@@ -60,8 +58,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	public void nuevoJugador(VOJugador voJug) throws PersistenciaException, LogicaException {
 		IConexion icon = ipool.obtenerConexion(true);
-		String email = voJug.GetEmail();
+		
 		try {
+			String email = voJug.GetEmail();
 			if (daoJug.member(email, icon)) {
 				
 				ipool.liberarConexion(icon, false);
@@ -101,42 +100,25 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	
 
-	public void borrarJugador(String email) throws RemoteException, LogicaException, PersistenciaException {
+	public void borrarJugador(String email) throws  LogicaException, PersistenciaException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
-			if (daoJug.member(email, icon)) {
-				
-				daoJug.delete(email, icon);
-				ipool.liberarConexion(icon, true);
-				
-			} else {
-				ipool.liberarConexion(icon, false);
-				throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
-			}
-		} catch (Exception e) {
+				if (daoJug.member(email, icon)) {
+					
+					daoJug.delete(email, icon);
+					ipool.liberarConexion(icon, true);
+					
+				} else {
+					ipool.liberarConexion(icon, false);
+					throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
+				}
+			} catch (Exception e) {
 			ipool.liberarConexion(icon, false);
 			throw new LogicaException(mensg.errorFachadaDeleteUsuario);
 		}
 	}
 
-	@Override
-	public boolean cuentaValida(String email, String password) throws LogicaException {
-		IConexion icon = ipool.obtenerConexion(false);
-		boolean esValida=false;
-		
-		try {
-			esValida=daoJug.isAcountExists(email, password, icon);
-			ipool.liberarConexion(icon, true);
-		} catch (PersistenciaException e) {
-			ipool.liberarConexion(icon, true);
-			throw new LogicaException(mensg.errorFachadaListUsuarios);
-			
-		}
-		return esValida;
-		
-	}
-	
-	
+
 	
 	
 	public Jugador findJugador (String email) throws LogicaException
@@ -181,6 +163,21 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		}
 		
 		return existe;
+	}
+
+	@Override
+	public boolean validarCuenta(String mail, String pass) throws LogicaException {
+		IConexion icon = ipool.obtenerConexion(false);
+		boolean esValida=false;
+		
+		try {
+			esValida=daoJug.isAcountExists(mail, pass, icon);
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
+		}
+		
+		return esValida;
 	}
 	
 
