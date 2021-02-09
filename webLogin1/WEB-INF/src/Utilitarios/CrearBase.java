@@ -45,7 +45,7 @@ public class CrearBase {
 											 "password varchar(128)NOT NULL," +
 											 "name varchar(100) NOT NULL );");	
 		
-		//el hash es un sha-256 "password"
+		//el hash es un sha512Hex "password"
 		vars.add("Insert into usuarios values (1,'test@test.com' ,'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86','test');");
 		vars.add("Insert into usuarios values (2,'test1@test.com' ,'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86','test1');");
 		

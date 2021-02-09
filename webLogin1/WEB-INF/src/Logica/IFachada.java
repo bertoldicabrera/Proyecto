@@ -26,4 +26,6 @@ public interface IFachada extends Remote{
 
 	public Jugador findJugador (String email) throws LogicaException;
 	public String darNombre(String email) throws LogicaException;
+	public boolean userRegistrado (String email) throws LogicaException;
+
 }

@@ -13,12 +13,18 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import Logica.IFachada;
 import Logica.Validador;
+import Logica.Vo.VOJugador;
 import Persistencia.Dao.DaoJugador;
  
 public class Register extends HttpServlet {
  
-    @Override
+	public IFachada fachada;
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         /* En este proyecto; este servlet no recibe ni debe recibir nada por GET, 
@@ -62,8 +68,8 @@ public class Register extends HttpServlet {
                     //verifico si la contraseña 1= 2 
                     if(password.equals(confirm_password)){
                         try {
-                            d.Connect();
-                                if(d.isEmailRegistered(emailUsuario)){
+                           
+                                if(fachada.userRegistrado(emailUsuario)){
                                 	session.setAttribute("error", "Esta direccion de correo ya fue registrada");
                                 } else {
                                     
@@ -71,14 +77,15 @@ public class Register extends HttpServlet {
                                 	
                                 	//tengo de encriptar la password antes de mandarla en este paso
                                 	String encriptPassword=DigestUtils.sha512Hex(password);
+                                	VOJugador vo= new VOJugador(nombreUsuario, 0, emailUsuario, encriptPassword);
                                 	
                                     //Llegado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
-                                    d.registerUser(emailUsuario, encriptPassword, nombreUsuario);
+                                	fachada.nuevoJugador(vo);
                                     
                                     registroexitoso=true;
                                 }
                             
-                            d.disconnect();
+                           
                              
                         } catch (Exception e) 
                         { session.setAttribute("error", e.toString()); }

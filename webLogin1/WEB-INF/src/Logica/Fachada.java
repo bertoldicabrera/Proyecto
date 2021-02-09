@@ -167,6 +167,21 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		}
 		return nombre;
 	}
+
+	@Override
+	public boolean userRegistrado(String email) throws LogicaException {
+		IConexion icon = ipool.obtenerConexion(false);
+		boolean existe=false;
+		try {
+			existe=daoJug.member(email, icon);
+			ipool.liberarConexion(icon, true);
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
+		}
+		
+		return existe;
+	}
 	
 
 }

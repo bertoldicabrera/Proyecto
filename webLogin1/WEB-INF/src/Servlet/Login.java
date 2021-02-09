@@ -30,8 +30,7 @@ import Logica.Jugador;
 public class Login extends HttpServlet {
  
 	public IFachada fachada;
-	static SystemProperties sp; 
-	public static MensajesPersonalizados msg = new MensajesPersonalizados();
+	
 	
 	
 	private static final long serialVersionUID = 1L;

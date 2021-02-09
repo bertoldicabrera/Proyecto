@@ -6,7 +6,7 @@ import Persistencia.Dao.*;
 public class FabricaMySQL implements IFabricaAbstracta{
 
 	public IDaoJugador crearIDaoJugador() {
-		return null; // new DaoJugador();
+		return new DaoJugador();
 	}
 
 	//fernando: verificar que fue necesario crear un constructor sin la cedula para la fabrica
