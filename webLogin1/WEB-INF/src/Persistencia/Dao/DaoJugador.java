@@ -9,8 +9,8 @@ import Logica.Jugador;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
 import Persistencia.Consultas.consultas;
-import Persistencia.Poll.Conexion;
-import Persistencia.Poll.IConexion;
+import Persistencia.Pool.Conexion;
+import Persistencia.Pool.IConexion;
 import Utilitarios.MensajesPersonalizados;
 public class DaoJugador implements IDaoJugador, Serializable {
 	//Data Access Object

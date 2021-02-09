@@ -8,7 +8,7 @@ import java.util.List;
 
 import Persistencia.Dao.IDaoJugador;
 import Persistencia.Factory.IFabricaAbstracta;
-import Persistencia.Poll.IConexion;
+import Persistencia.Pool.IConexion;
 import Utilitarios.*;
 import Logica.Excepciones.LogicaException;
 import Logica.Excepciones.PersistenciaException;

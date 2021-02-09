@@ -6,8 +6,7 @@ import java.util.List;
 import Logica.Jugador;
 import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
-
-import Persistencia.Poll.IConexion;
+import Persistencia.Pool.IConexion;
 
 
 public interface IDaoJugador  {

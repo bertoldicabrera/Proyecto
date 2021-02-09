@@ -1,6 +1,6 @@
 package Logica.Interfaz;
 
-import Persistencia.Poll.IConexion;
+import Persistencia.Pool.IConexion;
 
 				
 public interface IPoolConexiones {

@@ -1,4 +1,4 @@
-package Persistencia.Poll;
+package Persistencia.Pool;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
 import Utilitarios.Utilitarios;
+import Logica.Interfaz.IPoolConexiones;
 import Logica.Excepciones.ServidorException;
-import Persistencia.Poll.IConexion;
+import Persistencia.Pool.IConexion;
 
 
-public class PoolConexiones {
+public class PoolConexiones implements IPoolConexiones{
 
 	
 	private String driver;

@@ -1,4 +1,4 @@
-package Persistencia.Poll;
+package Persistencia.Pool;
 
 import java.sql.Connection;
 
