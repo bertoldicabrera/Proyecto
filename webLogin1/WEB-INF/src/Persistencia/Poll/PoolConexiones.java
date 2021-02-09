@@ -1,27 +1,15 @@
 package Persistencia.Poll;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
-
-import Logica.Vo.VOJugador;
 import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
 import Utilitarios.Utilitarios;
 import Logica.Excepciones.ServidorException;
 import Persistencia.Poll.IConexion;
-//import Persistencia.Poll.Conexion;
+
 
 public class PoolConexiones {
 

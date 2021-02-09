@@ -31,6 +31,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			System.out.println(" Linea 37 fachada");
 			String poolConcreto = sp.getpool_className();
 			System.out.println(poolConcreto + "*************#########*********");
+			
 			ipool = (IPoolConexiones) Class.forName(poolConcreto.trim()).newInstance();
 			System.out.println("*************#####2####*********");
 			String nomFab = sp.getFabricaAbstracta();
