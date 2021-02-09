@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -17,15 +18,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import Logica.Validador;
+import Logica.Excepciones.LogicaException;
+import Logica.Excepciones.PersistenciaException;
 import Logica.Vo.VOJugador;
 import Persistencia.Dao.DaoJugador;
 import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
 import Logica.IFachada;
+import Logica.Jugador;
  
 public class Login extends HttpServlet {
  
-	public IFachada modelo;
+	public IFachada fachada;
 	static SystemProperties sp; 
 	public static MensajesPersonalizados msg = new MensajesPersonalizados();
 	
@@ -52,7 +56,6 @@ public class Login extends HttpServlet {
         Pattern p = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
         Matcher m = p.matcher(email);
         Validador v = new Validador();
-        DaoJugador d = new DaoJugador();
         session.setAttribute("error", null);
         boolean error=true;
         //campos vacios
@@ -78,17 +81,15 @@ public class Login extends HttpServlet {
                 //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
                 if (v.isUsernameOrPasswordValid(password)) {
                         try {
-                            d.Connect();
-                            if (d.isAcountExists(email, password)) {
+                           
+                            if (fachada.cuentaValida(email, password)) {
                                 //Significa que la cuenta si existe
                                 //OBTENGO EL NOMBRE DEL USUARIO Y LO GUARDO EN UNA SESION
-                            	
-                                String NombreUsuario = d.getNameByEmail(email, con)
-                                		
+                            	String NombreUsuario=fachada.darNombre(email);
                                 session.setAttribute("sessionNombre", NombreUsuario);
                                 session.setAttribute("sessionEmail", email);
                           
-                                CargarArreglo(session, d);
+                                CargarArreglo(session, fachada);
 
                                 error=false;
                                 
@@ -98,7 +99,7 @@ public class Login extends HttpServlet {
                             	session.setAttribute("error", "Usuario o password incorrecto");
                             }
  
-                            d.disconnect();
+                           
  
                         } catch (Exception e) {
                         	
@@ -128,7 +129,7 @@ public class Login extends HttpServlet {
  
     }
     
-    private void CargarArreglo(HttpSession sessi, DaoJugador userDao) throws SQLException
+    private void CargarArreglo(HttpSession sessi,IFachada fachada) throws SQLException, RemoteException, PersistenciaException, LogicaException
     {
     	
     	
@@ -137,14 +138,14 @@ public class Login extends HttpServlet {
 		if (arreVOR1 == null)
 		{
 			arreVOR1 = new ArrayList<VOJugador>();
-			for (int i=0;i<userDao.allUsers().size();i++)
-				arreVOR1.add(userDao.allUsers().get(i));
+			for (int i=0;i<fachada.listarJugadores().size();i++)
+				arreVOR1.add(fachada.listarJugadores().get(i));
 		}else
 		{
 			sessi.setAttribute("arre", null);
 			arreVOR1 = new ArrayList<VOJugador>();
-			for (int i=0;i<userDao.allUsers().size();i++)
-				arreVOR1.add(userDao.allUsers().get(i));
+			for (int i=0;i<fachada.listarJugadores().size();i++)
+				arreVOR1.add(fachada.listarJugadores().get(i));
 		}
 			
 	

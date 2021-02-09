@@ -87,7 +87,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		IConexion icon = ipool.obtenerConexion(false);
 		List<VOJugador> jug = null;
 		try {
+			
 			jug = daoJug.listarJugadores(icon);
+			ipool.liberarConexion(icon, true);
+			
 		} catch (Exception e) {
 			throw new LogicaException(mensg.errorFachadaListUsuarios);
 		} finally {
@@ -102,8 +105,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
 			if (daoJug.member(email, icon)) {
+				
 				daoJug.delete(email, icon);
 				ipool.liberarConexion(icon, true);
+				
 			} else {
 				ipool.liberarConexion(icon, false);
 				throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
@@ -114,6 +119,54 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		}
 	}
 
+	@Override
+	public boolean cuentaValida(String email, String password) throws LogicaException {
+		IConexion icon = ipool.obtenerConexion(false);
+		boolean esValida=false;
+		
+		try {
+			esValida=daoJug.isAcountExists(email, password, icon);
+			ipool.liberarConexion(icon, true);
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
+			
+		}
+		return esValida;
+		
+	}
+	
+	
+	
+	
+	public Jugador findJugador (String email) throws LogicaException
+	{
+		IConexion icon = ipool.obtenerConexion(false);
+		Jugador auxJug=null;
+		try {
+			auxJug=daoJug.find(email, icon);
+			ipool.liberarConexion(icon, true);
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
+		}
+		return auxJug;
+	}
+	
+	
+	public String darNombre(String email) throws LogicaException
+	{
+		IConexion icon = ipool.obtenerConexion(false);
+		String nombre=null;
+		try {
+			nombre= daoJug.getNameByEmail(nombre, icon);
+			ipool.liberarConexion(icon, true);
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			throw new LogicaException(mensg.errorFachadaListUsuarios);
+		}
+		return nombre;
+	}
 	
 
 }
