@@ -28,18 +28,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	public Fachada() throws RemoteException, PersistenciaException {
 		try {
 			sp = new SystemProperties();
-			System.out.println(" Linea 37 fachada");
 			String poolConcreto = sp.getpool_className();
 			System.out.println(poolConcreto + "*************#########*********");
-			
 			ipool = (IPoolConexiones) Class.forName(poolConcreto.trim()).newInstance();
-			System.out.println("*************#####2####*********");
 			String nomFab = sp.getFabricaAbstracta();
-			System.out.println("*************#####3####*********");
 			fabrica = (IFabricaAbstracta) Class.forName(nomFab.trim()).newInstance();
-			System.out.println("*************#####4####*********");
 			daoJug = fabrica.crearIDaoJugador();
-			System.out.println("*************#####5####*********");
+			
 		} catch (IOException e) {
 			throw new PersistenciaException(mensg.errorIO);
 		} catch (InstantiationException e) {
@@ -172,6 +167,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		boolean esValida=false;
 		
 		try {
+			System.out.println("*************#####171 fachada####*********");
 			esValida=daoJug.isAcountExists(mail, pass, icon);
 		} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, true);

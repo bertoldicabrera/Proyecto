@@ -68,14 +68,14 @@ public class Login extends HttpServlet {
             } else {
             	
             	//tengo de encriptar la password antes de mandarla en este paso
-            	String password=DigestUtils.sha512Hex(passwordPlana);
+            	//String password=DigestUtils.sha512Hex(passwordPlana);
             	
             	
                 //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
-                if (v.isUsernameOrPasswordValid(password)) {
+                if (v.isUsernameOrPasswordValid(passwordPlana)) {
                         try {
                            
-                            if (fac.validarCuenta(email, password)) {
+                            if (fac.validarCuenta(email, passwordPlana)) {
                                 //Significa que la cuenta si existe
                                 //OBTENGO EL NOMBRE DEL USUARIO Y LO GUARDO EN UNA SESION
                             	String NombreUsuario=fac.darNombre(email);

@@ -74,8 +74,8 @@ public class Register extends HttpServlet {
                                 	
                                 	
                                 	//tengo de encriptar la password antes de mandarla en este paso
-                                	String encriptPassword=DigestUtils.sha512Hex(password);
-                                	VOJugador vo= new VOJugador(nombreUsuario, 0, emailUsuario, encriptPassword);
+                                	//String encriptPassword=DigestUtils.sha512Hex(password);
+                                	VOJugador vo= new VOJugador(nombreUsuario, 0, emailUsuario, password);
                                 	
                                     //Llegado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
                                 	fa.nuevoJugador(vo);

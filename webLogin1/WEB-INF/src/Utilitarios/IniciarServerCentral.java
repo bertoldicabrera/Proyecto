@@ -37,7 +37,6 @@ public class IniciarServerCentral {
 			}
 			// publico el objeto remoto en dicha ip y puerto
 			String ruta = "//" + ip + ":" + puerto + "/" + nombreAPublicar;
-			System.out.println(" Linea 40 server central");
 			Fachada fachadaLogica = Fachada.getInstancia();
 
 			System.out.println("Antes de publicar");
