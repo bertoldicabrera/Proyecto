@@ -7,7 +7,7 @@ public class consultas {
 	{
 		
 	String query = 
-	"SELECT * FROM usuarios" + 
+	"SELECT * FROM web.usuarios" + 
 	" WHERE email= ?"+" AND password= ?";
 	return query;
 	}
@@ -16,7 +16,7 @@ public class consultas {
 	public  String existsEmail ()
 	{
 		String query = 
-		"SELECT * FROM usuarios"+
+		"SELECT * FROM web.usuarios"+
 		" WHERE email= ?";
 		return query;
 	}
@@ -25,7 +25,7 @@ public class consultas {
 	public String insertUser()
 	{
 		String query = 
-	"INSERT INTO usuarios"+
+	"INSERT INTO web.usuarios"+
 	" (email,password,name)"+
 	" VALUES (?,?,?)";
 		return query;
@@ -33,7 +33,7 @@ public class consultas {
 	public String getNameUser()
 	{
 		String query =
-	"SELECT * FROM usuarios"+
+	"SELECT * FROM web.usuarios"+
 	" WHERE email= ?";
 		return query;
 	}
@@ -41,18 +41,18 @@ public class consultas {
 	public String listarJug()
 	{
 		String query =
-		"SELECT name, id, email  FROM usuarios"+
+		"SELECT name, id, email  FROM web.usuarios"+
 		" order by id";
 				return query;
 	}
 	public String obtenerJugador() {
-		String query="select u.id,  u.name, u.password from usuarios u"
+		String query="select u.id,  u.name, u.password from web.usuarios u"
 			       + " where u.email=(?)";
 		return query;
 	}
 	
 	public String borrarJugador() {
-		String query="DELETE FROM usuarios where email=(?)";
+		String query="DELETE FROM web.usuarios where email=(?)";
 		return query;
 	}
 }
