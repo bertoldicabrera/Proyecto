@@ -1,6 +1,10 @@
 package Servlet;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,12 +19,25 @@ import org.apache.commons.codec.digest.DigestUtils;
 import Logica.IFachada;
 import Logica.Validador;
 import Logica.Vo.VOJugador;
+import Utilitarios.SystemProperties;
  
 public class Register extends HttpServlet {
- 
-	public IFachada fa;
-
 	private static final long serialVersionUID = 1L;
+	static IFachada fa;
+	static SystemProperties sp; 
+	
+private void conectar () throws NotBoundException, IOException
+{
+	System.out.println( "*************####Entra a Register.java#####*********");
+	sp = new SystemProperties();
+		String ip = sp.getIpServidor();
+		String puerto = sp.getPuertoServidor();
+		String ruta = "//" + ip + ":" + puerto + "/"+ sp.getNombreAPublicar();
+		fa  = (IFachada) Naming.lookup(ruta);
+}
+	
+	
+	
 
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +51,14 @@ public class Register extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	
+    	try {
+			conectar ();
+		} catch (NotBoundException | IOException e1) {
+			System.out.println( "*************####Se rompio en el try#####*********");
+		}
+    	
         HttpSession session = request.getSession(true);
         boolean registroexitoso= false;
         session.setAttribute("error", null);
@@ -75,7 +100,7 @@ public class Register extends HttpServlet {
                                 	
                                 	//tengo de encriptar la password antes de mandarla en este paso
                                 	//String encriptPassword=DigestUtils.sha512Hex(password);
-                                	VOJugador vo= new VOJugador(nombreUsuario, 0, emailUsuario, password);
+                                	VOJugador vo= new VOJugador(nombreUsuario, 5, emailUsuario, password);
                                 	
                                     //Llegado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
                                 	fa.nuevoJugador(vo);

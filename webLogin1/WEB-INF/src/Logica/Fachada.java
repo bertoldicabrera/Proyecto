@@ -57,6 +57,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 		try {
 			String email = voJug.GetEmail();
+			
 			if (daoJug.member(email, icon)) {
 				
 				ipool.liberarConexion(icon, false);
@@ -65,9 +66,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				String password = voJug.GetPassword();
 				String nombre = voJug.GetName();
 				
-				Jugador nin = new Jugador(nombre,email,0, password);
+				Jugador jug = new Jugador(nombre,email,0, password);
 				
-				daoJug.insert(nin, icon);
+				daoJug.insert(jug, icon);
 				ipool.liberarConexion(icon, true);
 			}
 		} catch (Exception e) {

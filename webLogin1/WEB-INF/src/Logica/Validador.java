@@ -6,7 +6,7 @@ public class Validador {
         char[] cadena = $cadena.toLowerCase().toCharArray();
         boolean valido = true;
         //Compruebo la longitud
-        if (cadena.length <= 6) {
+        if (cadena.length < 6) {
         	valido = false;
         }
         int i =0;
