@@ -3,7 +3,9 @@
 //https://www.pegaxchange.com/2018/03/23/websocket-client/
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,17 +18,40 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+
 @ServerEndpoint("/endpoint")
 public class MyWebSocket {
     
-	private Set<Session> sessions = new HashSet<>();
+	private static Set<Session> sessions = new HashSet<>();
+	
+	static Map<String, String> sessionPartida = new HashMap<String, String>();
 		
     private static PushTimeService pst;
+    private static MyWebSocket instancia; // SINGLETON
+    
+//    @OnOpen
+//    public void onOpen(Session session) {
+//        System.out.println("onOpen::" + session.getId());   
+//        sessions.add(session);
+//        
+//        
+//    }
+    
+    
     @OnOpen
-    public void onOpen(Session session) {
-        System.out.println("onOpen::" + session.getId());   
-        sessions.add(session);
-    }
+	public static MyWebSocket getInstancia(Session session) {
+    	System.out.println("MyWebSocket getInstancia onOpen::" + session.getId());   
+		if (instancia == null) {
+			instancia = new MyWebSocket();
+		}
+		sessions.add(session);
+		sessionPartida.put(session.getId(), "9999");
+		
+		return instancia;
+	}
+    
+    
+    
     @OnClose
     public void onClose(Session session) {
         System.out.println("onClose::" +  session.getId());
@@ -45,13 +70,39 @@ public class MyWebSocket {
 //    }
     
     @OnMessage
-    public void onMsg(String message, Session session) {
-        System.out.println("new message ==> " + message);
+    public void onMsg(String in_PartidaNumero, Session session) {
+    	System.out.println("==================================");
+        
+        System.out.println(session.getId() + "new message ==> " + in_PartidaNumero);
+        System.out.println("cantidad de sessions:" + sessions.size());
+        
+//        sessionPartida.put(session.getId(), in_PartidaNumero);
+//        x = sessionPartida.get(session);
+        String actualValue = sessionPartida.get(session.getId());
+        sessionPartida.replace(session.getId(), actualValue, in_PartidaNumero);
+        
+        System.out.println("cantidad de sessionPartida:" + sessionPartida.size());
         try {
-            for (int c = 0; c < 100; c++) {
-				for (Session s : sessions) {
-                    s.getBasicRemote().sendText("{\"value\" : \"" + (c + 1) + "\"}");
-                }
+        	String partidaNumero;// = sessionPartida.get(session.getId());
+        	for (int c = 0; c < 5; c++) {
+            	System.out.println("===entrada "+c+" for de session============");
+				
+            	for (Session s : sessions) {
+					partidaNumero = "";
+					partidaNumero = sessionPartida.get(s.getId()); 
+					
+					System.out.println("session s actual del for::" +s.getId());
+					System.out.println("===partidaNumero::"+partidaNumero);
+					System.out.println("===in_PartidaNumero::"+in_PartidaNumero);
+					if ( (!partidaNumero.isEmpty()) && (!in_PartidaNumero.isEmpty()) && (partidaNumero.equals(in_PartidaNumero)) ) {
+						System.out.println("deberia entrar solo 1");
+						s.getBasicRemote().sendText("{\"value\" : \"" + (c + 1) + "\"}");
+					}
+					else
+						System.out.println("no entro a imprimir");
+					
+					
+				}
                 Thread.sleep(100);
             }
         } catch (Exception e) {
