@@ -1,4 +1,4 @@
-var socket = new WebSocket("ws://localhost:8080/ProgressWebSocket-1.0-SNAPSHOT/progress");
+var socket = new WebSocket("ws://localhost:8080/ProgressWebSocket/progress");
 socket.onmessage = onMessage;
 
 function onMessage(event) {
