@@ -18,6 +18,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 //import org.json.*;
@@ -77,7 +78,7 @@ public class MyWebSocket {
 //    }
     
     @OnMessage
-    public void onMsg(String in_DatosJSON, Session session) {
+    public void onMsg(String in_DatosJSON, Session session) throws JSONException {
     	System.out.println("***INICIO==================================");
     	System.out.println(session.getId() + "new message ==> " + in_DatosJSON);
     	
