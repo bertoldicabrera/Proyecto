@@ -119,12 +119,13 @@ public class MyWebSocket {
                      
                     	 Map<String, String> mapJSON = new HashMap<String, String>();
 
-                       
+                
                     	 mapJSON.put("nombre1","josesito");
                     	 mapJSON.put("nombre2","pepito");
                         jsonData2.put("mapJson", mapJSON );
                         textoRespuestaJson=jsonData2.toString();
                         System.out.println("Se envia JSON:"+ textoRespuestaJson);
+                        
 						s.getBasicRemote().sendText(textoRespuestaJson);
 						
 						
