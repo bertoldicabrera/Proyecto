@@ -1,10 +1,3 @@
-console.log("¡Detente!");
-console.log("Esta función del navegador está pensada para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí para habilitar una función para 'hackear', se trata de un fraude. Si lo haces, esta persona podrá acceder a tu cuenta.");
-
-console.log("WARNING!!!");
-console.log("This browser feature is for developers only. Please do not copy-paste any code or run any scripts here. It may cause your account to be compromised.");
-
-
 var socket = new WebSocket("ws://localhost:8080/prueba/endpoint");
 socket.onmessage = onMessage;
 
