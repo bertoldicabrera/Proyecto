@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #EclipseHTMLEditor configuration file
 #Sun Feb 14 21:26:16 BRST 2021
 javaScriptDeprecated=Off
@@ -31,3 +32,38 @@ javaScriptIndentSize=4
 javaScriptLibPaths=
 validateDTD=true
 javaScriptCheckVars=Off
+=======
+#EclipseHTMLEditor configuration file
+#Sun Feb 14 21:26:16 BRST 2021
+javaScriptDeprecated=Off
+javaScriptIndentChar=\ 
+javaScriptCheckTypes=Off
+useDTD=true
+javaScriptCheckRegExp=Off
+validateJS=true
+javaScriptUnknownDefines=Off
+javaScriptStrictModuleDepCheck=Off
+javaScriptAccessControls=Off
+javaScriptFileoverviewTags=Off
+javaScriptCompleters=ECMA Script\nFireFox
+javaScriptInitIndentLevel=0
+javaScriptInvalidCasts=Off
+validateXML=true
+javaScriptVisibility=Off
+javaScriptNonStandardJsDocs=Off
+javaScripts=
+javaScriptBracesOnOwnLine=true
+removeMarkers=false
+javaScriptUndefinedVars=Off
+validateJSP=true
+javaScriptSpaceAfterAnonFunc=false
+validateHTML=true
+javaScriptPreserveNewlines=true
+root=/
+javaScriptUseUndefined=Off
+javaScriptMissingProperties=Off
+javaScriptIndentSize=4
+javaScriptLibPaths=
+validateDTD=true
+javaScriptCheckVars=Off
+>>>>>>> 984bdac5175f67dd756cd69222d4c394847368af
