@@ -8,7 +8,8 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="src" path="pruebacentripio/WEB-INF/src"/>
 	<classpathentry kind="src" output="work" path="work"/>
-	<classpathentry kind="lib" path="C:/Users/joase/Desktop/jar_files/javax.websocket-api-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joase/Desktop/tomcat-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse-workspace/javax.websocket-api-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse-workspace/tomcat-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse-workspace/json-20201115.jar"/>
 	<classpathentry kind="output" path="pruebacentripio/WEB-INF/classes"/>
 </classpath>

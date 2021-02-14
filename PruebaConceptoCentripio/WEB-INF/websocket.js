@@ -34,35 +34,32 @@ function formSubmit() {
 	else{
 	
 		var partida = document.querySelector('input[name="partida"]:checked');
-		console.log(partida);
-		console.log(document.querySelector('input[name="partida"]:checked'));
-
 		console.log(partida.value);
 
+        var partidanumero = partida.value;
+       
+        var lista = 
+        { "subitem": "subitem1"
+        , "texto": "texto2"
+        };
+        var lista2 = 
+        { "subitem": "subitem2"
+        , "texto": "texto2"
+        };
+        
+        var rows =
+        { "token": "token"
+        , "partiSelect": partidanumero
+        , "arreLista" : [lista, lista2]
+        };
+    
+        var dataJson = JSON.stringify(rows);
 
-		socket.send(partida.value );
+        socket.send(dataJson);
+
 	}
+
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

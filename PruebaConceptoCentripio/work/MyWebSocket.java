@@ -18,6 +18,13 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONObject;
+
+//import org.json.*;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
+
 
 @ServerEndpoint("/endpoint")
 public class MyWebSocket {
@@ -70,10 +77,18 @@ public class MyWebSocket {
 //    }
     
     @OnMessage
-    public void onMsg(String in_PartidaNumero, Session session) {
-    	System.out.println("==================================");
-        
-        System.out.println(session.getId() + "new message ==> " + in_PartidaNumero);
+    public void onMsg(String in_DatosJSON, Session session) {
+    	System.out.println("***INICIO==================================");
+    	System.out.println(session.getId() + "new message ==> " + in_DatosJSON);
+    	
+    	System.out.println("1");
+    	JSONObject jsonData = new JSONObject(in_DatosJSON);
+    	System.out.println("2");
+    	
+    	String in_PartidaNumero="";
+    	in_PartidaNumero = jsonData.getString("partiSelect");
+    	System.out.println("in_PartidaNumero = jsonData.getString(\"partiSelect\");::" + in_PartidaNumero);
+//        
         System.out.println("cantidad de sessions:" + sessions.size());
         
 //        sessionPartida.put(session.getId(), in_PartidaNumero);
@@ -109,6 +124,7 @@ public class MyWebSocket {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("****************=================**************************");
     }
     
     @OnError
