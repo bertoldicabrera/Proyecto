@@ -19,6 +19,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 //import org.json.*;
@@ -78,7 +79,7 @@ public class MyWebSocket {
 //    }
     
     @OnMessage
-    public void onMsg(String in_DatosJSON, Session session) {
+    public void onMsg(String in_DatosJSON, Session session) throws JSONException {
     	System.out.println("***INICIO==================================");
     	System.out.println(session.getId() + "new message ==> " + in_DatosJSON);
     	
@@ -118,12 +119,13 @@ public class MyWebSocket {
                      
                     	 Map<String, String> mapJSON = new HashMap<String, String>();
 
-                       
+                
                     	 mapJSON.put("nombre1","josesito");
                     	 mapJSON.put("nombre2","pepito");
                         jsonData2.put("mapJson", mapJSON );
                         textoRespuestaJson=jsonData2.toString();
                         System.out.println("Se envia JSON:"+ textoRespuestaJson);
+                        
 						s.getBasicRemote().sendText(textoRespuestaJson);
 						
 						
