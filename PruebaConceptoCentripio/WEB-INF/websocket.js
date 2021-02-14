@@ -13,12 +13,33 @@ function onMessage(event) {
     //btnSubmit.disabled = true;
     
     var progress = document.getElementById("progress");
+    console.log("event.data:"+event.data);
     var data = JSON.parse(event.data);
-    progress.value = data.value;
+    console.log("data:"+data);
+    console.log(data);
+  /*   {
+    "codigorespuesta":5
+    ,"mapJson":
+      {"nombre2":"pepito"
+      ,"nombre1":"josesito"
+      }
+    } */
+ 
+    /*recibimos  un JSON enviado del servidor, y lo parseamos a un objeto de Javascript*/
+    var Objeto=JSON.parse(event.data);
+    console.log("progeso de respuesta:"+Objeto.codigorespuesta);
+    console.log(data);
+     
+
+
+    /*Obtenemos codigo de respuesta del objeto*/
+    var numeroMostrar=Objeto.codigorespuesta;
+    progress.value = numeroMostrar;
+    console.log(Objeto.mapJson.nombre1);
     
     var lblProgress = document.getElementById("lblProgress");
-    if(data.value < 100){
-        lblProgress.innerHTML = 'Progress: ' + data.value + '%';
+    if(numeroMostrar < 100){
+        lblProgress.innerHTML = 'Progress: ' + numeroMostrar + '%';
     }else{
         btnSubmit.disabled = false;
         lblProgress.innerHTML = "Finish";

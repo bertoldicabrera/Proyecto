@@ -5,6 +5,7 @@
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -112,8 +113,24 @@ public class MyWebSocket {
 					System.out.println("===in_PartidaNumero::"+in_PartidaNumero);
 					if ( (!partidaNumero.isEmpty()) && (!in_PartidaNumero.isEmpty()) && (partidaNumero.equals(in_PartidaNumero)) ) {
 						System.out.println("deberia entrar solo 1");
-						s.getBasicRemote().sendText("{\"value\" : \"" + (c + 1) + "\"}");
-					}
+                        String textoRespuestaJson="";
+                        JSONObject jsonData2 = new JSONObject();
+                        jsonData2.put("codigorespuesta", (c + 1) );
+                     
+                    	 Map<String, String> mapJSON = new HashMap<String, String>();
+
+                       
+                    	 mapJSON.put("nombre1","josesito");
+                    	 mapJSON.put("nombre2","pepito");
+                        jsonData2.put("mapJson", mapJSON );
+                        textoRespuestaJson=jsonData2.toString();
+                        System.out.println("Se envia JSON:"+ textoRespuestaJson);
+						s.getBasicRemote().sendText(textoRespuestaJson);
+						
+						
+						
+						//						s.getBasicRemote().sendText("{\"value\" : \"" + (c + 1) + "\"}");
+						}
 					else
 						System.out.println("no entro a imprimir");
 					
@@ -125,7 +142,7 @@ public class MyWebSocket {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        System.out.println("****************=================**************************");
+        System.out.println("****************Hola**************************");
     }
     
     @OnError
