@@ -35,7 +35,6 @@ public class MyWebSocket {
 	
 	static Map<String, String> sessionPartida = new HashMap<String, String>();
 		
-    private static PushTimeService pst;
     private static MyWebSocket instancia; // SINGLETON
     
 //    @OnOpen
@@ -80,7 +79,7 @@ public class MyWebSocket {
     
     @OnMessage
     public void onMsg(String in_DatosJSON, Session session) throws JSONException {
-    	System.out.println("***INICIO==================================");
+    	System.out.println("===========*INICIO==================================");
     	System.out.println(session.getId() + "new message ==> " + in_DatosJSON);
     	
     	System.out.println("1");
