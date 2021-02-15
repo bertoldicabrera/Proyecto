@@ -60,6 +60,8 @@ public class MyWebSocket {
     
     
     
+    
+    
     @OnClose
     public void onClose(Session session) {
         System.out.println("onClose::" +  session.getId());
@@ -79,7 +81,7 @@ public class MyWebSocket {
     
     @OnMessage
     public void onMsg(String in_DatosJSON, Session session) throws JSONException {
-    	System.out.println("=====INICIO==================================");
+    	System.out.println("=======INICIO==============================");
     	System.out.println(session.getId() + "new message ==> " + in_DatosJSON);
     	
     	System.out.println("1");
@@ -119,8 +121,8 @@ public class MyWebSocket {
                     	 Map<String, String> mapJSON = new HashMap<String, String>();
 
                        
-                    	 mapJSON.put("nombre1","josesito");
-                    	 mapJSON.put("nombre2","pepito");
+                    	mapJSON.put("nombre1","josesito");
+                    	mapJSON.put("nombre2","pepito");
                         jsonData2.put("mapJson", mapJSON );
                         textoRespuestaJson=jsonData2.toString();
                         System.out.println("Se envia JSON:"+ textoRespuestaJson);
