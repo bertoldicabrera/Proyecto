@@ -1,4 +1,4 @@
-console.log("¡Detente!");
+console.log("***¡Detente!****");
 console.log("Esta función del navegador está pensada para desarrolladores. Si alguien te indicó que copiaras y pegaras algo aquí para habilitar una función para 'hackear', se trata de un fraude. Si lo haces, esta persona podrá acceder a tu cuenta.");
 
 console.log("WARNING!!!");
