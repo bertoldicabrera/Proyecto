@@ -147,19 +147,13 @@ public int  cantidadJugadores(IConexion con) throws PersistenciaException {
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);
-			
 		}
 		rs.close();
 		prstm.close();
 	} catch (SQLException e) {
 		throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
 	}
-	
-	
-	
-	
 	return cant;
-	
 }
 
 
@@ -175,19 +169,13 @@ public int cantidadJugadoresEnLinea(IConexion con) throws PersistenciaException 
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);
-			
 		}
 		rs.close();
 		prstm.close();
 	} catch (SQLException e) {
 		throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
 	}
-	
-	
-	
-	
 	return cant;
-	
 	
 }
 

@@ -21,15 +21,16 @@ public class Partida {
 	private int partidaCreador;
 
 	private Date partidaFechaCreada;
+	//private int tope=2;
+	private Equipo[] arreEquipo;
 
-//ArreEquipos: ArrEquipos
 
 public Partida() {
 }
 
 public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 boolean in_PartidaGuardada, int in_ganadorEquipoID, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-int in_PartidaCreador, Date in_PartidaFechaCreada)
+int in_PartidaCreador, Date in_PartidaFechaCreada, Equipo[]  in_arreEquipo)
 {
 	this.setPartidaId(in_PartidaId);
 	this.setPartidaEstado(in_PartidaEstado);
@@ -40,6 +41,7 @@ int in_PartidaCreador, Date in_PartidaFechaCreada)
 	this.setPartidaCantidadJugadores(in_PartidaCantidadJugadores);
 	this.setPartidaCreador(in_PartidaCreador);
 	this.setPartidaFechaCreada(in_PartidaFechaCreada);
+	this.setArreEquipo(in_arreEquipo);
 }
 
 public int getPartidaId() {
@@ -112,6 +114,14 @@ public Date getPartidaFechaCreada() {
 
 public void setPartidaFechaCreada(Date in_partidaFechaCreada) {
 	this.partidaFechaCreada = in_partidaFechaCreada;
+}
+
+public Equipo[] getArreEquipo() {
+	return arreEquipo;
+}
+
+public void setArreEquipo(Equipo[] in_arreEquipo) {
+	this.arreEquipo = in_arreEquipo;
 }
 
 
