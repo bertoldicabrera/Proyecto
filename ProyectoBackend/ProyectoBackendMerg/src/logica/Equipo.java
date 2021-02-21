@@ -3,20 +3,20 @@ package logica;
 public class Equipo {
 
 	private int equipoID;
-	//private int tope=1;
-	private Jugador[] arreJugadores;
+	private Jugador jugadores;
 	private Base base;
 	private String bando;
 	
 	
 	public Equipo() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
-	public Equipo(int in_equipoID, Jugador[] in_arreJugadores, Base  in_base, String  in_bando ) {
+	public Equipo(int in_equipoID, Jugador in_Jugadores, Base  in_base, String  in_bando ) {
+		
 		this.setEquipoID( in_equipoID);
-		this.setArreJugadores(in_arreJugadores);
+		this.setJugadore(in_Jugadores);
 		this.setBase(  in_base);
 		this.setBando(  in_bando);
 	}
@@ -32,13 +32,13 @@ public class Equipo {
 	}
 
 
-	public Jugador[] getArreJugadores() {
-		return arreJugadores;
+	public Jugador getJugador() {
+		return jugadores;
 	}
 
 
-	public void setArreJugadores(Jugador[]  in_arreJugadores) {
-		this.arreJugadores =  in_arreJugadores;
+	public void setJugadore(Jugador  in_Jugadore) {
+		this.jugadores =  in_Jugadore;
 	}
 
 
