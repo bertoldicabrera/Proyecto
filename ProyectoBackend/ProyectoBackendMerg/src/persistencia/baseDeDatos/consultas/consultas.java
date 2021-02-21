@@ -55,7 +55,7 @@ public class consultas {
 		return query;
 	}
 	
-
+//String in_JugadorUserName, String in_JugadorPassword
 	public String acountExists()
 	{
 		String query=" ";
@@ -67,6 +67,15 @@ public class consultas {
 		String query=" ";
 		return query;
 	}
+	public String cantidadTotalJugadores() {
+		String query=" ";
+		return query;
+	}
 	
+	public String cantidadJugadoresOnLine()
+	{
+		String query=" ";
+		return query;
+	}
 	
 }

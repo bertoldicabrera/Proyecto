@@ -118,29 +118,29 @@ public class DaoPartidas implements Serializable {
 	}
 
 	
-	//seguir haciendo refactor en esta parte
+	
 	 public void delete(int in_PartidaId, IConexion con) throws PersistenciaException
 	{
 		
 		try {
 			consultas cons = new consultas();
-			String deletNinio = cons.borrarPartida();
+			String deletPart = cons.borrarPartida();
 			
 			PreparedStatement prstm;
-			prstm = ((Conexion) con).getConnection().prepareStatement(deletNinio);
+			prstm = ((Conexion) con).getConnection().prepareStatement(deletPart);
 			prstm.setInt(1, in_PartidaId);
 			prstm.executeUpdate();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException (mensg.errorSQLDeleteNinio);
+			throw new PersistenciaException (mensg.errorSQLDeletePartida);
 		}
 		
 	}
 	
-	public List <voNinio> listarNinios(IConexion con) throws PersistenciaException
+	public List <Partida> listarPartidas(IConexion con) throws PersistenciaException
 	{
 		consultas cons = new consultas();
-		List<voNinio> listaDeVONinios = new ArrayList<voNinio>();
+		List<Partida> listaDePartidas = new ArrayList<Partida>();
 		String sqlToExecute = cons.listarPartidas();
 		
 		PreparedStatement prstm;
@@ -150,16 +150,27 @@ public class DaoPartidas implements Serializable {
 			ResultSet rs = prstm.executeQuery();
 			
 			while (rs.next()) {
-			    voNinio nuevoVONinio = new voNinio(rs.getInt(1), rs.getString(2), rs.getString(3));
-			    listaDeVONinios.add(nuevoVONinio);
+				
+				Partida nuevaPartida = new Partida(
+						rs.getInt(1),
+						rs.getString (2),
+						rs.getDate(3),
+						rs.getBoolean(4),
+						rs.getInt(5),
+						rs.getString (6),
+						rs.getInt(7),
+						rs.getInt(8),
+						rs.getDate(9)
+						);
+				listaDePartidas.add(nuevaPartida);
 			}
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException (mensg.errorSQLListarNinios);
+			throw new PersistenciaException (mensg.errorSQLListarPartidas);
 		}
 		
 		
-		return listaDeVONinios;
+		return listaDePartidas;
 	}
 }

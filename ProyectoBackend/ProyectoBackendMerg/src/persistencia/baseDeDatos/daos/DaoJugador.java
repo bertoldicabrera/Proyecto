@@ -134,6 +134,68 @@ public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException
 	
 	return lista_out;
 }
+
+public int  cantidadJugadores(IConexion con) throws PersistenciaException {
+	
+	int cant=0;
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.cantidadTotalJugadores();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		if (rs.next()) {
+			cant=rs.getInt(1);
+			
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
+	}
+	
+	
+	
+	
+	return cant;
+	
+}
+
+
+
+public int cantidadJugadoresEnLinea(IConexion con) throws PersistenciaException {
+	int cant=0;
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.cantidadJugadoresOnLine();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		if (rs.next()) {
+			cant=rs.getInt(1);
+			
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
+	}
+	
+	
+	
+	
+	return cant;
+	
+	
+}
+
+
+
+
+
+
 public boolean isAcountExists(String in_JugadorUserName, String in_JugadorPassword, IConexion con) throws  PersistenciaException {
 	boolean existe = false;
 	try{
