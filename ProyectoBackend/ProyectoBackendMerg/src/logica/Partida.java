@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Date;
 
+import persistencia.baseDeDatos.daos.DaoEquipo;
+
 public class Partida {
 
 	private int partidaId;
@@ -21,8 +23,11 @@ public class Partida {
 	private int partidaCreador;
 
 	private Date partidaFechaCreada;
-	//private int tope=2;
-	private Equipo[] arreEquipo;
+	
+	private DaoEquipo Equipos;
+
+
+
 
 
 public Partida() {
@@ -30,7 +35,7 @@ public Partida() {
 
 public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 boolean in_PartidaGuardada, int in_ganadorEquipoID, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-int in_PartidaCreador, Date in_PartidaFechaCreada, Equipo[]  in_arreEquipo)
+int in_PartidaCreador, Date in_PartidaFechaCreada)
 {
 	this.setPartidaId(in_PartidaId);
 	this.setPartidaEstado(in_PartidaEstado);
@@ -41,7 +46,7 @@ int in_PartidaCreador, Date in_PartidaFechaCreada, Equipo[]  in_arreEquipo)
 	this.setPartidaCantidadJugadores(in_PartidaCantidadJugadores);
 	this.setPartidaCreador(in_PartidaCreador);
 	this.setPartidaFechaCreada(in_PartidaFechaCreada);
-	this.setArreEquipo(in_arreEquipo);
+	
 }
 
 public int getPartidaId() {
@@ -116,13 +121,6 @@ public void setPartidaFechaCreada(Date in_partidaFechaCreada) {
 	this.partidaFechaCreada = in_partidaFechaCreada;
 }
 
-public Equipo[] getArreEquipo() {
-	return arreEquipo;
-}
-
-public void setArreEquipo(Equipo[] in_arreEquipo) {
-	this.arreEquipo = in_arreEquipo;
-}
 
 
 
