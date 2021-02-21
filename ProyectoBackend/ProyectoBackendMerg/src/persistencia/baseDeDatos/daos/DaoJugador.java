@@ -6,19 +6,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Utilitarios.MensajesPersonalizados;
-import logica.JUGADOR;
+import logica.Jugador;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 
-public class DAOJUGADOR implements  Serializable {
+public class DaoJugador implements  Serializable {
 
 
 private static final long serialVersionUID = 1L;
 
 public static MensajesPersonalizados mensg = new MensajesPersonalizados();
-public DAOJUGADOR(){
+public DaoJugador(){
 
 }
 
@@ -40,8 +40,8 @@ public boolean member(String in_JugadorID, IConexion con) throws PersistenciaExc
 	return existe;
 }
 
-public JUGADOR find(String in_JugadorID, IConexion con) throws PersistenciaException {
-	JUGADOR jug = null;
+public Jugador find(String in_JugadorID, IConexion con) throws PersistenciaException {
+	Jugador jug = null;
 	int id= 0;
 	String nombre= "";
 	String password="";
@@ -59,7 +59,7 @@ public JUGADOR find(String in_JugadorID, IConexion con) throws PersistenciaExcep
 		}
 		rs1.close ();
 		pstmt1.close ();
-		jug = new JUGADOR (nombre, in_JugadorID, id, password);
+		jug = new Jugador (nombre, in_JugadorID, id, password);
 		}
 	catch (SQLException e){
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
@@ -69,7 +69,7 @@ public JUGADOR find(String in_JugadorID, IConexion con) throws PersistenciaExcep
 
 
 @Override
-public void insert(JUGADOR jug, IConexion con) throws PersistenciaException {
+public void insert(Jugador jug, IConexion con) throws PersistenciaException {
 	try{
 		consultas cons = new consultas();
 		String insert = cons.insertUser();

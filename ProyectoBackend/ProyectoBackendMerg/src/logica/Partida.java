@@ -2,7 +2,7 @@ package logica;
 
 import java.util.Date;
 
-public class PARTIDA {
+public class Partida {
 
 	private int partidaId;
 
@@ -24,10 +24,10 @@ public class PARTIDA {
 
 //ArreEquipos: ArrEquipos
 
-public PARTIDA() {
+public Partida() {
 }
 
-public PARTIDA(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
+public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 boolean in_PartidaGuardada, int in_ganadorEquipoID, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
 int in_PartidaCreador, Date in_PartidaFechaCreada)
 {

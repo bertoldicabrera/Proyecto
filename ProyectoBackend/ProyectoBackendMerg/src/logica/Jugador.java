@@ -1,6 +1,6 @@
 package logica;
 
-public class JUGADOR {
+public class Jugador {
 	
 	 private int jugadorId;
 	 private String jugadorUserName;
@@ -10,10 +10,10 @@ public class JUGADOR {
 	 
 	 
 	 
-	 public JUGADOR() {
+	 public Jugador() {
 	}
 
-	 public JUGADOR(int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
+	 public Jugador(int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
 			 boolean in_JugadorIsOnline, int in_PuntajeAcumulado)
 	 {
 		 this.setJugadorId(in_JugadorID);

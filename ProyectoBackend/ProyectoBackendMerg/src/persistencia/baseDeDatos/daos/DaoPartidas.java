@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.mysql.jdbc.Connection;
 import Utilitarios.MensajesPersonalizados;
-import logica.PARTIDA;
+import logica.Partida;
 import logica.valueObjects.*;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
-public class DAOPARTIDAS implements Serializable {
+public class DaoPartidas implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
-	public DAOPARTIDAS (){
+	public DaoPartidas (){
 
 	}
 	
@@ -43,8 +43,8 @@ public class DAOPARTIDAS implements Serializable {
 		return existe;
 	}
 	
-	public PARTIDA find (int in_PartidaId, IConexion con) throws PersistenciaException{
-		PARTIDA part = null;
+	public Partida find (int in_PartidaId, IConexion con) throws PersistenciaException{
+		Partida part = null;
 		String nombre= "";
 		String apellido="";
 		try{
@@ -60,7 +60,7 @@ public class DAOPARTIDAS implements Serializable {
 			}
 			rs1.close ();
 			pstmt1.close ();
-			part = new PARTIDA (in_PartidaId, queryNin, null, false, in_PartidaId, queryNin, in_PartidaId, in_PartidaId, null );
+			part = new Partida (in_PartidaId, queryNin, null, false, in_PartidaId, queryNin, in_PartidaId, in_PartidaId, null );
 			}
 		catch (SQLException e){
 			throw new PersistenciaException (mensg.errorSQLFindNinio);
@@ -68,7 +68,7 @@ public class DAOPARTIDAS implements Serializable {
 		return jug;
 	}
 	
-	public void insert (PARTIDA part, IConexion con) throws PersistenciaException{
+	public void insert (Partida part, IConexion con) throws PersistenciaException{
 		try{
 			consultas cons = new consultas();
 			String insert = cons.insertarPartida();
