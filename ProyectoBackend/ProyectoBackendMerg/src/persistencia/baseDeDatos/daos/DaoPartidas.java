@@ -10,7 +10,6 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 import Utilitarios.MensajesPersonalizados;
 import logica.Partida;
-import logica.valueObjects.*;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
@@ -47,7 +46,6 @@ public class DaoPartidas implements Serializable {
 	
 	public Partida find (int in_PartidaId, IConexion con) throws PersistenciaException{
 		Partida out_Part = null;
-		
 		int out_PartidaId=0;
 		String out_PartidaEstado = null;
 		Date out_PartidaFechaUltimaActualizacio = null;

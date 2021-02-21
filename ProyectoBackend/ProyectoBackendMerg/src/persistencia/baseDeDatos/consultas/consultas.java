@@ -78,4 +78,22 @@ public class consultas {
 		return query;
 	}
 	
+	public String estaVaciaArtillero() {
+		String query=" ";
+		return query;
+	}
+	public String insertarArtillero() {
+		String query=" ";
+		return query;
+	}
+	
+	public String obtenerKesimoArtillero() {
+		String query="";
+		return query;
+	}
+	public String cantidadArtilleros()
+	{
+		String query=" ";
+		return query;
+	}
 }
