@@ -32,7 +32,7 @@ public class DaoDeAviones {
 				rs.close ();
 				pstmt.close ();
 			}catch (SQLException e){
-				throw new PersistenciaException (mensg.errorSQLFindAviones);
+				throw new PersistenciaException (mensg.errorSQLFindAvion);
 			}
 			return esta;
 		} 
