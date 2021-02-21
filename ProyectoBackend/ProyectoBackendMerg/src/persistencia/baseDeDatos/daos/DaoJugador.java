@@ -10,6 +10,8 @@ import logica.Jugador;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
+import persistencia.baseDeDatos.poolDeConexiones.Conexion;
+import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 
 
 public class DaoJugador implements  Serializable {
@@ -40,26 +42,33 @@ public boolean member(String in_JugadorID, IConexion con) throws PersistenciaExc
 	return existe;
 }
 
-public Jugador find(String in_JugadorID, IConexion con) throws PersistenciaException {
+public Jugador find(int in_JugadorID, IConexion con) throws PersistenciaException {
 	Jugador jug = null;
-	int id= 0;
-	String nombre= "";
-	String password="";
+	int jugadorId=0;
+	String jugadorUserName="";
+	String jugadorPassword="";
+	boolean jugadorIsOnline=false;
+	int puntajeAcumulado=0;
+	
+	
+	
 	try{
 		consultas cons = new consultas ();
 	
 		String queryNin = cons.obtenerJugador();
 		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (queryNin);
-		pstmt1.setString(1, in_JugadorID);
+		pstmt1.setInt(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();
 		if (rs1.next ()){
-			id = rs1.getInt(1);
-			nombre = rs1.getString(2);
-			password = rs1.getString(3);
+			jugadorId = rs1.getInt(1);
+			jugadorUserName = rs1.getString(2);
+			jugadorPassword = rs1.getString(3);
+			jugadorIsOnline = rs1.getBoolean(4);
+			puntajeAcumulado= rs1.getInt(5);
 		}
 		rs1.close ();
 		pstmt1.close ();
-		jug = new Jugador (nombre, in_JugadorID, id, password);
+		jug = new Jugador (jugadorId, jugadorUserName, jugadorPassword, jugadorIsOnline, puntajeAcumulado);
 		}
 	catch (SQLException e){
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
@@ -68,15 +77,16 @@ public Jugador find(String in_JugadorID, IConexion con) throws PersistenciaExcep
 }
 
 
-@Override
-public void insert(Jugador jug, IConexion con) throws PersistenciaException {
+public void insert(Jugador in_jugador, IConexion con) throws PersistenciaException {
 	try{
 		consultas cons = new consultas();
-		String insert = cons.insertUser();
+		String insert = cons.insertarJugador();
 		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-		pstmt.setString(1, jug.getEmail());
-		pstmt.setString (2, jug.getPassword());
-		pstmt.setString (3, jug.getUserName());
+		pstmt.setInt(1, in_jugador.getJugadorId());
+		pstmt.setString (2, in_jugador.getJugadorUserName());
+		pstmt.setString (3, in_jugador.getJugadorPassword());
+		pstmt.setBoolean(4, in_jugador.isJugadorIsOnline());
+		pstmt.setInt (5, in_jugador.getPuntajeAcumulado());
 		pstmt.executeUpdate ();
 		pstmt.close ();
 	}
@@ -86,15 +96,14 @@ public void insert(Jugador jug, IConexion con) throws PersistenciaException {
 	}
 }
 
-@Override
-public void delete(String in_JugadorID, IConexion con) throws PersistenciaException {
+public void delete(int in_JugadorID, IConexion con) throws PersistenciaException {
 	try {
 		consultas cons = new consultas();
-		String deletJUGADOR = cons.borrarJUGADOR();
+		String deletJUGADOR = cons.borrarJugador();
 		
 		PreparedStatement prstm;
 		prstm = ((Conexion) con).getConnection().prepareStatement(deletJUGADOR);
-		prstm.setString(1, in_JugadorID);
+		prstm.setInt(1, in_JugadorID);
 		prstm.executeUpdate();
 		prstm.close();
 	} catch (SQLException e) {
@@ -103,18 +112,18 @@ public void delete(String in_JugadorID, IConexion con) throws PersistenciaExcept
 }
 
 
-@Override
-public List<VOJUGADOR> listarJUGADORes(IConexion con) throws PersistenciaException {
+public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException {
 	consultas cons = new consultas();
-	List<VOJUGADOR> listaDeVOJUGADORes = new ArrayList<VOJUGADOR>();
-	String sqlToExecute = cons.listarJug();
+	List<Jugador> lista_out = new ArrayList<Jugador>();
+	String sqlToExecute = cons.listarJugadores();
 	PreparedStatement prstm;
 	try {
 		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		while (rs.next()) {
-			VOJUGADOR nuevoVOJ = new VOJUGADOR(rs.getString(1), rs.getInt(2), rs.getString(3), "");
-			listaDeVOJUGADORes.add(nuevoVOJ);
+			
+			Jugador nuevoJ = new Jugador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getInt(5));
+			lista_out.add(nuevoJ);
 		}
 		rs.close();
 		prstm.close();
@@ -123,17 +132,16 @@ public List<VOJUGADOR> listarJUGADORes(IConexion con) throws PersistenciaExcepti
 	}
 	
 	
-	return listaDeVOJUGADORes;
+	return lista_out;
 }
-@Override
-public boolean isAcountExists(String in_JugadorID, String password, IConexion con) throws  PersistenciaException {
+public boolean isAcountExists(String in_JugadorUserName, String in_JugadorPassword, IConexion con) throws  PersistenciaException {
 	boolean existe = false;
 	try{
 		consultas cons = new consultas();
-		String query = cons.existEmailPassword();
+		String query = cons.acountExists();
 		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
-		pstmt.setString(1, in_JugadorID);
-		pstmt.setString(2, password);
+		pstmt.setString(1, in_JugadorUserName);
+		pstmt.setString(2, in_JugadorPassword);
 		ResultSet rs = pstmt.executeQuery ();
 		if (rs.next ())
 			existe = true;
@@ -147,15 +155,14 @@ public boolean isAcountExists(String in_JugadorID, String password, IConexion co
 
 }
 
-@Override
-public String getNameByEmail(String in_JugadorID, IConexion con) throws PersistenciaException {
+public String getNameById(String in_JugadorID, IConexion con) throws PersistenciaException {
 	
 	String nombre= "";
 
 	try{
 		consultas cons = new consultas ();
 	
-		String query = cons.getNameUser();
+		String query = cons.getName();
 		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
 		pstmt1.setString(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();

@@ -32,7 +32,7 @@ public class MensajesPersonalizados {
 	errorSQLConsultarCantidadDePuntos, errorSQLFindUsuario, errorFachadaNuevoUsuario, errorFachadaYaExisteUsuario,
 	errorFachadaNoExisteUsuario,errorFachadaListUsuarios, errorGraficaNoHayUsuario, errorIO, errorSQLInsertUser, errorFachadaDeleteUsuario;
 
-
+	public String errorSQLFindPartida, errorSQLInsertPartida;
 	
 	public MensajesPersonalizados(){
 		Properties p = new Properties();
@@ -84,6 +84,11 @@ public class MensajesPersonalizados {
 		errorSQLInsertUser					= p.getProperty("errorSQLInsertUser");
 		errorFachadaDeleteUsuario			= p.getProperty("errorFachadaDeleteUsuario");
 		errorPoolObtenerClass				=p.getProperty("errorPoolObtenerClass");
+		errorSQLFindPartida					=p.getProperty("errorSQLFindPartida");
+		errorSQLInsertPartida				=p.getProperty("errorSQLInsertPartida");
+	
+	
+	
 	}
 
 }

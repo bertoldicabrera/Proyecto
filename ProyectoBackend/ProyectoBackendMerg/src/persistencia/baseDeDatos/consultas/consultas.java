@@ -56,8 +56,17 @@ public class consultas {
 	}
 	
 
-
-
+	public String acountExists()
+	{
+		String query=" ";
+		return query;
+	}
+	
+	public String getName()
+	{
+		String query=" ";
+		return query;
+	}
 	
 	
 }
