@@ -3,7 +3,7 @@ package logica;
 public class Equipo {
 
 	private int equipoID;
-	private Jugador jugadores;
+	private Jugador jugador; // hacer arreglo con tope
 	private Base base;
 	private String bando;
 	
@@ -33,12 +33,12 @@ public class Equipo {
 
 
 	public Jugador getJugador() {
-		return jugadores;
+		return jugador;
 	}
 
 
 	public void setJugadore(Jugador  in_Jugadore) {
-		this.jugadores =  in_Jugadore;
+		this.jugador =  in_Jugadore;
 	}
 
 
