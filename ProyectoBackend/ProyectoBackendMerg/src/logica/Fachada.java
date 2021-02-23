@@ -157,9 +157,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	
-	public void guardarPartida (voPartida in_voPartida) {
-		IConexion icon = ipool.obtenerConexion(false);
+	public void guardarPartida (voPartida in_voPartida) throws LogicaException {
 		
+		IConexion icon = ipool.obtenerConexion(true);
 		try {
 			// pedimos el ultimo idpartida
 			//creamos la partida con ese id
@@ -195,14 +195,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				{
 					daoArti.insBack(idbase, auxArtilleria[x], icon);
 				}
-				
-				
 				idbase++;
+				icon = ipool.obtenerConexion(true);
 			}
               }
 			catch (PersistenciaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				ipool.liberarConexion(icon, false);
+				throw new LogicaException(mensg.errorFachadaListPartidas);
 		    }
 		
 	       }
@@ -215,6 +214,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	private VOJugador devolverVOJugador(Jugador in_aux)
 	{
+		
+		
 		VOJugador out_aux=null;
 		out_aux=new VOJugador(in_aux.getJugadorId(),in_aux.getJugadorUserName(),in_aux.getJugadorPassword(),in_aux.isJugadorIsOnline(),in_aux.getPuntajeAcumulado());
 		
