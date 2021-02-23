@@ -36,6 +36,8 @@ public class MensajesPersonalizados {
 	errorSQLDeletePartida, errorSQLListarPartidas, errorSQLCantidadUsuarios;
 	
 	public String errorSQLFindArtilleros, errorSQLInsertArtillero, errorSQLDeleteArtillero;
+	public String errorSQLFindAvion, errorSQLInsertAvion, errorSQLListarAviones;
+	public String errorSQLFindBase, errorSQLInsertBase, errorSQLListarBase;
 	
 	
 	public MensajesPersonalizados(){
@@ -96,6 +98,14 @@ public class MensajesPersonalizados {
 		errorSQLFindArtilleros				=p.getProperty("errorSQLFindArtilleros");
 		errorSQLInsertArtillero				=p.getProperty("errorSQLInsertArtillero");
 		errorSQLDeleteArtillero				=p.getProperty("errorSQLDeleteArtillero");
+		errorSQLFindAvion					=p.getProperty("errorSQLFindAvion");
+		errorSQLInsertAvion					=p.getProperty("errorSQLInsertAvion");
+		errorSQLListarAviones				=p.getProperty("errorSQLListarAviones");
+		errorSQLFindBase					=p.getProperty("errorSQLFindBase");
+		errorSQLInsertBase					=p.getProperty("errorSQLInsertBase");
+		errorSQLListarBase					=p.getProperty("errorSQLListarBase");
+		
+		
 	}
 
 }

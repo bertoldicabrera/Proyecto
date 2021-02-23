@@ -96,4 +96,49 @@ public class consultas {
 		String query=" ";
 		return query;
 	}
+
+	public String existenAviones() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String insertarAvion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarAviones() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerAvion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarArtilleros() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String existeBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String insertarBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String esmemberbase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

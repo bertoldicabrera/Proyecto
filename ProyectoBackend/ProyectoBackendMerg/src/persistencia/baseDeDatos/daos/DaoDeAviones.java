@@ -16,10 +16,15 @@ import persistencia.excepciones.PersistenciaException;
 
 public class DaoDeAviones {
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
+	
+	private int tope= 4;
+	private Avion[]arreavion;
+	
 	public DaoDeAviones() {
-		
+		arreavion= new Avion[tope];
 		}
 		
+	
 		public boolean estaVacia(IConexion con) throws PersistenciaException {
 			boolean esta = false;
 			try{
@@ -39,25 +44,26 @@ public class DaoDeAviones {
 		
 		
 	
-		public void insback(Avion in_Avion, IConexion con) throws PersistenciaException {
+		public void insback(int idbase,Avion in_Avion, IConexion con) throws PersistenciaException {
 			try{
 				consultas cons = new consultas();
 				String insert = cons.insertarAvion();
 				
 				PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-				pstmt.setInt(1, in_Avion.GetId());
-				pstmt.setInt (2,in_Avion.getCoordX());
-				pstmt.setInt (3, in_Avion.getCoordY());
-				pstmt.setBoolean(4, in_Avion.getEstado());
-				pstmt.setInt (5, in_Avion.getVida());
-				pstmt.setFloat(6,in_Avion.getAvionAngle());
-				pstmt.setBoolean(7, in_Avion.getAvionBomba());
-				pstmt.setInt (8, in_Avion.getCantidadBombas());
-				pstmt.setInt (9, in_Avion.getAvionAltura());
-				pstmt.setInt (10, in_Avion.getAvionCombustible());
-				pstmt.setBoolean(11, in_Avion.getHayEnemigo());
-				pstmt.setBoolean(12, in_Avion.getEnCampoEnemigo());
-				pstmt.setInt (13, in_Avion.getRangoDeVision());
+				pstmt.setInt(1, idbase);
+				pstmt.setInt(2, in_Avion.GetId());
+				pstmt.setInt (3,in_Avion.getCoordX());
+				pstmt.setInt (4, in_Avion.getCoordY());
+				pstmt.setBoolean(5, in_Avion.getEstado());
+				pstmt.setInt (6, in_Avion.getVida());
+				pstmt.setFloat(7,in_Avion.getAvionAngle());
+				pstmt.setBoolean(8, in_Avion.getAvionBomba());
+				pstmt.setInt (9, in_Avion.getCantidadBombas());
+				pstmt.setInt (10, in_Avion.getAvionAltura());
+				pstmt.setInt (11, in_Avion.getAvionCombustible());
+				pstmt.setBoolean(12, in_Avion.getHayEnemigo());
+				pstmt.setBoolean(13, in_Avion.getEnCampoEnemigo());
+				pstmt.setInt (14, in_Avion.getRangoDeVision());
 				
 				pstmt.executeUpdate ();
 				pstmt.close ();
@@ -69,22 +75,22 @@ public class DaoDeAviones {
 		}
 		
 		
-		public List<Avion> listarAviones(IConexion con) throws PersistenciaException {
+		public Avion[] listarAviones(IConexion con) throws PersistenciaException {
 			consultas cons = new consultas();
-			List<Avion> lista_out = new ArrayList<Avion>();
+			//List<Avion> lista_out = new ArrayList<Avion>();
 			String sqlToExecute = cons.listarAviones();
 			PreparedStatement prstm;
 			try {
 				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
 				ResultSet rs = prstm.executeQuery();
+				int i=0;
 				while (rs.next()) {
-					
 					Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5),
 							                rs.getFloat(6),rs.getBoolean(7),rs.getInt(8),rs.getInt(9),rs.getInt(10),
 							                rs.getBoolean(11),rs.getBoolean(12),rs.getInt(13));
-							
-							                 
-					lista_out.add(out_av);
+					arreavion[i]=out_av ;	
+							  i++;               
+					//lista_out.add(out_av);
 				}
 				rs.close();
 				prstm.close();
@@ -93,39 +99,37 @@ public class DaoDeAviones {
 			}
 			
 			
-			return lista_out;
+			return arreavion;
 		}
 		
 		
 		
-		public Avion find(int in_AvionID, IConexion con) throws PersistenciaException {
+		public Avion kesimo(int in_AvionID, IConexion con) throws PersistenciaException {
 			Avion avion = null;
-			int avionId=0;
-			String jugadorUserName="";
-			String jugadorPassword="";
 			
-			int id;
-            int coordX;
-            int coordY;
-            boolean estado;
-            int vida;
-			float avionAngle;
-			boolean avionBomba;
-			int  cantidadBombas;
-			int avionAltura;
-			int  avionCombustible;
-			boolean  hayEnemigo;
-			boolean enCampoEnemigo;
-			int rangoDeVision;
+			
+			int id = 0;
+            int coordX = 0;
+            int coordY = 0;
+            boolean estado = false;
+            int vida = 0;
+			float avionAngle = 0;
+			boolean avionBomba = false;
+			int  cantidadBombas = 0;
+			int avionAltura = 0;
+			int  avionCombustible = 0;
+			boolean  hayEnemigo = false;
+			boolean enCampoEnemigo = false;
+			int rangoDeVision = 0;
 			
 			
 			
 			try{
 				consultas cons = new consultas ();
 			
-				String queryNin = cons.obtenerAvion();
-				PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (queryNin);
-				pstmt1.setInt(1, in_JugadorID);
+				String query = cons.obtenerAvion();
+				PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+				pstmt1.setInt(1, in_AvionID);
 				ResultSet rs1 = pstmt1.executeQuery ();
 				if (rs1.next ()){
 					id = rs1.getInt(1);

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import Utilitarios.MensajesPersonalizados;
 import logica.Artillero;
+import logica.Avion;
 import logica.Jugador;
 import logica.Artillero;
 import persistencia.baseDeDatos.consultas.consultas;
@@ -27,14 +28,6 @@ public  DaoArtilleria( ) {
 	}
 
 	
-	public Artillero[] getSecuenciaArtilleria() {
-		return secuenciaArtilleria;
-	}
-	public void setSecuenciaArtilleria(Artillero[] secuenciaArtilleria) {
-		this.secuenciaArtilleria = secuenciaArtilleria;
-	}
-	
-
 	 
 	public boolean estaVacia ( IConexion con) throws PersistenciaException
 	{
@@ -103,9 +96,11 @@ public  DaoArtilleria( ) {
 				out_id= rs1.getInt(1);
 				out_coordX= rs1.getInt(2);
 				out_coordY= rs1.getInt(3);
+				
 				out_estado= rs1.getBoolean(4);
 				out_vida= rs1.getInt(5);
 				out_hayEnemigo= rs1.getBoolean(6);
+				
 				out_rangoDeVision= rs1.getInt(7);
 				out_avionAngle= rs1.getFloat(8);
 				
@@ -123,8 +118,36 @@ public  DaoArtilleria( ) {
 		
 	}
 	
-	
+	public Artillero[] listarArtilleria(IConexion con) throws PersistenciaException {
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.listarArtilleros();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			int i=0;
+			while (rs.next()) {
 
+				Artillero out_av = new Artillero(rs.getInt(1), rs.getInt(2), rs.getInt(3), 
+						rs.getBoolean(4), rs.getInt(5), rs.getBoolean(6),
+						rs.getInt(7),rs.getFloat(8));
+				secuenciaArtilleria[i]=out_av ;	
+						  i++;               
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindArtilleros);
+		}
+		
+		
+		return secuenciaArtilleria;
+	}
+	
+	
+	
+/*
 	public int largo( IConexion con) throws PersistenciaException {
 		
 		int cant=0;
@@ -146,5 +169,9 @@ public  DaoArtilleria( ) {
 		return cant;
 	}
 	
-
+*/
+	
+	
+	
+	
 }
