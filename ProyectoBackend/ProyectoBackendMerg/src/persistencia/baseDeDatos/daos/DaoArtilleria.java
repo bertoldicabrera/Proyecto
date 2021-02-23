@@ -48,21 +48,22 @@ public  DaoArtilleria( ) {
 	
 	}
 	
-	public void insBack(Artillero in_Artillero, IConexion con) throws PersistenciaException {
+	public void insBack(int in_idBase, Artillero in_Artillero, IConexion con) throws PersistenciaException {
 		
 		
 		try{
 			consultas cons = new consultas();
 			String insert = cons.insertarArtillero();
 			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-			pstmt.setInt(1, in_Artillero.GetId());
-			pstmt.setInt (2, in_Artillero.getCoordX());
-			pstmt.setInt (3, in_Artillero.getCoordY());
-			pstmt.setBoolean(4, in_Artillero.getEstado());
-			pstmt.setInt (5, in_Artillero.getVida());
-			pstmt.setBoolean(6, in_Artillero.getHayEnemigo());
-			pstmt.setInt (7, in_Artillero.getRangoDeVision());
-			pstmt.setFloat(8,in_Artillero.getAvionAngle() );
+			pstmt.setInt(1, in_idBase);
+			pstmt.setInt(2, in_Artillero.GetId());
+			pstmt.setInt (3, in_Artillero.getCoordX());
+			pstmt.setInt (4, in_Artillero.getCoordY());
+			pstmt.setBoolean(5, in_Artillero.getEstado());
+			pstmt.setInt (6, in_Artillero.getVida());
+			pstmt.setBoolean(7, in_Artillero.getHayEnemigo());
+			pstmt.setInt (8, in_Artillero.getRangoDeVision());
+			pstmt.setFloat(9,in_Artillero.getAvionAngle() );
 			pstmt.executeUpdate ();
 			pstmt.close ();
 		}
@@ -129,11 +130,11 @@ public  DaoArtilleria( ) {
 			int i=0;
 			while (rs.next()) {
 
-				Artillero out_av = new Artillero(rs.getInt(1), rs.getInt(2), rs.getInt(3), 
+				        Artillero out_av = new Artillero(rs.getInt(1), rs.getInt(2), rs.getInt(3), 
 						rs.getBoolean(4), rs.getInt(5), rs.getBoolean(6),
 						rs.getInt(7),rs.getFloat(8));
-				secuenciaArtilleria[i]=out_av ;	
-						  i++;               
+				        secuenciaArtilleria[i]=out_av ;	
+						i++;               
 			}
 			rs.close();
 			prstm.close();

@@ -41,6 +41,8 @@ public class MensajesPersonalizados {
 	public String errorSQLDeleteBase;
 	public String errorSQLInsertEquipos;
 	public String errorSQLFindEquipos;
+	public String errorFachadaListaVacia;
+	public String errorFachadaListPartidas;
 	
 	
 	public MensajesPersonalizados(){
@@ -109,7 +111,9 @@ public class MensajesPersonalizados {
 		errorSQLListarBase					=p.getProperty("errorSQLListarBase");
 		errorSQLDeleteBase 					=p.getProperty("errorSQLDeleteBase");
 		errorSQLInsertEquipos				=p.getProperty("errorSQLInsertEquipos");
-		errorSQLFindEquipos					=p.getProperty("errorSQLInsertEquipos");					
+		errorSQLFindEquipos					=p.getProperty("errorSQLInsertEquipos");
+		errorFachadaListaVacia				=p.getProperty("errorFachadaListaVacia");
+		errorFachadaListPartidas			=p.getProperty("errorFachadaListPartidas");
 	}
 
 }

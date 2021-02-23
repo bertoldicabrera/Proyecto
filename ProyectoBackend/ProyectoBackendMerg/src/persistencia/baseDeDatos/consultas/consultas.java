@@ -181,4 +181,62 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String ultimoJugadorID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getJugadorIdByName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarPartidasDeUnJugador() {
+		
+		//Consultamos tabla auxiliar con relacion
+		//Hacer un Join de partidaJugador y devolever solo partidas por terminas de un jugador
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String existenPartidas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaPartidaID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaBaseID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaEquipoId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaTorreId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaTanqueId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String ultimaDepositoId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarEquiposDeUnaPartida() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

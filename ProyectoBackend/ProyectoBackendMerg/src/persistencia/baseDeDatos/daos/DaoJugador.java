@@ -238,6 +238,31 @@ public String getNameById(String in_JugadorID, IConexion con) throws Persistenci
 }
 
 
+public int geIdbyName(String in_name, IConexion con) throws PersistenciaException {
+	
+	int out_id= 0;
+
+	try{
+		consultas cons = new consultas ();
+	
+		String query = cons.getJugadorIdByName();
+		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		pstmt1.setString(1, in_name);
+		ResultSet rs1 = pstmt1.executeQuery ();
+		if (rs1.next ()){
+			out_id = rs1.getInt(1);
+		}
+		rs1.close ();
+		pstmt1.close ();
+		}
+	catch (SQLException e){
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return out_id;
+	
+}
+
+
 public boolean estaVacia(IConexion con) throws PersistenciaException {
 	boolean esta = false;
 	try{
@@ -257,7 +282,27 @@ public boolean estaVacia(IConexion con) throws PersistenciaException {
 	    
 	   
 	 
-	    
+public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
+	int cant=0;
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.ultimoJugadorID();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		if (rs.next()) {
+			cant=rs.getInt(1);
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return cant;
+	
+}
+
 	  
 	    
 	    

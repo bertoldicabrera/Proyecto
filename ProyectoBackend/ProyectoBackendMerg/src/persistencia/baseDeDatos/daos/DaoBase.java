@@ -46,19 +46,21 @@ public class DaoBase {
 
 	}
 
-	public void insert( Base ba, IConexion con) throws PersistenciaException {
-		int hola;
-		////Base test= new Base(hola);
+	public void insert( int idBase,Base ba, IConexion con) throws PersistenciaException {
+		int depositoId=getUltimoTorreId(con)+1;
+		int tanqueId=getTanqueId(con)+1;
+		int torreid=getUltimoTorreId(con)+1;
 		try{
 			consultas cons = new consultas();
 			String insert = cons.insertarBase();
 			PreparedStatement pstmt = 
-					((Conexion) con).getConnection().prepareStatement (insert);
-			pstmt.setInt(1,  ba.getIdDabse());
+			((Conexion) con).getConnection().prepareStatement (insert);
+			pstmt.setInt(1,  idBase);
+			pstmt.setInt(2,  torreid);
+			pstmt.setInt(3,  tanqueId);
+			pstmt.setInt(4,  depositoId);
 			
 			
-			//id de aviones, idartilleros
-//			pstmt.setInt (2, ba.getAviones());
 			
 			
 			
@@ -197,7 +199,84 @@ public class DaoBase {
 		}
 		return cant;
 	}
+	
+	
+	
+	public int getUltimoTorreId(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.ultimaTorreId();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
+		
 	}
+	
+	
+	public int getTanqueId(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.ultimaTanqueId();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
+		
+	}
+	
+	
+	public int getDepositoId(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.ultimaDepositoId();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	}
+
+
+
 
 	
 

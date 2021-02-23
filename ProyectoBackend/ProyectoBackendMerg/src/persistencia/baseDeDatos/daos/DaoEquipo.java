@@ -15,6 +15,7 @@ import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 public class DaoEquipo {
+	private int idpartida;
 	private int tope=2;
 	private Equipo[] equipos;
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
@@ -26,29 +27,32 @@ public class DaoEquipo {
 		
 	}
 	
-	public void  insBack (Equipo in_Equipo, IConexion con) throws PersistenciaException {
-		 int equipoID;
-		 int idJugador;
-		 int baseId;
-		 String bando;
+	public DaoEquipo(int in_idpartida, Equipo[] in_EQS) {
+		this.idpartida=in_idpartida;
+		this.equipos = in_EQS;
 		
-		
-		
+	}
+	
+	
+	
+	public void  insBack ( int in_idPartida,Equipo in_Equipo,int in_idBase, IConexion con) throws PersistenciaException {
+		 int equipoID=getUltimoEquipoId(con);
+		 Jugador[] jugAux=in_Equipo.getJugadores();
+		 consultas cons = new consultas();
+		 String insert = cons.insertarEquipo();
+		 String bando=in_Equipo.getBando();
+		 
+		for(int i=0;i<jugAux.length;i++) {
 			
-			
-			
-			
-			consultas cons = new consultas();
-			String insert = cons.insertarEquipo();
-			PreparedStatement pstmt;
-			try {
+			     PreparedStatement pstmt;
+			     try {
 				pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-				pstmt.setInt(1, in_Equipo.getEquipoID());
-				
-				///Pensar hoy que es manana del lado de base de datos
-//				pstmt.setInt (2, in_Equipo.getJugadores().getJugadorId());
-//				pstmt.setInt (3, in_Equipo.getBase().getIdDabse());
-//				pstmt.setString(4, in_Equipo.getBando());
+				pstmt.setInt(1,equipoID);
+				pstmt.setInt(2,jugAux[i].getJugadorId());
+				pstmt.setString(3,bando);
+				pstmt.setInt(4,in_idPartida);
+				pstmt.setInt(5,in_idBase);
+
 				
 				pstmt.executeUpdate ();
 				pstmt.close ();
@@ -57,9 +61,7 @@ public class DaoEquipo {
 				throw new PersistenciaException (mensg.errorSQLInsertEquipos);
 			}
 			
-			
-		
-		
+		}
 		
 	}
 
@@ -150,17 +152,90 @@ public class DaoEquipo {
 		} catch (SQLException e) {
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
-		
-		
 		return equipos;
+	}
+
+	public int getIdpartida() {
+		return idpartida;
+	}
+
+	public void setIdpartida(int idpartida) {
+		this.idpartida = idpartida;
+	}
+
+	public int getUltimaIsBase(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
 		
+		String sqlToExecute = cons.ultimaBaseID();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
 		
+	}
+	
+	
+	public int getUltimoEquipoId(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
 		
-		
-		
+		String sqlToExecute = cons.ultimaEquipoId();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
 		
 	}
 
+public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) throws PersistenciaException
+	{
+	
+	    DaoEquipo aux=null;
+        consultas cons = new consultas();
+        Equipo[] out_Equipos=new  Equipo[tope];
+        
+		
+		String sqlToExecute = cons.listarEquiposDeUnaPartida();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			int i=0;
+			while (rs.next()) {
+
+				Equipo out_av = new Equipo();
+				out_Equipos[i]=out_av ;	
+			 i++;               
+			}
+			aux=new DaoEquipo(in_idpartida,out_Equipos);
+			
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		
+		return aux;
+	}
 	
 
 
