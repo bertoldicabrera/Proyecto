@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
+
 import com.mysql.jdbc.Connection;
 import Utilitarios.MensajesPersonalizados;
+import logica.Jugador;
 import logica.Partida;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
@@ -135,10 +138,10 @@ public class DaoPartidas implements Serializable {
 		
 	}
 	
-	public List <Partida> listarPartidas(IConexion con) throws PersistenciaException
+	public TreeMap<Integer, Partida> listarPartidas(IConexion con) throws PersistenciaException
 	{
 		consultas cons = new consultas();
-		List<Partida> listaDePartidas = new ArrayList<Partida>();
+		TreeMap<Integer, Partida> listaDePartidas = new TreeMap<Integer, Partida>();
 		String sqlToExecute = cons.listarPartidas();
 		
 		PreparedStatement prstm;
@@ -160,7 +163,7 @@ public class DaoPartidas implements Serializable {
 						rs.getInt(8),
 						rs.getDate(9)
 						);
-				listaDePartidas.add(nuevaPartida);
+				listaDePartidas.put(nuevaPartida.getPartidaId(),nuevaPartida);
 			}
 			rs.close();
 			prstm.close();

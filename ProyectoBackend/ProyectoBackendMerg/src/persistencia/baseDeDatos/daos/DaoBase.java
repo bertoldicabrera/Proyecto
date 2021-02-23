@@ -3,6 +3,8 @@ package persistencia.baseDeDatos.daos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import Utilitarios.MensajesPersonalizados;
@@ -129,19 +131,74 @@ public class DaoBase {
 		return esta;
 	} 
 	
-	public void delete(Integer key, IConexion con) {
-		bases.remove(key);
+	public void delete(Integer key, IConexion con) throws PersistenciaException {
+		
+		try {
+			consultas cons = new consultas();
+			String borrarBase = cons.borrarbase();
+			
+			PreparedStatement prstm;
+			prstm = ((Conexion) con).getConnection().prepareStatement(borrarBase);
+			prstm.setInt(1, key);
+			prstm.executeUpdate();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLDeleteBase);
+		}
+		
+		
+		
 	}
 
-	public TreeMap<Integer, Base> listarBases(IConexion con) {
+	public TreeMap<Integer, Base> listarBases(IConexion con) throws PersistenciaException {
+		
+		consultas cons = new consultas();
+		TreeMap<Integer, Base> tree_out = new TreeMap<Integer, Base>();
+		String sqlToExecute = cons.listarBase();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			while (rs.next()) {
+				
+				Base base = new Base();//Poner Variables
+				tree_out.put(base.getIdDabse(), base);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLListarBase);
+		}
+		
+		
+		return tree_out;
 
-		return bases;
+		
 
 	}
 
-	public int largoBases() {
-
-		return bases.size();
+	public int largoBases(IConexion con) throws PersistenciaException {
+		
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.cantidadTotalBases();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindBase);
+		}
+		return cant;
+	}
 	}
 
-}
+	
+
+

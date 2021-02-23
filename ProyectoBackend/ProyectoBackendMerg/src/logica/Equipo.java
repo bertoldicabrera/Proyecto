@@ -3,7 +3,8 @@ package logica;
 public class Equipo {
 
 	private int equipoID;
-	private Jugador jugador; // hacer arreglo con tope
+	private int tope=1;
+	private Jugador[] jugadores; 
 	private Base base;
 	private String bando;
 	
@@ -13,10 +14,10 @@ public class Equipo {
 	}
 	
 	
-	public Equipo(int in_equipoID, Jugador in_Jugadores, Base  in_base, String  in_bando ) {
-		
+	public Equipo(int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando ) {
+		this.setJugadores(new  Jugador[tope]);
 		this.setEquipoID( in_equipoID);
-		this.setJugadore(in_Jugadores);
+        this.setJugadores(in_Jugadores);
 		this.setBase(  in_base);
 		this.setBando(  in_bando);
 	}
@@ -32,14 +33,7 @@ public class Equipo {
 	}
 
 
-	public Jugador getJugador() {
-		return jugador;
-	}
 
-
-	public void setJugadore(Jugador  in_Jugadore) {
-		this.jugador =  in_Jugadore;
-	}
 
 
 	public Base getBase() {
@@ -62,6 +56,16 @@ public class Equipo {
 
 	public void setBando(String  in_bando) {
 		this.bando =  in_bando;
+	}
+
+
+	public Jugador[] getJugadores() {
+		return jugadores;
+	}
+
+
+	public void setJugadores(Jugador[] jugadores) {
+		this.jugadores = jugadores;
 	}
 
 

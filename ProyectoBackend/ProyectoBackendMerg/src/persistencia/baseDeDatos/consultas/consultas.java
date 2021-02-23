@@ -141,4 +141,44 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String borrarbase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String cantidadTotalBases() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String existenJugadores() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String insertarEquipo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String cantidadEquipos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerKesimoEquipo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarEquipos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

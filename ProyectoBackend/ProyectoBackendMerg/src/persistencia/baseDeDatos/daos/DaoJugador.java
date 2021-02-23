@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+
 import Utilitarios.MensajesPersonalizados;
 import logica.Jugador;
 import persistencia.baseDeDatos.consultas.consultas;
@@ -113,9 +115,10 @@ public void delete(int in_JugadorID, IConexion con) throws PersistenciaException
 }
 
 
-public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException {
+public TreeMap<Integer, Jugador> listarJugadores(IConexion con) throws PersistenciaException {
+	
 	consultas cons = new consultas();
-	List<Jugador> lista_out = new ArrayList<Jugador>();
+	TreeMap<Integer, Jugador> tree_out = new TreeMap<Integer, Jugador>();
 	String sqlToExecute = cons.listarJugadores();
 	PreparedStatement prstm;
 	try {
@@ -124,16 +127,20 @@ public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException
 		while (rs.next()) {
 			
 			Jugador nuevoJ = new Jugador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getInt(5));
-			lista_out.add(nuevoJ);
+			tree_out.put(nuevoJ.getJugadorId(),nuevoJ);
+			
 		}
 		rs.close();
 		prstm.close();
 	} catch (SQLException e) {
-		throw new PersistenciaException (mensg.errorSQLListarUsuarios);
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
 	
 	
-	return lista_out;
+	return tree_out;
+
+	
+
 }
 
 public int  cantidadJugadores(IConexion con) throws PersistenciaException {
@@ -229,6 +236,24 @@ public String getNameById(String in_JugadorID, IConexion con) throws Persistenci
 	return nombre;
 	
 }
+
+
+public boolean estaVacia(IConexion con) throws PersistenciaException {
+	boolean esta = false;
+	try{
+		consultas cons = new consultas();
+		String query = cons.existenJugadores();
+		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		ResultSet rs = pstmt.executeQuery ();
+		if (rs.next ())
+			esta = true;
+		rs.close ();
+		pstmt.close ();
+	}catch (SQLException e){
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return esta;
+} 
 	    
 	   
 	 
