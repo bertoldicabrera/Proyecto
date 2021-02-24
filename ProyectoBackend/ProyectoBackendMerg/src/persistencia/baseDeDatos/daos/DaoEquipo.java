@@ -35,7 +35,7 @@ public class DaoEquipo {
 	
 	
 	
-	public void  insBack ( int in_idPartida,Equipo in_Equipo,int in_idBase, IConexion con) throws PersistenciaException {
+	public void  insBack ( int in_idPartida,Equipo in_Equipo, IConexion con) throws PersistenciaException {
 		 int equipoID=getUltimoEquipoId(con);
 		 Jugador[] jugAux=in_Equipo.getJugadores();
 		 consultas cons = new consultas();
@@ -51,7 +51,6 @@ public class DaoEquipo {
 				pstmt.setInt(2,jugAux[i].getJugadorId());
 				pstmt.setString(3,bando);
 				pstmt.setInt(4,in_idPartida);
-				pstmt.setInt(5,in_idBase);
 
 				
 				pstmt.executeUpdate ();
@@ -163,26 +162,9 @@ public class DaoEquipo {
 		this.idpartida = idpartida;
 	}
 
-	public int getUltimaIsBase(IConexion con) throws PersistenciaException {
-		int cant=0;
-		consultas cons = new consultas();
-		
-		String sqlToExecute = cons.ultimaBaseID();
-		PreparedStatement prstm;
-		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
-			ResultSet rs = prstm.executeQuery();
-			if (rs.next()) {
-				cant=rs.getInt(1);
-			}
-			rs.close();
-			prstm.close();
-		} catch (SQLException e) {
-			throw new PersistenciaException (mensg.errorSQLFindEquipos);
-		}
-		return cant;
-		
-	}
+	
+	
+
 	
 	
 	public int getUltimoEquipoId(IConexion con) throws PersistenciaException {

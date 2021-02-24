@@ -43,6 +43,9 @@ public class MensajesPersonalizados {
 	public String errorSQLFindEquipos;
 	public String errorFachadaListaVacia;
 	public String errorFachadaListPartidas;
+	public String errorSQLFindDeposito;
+	public String errorSQLFindTanqueCombustible;
+	public String errorSQLFindTorreControl;
 	
 	
 	public MensajesPersonalizados(){
@@ -114,6 +117,9 @@ public class MensajesPersonalizados {
 		errorSQLFindEquipos					=p.getProperty("errorSQLInsertEquipos");
 		errorFachadaListaVacia				=p.getProperty("errorFachadaListaVacia");
 		errorFachadaListPartidas			=p.getProperty("errorFachadaListPartidas");
+		errorSQLFindDeposito				=p.getProperty("errorSQLFindDeposito");
+		errorSQLFindTanqueCombustible		=p.getProperty("errorSQLFindTanqueCombustible");
+		errorSQLFindTorreControl            =p.getProperty("errorSQLFindTorreControl");
 	}
 
 }

@@ -239,4 +239,24 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String obtenerDepositobyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerTanquebyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerTorreControlbyId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String obtenerAvionXBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -19,9 +19,14 @@ public class DaoDeAviones {
 	
 	private int tope= 4;
 	private Avion[]arreavion;
+	int baseId;
 	
 	public DaoDeAviones() {
 		arreavion= new Avion[tope];
+		}
+	public DaoDeAviones(int in_idBase) {
+		this.baseId=in_idBase;
+		this.arreavion= new Avion[tope];
 		}
 		
 	
@@ -84,7 +89,36 @@ public class DaoDeAviones {
 				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
 				ResultSet rs = prstm.executeQuery();
 				int i=0;
-				while (rs.next()) {
+				while ((rs.next())&&(i<tope)) {
+					Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5),
+							                rs.getFloat(6),rs.getBoolean(7),rs.getInt(8),rs.getInt(9),rs.getInt(10),
+							                rs.getBoolean(11),rs.getBoolean(12),rs.getInt(13));
+					arreavion[i]=out_av ;	
+							  i++;               
+					//lista_out.add(out_av);
+				}
+				rs.close();
+				prstm.close();
+			} catch (SQLException e) {
+				throw new PersistenciaException (mensg.errorSQLListarAviones);
+			}
+			
+			
+			return arreavion;
+		}
+		
+		
+		public Avion[] listarAvionesXBase(IConexion con) throws PersistenciaException {
+			consultas cons = new consultas();
+			//List<Avion> lista_out = new ArrayList<Avion>();
+			String sqlToExecute = cons.obtenerAvionXBase();
+			PreparedStatement prstm;
+			try {
+				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+				 prstm.setInt(1, this.baseId);
+				 ResultSet rs = prstm.executeQuery();
+				int i=0;
+				while ((rs.next())&&(i<tope)) {
 					Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5),
 							                rs.getFloat(6),rs.getBoolean(7),rs.getInt(8),rs.getInt(9),rs.getInt(10),
 							                rs.getBoolean(11),rs.getBoolean(12),rs.getInt(13));
@@ -104,10 +138,8 @@ public class DaoDeAviones {
 		
 		
 		
-		public Avion kesimo(int in_AvionID, IConexion con) throws PersistenciaException {
-			Avion avion = null;
-			
-			
+		public Avion kesimo(int index, IConexion con) throws PersistenciaException {
+			Avion avion = null;			
 			int id = 0;
             int coordX = 0;
             int coordY = 0;
@@ -121,17 +153,18 @@ public class DaoDeAviones {
 			boolean  hayEnemigo = false;
 			boolean enCampoEnemigo = false;
 			int rangoDeVision = 0;
-			
-			
+			Avion[]arregavion= new Avion[tope];
 			
 			try{
+				int ind=0;
+				
 				consultas cons = new consultas ();
-			
-				String query = cons.obtenerAvion();
+			    
+				String query = cons.obtenerAvionXBase();
 				PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
-				pstmt1.setInt(1, in_AvionID);
+				pstmt1.setInt(1, this.baseId);
 				ResultSet rs1 = pstmt1.executeQuery ();
-				if (rs1.next ()){
+				while ((rs1.next ()) &&(ind<tope)){
 					id = rs1.getInt(1);
 					coordX = rs1.getInt(2);
 					coordY = rs1.getInt(3);
@@ -145,19 +178,26 @@ public class DaoDeAviones {
 					hayEnemigo=rs1.getBoolean(11);
 					enCampoEnemigo=rs1.getBoolean(12);
 					rangoDeVision=rs1.getInt(13);
-					
+					avion = new Avion (id, coordX, coordY, estado, vida,avionAngle,avionBomba,cantidadBombas,avionAltura,avionCombustible,
+					           hayEnemigo,enCampoEnemigo,rangoDeVision);
+					arregavion[ind]=avion;
 					
 						
 				}
 				rs1.close ();
 				pstmt1.close ();
-				avion = new Avion (id, coordX, coordY, estado, vida,avionAngle,avionBomba,cantidadBombas,avionAltura,avionCombustible,
-						           hayEnemigo,enCampoEnemigo,rangoDeVision);
+				
 				}
 			catch (SQLException e){
 				throw new PersistenciaException (mensg.errorSQLFindAvion);
+			
 			}
-			return avion;
+			return arregavion[index] ;
+		}
+		
+		
+		public void setArreAviones(Avion[] in_arreavion) {
+			this.arreavion = in_arreavion;
 		}
 		
 		

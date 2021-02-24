@@ -169,18 +169,21 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			Partida part= devolverPartidaDadoVO(in_voPartida,idpartida++);
 			daoP.insert(part, icon);
 			//Creo los equipos e inserto los equipos con el id de la partida
-			 Equipo [] auxEquipo=null;
-			 auxEquipo=part.getEquipos().listarEquipos(icon);//Esto es un arreglo con los N equipos
+			Equipo [] auxEquipo=null;
+			auxEquipo=part.getEquipos().listarEquipos(icon);//Esto es un arreglo con los N equipos
 			int largoArreglo=auxEquipo.length;
-			int idbase= daoE.getUltimaIsBase(icon);
+			int idbase= daoB.getUltimaIsBase(icon);
 			idbase++;
 			for(int i=0;i<largoArreglo;i++)
 			{
 				
-
-				daoE.insBack(idpartida, auxEquipo[i],idbase, icon);
+             
+			
+				daoE.insBack(idpartida, auxEquipo[i], icon);
 				Base auxBase=auxEquipo[i].getBase();
-				daoB.insert(idbase,auxBase, icon);
+				
+			
+				daoB.insert(idbase,auxEquipo[i].getEquipoID(), icon);
 				
 				
 				Avion[] auxAviones=auxBase.getAviones().listarAviones(icon);

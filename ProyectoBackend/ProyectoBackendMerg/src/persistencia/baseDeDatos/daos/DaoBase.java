@@ -8,8 +8,13 @@ import java.util.List;
 import java.util.TreeMap;
 
 import Utilitarios.MensajesPersonalizados;
+import logica.Artillero;
+import logica.Avion;
 import logica.Base;
+import logica.Deposito;
 import logica.Jugador;
+import logica.TanqueCombustible;
+import logica.TorreControl;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
@@ -46,19 +51,24 @@ public class DaoBase {
 
 	}
 
-	public void insert( int idBase,Base ba, IConexion con) throws PersistenciaException {
+	public void insert( int idBase,int in_idEquipo, IConexion con) throws PersistenciaException {
 		int depositoId=getUltimoTorreId(con)+1;
 		int tanqueId=getTanqueId(con)+1;
 		int torreid=getUltimoTorreId(con)+1;
 		try{
+			
+			///Llamar a insertar a deposito tanque y torre.
+			
+			
 			consultas cons = new consultas();
 			String insert = cons.insertarBase();
-			PreparedStatement pstmt = 
-			((Conexion) con).getConnection().prepareStatement (insert);
+			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
 			pstmt.setInt(1,  idBase);
 			pstmt.setInt(2,  torreid);
 			pstmt.setInt(3,  tanqueId);
 			pstmt.setInt(4,  depositoId);
+			pstmt.setInt(5,in_idEquipo);
+			
 			
 			
 			
@@ -79,27 +89,40 @@ public class DaoBase {
 		
 	}
 
-	public Base find(Integer key, IConexion con) throws PersistenciaException {
+	public Base find(int in_idBase, IConexion con) throws PersistenciaException {
 		Base base=null;
+		Deposito Dep=null;
+		Avion av=null;
+		Artillero ar=null;
+		TanqueCombustible tc=null;
+		TorreControl    t=null;
+		DaoDeAviones aviones=null;
+	    DaoArtilleria artilleros=null;
+		
 		try{
 			consultas cons = new consultas ();
 		
 			String query = cons.obtenerBase();
 			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
-			pstmt1.setInt(1, key);
+			pstmt1.setInt(1, in_idBase);
 			ResultSet rs1 = pstmt1.executeQuery ();
 			if (rs1.next ()){
-//				jugadorId = rs1.getInt(1);
-//				jugadorUserName = rs1.getString(2);
-//				jugadorPassword = rs1.getString(3);
-//				jugadorIsOnline = rs1.getBoolean(4);
-//				puntajeAcumulado= rs1.getInt(5);
+				
+				t=findTorreControl(rs1.getInt(2),con);
+				tc=findTanqueCombustible(rs1.getInt(3),con);
+				Dep = findDeposito(rs1.getInt(4),con);
+				int tanquecombusId = rs1.getInt(3);
+			    int depoId = rs1.getInt(4);
+				int Equipoid =rs1.getInt(5);
 				
 				
 			}
 			rs1.close ();
 			pstmt1.close ();
-			 base = new Base (); //Poner las variables 
+			
+			
+			
+			 base = new Base (in_idBase,torrecontrolId,depoId,Equipoid); //Poner las variables 
 			}
 		catch (SQLException e){
 			throw new PersistenciaException (mensg.errorSQLFindBase);
@@ -269,13 +292,137 @@ public class DaoBase {
 	
 	
 	
+	public int getUltimaIsBase(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.ultimaBaseID();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
+		
+	}
 	
+	public Deposito findDeposito(int in_depositoId, IConexion con) throws PersistenciaException
+	{
+		Deposito Dep=null;
+		consultas cons = new consultas ();
+		int Coordx;
+		int Coordy;
+		boolean estado;
+		int vida;
+		int cantidadDep;
+		boolean enUso;
+		
+		
+		try {
+			String query = cons.obtenerDepositobyId();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			pstmt1.setInt(1, in_depositoId);
+			ResultSet rs1;
+			rs1 = pstmt1.executeQuery ();
+			if (rs1.next ()){
+				
+				Coordx=rs1.getInt(2);
+				Coordy=rs1.getInt(3);
+				estado=rs1.getBoolean(4);
+				vida=rs1.getInt(5);
+				cantidadDep=rs1.getInt(6);
+				enUso=rs1.getBoolean(7);
+				Dep=new Deposito(in_depositoId,Coordx,Coordy,estado,vida,cantidadDep,enUso);
+				}
+			rs1.close ();
+			pstmt1.close ();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindDeposito);			
+		}
 	
-	
+	return Dep;
 	
 	}
+	
+	public TanqueCombustible findTanqueCombustible(int in_tanqueCombustibleId, IConexion con) throws PersistenciaException{
+		TanqueCombustible TQ=null;
+		consultas cons = new consultas ();
+		int Coordx;
+		int Coordy;
+		boolean estado;
+		int vida;
+		int cantidadCombustible;
+		boolean enUso;
+		
+		try {
+			String query = cons.obtenerTanquebyId();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			pstmt1.setInt(1, in_tanqueCombustibleId);
+			ResultSet rs1;
+			rs1 = pstmt1.executeQuery ();
+			if (rs1.next ()){
+				
+				Coordx=rs1.getInt(2);
+				Coordy=rs1.getInt(3);
+				estado=rs1.getBoolean(4);
+				vida=rs1.getInt(5);
+				cantidadCombustible=rs1.getInt(6);
+				enUso=rs1.getBoolean(7);
+				TQ=new TanqueCombustible(in_tanqueCombustibleId,Coordx,Coordy,estado,vida,cantidadCombustible,enUso);
+				}
+			rs1.close ();
+			pstmt1.close ();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindTanqueCombustible);			
+		}
+	return TQ;
+	}
+	
+	public TorreControl findTorreControl(int in_torreControlId, IConexion con) throws PersistenciaException{
+		TorreControl TC=null;
+		consultas cons = new consultas ();
+		int Coordx;
+		int Coordy;
+		boolean estado;
+		int vida;
+		boolean hayenemigo;
+		int rangovision;
+		
+		try {
+			String query = cons.obtenerTorreControlbyId();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			pstmt1.setInt(1, in_torreControlId);
+			ResultSet rs1;
+			rs1 = pstmt1.executeQuery ();
+			if (rs1.next ()){
+				
+				Coordx=rs1.getInt(2);
+				Coordy=rs1.getInt(3);
+				estado=rs1.getBoolean(4);
+				vida=rs1.getInt(5);
+				hayenemigo=rs1.getBoolean(6);
+				rangovision=rs1.getInt(7);
+				TC=new TorreControl(in_torreControlId,Coordx,Coordy,estado,vida,hayenemigo,rangovision);
+				}
+			rs1.close ();
+			pstmt1.close ();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindTorreControl);			
+		}
+	return TC;
+	}
+	
+	
+	
 
-
+}
 
 
 	
