@@ -102,7 +102,7 @@ public class DaoBase {
 			rs1.close();
 			pstmt1.close();
 			out_base = new Base(in_idBase, out_aviones, out_artilleros, out_deposito, out_tanquecombustible,
-					out_torrecontrol); // Poner las variables
+					out_torrecontrol);
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
@@ -147,6 +147,14 @@ public class DaoBase {
 	public TreeMap<Integer, Base> listarBases(IConexion con) throws PersistenciaException {
 
 		consultas cons = new consultas();
+		Base out_base = null;
+		Deposito out_deposito = null;
+		Avion[] arreavion = null;
+		Artillero[] arreart = null;
+		TanqueCombustible out_tanquecombustible = null;
+		TorreControl out_torrecontrol = null;
+		DaoDeAviones out_aviones = null;
+		DaoArtilleria out_artilleros = null;
 		TreeMap<Integer, Base> tree_out = new TreeMap<Integer, Base>();
 		String sqlToExecute = cons.listarBase();
 		PreparedStatement prstm;
@@ -154,9 +162,20 @@ public class DaoBase {
 			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			while (rs.next()) {
+				int idBase = rs.getInt(1);
+				out_torrecontrol = findTorreControl(rs.getInt(2), con);
+				out_tanquecombustible = findTanqueCombustible(rs.getInt(3), con);
+				out_deposito = findDeposito(rs.getInt(4), con);
+				out_aviones = new DaoDeAviones(rs.getInt(1));
+				arreavion = out_aviones.listarAvionesXBase(con);
+				out_aviones.setArreAviones(arreavion);
+				out_artilleros = new DaoArtilleria(rs.getInt(1));
+				arreart = out_artilleros.listarArtilleriaXBase(con);
+				out_artilleros.setArreArtilleria(arreart);
 
-				Base base = new Base();// Poner Variables
-				tree_out.put(base.getIdDabse(), base);
+				out_base = new Base(idBase, out_aviones, out_artilleros, out_deposito, out_tanquecombustible,
+						out_torrecontrol);
+				tree_out.put(out_base.getIdDabse(), out_base);
 			}
 			rs.close();
 			prstm.close();
