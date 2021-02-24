@@ -259,4 +259,9 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String listarArtillerosXBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
