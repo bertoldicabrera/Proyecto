@@ -219,7 +219,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	{
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
-		daoJ.logoutJugador(in_userName, icon);
+		daoJ.logoutJugador(in_userName, icon); // ver linea 232
+	
+		ipool.liberarConexion(icon, true);
 		}
 		catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
@@ -247,6 +249,54 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	 */
 
+	public boolean jugadorIsOnline(String in_name) {
+		IConexion icon = ipool.obtenerConexion(true);
+		boolean out_es=false;
+
+		try {
+			
+				
+			out_es= daoJ.estaOnline(in_name, icon); // ver linea 274
+				 
+				ipool.liberarConexion(icon, true);
+				throw new LogicaException(mensg.errorFachadaEstaOnline); 
+			
+			}
+		         catch (Exception e) {
+		          ipool.liberarConexion(icon, false);
+		         throw new LogicaException(mensg.errorFachadaEstaOnline);
+		}
+		return out_es;
+		
+	}
+	
+	/*
+	 public boolean  estaOnline(IConexion con) throws PersistenciaException {
+	
+	boolean out_es=false;
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.isOnLineJugador();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		if (rs.next()) {
+			out_es=rs.getBollean(1);
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
+	}
+	return out_es;
+}
+	 */
+	
+	
+	
+	
+	
 	
 	
 	private VOJugador devolverVOJugador(Jugador in_aux)
