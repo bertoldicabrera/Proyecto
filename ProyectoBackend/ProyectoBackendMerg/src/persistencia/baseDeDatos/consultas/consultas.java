@@ -132,23 +132,23 @@ public class consultas {
 	}
 
 	public String listarBase() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select idBase,idTCtrolBase,idTcombBase,idDepoBase,idEquipoBase From BASE";
+		return query;
 	}
 
 	public String cantidadTotalBases() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select count(idBase) From BASE";
+		return query;
 	}
 
 	public String existenJugadores() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select * From JUGADOR";
+		return query;
 	}
 
 	public String insertarEquipo() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="insert into Equipo values(?,?,?,?,?)\"";
+		return query;
 	}
 
 	public String cantidadEquipos() {
