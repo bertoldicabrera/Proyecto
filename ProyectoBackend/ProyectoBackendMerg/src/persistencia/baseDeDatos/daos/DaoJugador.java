@@ -300,11 +300,46 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
 	return cant;
-	
 }
+	
+	 public boolean  estaOnline(String in_name,IConexion con) throws PersistenciaException {
+			
+			boolean out_es=false;
+			consultas cons = new consultas();
+			
+			String sqlToExecute = cons.isOnLineJugador();
+			PreparedStatement prstm;
+			try {
+				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+				prstm.setString(1, in_name);;
+				ResultSet rs = prstm.executeQuery();
+				if (rs.next()) {
+					out_es=rs.getBoolean(1);
+				}
+				rs.close();
+				prstm.close();
+			} catch (SQLException e) {
+				throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
+			}
+			return out_es;
+	
+                     }
 
 	  
-	    
+	 public void logoutJugador(String in_name, IConexion con) throws PersistenciaException {
+			try{
+				consultas cons = new consultas ();
+			
+				String query = cons.logoutJugadorPorUserName(); 
+				PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+				pstmt.setString(1, in_name);
+				pstmt.executeUpdate ();
+				pstmt.close ();
+				}
+			catch (SQLException e){
+				throw new PersistenciaException (mensg.errorSQLAlHacerLogout);
+			}
+		}
 	    
 	    
 	    
