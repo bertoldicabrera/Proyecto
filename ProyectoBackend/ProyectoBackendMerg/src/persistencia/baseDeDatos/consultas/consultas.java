@@ -4,7 +4,7 @@ public class consultas {
 
 	//Dado el nombre de jugador se trae el jugador
 	public String existeJugador(){
-		String query="select * from JUGADOR where nombreJugador=(?)";
+		String query="select idJugador, nombreJugador, passJugador, onlineJugador, puntajeJugador from JUGADOR where nombreJugador=(?)";
 		return query;
 	}
 	
@@ -16,12 +16,12 @@ public class consultas {
 	
 	//Inserta Jugador 
 	public String insertarJugador() {
-		String query="insert into JUGADOR values(?,?,?,?,?)";
+		String query="insert into JUGADOR(idJugador, nombreJugador, passJugador, onlineJugador, puntajeJugador) values(?,?,?,?,?)";
 		return query;
 	}
 	//Insertar Partida
 	public String insertarPartida() {
-		String query="insert into PARTIDA values(?,?,?,?,?,?,?,?,?)";
+		String query="insert into PARTIDA(idPartida, estadoPartida, ultimaactualizacionPartida, guardadaPartida, nombrePartida,  cantjugadoresPartida,  creadorPartida, fechacreadaPartida,  terminoPartida) values(?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
 	
@@ -78,23 +78,23 @@ public class consultas {
 	}
 	//Se devuelven los artilleros 
 	public String estaVaciaArtillero() {
-		String query="Select * from Artillero";
+		String query="Select idArt, CoordXArt, CoordYArt, EstadoArt, VidaArt, HayEnemigoArt, RangoDeVisionArt, AnguloArt, idbaseArt from Artillero";
 		return query;
 	}
 	//Se insertan artilleros
 	public String insertarArtillero() {
-		String query="insert into Artillero values(?,?,?,?,?,?,?,?,?)";
+		String query="insert into Artillero(idArt, CoordXArt, CoordYArt, EstadoArt, VidaArt, HayEnemigoArt, RangoDeVisionArt, AnguloArt, idbaseArt) values(?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
 	
 	//Se devuelven los aviones 
 	public String existenAviones() {
-		String query="Select * from Avion";
+		String query="Select idAvion, CoordXAvion, CoordYAvion, EstadoAvion, VidaAvion, AnguloAvion, BombasEnAvion, BombasAvion, AlturaAvion, CombustibleAvion, HayEnemigoAvion, RangoDeVisionAvion, EnCampoEnemigo, idbaseAvion from Avion";
 		return query;
 	}
 	//Se insertan Aviones
 	public String insertarAvion() {
-		String query="insert into Avion values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String query="insert into Avion (idAvion, CoordXAvion, CoordYAvion, EstadoAvion, VidaAvion, AnguloAvion, BombasEnAvion, BombasAvion, AlturaAvion, CombustibleAvion, HayEnemigoAvion, RangoDeVisionAvion, EnCampoEnemigo, idbaseAvion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
    
@@ -112,12 +112,12 @@ public class consultas {
 	}
     //Se valida si hay bases
 	public String existeBase() {
-		String query="Select * From BASE";
+		String query="Select idBase, idTCtrolBase, idTcombBase, idDepoBase, idEquipoBase From BASE";
 		return query;
 	}
     //Se ingresa una base
 	public String insertarBase() {
-		String query="insert into BASE values(?,?,?,?,?)";
+		String query="insert into BASE(idBase, idTCtrolBase, idTcombBase, idDepoBase, idEquipoBase) values(?,?,?,?,?)";
 		return query;
 	}
     //Se obtiene una base dado su ID
@@ -142,12 +142,12 @@ public class consultas {
 	}
 
 	public String existenJugadores() {
-		String query="Select * From JUGADOR;";
+		String query="Select idJugador, nombreJugador, passJugador, onlineJugador, puntajeJugador From JUGADOR;";
 		return query;
 	}
 
 	public String insertarEquipo() {
-		String query="insert into Equipo values(?,?,?,?);";
+		String query="insert into Equipo (idEquipo, idJugadorEquipo, bandoEquipo, partidaEquipo) values(?,?,?,?);";
 		return query;
 	}
 
@@ -156,13 +156,13 @@ public class consultas {
 		return query;
 	}
 
-	public String obtenerKesimoEquipo() {
-		// TODO Auto-generated method stub
-		return null;
+	public String obtenerEquipoxIDPartida() {
+		String query=" select idEquipo, idJugadorEquipo, bandoEquipo, partidaEquipo from Equipo where partidaEquipo =(?)";
+		return query;
 	}
 
 	public String listarEquipos() {
-		String query="Select * From Equipo;";
+		String query="Select idEquipo, idJugadorEquipo, bandoEquipo, partidaEquipo From Equipo;";
 		return query;
 	}
 
@@ -172,7 +172,7 @@ public class consultas {
 	}
 
 	public String getJugadorIdByName() {
-		String query="Selec * From Jugador where nombreJugador=(?);";
+		String query="Selec idJugador, nombreJugador, passJugador, onlineJugador, puntajeJugador From Jugador where nombreJugador=(?);";
 		return query;
 	}
 
@@ -220,39 +220,39 @@ public class consultas {
 	}
 
 	public String listarEquiposDeUnaPartida() {
-		String query="Select * from Equipo where idPartida=(?);";
+		String query="Select idEquipo, idJugadorEquipo, bandoEquipo, partidaEquipo from Equipo where idPartida=(?);";
 		return query;
 	}
 
 	public String obtenerDepositobyId() {
-		String query="Select * from deposito where idDepo=(?);";
+		String query="Select idDepo,  CoordXDepo,  CoordYDepo,  EstadoDepo,  VidaDepo,  CanBomboDepo,  EnUsoDepo from deposito where idDepo=(?);";
 		return query;
 	}
 
 	public String obtenerTanquebyId() {
-		String query="Select * from tanquecombustible where idTComb=(?);";
+		String query="Select idTComb,  CoordXTComb,  CoordYTComb,   EstadoTComb,  VidaTComb,  CantCombTComb,  EnUsoTComb from tanquecombustible where idTComb=(?);";
 		return query;
 	}
 
 	public String obtenerTorreControlbyId() {
-		String query="Select * from torrecontrol where idTCtrol=(?);";
+		String query="Select idTCtrol, CoordXTCtrol, CoordYTCtrol, EstadoTCtrol, VidaTCtrol, HayEnemigoTCtrol, RangoDeVisionTCtrol from torrecontrol where idTCtrol=(?);";
 		return query;
 	}
 
 	public String obtenerAvionXBase() {
-		String query="Select * from avion where idbaseAvion=(?);";
+		String query="Select idAvion, CoordXAvion, CoordYAvion, EstadoAvion, VidaAvion, AnguloAvion, BombasEnAvion, BombasAvion, AlturaAvion, CombustibleAvion, HayEnemigoAvion, RangoDeVisionAvion, EnCampoEnemigo, idbaseAvion from avion where idbaseAvion=(?);";
 		return query;
 	}
 
 	public String listarArtillerosXBase() {
-		String query="Select * from artillero where idbaseArt=(?);";
+		String query="Select idArt, CoordXArt, CoordYArt, EstadoArt, VidaArt, HayEnemigoArt, RangoDeVisionArt, AnguloArt, idbaseArt from artillero where idbaseArt=(?);";
 		return query;
 	}
 
 	// listar partidas dado un jugador(Ver LUEGO hay que hacer un join con Equipo,
 	// JugadorEquipo ------------------------)
 	public String listarPartidas() {
-		String query = "select * From PARTIDA where jugadorId=(?) ORDER BY numero";
+		String query = "select idPartida, estadoPartida, ultimaactualizacionPartida, guardadaPartida, nombrePartida,  cantjugadoresPartida,  creadorPartida, fechacreadaPartida,  terminoPartida From PARTIDA where jugadorId=(?) ORDER BY numero";
 		return query;
 	}
 
