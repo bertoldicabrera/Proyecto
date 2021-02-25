@@ -97,45 +97,38 @@ public class consultas {
 		String query="insert into Avion values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
-
+   
+	//Se listan todos los aviones
 	public String listarAviones() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select idAvion,CoordXAvion,CoordYAvion,EstadoAvion,VidaAvion,AnguloAvion,BombasEnAvion,BombasAvion,AlturaAvion,CombustibleAvion,HayEnemigoAvion,RangoDeVisionAvion,EnCampoEnemigo,idbaseAvion From Avion;";
+		return query;
 	}
 
-	public String obtenerAvion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+    //Se listan toda la artilleria
 	public String listarArtilleros() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select idArt,CoordXArt,CoordYArt,EstadoArt,VidaArt,HayEnemigoArt,RangoDeVisionArt,AnguloArt,idbaseArt from Artillero;";
+		return query;
 	}
-
+    //Se valida si hay bases
 	public String existeBase() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select * From BASE";
+		return query;
 	}
-
+    //Se ingresa una base
 	public String insertarBase() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="insert into BASE values(?,?,?,?,?)";
+		return query;
 	}
-
+    //Se obtiene una base dado su ID
 	public String obtenerBase() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select idBase,idTCtrolBase,idTcombBase,idDepoBase,idEquipoBase From BASE where idBase=(?);";
+		return query;
 	}
-
-	public String esmemberbase() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    //Borra una base dado su id
 	public String borrarbase() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="DELETE FROM BASE WHERE  idBase=(?);";
+		return query;
 	}
 
 	public String listarBase() {

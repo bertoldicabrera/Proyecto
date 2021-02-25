@@ -33,7 +33,7 @@ public class DaoBase {
 		boolean existe = false;
 		try {
 			consultas cons = new consultas();
-			String query = cons.esmemberbase();
+			String query = cons.obtenerBase();
 			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
 			pstmt.setInt(1, key);
 			ResultSet rs = pstmt.executeQuery();
