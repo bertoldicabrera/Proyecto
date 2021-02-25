@@ -60,13 +60,14 @@ public class DaoPartidas implements Serializable {
 		int out_PartidaCantidadJugadores = 0;
 		int out_PartidaCreador = 0;
 		Date out_PartidaFechaCreada = null;
+		boolean out_terminoPartida=false;
 		
 		
 		try{
 			consultas cons = new consultas ();
 		
-			String queryNin = cons.obtenerJugador();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (queryNin);
+			String query =cons.existePartida();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
 			pstmt1.setInt (1, in_PartidaId);
 			ResultSet rs1 = pstmt1.executeQuery ();
 			if (rs1.next ()){
@@ -79,6 +80,7 @@ public class DaoPartidas implements Serializable {
 				 out_PartidaCantidadJugadores= rs1.getInt(7);
 				 out_PartidaCreador= rs1.getInt(8);
 				 out_PartidaFechaCreada= rs1.getDate(9);
+				 out_terminoPartida=rs1.getBoolean(10);
 				
 			}
 			rs1.close ();

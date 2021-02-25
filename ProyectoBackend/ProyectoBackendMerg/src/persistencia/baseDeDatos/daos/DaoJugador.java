@@ -58,8 +58,8 @@ public Jugador find(int in_JugadorID, IConexion con) throws PersistenciaExceptio
 	try{
 		consultas cons = new consultas ();
 	
-		String queryNin = cons.obtenerJugador();
-		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (queryNin);
+		String query = cons.obtenerJugador();
+		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
 		pstmt1.setInt(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();
 		if (rs1.next ()){

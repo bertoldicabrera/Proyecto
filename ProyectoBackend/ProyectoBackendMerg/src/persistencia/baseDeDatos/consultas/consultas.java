@@ -2,109 +2,100 @@ package persistencia.baseDeDatos.consultas;
 
 public class consultas {
 	
+	//Dado el nombre de jugador se trae el jugador
 	public String existeJugador(){
-		String query="select * from JUGADOR where jugadorId=(?)";
+		String query="select * from JUGADOR where nombreJugador=(?)";
 		return query;
 	}
 	
+	//Dado el id de la partida se trae la partida
 	public String existePartida(){
-		String query="select * from PARTIDA where partidaId=(?)";
+		String query="select idPartida,estadoPartida,ultimaactualizacionPartida,guardadaPartida,nombrePartida,cantjugadoresPartida,creadorPartida,fechacreadaPartida,terminoPartida from PARTIDA where partidaId=(?)";
 		return query;
 	}
 	
+	//Inserta Jugador 
 	public String insertarJugador() {
 		String query="insert into JUGADOR values(?,?,?,?,?)";
 		return query;
 	}
-	
+	//Insertar Partida
 	public String insertarPartida() {
 		String query="insert into PARTIDA values(?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
 	
-	
+	//Listar Jugador
 	public String listarJugadores() {
-		String query="select * from JUGADOR ORDER BY jugadorId";
+		String query="select idJugador,nombreJugador,passJugador,onlineJugador,puntajeJugador from JUGADOR ORDER BY jugadorId";
 		return query;
 	}
 	
-	public String listarPartidas() {
-		String query="select * From PARTIDA where jugadorId=(?) ORDER BY numero";
-		return query;
-		}
 	
-	public String obtenerJugador() {
-		String query="select * from JUGADOR"
+	//Dado el id de jugador se trae el jugador
+	 public String obtenerJugador() {
+		String query="select idJugador,nombreJugador,passJugador,onlineJugador,puntajeJugador from JUGADOR"
 			       + " where jugadorId=(?)";
 		return query;
 	}
 	
-	public String obtenerPartida() {
-		String query="select * from PARTIDA"
-			       + " where partidaId=(?)";
-		return query;
-	}
+
 	
-	
+	//Borrar partida dado un id
 	public String borrarPartida() {
-		String query="";
+		String query="DELETE FROM PARTIDA WHERE idPartida=(?);";
 		return query;
 	}
+	//Borrar jugador dado un id
 	public String borrarJugador() {
-		String query=" ";
+		String query="DELETE FROM PARTIDA WHERE  jugadorId=(?);";
 		return query;
 	}
 	
-//String in_JugadorUserName, String in_JugadorPassword
+    //Se verifica que la cuenta del jugador exista
 	public String acountExists()
 	{
-		String query=" ";
+		String query="select idJugador,nombreJugador,passJugador,onlineJugador,puntajeJugador from JUGADOR"
+			       + " where nombreJugador=(?) and  passJugador=(?);";
 		return query;
 	}
-	
+	// Se obtiene el nombre del jugador dado el id del jugador
 	public String getName()
 	{
-		String query=" ";
+		String query="select nombreJugador from JUGADOR where idJugador=(?)";
 		return query;
 	}
+	// Se obtiene la cantidad total de jugadores del juego
 	public String cantidadTotalJugadores() {
-		String query=" ";
+		String query="SELECT count(*) as cantidad FROM JUGADOR";
 		return query;
 	}
-	
+	// Se obtiene la cantidad total de jugadores del juego que estan online 
 	public String cantidadJugadoresOnLine()
 	{
-		String query=" ";
+		String query="SELECT count(*) as cantidad FROM JUGADOR where onlineJugador=(1)";
 		return query;
 	}
-	
+	//Se devuelven los artilleros 
 	public String estaVaciaArtillero() {
-		String query=" ";
+		String query="Select * from Artillero";
 		return query;
 	}
+	//Se insertan artilleros
 	public String insertarArtillero() {
-		String query=" ";
+		String query="insert into Artillero values(?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
 	
-	public String obtenerKesimoArtillero() {
-		String query="";
-		return query;
-	}
-	public String cantidadArtilleros()
-	{
-		String query=" ";
-		return query;
-	}
-
+	//Se devuelven los aviones 
 	public String existenAviones() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="Select * from Avion";
+		return query;
 	}
-
+	//Se insertan Aviones
 	public String insertarAvion() {
-		// TODO Auto-generated method stub
-		return null;
+		String query="insert into Avion values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		return query;
 	}
 
 	public String listarAviones() {
@@ -264,4 +255,11 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//listar partidas dado un jugador(Ver LUEGO hay que hacer un join con Equipo, JugadorEquipo ------------------------)
+		public String listarPartidas() {
+			String query="select * From PARTIDA where jugadorId=(?) ORDER BY numero";
+			return query;
+			}
+	
 }

@@ -174,17 +174,6 @@ public class DaoArtilleria {
 		this.secuenciaArtilleria = in_arreArtilleria;
 	}
 
-	/*
-	 * public int largo( IConexion con) throws PersistenciaException {
-	 * 
-	 * int cant=0; consultas cons = new consultas();
-	 * 
-	 * String sqlToExecute = cons.cantidadArtilleros(); PreparedStatement prstm; try
-	 * { prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
-	 * ResultSet rs = prstm.executeQuery(); if (rs.next()) { cant=rs.getInt(1); }
-	 * rs.close(); prstm.close(); } catch (SQLException e) { throw new
-	 * PersistenciaException (mensg.errorSQLFindArtilleros); } return cant; }
-	 * 
-	 */
+	
 
 }
