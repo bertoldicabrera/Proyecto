@@ -12,6 +12,7 @@ import logica.Artillero;
 import logica.Avion;
 import logica.Base;
 import logica.Deposito;
+import logica.Equipo;
 import logica.Jugador;
 import logica.TanqueCombustible;
 import logica.TorreControl;
@@ -61,7 +62,7 @@ public class DaoBase {
 			pstmt.setInt(2, torreid);
 			pstmt.setInt(3, tanqueId);
 			pstmt.setInt(4, depositoId);
-			pstmt.setInt(5, in_idEquipo);
+//			pstmt.setInt(5, in_idEquipo);
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -79,6 +80,7 @@ public class DaoBase {
 		TorreControl out_torrecontrol = null;
 		DaoDeAviones out_aviones = null;
 		DaoArtilleria out_artilleros = null;
+		Equipo  out_equipo=null;
 
 		try {
 			consultas cons = new consultas();

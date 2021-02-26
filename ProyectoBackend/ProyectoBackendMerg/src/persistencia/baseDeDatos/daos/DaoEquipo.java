@@ -3,6 +3,8 @@ package persistencia.baseDeDatos.daos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Utilitarios.MensajesPersonalizados;
 import logica.Artillero;
@@ -18,6 +20,8 @@ public class DaoEquipo {
 	private int idpartida;
 	private int tope=2;
 	private Equipo[] equipos;
+	DaoJugador DaoJ;
+	DaoBase   DaoB;
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 	
 	
@@ -89,42 +93,45 @@ public class DaoEquipo {
 		
 	}
 	
-	public Equipo kesimo (int in_equipoID, IConexion con) throws PersistenciaException
-	{
+	public Equipo kesimo (int in_indexEQ, IConexion con) throws PersistenciaException
+	{    DaoJ=new  DaoJugador();
+	     DaoB=new DaoBase();
 		Equipo out_Equipo = null;
-		
-		//Falta todo
+		Jugador out_Jugador=null;
+		Base out_base= null;
+	    Jugador [] arreJugador=new Jugador [1] ;
+	    String out_bando="";
+	    List<Equipo> out_Equipos = new ArrayList<Equipo>();
 		
 		
 		try{
 			consultas cons = new consultas ();
 		
-			String query = cons.obtenerKesimoEquipo();
+			String query = cons.listarEquiposDeUnaPartida();
 			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
-			pstmt1.setInt (1, in_equipoID);
+			pstmt1.setInt (1, this.idpartida);
 			ResultSet rs1 = pstmt1.executeQuery ();
-			if (rs1.next ()){
-//				out_id= rs1.getInt(1);
-//				out_coordX= rs1.getInt(2);
-//				out_coordY= rs1.getInt(3);
-//				
-//				out_estado= rs1.getBoolean(4);
-//				out_vida= rs1.getInt(5);
-//				out_hayEnemigo= rs1.getBoolean(6);
-//				
-//				out_rangoDeVision= rs1.getInt(7);
-//				out_avionAngle= rs1.getFloat(8);
-//				
-				
-			}
+		
+			int ind=0;
+			while (rs1.next ()){
+ 				int out_idEquipo= rs1.getInt(1);
+ 				out_Jugador=DaoJ.find(rs1.getInt(2), con);
+ 				arreJugador[ind]=out_Jugador;
+ 				DaoB = new DaoBase();
+				out_base=DaoB.find(rs1.getInt(3), con);
+				out_bando=rs1.getString(4);
+				out_Equipo=new Equipo(out_idEquipo,arreJugador,out_base,out_bando);
+				out_Equipos.add(out_Equipo);
+				ind++;
+				}
 			rs1.close ();
 			pstmt1.close ();
-			out_Equipo = new Equipo ();
+			
 			}
 		catch (SQLException e){
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
-		return out_Equipo;
+		return out_Equipos.get(in_indexEQ);
 	}
 	
 

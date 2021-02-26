@@ -11,18 +11,20 @@ public class Base {
  private Deposito deposito;
  private TanqueCombustible tanque; 
  private TorreControl torre;
+ private Equipo equipo;
 
 	public Base() {
 	}
 	public Base(int in_idDabse,DaoDeAviones in_aviones,  
 			DaoArtilleria in_artilleros, Deposito in_deposito, 
-			TanqueCombustible in_tanque,TorreControl in_torre) {
+			TanqueCombustible in_tanque,TorreControl in_torre,Equipo in_equipo) {
 		this.setIdDabse(in_idDabse);
 		this.setAviones(in_aviones);
 		this.setArtilleros(in_artilleros);
 		this.setDeposito(in_deposito);
 		this.setTanque(in_tanque);
 		this.setTorre(in_torre);
+		this.setEquipo(in_equipo);;
 		
 	}
 	
@@ -75,6 +77,12 @@ public class Base {
 
 	public void setTorre(TorreControl in_torre) {
 		this.torre = in_torre;
+	}
+	public Equipo getEquipo() {
+		return equipo;
+	}
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
 	}
 	
 	
