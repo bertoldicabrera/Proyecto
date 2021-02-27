@@ -176,9 +176,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 				daoE.insBack(idpartida, auxEquipo[i], icon);
 				Base auxBase = auxEquipo[i].getBase();
-
-				daoB.insert(idbase, auxEquipo[i].getEquipoID(), icon);
-
+				Deposito auxDep = auxBase.getDeposito();
+				TanqueCombustible auxTC = auxBase.getTanque();
+				TorreControl auxTControl = auxBase.getTorre();
+				daoB.insert(idbase, auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
 				Avion[] auxAviones = auxBase.getAviones().listarAviones(icon);
 				int largoAviones = auxAviones.length;
 				for (int j = 0; i < largoAviones; j++) {
@@ -203,7 +204,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	public void logout(String in_userName) throws LogicaException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
-			daoJ.logoutJugador(in_userName, icon); // ver linea 232
+			daoJ.logoutJugador(in_userName, icon);
 
 			ipool.liberarConexion(icon, true);
 		} catch (PersistenciaException e) {

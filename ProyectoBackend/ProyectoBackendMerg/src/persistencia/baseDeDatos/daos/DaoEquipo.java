@@ -43,22 +43,28 @@ public class DaoEquipo {
 		 int equipoID=getUltimoEquipoId(con);
 		 Jugador[] jugAux=in_Equipo.getJugadores();
 		 consultas cons = new consultas();
-		 String insert = cons.insertarEquipo();
+		 String insertEquipo = cons.insertarEquipo();
+		 String insertEquipoJugadores=cons.InsertarEquipoJugador();
 		 String bando=in_Equipo.getBando();
 		 
 		for(int i=0;i<jugAux.length;i++) {
 			
-			     PreparedStatement pstmt;
+			     PreparedStatement pstmt1,pstmt2;
 			     try {
-				pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-				pstmt.setInt(1,equipoID);
-				pstmt.setInt(2,jugAux[i].getJugadorId());
-				pstmt.setString(3,bando);
-				pstmt.setInt(4,in_idPartida);
-
-				
-				pstmt.executeUpdate ();
-				pstmt.close ();
+			    	 //Inserto Equipo
+				pstmt1 = ((Conexion) con).getConnection().prepareStatement (insertEquipo);
+				pstmt1.setInt(1,equipoID);
+				pstmt1.setInt(2,jugAux[i].getJugadorId());
+				pstmt1.setString(3,bando);
+				pstmt1.setInt(4,in_idPartida);
+                pstmt1.executeUpdate ();
+				pstmt1.close ();
+				//Inserto EquipoJugador
+				pstmt2 = ((Conexion) con).getConnection().prepareStatement (insertEquipoJugadores);
+				pstmt2.setInt(1,jugAux[i].getJugadorId());
+				pstmt2.setInt(2,equipoID);
+				pstmt2.executeUpdate ();
+				pstmt2.close ();
 		
 			} catch (SQLException e) {
 				throw new PersistenciaException (mensg.errorSQLInsertEquipos);

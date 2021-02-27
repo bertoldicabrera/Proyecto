@@ -49,22 +49,59 @@ public class DaoBase {
 
 	}
 
-	public void insert(int idBase, int in_idEquipo, IConexion con) throws PersistenciaException {
+	public void insert(int idBase, int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
+			TorreControl in_TorreControl, IConexion con) throws PersistenciaException {
 		int depositoId = getUltimoTorreId(con) + 1;
 		int tanqueId = getTanqueId(con) + 1;
 		int torreid = getUltimoTorreId(con) + 1;
 		try {
-			/// Llamar a insertar a deposito tanque y torre.
+
 			consultas cons = new consultas();
-			String insert = cons.insertarBase();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
-			pstmt.setInt(1, idBase);
-			pstmt.setInt(2, torreid);
-			pstmt.setInt(3, tanqueId);
-			pstmt.setInt(4, depositoId);
-//			pstmt.setInt(5, in_idEquipo);
-			pstmt.executeUpdate();
-			pstmt.close();
+			// Inserto depostio
+			String insertDep = cons.insertarDeposito();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(insertDep);
+			pstmt1.setInt(1, depositoId);
+			pstmt1.setInt(2, in_Deposito.getCoordX());
+			pstmt1.setInt(3, in_Deposito.getCoordY());
+			pstmt1.setBoolean(4, in_Deposito.getEstado());
+			pstmt1.setInt(5, in_Deposito.getVida());
+			pstmt1.setInt(6, in_Deposito.getCantidaBombas());
+			pstmt1.setBoolean(7, in_Deposito.getEnUso());
+			pstmt1.executeUpdate();
+			pstmt1.close();
+			// Inserto TanqueCombustible
+			String insertTC = cons.insertarTanqueCombustible();
+			PreparedStatement pstmt2 = ((Conexion) con).getConnection().prepareStatement(insertTC);
+			pstmt1.setInt(1, tanqueId);
+			pstmt1.setInt(2, in_TanqueCombustible.getCoordX());
+			pstmt1.setInt(3, in_TanqueCombustible.getCoordY());
+			pstmt1.setBoolean(4, in_TanqueCombustible.getEstado());
+			pstmt1.setInt(5, in_TanqueCombustible.getVida());
+			pstmt1.setInt(6, in_TanqueCombustible.getCantidadCombustible());
+			pstmt1.setBoolean(7, in_TanqueCombustible.getEnUso());
+			pstmt1.executeUpdate();
+			pstmt1.close();
+			// Inserto TorreControl
+			String insertTControl = cons.insertarTorreControl();
+			PreparedStatement pstmt3 = ((Conexion) con).getConnection().prepareStatement(insertTControl);
+			pstmt1.setInt(1, torreid);
+			pstmt1.setInt(2, in_TorreControl.getCoordX());
+			pstmt1.setInt(3, in_TorreControl.getCoordY());
+			pstmt1.setBoolean(4, in_TorreControl.getEstado());
+			pstmt1.setInt(5, in_TorreControl.getVida());
+			pstmt1.setBoolean(6, in_TorreControl.getHayEnemigo());
+			pstmt1.setInt(7, in_TorreControl.getRangoDeVision());
+			pstmt1.executeUpdate();
+			pstmt1.close();
+			String insertBase = cons.insertarBase();
+			PreparedStatement pstmt4 = ((Conexion) con).getConnection().prepareStatement(insertBase);
+			pstmt4.setInt(1, idBase);
+			pstmt4.setInt(2, torreid);
+			pstmt4.setInt(3, tanqueId);
+			pstmt4.setInt(4, depositoId);
+			pstmt4.setInt(5, in_idEquipo);
+			pstmt4.executeUpdate();
+			pstmt4.close();
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertBase);
 		}
@@ -80,7 +117,7 @@ public class DaoBase {
 		TorreControl out_torrecontrol = null;
 		DaoDeAviones out_aviones = null;
 		DaoArtilleria out_artilleros = null;
-		Equipo  out_equipo=null;
+		Equipo out_equipo = null;
 
 		try {
 			consultas cons = new consultas();
