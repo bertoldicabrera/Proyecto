@@ -53,7 +53,117 @@ public class WebSocketPartida {
     	
 		return webSocketUnicaInstancia;
 	}
+
     
+    @OnMessage
+    public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException {
+    	msgConsola("$$$$$$$$$$$ Entro al Metodo public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException");
+    	msgConsola("DATOS DE ENTRADA::");
+    	msgConsola("in_Session.getId()::" + in_Session.getId());
+    	msgConsola("in_DatosJSON::" + in_DatosJSON);
+    	
+    	try {
+			
+	
+	    	
+	    	
+	    	String in_sessionId = in_Session.getId();
+	    	
+	    	////NOTA: A la lista generica webSocketAllSessions.add(in_Session); la agrego en el getInstancia;
+	    	
+	    	String in_partidaId = "";
+	    	boolean in_isIngresoPorPrimeraVez = false;  ////https://stackoverflow.com/questions/18496372/how-to-parse-json-boolean-value/18496412
+	    	
+	    	JSONObject jsonDataObject = new JSONObject(in_DatosJSON);
+	
+	    	////Obtengo la in_PartidaId desde el JSON de entrada
+	    	////Obtengo si s un ingreso por primera vez.
+	    	
+	    	in_partidaId = jsonDataObject.getString("partidaId");
+	    	msgConsola("in_partidaId::" + in_partidaId);
+	    	
+	    	in_isIngresoPorPrimeraVez = (1 == jsonDataObject.getInt("isIngresoPorPrimeraVez"));
+	    	msgConsola("in_isIngresoPorPrimeraVez::" + in_isIngresoPorPrimeraVez);
+	    	
+	    	in_isIngresoPorPrimeraVez = ((Boolean) jsonDataObject.get("isIngresoPorPrimeraVez")).booleanValue(); //// en el json ingresar algo como "key" : true,
+	    	msgConsola("in_isIngresoPorPrimeraVez::" + in_isIngresoPorPrimeraVez);
+	
+	    	
+	        if (in_isIngresoPorPrimeraVez) {
+	        	////Si es un ingreso por primera vez, me dedico a armar las partida-sessiones
+	        	
+	        	////Me fijo si ese partida ID esta en el MAP, 
+	        	boolean isPartidaEntranteEnMap = false;
+	        	isPartidaEntranteEnMap = webSocketAllPartidaSessions.containsKey(in_partidaId);
+	        	if (!isPartidaEntranteEnMap) { 
+	        		////Si NO esta, creo una lista de sessiones, a la cual le agrego esta in_SessionId que entra
+	        		ArrayList<Session> sessionesDePartidaNuevaAgregar = new ArrayList<Session>(); ////coleccion de sesiones nueva  a crear con el sessionIdy agregar al map
+	        		sessionesDePartidaNuevaAgregar.add(in_Session);
+	        		
+	        		//// y agrego esta partida
+	        		webSocketAllPartidaSessions.put(in_partidaId,sessionesDePartidaNuevaAgregar);
+	        		
+				} else {
+	    			////Si esta, entonces busco esa partida por el id y obtengo su lista de sessiones
+					ArrayList<Session> sessionesDePartidaActualObtenida = new ArrayList<Session>(); ////coleccion de sesiones de la partida en la que busque
+					sessionesDePartidaActualObtenida = (ArrayList<Session>) webSocketAllPartidaSessions.get(in_partidaId);
+					
+					boolean isSessionEntranteEnLista = false;
+					isSessionEntranteEnLista = sessionesDePartidaActualObtenida.contains(in_Session);
+		        	
+					if (isSessionEntranteEnLista) {
+						////Si mi in_SessionId esta en la lista, no hago nada (imprimo en consola que esta session ya esta ingresada, por lo que hay un error, ya que nunca deberia entrar aqui..
+						msgConsola("esta session ya esta ingresada, por lo que hay un error, ya que nunca deberia entrar aqui.. in_sessionId::"+in_sessionId);
+					} else {
+			        	////Sino, o sea, mi in_SessionId NO esta en la lista, la agrego a esa lista de sessiones de la partida.
+						sessionesDePartidaActualObtenida.add(in_Session);
+						////Y luego sustituyo con la lista actual
+						webSocketAllPartidaSessions.replace(in_partidaId, sessionesDePartidaActualObtenida);
+						
+						////retorno en un tercer, que quedo ingresada en el arbol y que ya no vuelva a mandar ese dato de primera vez en el json
+						
+						////modifico el campo existente, si no funciona, borro el actual y agrego nuevamente jsonDataObject.remove(key);
+						jsonDataObject.put("isIngresoPorPrimeraVez", false);
+						
+						//// y un cuarto campo el cual contiene la sessionID, solo para que quede eso... 
+						jsonDataObject.put("sessionId", in_sessionId);
+						
+						////retorno mi JSON a mi in_Session
+						String textoRespuestaJson = jsonDataObject.toString();
+						in_Session.getBasicRemote().sendText(textoRespuestaJson);
+					}
+				}
+	        	
+			} else {
+		    	////Si no es un ingreso por primera vez, continuo para mandar datos al resto correspondientes
+		    	//// si no es primer vez, significa que ésta in_SessionId esta en la lista interna de una partida
+				///busco la partida en el map con el in_partidaId
+				////obtengo la lista de sessiones internas
+				ArrayList<Session> sessionesDePartidaActualObtenida = new ArrayList<Session>(); ////coleccion de sesiones de la partida en la que busque
+				sessionesDePartidaActualObtenida = (ArrayList<Session>) webSocketAllPartidaSessions.get(in_partidaId);
+				
+		    	////y para cada session DISTINTA a la mia, le mando mi json de datos, referentes a como armar mi partida y mis objetos del otro lado (mi enemigo puede armar todo)
+	    	    for (Session sessionActual : sessionesDePartidaActualObtenida) { ////recorro todas las sesiones de esa partida
+	    	    	if ( !sessionActual.getId().equals(in_sessionId) ) { ////si la sesion en la que me paro NO es igual a la que entra, le mando mis datos
+	    	    		sessionActual.getBasicRemote().sendText(in_DatosJSON);
+					}
+	    	    }
+		    	
+			}
+	    	
+	
+	        Thread.sleep(100);
+	        
+        
+		} catch (Exception e) {
+			 msgConsola("catch (Exception e)::"+ e.getMessage());
+		}
+
+        msgConsola("$$$$$$$$$$$ Salio del Metodo public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException");
+    	
+    }
+    
+   
     @OnClose
     public void onClose(Session in_Session) {
     	msgConsola("=========== Entro al Metodo:: public static WebSocketPartida getInstancia(Session in_Session)");
@@ -62,40 +172,42 @@ public class WebSocketPartida {
     	webSocketAllSessions.remove(in_Session);
     	
     	boolean isElimine = false;
-    	String idPartidaActualRecorrida = "";
-    	Set<Session> sessionesDePartidaActualRecorrida = new HashSet<>();
-    	System.out.println("Cantidad de elementos del hashmap antes::"+webSocketAllPartidaSessions.size());
+    	String idPartidaActualRecorrida = " ";
+    	ArrayList<Session> sessionesDePartidaActualRecorrida = new ArrayList<>(); ////coleccion de sesiones de la partida en la que estoy parado
+    	msgConsola("Cantidad de elementos del hashmap antes::"+webSocketAllPartidaSessions.size());
     	for (Map.Entry<String, ArrayList<Session>> entry : webSocketAllPartidaSessions.entrySet()) {
     	    idPartidaActualRecorrida = entry.getKey();
-    	    sessionesDePartidaActualRecorrida = (Set<Session>) entry.getValue();
-    	    System.out.println("Cantidad de elementos de la subcoleccion antes::"+sessionesDePartidaActualRecorrida.size());
+    	    sessionesDePartidaActualRecorrida = (ArrayList<Session>) entry.getValue();
+    	    msgConsola("Cantidad de elementos de la subcoleccion antes::"+sessionesDePartidaActualRecorrida.size());
     	    
     	    isElimine = false;
-    	    for (Session sessionActual : sessionesDePartidaActualRecorrida) {
-    	    	if (sessionActual.getId().equals(in_Session.getId())) {
-    	    		sessionesDePartidaActualRecorrida.remove(in_Session.getId());
+    	    for (Session sessionActual : sessionesDePartidaActualRecorrida) { ////recorro todas las sesiones de esa partida
+    	    	if (sessionActual.getId().equals(in_Session.getId())) { ////si la sesion en la que me paro es igual a la que entra la elimino
+    	    		sessionesDePartidaActualRecorrida.remove(in_Session);
     	    		isElimine = true;
-    	    		System.out.println("Cantidad de elementos de la subcoleccion luego de borrar 1::"+sessionesDePartidaActualRecorrida.size());
+    	    		msgConsola("Cantidad de elementos de la subcoleccion luego de borrar 1::"+sessionesDePartidaActualRecorrida.size());
 				}
     	    }
-    	    if (isElimine) {
+    	    if (isElimine) { ////si elimine una session, le aviso a los demas que esa persona se fue.
         	    for (Session sessionActual : sessionesDePartidaActualRecorrida) {
         	    	try {
-						sessionActual.getBasicRemote().sendText("fromOnClose::in_Session.getId()=closeSession");
+        	    		JSONObject jsonDataOut = new JSONObject();
+        	    		jsonDataOut.put("fromOnClose::in_Session.getId()=closeSession", in_Session.getId() );
+        	    		String textoRespuestaJson = jsonDataOut.toString();
+					   	sessionActual.getBasicRemote().sendText(textoRespuestaJson); 
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
         	    }
 			}
-    	    System.out.println("Cantidad de elementos de la subcoleccion luego::"+sessionesDePartidaActualRecorrida.size());
-    	    if (sessionesDePartidaActualRecorrida.size()==0) {
+    	    msgConsola("Cantidad de elementos de la subcoleccion luego::"+sessionesDePartidaActualRecorrida.size());
+    	    if (sessionesDePartidaActualRecorrida.size()==0) { ////si luego de borrar la lista de sessions quedo sin sesiones, o sea sin jugadores, elimino la partida
     	    	webSocketAllPartidaSessions.remove(entry.getKey());
-    	    	System.out.println("Cantidad de elementos del hashmap despues de borrar 1::"+webSocketAllPartidaSessions.size());
+    	    	msgConsola("Cantidad de elementos del hashmap despues de borrar 1::"+webSocketAllPartidaSessions.size());
 			}
     	    
     	}
-    	System.out.println("Cantidad de elementos del hashmap despues::"+webSocketAllPartidaSessions.size());
+    	msgConsola("Cantidad de elementos del hashmap despues::"+webSocketAllPartidaSessions.size());
 	    
     	
     	////recorro todas las partidas, entro en cada subcoleccion y si esta esa session la elimino...
@@ -114,136 +226,6 @@ public class WebSocketPartida {
     	msgConsola("onError Throwable t::" + t.getMessage());
     	msgConsola("########### Salio del Metodo:: public void onError(Throwable t)");
     }
-    
-    
-   
-    
-    @OnMessage
-    public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException {
-    	msgConsola("$$$$$$$$$$$ Entro al Metodo public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException");
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	System.out.println("==***====INICIO==============================");
-    	System.out.println(in_Session.getId() + " new message ==> " + in_DatosJSON);
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	if ("PartidaID="=="PartidaID=") {
-    		String in_idPartida = "";
-        	//System.out.println("ID PARTIDA:: "+in_idPartida);
-        	
-//        	////Creo una coleccion para insertar 1 jugador
-//        	////Colección de SESSION que tenga una PARTIDA. (no seran todas las del websocket) No necesita que tenga mucha performance
-//        	ArrayList<Session> partidaSessions = new ArrayList<Session>();
-//        	partidaSessions.add(in_Session);
-//        	
-//        	////Inserto este jugador dentro de la lista, como value al map de key 99999)
-//        	////(luego va a entrar otro jugador, y luego con los send y onmessage, se les reacomoda y quedan los 2 jugadores con la misma id de partida
-//        	webSocketAllPartidaSessions.put("99999",partidaSessions);
-		} else {
-
-			
-	    	
-	    	
-	    	System.out.println("1");
-	    	JSONObject jsonData = new JSONObject(in_DatosJSON);
-	    	System.out.println("2");
-	    	
-	    	String in_PartidaNumero="";
-	    	in_PartidaNumero = jsonData.getString("partiSelect");
-	    	System.out.println("in_PartidaNumero = jsonData.getString(\"partiSelect\");::" + in_PartidaNumero);
-	//        
-	        System.out.println("cantidad de sessions:" + webSocketAllSessions.size());
-	        
-	//        sessionPartida.put(session.getId(), in_PartidaNumero);
-	//        x = sessionPartida.get(session);
-	//        String actualValue = sessionPartida.get(in_Session.getId());
-	//        sessionPartida.replace(in_Session.getId(), actualValue, in_PartidaNumero);
-	        
-	//        System.out.println("cantidad de sessionPartida:" + sessionPartida.size());
-	        try {
-	        	String partidaNumero;// = sessionPartida.get(session.getId());
-	        	for (int c = 0; c < 5; c++) {
-	            	System.out.println("===entrada "+c+" for de session============");
-					
-	            	for (Session s : webSocketAllSessions) {
-						partidaNumero = "";
-	//					partidaNumero = sessionPartida.get(s.getId()); 
-						
-						System.out.println("session s actual del for::" +s.getId());
-						System.out.println("===partidaNumero::"+partidaNumero);
-						System.out.println("===in_PartidaNumero::"+in_PartidaNumero);
-						if ( (!partidaNumero.isEmpty()) && (!in_PartidaNumero.isEmpty()) && (partidaNumero.equals(in_PartidaNumero)) ) {
-							System.out.println("deberia entrar solo 1");
-	                        String textoRespuestaJson="";
-	                        JSONObject jsonData2 = new JSONObject();
-	                        jsonData2.put("codigorespuesta", (c + 1) );
-	    
-	                        
-	                    	 Map<String, String> mapJSON = new HashMap<String, String>();
-	
-	                       
-	                    	mapJSON.put("nombre1","josesito");
-	                    	mapJSON.put("nombre2","pepito");
-	                        jsonData2.put("mapJson", mapJSON );
-	                        textoRespuestaJson=jsonData2.toString();
-	                        System.out.println("Se envia JSON:"+ textoRespuestaJson);
-							s.getBasicRemote().sendText(textoRespuestaJson);
-							
-							
-							
-							//						s.getBasicRemote().sendText("{\"value\" : \"" + (c + 1) + "\"}");
-							}
-						else
-							System.out.println("no entro a imprimir");
-						
-						
-					}
-	                Thread.sleep(100);
-	            }
-	        } catch (Exception e) {
-	            System.out.println(e.getMessage());
-	            e.printStackTrace();
-	        }
-		}
-        System.out.println("****************chau**************************");
-  
-        msgConsola("$$$$$$$$$$$ Salio del Metodo public void onMsg(String in_DatosJSON, Session in_Session) throws JSONException");
-    	
-    }
-    
     
     
     
