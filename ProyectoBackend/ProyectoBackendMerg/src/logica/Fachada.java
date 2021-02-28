@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
-import com.mysql.jdbc.Connection;
-
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoBase;
@@ -243,11 +241,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	private Partida devolverPartidaDadoVO(voPartida in_aux, int in_ultimoIdPartida) {
 		Partida out_aux = null;
 
-		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),
-				in_aux.getPartidaFechaUltimaActualizacion(), in_aux.isPartidaGuardada(), in_aux.getGanadorEquipoID(),
-				in_aux.getPartidaNombre(), in_aux.getPartidaCantidadJugadores(), in_aux.getPartidaCreador(),
-				in_aux.getPartidaFechaCreada(), in_aux.getEquipos());
-
+		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),in_aux.getPartidaFechaUltimaActualizacion(),
+				in_aux.isPartidaGuardada(),in_aux.getPartidaNombre(),in_aux.getPartidaCantidadJugadores(),  in_aux.getPartidaCreador(),
+				in_aux.getPartidaFechaCreada(),in_aux.isPartidaGuardada(),  in_aux.getEquipos() );
+				
 		return out_aux;
 
 	}

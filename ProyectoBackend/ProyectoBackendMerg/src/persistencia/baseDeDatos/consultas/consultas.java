@@ -250,30 +250,31 @@ public class consultas {
 		String query = "Select Max(PK_depBombas_id) From DEPOSITOS_DE_BOMBAS;";
 		return query;
 	}
-
+	//Revisado ok
 	public String listarEquiposDeUnaPartida() {
 		String query = "Select PK_equipo_id, equipoBando, FK_partida_id, FK_base_id from EQUIPOS where FK_partida_id=(?);";
 		return query;
 	}
-
+	//Revisado ok
 	public String obtenerDepositobyId() {
-		String query = "Select PK_depBombas_id,  depBombasCoordX,  depBombasCoordY,  depBombasEstado,  depBombasVida,  depBombasCantBombas,  depBombasEnUso "
-				      + "from DEPOSITOS_DE_BOMBAS where PK_depBombas_id=(?);";
+		String query = "Select PK_depBombas_id,  depBombasCoordX,  depBombasCoordY,  depBombasEstado,  depBombasVida,  depBombasCantBombas,  depBombasEnUso"
+				      + " from DEPOSITOS_DE_BOMBAS where PK_depBombas_id=(?);";
 		return query;
 	}
 
+	//Revisado ok
 	public String obtenerTanquebyId() {
-		String query = "Select PK_depCombustible_id,  depCombustibleCoordX,  depCombustibleCoordY,   depCombustibleEstado, "
+		String query = "Select PK_depCombustible_id,  depCombustibleCoordX,  depCombustibleCoordY,   depCombustibleEstado,"
 						+ " depCombustibleVida,  depCombustibleCantCombustible,  depCombustibleEnUso"
-						+ " from DEPOSITO_DE_COMBUSTIBLE"+
-						"where PK_depCombustible_id=(?);";
+						+ " from DEPOSITO_DE_COMBUSTIBLE"
+						+ " where PK_depCombustible_id=(?);";
 		return query;
 	}
-
+	//Revisado ok
 	public String obtenerTorreControlbyId() {
-		String query = "Select PK_torreControl_id, torreControlCoordX, torreControlCoordY, torreControlEstado, torreControlVida, "
-					+ "torreControlHayEnemigo, torreControlRangoVision "
-					+ "from TORRES_DE_CONTROL where PK_torreControl_id=(?);";
+		String query = "Select PK_torreControl_id, torreControlCoordX, torreControlCoordY, torreControlEstado, torreControlVida,"
+					+ " torreControlHayEnemigo, torreControlRangoVision"
+					+ " from TORRES_DE_CONTROL where PK_torreControl_id=(?);";
 		return query;
 	}
     //Revisado ok
@@ -293,8 +294,13 @@ public class consultas {
 
 	// listar partidas dado un jugador(Ver LUEGO hay que hacer un join con Equipo,
 	// JugadorEquipo ------------------------)
+	//Revisado ok
 	public String listarPartidas() {
-		String query = "select idPartida, estadoPartida, ultimaactualizacionPartida, guardadaPartida, nombrePartida,  cantjugadoresPartida,  creadorPartida, fechacreadaPartida,  terminoPartida From PARTIDA where jugadorId=(?) ORDER BY numero";
+		String query = "select PK_partida_id, partidaEstado, partidaFechaUltimaActualizacion," 
+				+ " partidaGuardada, partidaNombre, partidaCantidadJugadores," 
+				+ " FK_partidaCreador_id, partidaFechaCreada, partidaTermino" 
+				+ " FROM partidas" 
+				+ " where FK_partidaCreador_id=(?) ORDER BY PK_partida_id;";
 		return query;
 	}
 

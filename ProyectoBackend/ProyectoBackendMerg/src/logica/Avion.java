@@ -26,12 +26,7 @@ public class Avion extends Objeto {
 		this.setEnCampoEnemigo(in_enCampoEnemigo);
 		this.setRangoDeVision(in_rangoDeVision);
 		this.setBaseid(in_baseid);
-		
-		
 	}
-
-
-
 
 
 	public boolean getAvionBomba() {

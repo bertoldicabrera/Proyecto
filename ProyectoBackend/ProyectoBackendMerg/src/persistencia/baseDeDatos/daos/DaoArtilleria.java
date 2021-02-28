@@ -63,7 +63,7 @@ public class DaoArtilleria {
 			pstmt.setInt(4, in_Artillero.getVida());
 			pstmt.setBoolean(5, in_Artillero.getHayEnemigo());
 			pstmt.setInt(6, in_Artillero.getRangoDeVision());
-			pstmt.setInt(7, in_Artillero.getAvionAngle());
+			pstmt.setInt(7, in_Artillero.getArtilleroAngulo());
 			pstmt.setInt(8, in_idBase);
 			pstmt.executeUpdate();
 			pstmt.close();

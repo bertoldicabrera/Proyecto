@@ -5,22 +5,17 @@ public class Artillero extends Objeto{
 
 	private int  rangoDeVision;
 
-	private int avionAngle;
+	private int artilleroAngulo;
 	int in_base_id;
 	
 	public Artillero(int in_id, int in_coordX, int in_coordY, 
 			boolean in_estado, int in_vida, boolean in_hayEnemigo,
-			int in_rangoDeVision, int in_avionAngle,int in_base_id) {
+			int in_rangoDeVision, int in_ArtilleroAngulo,int in_base_id) {
 		super(in_id, in_coordX, in_coordY, in_estado, in_vida);
 		this.setHayEnemigo(in_hayEnemigo);
 		this.setRangoDeVision(in_rangoDeVision);
-		this.setAvionAngle(in_avionAngle);
+		this.setArtilleroAngulo(in_ArtilleroAngulo);
 		this.setbase_id(in_base_id);
-		
-		
-		
-		
-		
 	}
 
 	public boolean getHayEnemigo() {
@@ -39,12 +34,12 @@ public class Artillero extends Objeto{
 		this.rangoDeVision = in_rangoDeVision;
 	}
 
-	public int getAvionAngle() {
-		return avionAngle;
+	public int getArtilleroAngulo() {
+		return artilleroAngulo;
 	}
 
-	public void setAvionAngle(int in_avionAngle) {
-		this.avionAngle = in_avionAngle;
+	public void setArtilleroAngulo(int in_avionAngle) {
+		this.artilleroAngulo = in_avionAngle;
 	}
    
 	public int getbase_id() {
@@ -52,7 +47,7 @@ public class Artillero extends Objeto{
 	}
 
 	public void setbase_id(int in_base_id) {
-		this.avionAngle = in_base_id;
+		this.artilleroAngulo = in_base_id;
 	}
 
 
