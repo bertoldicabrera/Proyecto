@@ -8,9 +8,6 @@ public class TanqueCombustible extends Objeto {
 		super(in_id, in_coordX, in_coordY, in_estado, in_vida);
 		this.setCantidadCombustible(in_cantidadCombustible);
 		this.setEnUso(in_enUso);
-		
-		
-		
 	}
 
 	public int getCantidadCombustible() {

@@ -2,11 +2,9 @@ package logica;
 
 public class Artillero extends Objeto{
 	private boolean hayEnemigo;
-
 	private int  rangoDeVision;
-
 	private int artilleroAngulo;
-	int in_base_id;
+	private int in_base_id;
 	
 	public Artillero(int in_id, int in_coordX, int in_coordY, 
 			boolean in_estado, int in_vida, boolean in_hayEnemigo,

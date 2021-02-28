@@ -30,6 +30,8 @@ import logica.interfaces.IPoolConexiones;
 import logica.valueObjects.*;
 
 public class Fachada extends UnicastRemoteObject implements IFachada {
+
+	private static final long serialVersionUID = 1L;
 	private static Fachada instancia;
 	private DaoJugador daoJ;
 	private DaoPartidas daoP;
@@ -199,10 +201,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 
 	// precondicion jugador logueado
+	
 	public void logout(String in_userName) throws LogicaException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
-			daoJ.logoutJugador(in_userName, icon);
+			int id = daoJ.geIdbyName(in_userName, icon);
+			daoJ.logoutJugador(id, icon);
 
 			ipool.liberarConexion(icon, true);
 		} catch (PersistenciaException e) {
@@ -217,7 +221,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		boolean out_es = false;
 
 		try {
-			out_es = daoJ.estaOnline(in_name, icon);
+			int id = daoJ.geIdbyName(in_name, icon);
+			out_es = daoJ.estaOnline(id, icon);
 			ipool.liberarConexion(icon, true);
 
 		} catch (Exception e) {

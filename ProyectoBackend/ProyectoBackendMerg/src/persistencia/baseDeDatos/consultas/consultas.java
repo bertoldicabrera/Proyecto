@@ -206,11 +206,12 @@ public class consultas {
 
 	public String listarPartidasDeUnJugador() {
 
-		// Consultamos tabla auxiliar con relacion
-		// Hacer un Join de partidaJugador y devolever solo partidas por terminas de un
-		// jugador
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select PK_partida_id, partidaEstado, partidaFechaUltimaActualizacion," 
+				+ " partidaGuardada, partidaNombre, partidaCantidadJugadores," 
+				+ " FK_partidaCreador_id, partidaFechaCreada, partidaTermino" 
+				+ " FROM partidas" 
+				+ " where FK_partidaCreador_id=(?) ORDER BY PK_partida_id;";
+		return query;
 	}
     //Revisado ok
 	public String existenPartidas() {
@@ -277,10 +278,11 @@ public class consultas {
 					+ " from TORRES_DE_CONTROL where PK_torreControl_id=(?);";
 		return query;
 	}
+	
     //Revisado ok
 	public String obtenerAvionXBase() {
 		String query = "Select PK_avion_id, avionCoordX, avionCoordY, avionCoordZ, avionEstado, avionVida, avionHayEnemigo, "
-				    + " avionRangoVision, avionAngulo, avionTieneBomba, avionCantBombas, avionCantCombustible, avionEnCampoEnemigo, FK_base_id "
+				    + " avionRangoVision, avionTieneBomba, avionCantBombas, avionCantCombustible, avionEnCampoEnemigo, FK_base_id "
 				     + " from AVIONES where FK_base_id=(?);";
 		return query;
 	}
@@ -292,29 +294,32 @@ public class consultas {
 		return query;
 	}
 
-	// listar partidas dado un jugador(Ver LUEGO hay que hacer un join con Equipo,
-	// JugadorEquipo ------------------------)
 	//Revisado ok
+	// listar partidas dado un jugador ver linea 207 
+	//listar partidas de todos los jugadores...
 	public String listarPartidas() {
 		String query = "select PK_partida_id, partidaEstado, partidaFechaUltimaActualizacion," 
 				+ " partidaGuardada, partidaNombre, partidaCantidadJugadores," 
 				+ " FK_partidaCreador_id, partidaFechaCreada, partidaTermino" 
 				+ " FROM partidas" 
-				+ " where FK_partidaCreador_id=(?) ORDER BY PK_partida_id;";
+				+ " ORDER BY PK_partida_id;";
 		return query;
 	}
-
-	// Setea a un jugador online dado su nombre
+	//Revisado ok
+	// Setea a un jugador online dado su nombre, 
+	//hay que desabilitar el modo seguro para poder hacer este tipo de modificacion
+	//por lo que se decidió llamar a get idbyUsername y cambiar la consulta
 	public String isOnLineJugador() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 1" + "WHERE jugadorUserName=(?);";
+		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 1" + "WHERE PK_jugador_id=(?);";
 		return query;
 	}
-
+	//Revisado ok
+	//mismo caso que isonline
 	public String logoutJugadorPorUserName() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 0" + "WHERE jugadorUserName=(?);";
+		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 0" + "WHERE PK_jugador_id=(?);";
 		return query;
 	}
-
+	//Revisado ok
 	public String insertarDeposito() {
 		String query = "insert into DEPOSITOS_DE_BOMBAS values(?,?,?,?,?,?,?);";
 		return query;

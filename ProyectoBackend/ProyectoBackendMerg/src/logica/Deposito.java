@@ -8,7 +8,6 @@ public class Deposito extends Objeto {
 		super(in_id, in_coordX, in_coordY, in_estado, in_vida);
 		this.setCantidaBombas(in_cantidadBombas);
 		this.setEnUso(in_enUso);
-		
 	}
 
 	public int getCantidaBombas() {

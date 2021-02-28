@@ -301,7 +301,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 	return cant;
 }
 	
-	 public boolean  estaOnline(String in_name,IConexion con) throws PersistenciaException {
+	 public boolean  estaOnline(int in_id,IConexion con) throws PersistenciaException {
 			
 			boolean out_es=false;
 			consultas cons = new consultas();
@@ -310,7 +310,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 			PreparedStatement prstm;
 			try {
 				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
-				prstm.setString(1, in_name);;
+				prstm.setInt(1, in_id);;
 				ResultSet rs = prstm.executeQuery();
 				if (rs.next()) {
 					out_es=rs.getBoolean(1);
@@ -325,13 +325,13 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
                      }
 
 	  
-	 public void logoutJugador(String in_name, IConexion con) throws PersistenciaException {
+	 public void logoutJugador(int in_id, IConexion con) throws PersistenciaException {
 			try{
 				consultas cons = new consultas ();
 			
 				String query = cons.logoutJugadorPorUserName(); 
 				PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
-				pstmt.setString(1, in_name);
+				pstmt.setInt(1, in_id);
 				pstmt.executeUpdate ();
 				pstmt.close ();
 				}
