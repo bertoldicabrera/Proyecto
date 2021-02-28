@@ -60,13 +60,12 @@ public class DaoBase {
 			// Inserto depostio
 			String insertDep = cons.insertarDeposito();
 			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(insertDep);
-			pstmt1.setInt(1, depositoId);
-			pstmt1.setInt(2, in_Deposito.getCoordX());
-			pstmt1.setInt(3, in_Deposito.getCoordY());
-			pstmt1.setBoolean(4, in_Deposito.getEstado());
-			pstmt1.setInt(5, in_Deposito.getVida());
-			pstmt1.setInt(6, in_Deposito.getCantidaBombas());
-			pstmt1.setBoolean(7, in_Deposito.getEnUso());
+			pstmt1.setInt(1, in_Deposito.getCoordX());
+			pstmt1.setInt(2, in_Deposito.getCoordY());
+			pstmt1.setBoolean(3, in_Deposito.getEstado());
+			pstmt1.setInt(4, in_Deposito.getVida());
+			pstmt1.setInt(5, in_Deposito.getCantidaBombas());
+			pstmt1.setBoolean(6, in_Deposito.getEnUso());
 			pstmt1.executeUpdate();
 			pstmt1.close();
 			// Inserto TanqueCombustible

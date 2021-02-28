@@ -321,7 +321,7 @@ public class consultas {
 	}
 	//Revisado ok
 	public String insertarDeposito() {
-		String query = "insert into DEPOSITOS_DE_BOMBAS values(?,?,?,?,?,?,?);";
+		String query = "insert into DEPOSITOS_DE_BOMBAS(depBombasCoordX,depBombasCoordY,depBombasEstado,depBombasVida,depBombasCantBombas,depBombasEnUso) values(?,?,?,?,?,?);";
 		return query;
 
 	}
