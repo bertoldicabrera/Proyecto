@@ -7,8 +7,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.concurrent.TimeUnit;
-
 import logica.Fachada;
 import logica.excepciones.ServidorException;
 import persistencia.excepciones.PersistenciaException;

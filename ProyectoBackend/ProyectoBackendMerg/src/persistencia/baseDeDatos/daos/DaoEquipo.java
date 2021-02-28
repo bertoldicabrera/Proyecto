@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Utilitarios.MensajesPersonalizados;
-import logica.Artillero;
 import logica.Base;
 import logica.Equipo;
 import logica.Jugador;

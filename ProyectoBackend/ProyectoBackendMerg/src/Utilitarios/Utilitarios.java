@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Utilitarios {
 

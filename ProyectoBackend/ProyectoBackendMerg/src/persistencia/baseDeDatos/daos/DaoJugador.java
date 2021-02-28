@@ -3,17 +3,14 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 import Utilitarios.MensajesPersonalizados;
 import logica.Jugador;
 import persistencia.baseDeDatos.consultas.consultas;
-import persistencia.baseDeDatos.poolDeConexiones.IConexion;
-import persistencia.excepciones.PersistenciaException;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
+import persistencia.excepciones.PersistenciaException;
 
 
 public class DaoJugador implements  Serializable {

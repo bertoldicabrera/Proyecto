@@ -1,9 +1,5 @@
 package logica;
 
-import java.io.IOException;
-
-import Utilitarios.SystemProperties;
-
 public class Avion extends Objeto {
 	
 	private boolean avionBomba;

@@ -4,17 +4,11 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-
 import Utilitarios.MensajesPersonalizados;
-import logica.Artillero;
-import logica.Avion;
-import logica.Jugador;
 import logica.Artillero;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.excepciones.PersistenciaException;
-import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 
 public class DaoArtilleria implements Serializable {

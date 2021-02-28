@@ -1,33 +1,24 @@
 package logica;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.TreeMap;
 
-import persistencia.baseDeDatos.consultas.consultas;
+import Utilitarios.MensajesPersonalizados;
+import Utilitarios.SystemProperties;
+import logica.excepciones.LogicaException;
+import logica.interfaces.IPoolConexiones;
+import logica.valueObjects.VOJugador;
+import logica.valueObjects.voPartida;
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoBase;
 import persistencia.baseDeDatos.daos.DaoDeAviones;
 import persistencia.baseDeDatos.daos.DaoEquipo;
 import persistencia.baseDeDatos.daos.DaoJugador;
 import persistencia.baseDeDatos.daos.DaoPartidas;
-import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
-import persistencia.baseDeDatos.poolDeConexiones.PoolConexiones;
 import persistencia.excepciones.PersistenciaException;
-import Utilitarios.*;
-import logica.IFachada;
-import logica.excepciones.*;
-import logica.interfaces.IPoolConexiones;
-import logica.valueObjects.*;
 
 public class Fachada extends UnicastRemoteObject implements IFachada {
 

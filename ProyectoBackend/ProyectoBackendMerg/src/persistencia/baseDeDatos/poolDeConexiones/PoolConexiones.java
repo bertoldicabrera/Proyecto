@@ -10,7 +10,6 @@ import Utilitarios.SystemProperties;
 import Utilitarios.Utilitarios;
 import logica.excepciones.ServidorException;
 import logica.interfaces.IPoolConexiones;
-import persistencia.excepciones.PersistenciaException;
 
 public class PoolConexiones implements IPoolConexiones {
 

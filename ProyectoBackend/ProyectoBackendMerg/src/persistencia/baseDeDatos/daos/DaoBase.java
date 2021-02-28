@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 import Utilitarios.MensajesPersonalizados;
@@ -14,7 +12,6 @@ import logica.Avion;
 import logica.Base;
 import logica.Deposito;
 import logica.Equipo;
-import logica.Jugador;
 import logica.TanqueCombustible;
 import logica.TorreControl;
 import persistencia.baseDeDatos.consultas.consultas;

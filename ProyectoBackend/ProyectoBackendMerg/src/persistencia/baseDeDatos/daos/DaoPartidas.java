@@ -4,15 +4,10 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.TreeMap;
 
-import com.mysql.jdbc.Connection;
 import Utilitarios.MensajesPersonalizados;
-import logica.Equipo;
-import logica.Jugador;
 import logica.Partida;
 import persistencia.baseDeDatos.consultas.consultas;
 import persistencia.baseDeDatos.poolDeConexiones.Conexion;
