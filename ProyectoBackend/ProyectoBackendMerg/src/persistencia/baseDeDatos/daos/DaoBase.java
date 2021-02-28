@@ -51,9 +51,7 @@ public class DaoBase {
 
 	public void insert(int idBase, int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
 			TorreControl in_TorreControl, IConexion con) throws PersistenciaException {
-		int depositoId = getUltimoTorreId(con) + 1;
-		int tanqueId = getTanqueId(con) + 1;
-		int torreid = getUltimoTorreId(con) + 1;
+		
 		try {
 
 			consultas cons = new consultas();
@@ -71,32 +69,31 @@ public class DaoBase {
 			// Inserto TanqueCombustible
 			String insertTC = cons.insertarTanqueCombustible();
 			PreparedStatement pstmt2 = ((Conexion) con).getConnection().prepareStatement(insertTC);
-			pstmt1.setInt(1, tanqueId);
-			pstmt1.setInt(2, in_TanqueCombustible.getCoordX());
-			pstmt1.setInt(3, in_TanqueCombustible.getCoordY());
-			pstmt1.setBoolean(4, in_TanqueCombustible.getEstado());
-			pstmt1.setInt(5, in_TanqueCombustible.getVida());
-			pstmt1.setInt(6, in_TanqueCombustible.getCantidadCombustible());
-			pstmt1.setBoolean(7, in_TanqueCombustible.getEnUso());
+		
+			pstmt1.setInt(1, in_TanqueCombustible.getCoordX());
+			pstmt1.setInt(2, in_TanqueCombustible.getCoordY());
+			pstmt1.setBoolean(3, in_TanqueCombustible.getEstado());
+			pstmt1.setInt(4, in_TanqueCombustible.getVida());
+			pstmt1.setInt(5, in_TanqueCombustible.getCantidadCombustible());
+			pstmt1.setBoolean(6, in_TanqueCombustible.getEnUso());
 			pstmt1.executeUpdate();
 			pstmt1.close();
 			// Inserto TorreControl
 			String insertTControl = cons.insertarTorreControl();
 			PreparedStatement pstmt3 = ((Conexion) con).getConnection().prepareStatement(insertTControl);
-			pstmt1.setInt(1, torreid);
-			pstmt1.setInt(2, in_TorreControl.getCoordX());
-			pstmt1.setInt(3, in_TorreControl.getCoordY());
-			pstmt1.setBoolean(4, in_TorreControl.getEstado());
-			pstmt1.setInt(5, in_TorreControl.getVida());
-			pstmt1.setBoolean(6, in_TorreControl.getHayEnemigo());
-			pstmt1.setInt(7, in_TorreControl.getRangoDeVision());
+			pstmt1.setInt(1, in_TorreControl.getCoordX());
+			pstmt1.setInt(2, in_TorreControl.getCoordY());
+			pstmt1.setBoolean(3, in_TorreControl.getEstado());
+			pstmt1.setInt(4, in_TorreControl.getVida());
+			pstmt1.setBoolean(5, in_TorreControl.getHayEnemigo());
+			pstmt1.setInt(6, in_TorreControl.getRangoDeVision());
 			pstmt1.executeUpdate();
 			pstmt1.close();
 			String insertBase = cons.insertarBase();
 			PreparedStatement pstmt4 = ((Conexion) con).getConnection().prepareStatement(insertBase);
-			pstmt4.setInt(1, depositoId);
-			pstmt4.setInt(2, tanqueId);
-			pstmt4.setInt(3, torreid);
+			pstmt4.setInt(1, getUltimoTorreId(con));
+			pstmt4.setInt(2, getTanqueId(con));
+			pstmt4.setInt(3, getUltimoTorreId(con));
 			pstmt4.executeUpdate();
 			pstmt4.close();
 		} catch (SQLException e) {

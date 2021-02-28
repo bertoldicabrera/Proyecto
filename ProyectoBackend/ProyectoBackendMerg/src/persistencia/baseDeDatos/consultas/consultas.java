@@ -203,14 +203,15 @@ public class consultas {
 				     + "From JUGADORES where jugadorUserName=(?);";
 		return query;
 	}
-
+    //Revisado OK
 	public String listarPartidasDeUnJugador() {
 
-		String query = "select PK_partida_id, partidaEstado, partidaFechaUltimaActualizacion," 
-				+ " partidaGuardada, partidaNombre, partidaCantidadJugadores," 
-				+ " FK_partidaCreador_id, partidaFechaCreada, partidaTermino" 
-				+ " FROM partidas" 
-				+ " where FK_partidaCreador_id=(?) ORDER BY PK_partida_id;";
+		String query = "SELECT P.PK_partida_id, P.partidaEstado, P.partidaFechaUltimaActualizacion, "
+				      + "P.partidaGuardada,P.partidaNombre, P.partidaCantidadJugadores,"
+				      + "P.FK_partidaCreador_id,P.partidaFechaCreada,P.partidaTermino" + 
+				       "FROM EQUIPOS_JUGADORES EJ,EQUIPOS E, PARTIDAS P" + 
+				       "WHERE EJ.PK_jugador_id=(?) and EJ.PK_equipo_id=E.PK_equipo_id and E.FK_partida_id=P.PK_partida_id" + 
+				       "ORDER BY P.PK_partida_id";
 		return query;
 	}
     //Revisado ok
@@ -325,14 +326,14 @@ public class consultas {
 		return query;
 
 	}
-
+   //Revisado ok
 	public String insertarTanqueCombustible() {
-		String query = "insert into DEPOSITO_DE_COMBUSTIBLE values(?,?,?,?,?,?,?);";
+		String query = "insert into DEPOSITO_DE_COMBUSTIBLE(depCombustibleCoordX,depCombustibleCoordY,depCombustibleEstado,depCombustibleVida,depCombustibleCantCombustible,depCombustibleEnUso) values(?,?,?,?,?,?);";
 		return query;
 	}
-
+	//Revisado ok
 	public String insertarTorreControl() {
-		String query = "insert into TORRES_DE_CONTROL values(?,?,?,?,?,?,?);";
+		String query = "insert into TORRES_DE_CONTROL(torreControlCoordX,torreControlCoordY,torreControlEstado,torreControlVida,torreControlHayEnemigo,torreControlRangoVision) values(?,?,?,?,?,?);";
 		return query;
 	}
 
