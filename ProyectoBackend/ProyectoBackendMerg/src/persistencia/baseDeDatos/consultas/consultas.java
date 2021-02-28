@@ -1,44 +1,45 @@
 package persistencia.baseDeDatos.consultas;
 
 public class consultas {
-
+    //Revisado ok
 	public String InsertarEquipoJugador() {
 		String query = "insert into EQUIPOS_JUGADORES values(?,?);";
 		return query;
 	}
-
+    //Revisado ok
 	// Dado el nombre de jugador se trae el jugador
 	public String existeJugador() {
 		String query = "select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado from JUGADORES where jugadorUserName=(?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Dado el id de la partida se trae la partida
 	public String existePartida() {
 		String query = "select PK_partida_id, partidaEstado ,partidaFechaUltimaActualizacion, partidaGuardada, partidaNombre, partidaCantidadJugadores, FK_partidaCreador_id, partidaFechaCreada,partidaTermino "
-				+ "   from PARTIDAS where PK_partida_id=(?)";
+				       + "from PARTIDAS where PK_partida_id=(?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Inserta Jugador
 	public String insertarJugador() {
-		String query = "insert into JUGADORES values(?,?,?,?,?)";
+		String query = "insert into JUGADORES(jugadorUserName,jugadorPassword,jugadorIsOnline,jugadorPuntajeAcumulado) values(?,?,?,?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Insertar Partida
 	public String insertarPartida() {
-		String query = "insert into PARTIDAS values(?,?,?,?,?,?,?,?,?)";
+		String query = "insert into PARTIDAS(partidaEstado,partidaFechaUltimaActualizacion,partidaGuardada,partidaNombre,partidaCantidadJugadores,FK_partidaCreador_id,partidaFechaCreada,partidaTermino) "
+				+ "values(?,?,?,?,?,?,?,?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Listar Jugador
 	public String listarJugadores() {
 		String query = "select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado "
 				       + "from JUGADORES ORDER BY PK_jugador_id";
 		return query;
 	}
-
+    //Revisado ok
 	// Dado el id de jugador se trae el jugador
 	public String obtenerJugador() {
 		String query = "select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado "
@@ -46,19 +47,19 @@ public class consultas {
 				       + " where PK_jugador_id=(?)";
 		return query;
 	}
-
-	// Borrar partida dado un id
+    //Revisado ok
+    // Borrar partida dado un id
 	public String borrarPartida() {
 		String query = "DELETE FROM PARTIDAS WHERE PK_partida_id=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	// Borrar jugador dado un id
 	public String borrarJugador() {
 		String query = "DELETE FROM JUGADORES WHERE  PK_jugador_id=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	// Se verifica que la cuenta del jugador exista
 	public String acountExists() {
 		String query = "select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado"
@@ -66,25 +67,25 @@ public class consultas {
 				         + " where jugadorUserName=(?) and  jugadorPassword=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	// Se obtiene el nombre del jugador dado el id del jugador
 	public String getName() {
 		String query = "select jugadorUserName from JUGADORES where PK_jugador_id=(?)";
 		return query;
 	}
-
+	//Revisado ok
 	// Se obtiene la cantidad total de jugadores del juego
 	public String cantidadTotalJugadores() {
 		String query = "SELECT count(*) FROM JUGADORES";
 		return query;
 	}
-
-	// Se obtiene la cantidad total de jugadores del juego que estan online
+	//Revisado ok
+    // Se obtiene la cantidad total de jugadores del juego que estan online
 	public String cantidadJugadoresOnLine() {
 		String query = "SELECT count(*) FROM JUGADORES where jugadorIsOnline=1";
 		return query;
 	}
-
+	//Revisado ok
 	// Se devuelven los artilleros
 	public String estaVaciaArtillero() {
 		String query = "Select PK_artillero_id, artilleroCoordX, artilleroCoordY, artilleroEstado, "
@@ -92,34 +93,35 @@ public class consultas {
 				       + "from ARTILLEROS";
 		return query;
 	}
-
+    //Revisado ok
 	// Se insertan artilleros
 	public String insertarArtillero() {
-		String query = "insert into ARTILLEROS values(?,?,?,?,?,?,?,?,?)";
+		String query = "insert into ARTILLEROS(artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,artilleroHayEnemigo,artilleroRangoVision,artilleroAngulo,FK_base_id) values(?,?,?,?,?,?)";
 		return query;
 	}
-
-	// Se devuelven los aviones
+    //Revisado ok
+   // Se devuelven los aviones
 	public String existenAviones() {
 		String query = "Select PK_avion_id, avionCoordX, avionCoordY, avionCoordZ, avionEstado, avionVida, avionHayEnemigo, avionRangoVision, avionTieneBomba, avionCantBombas, "
 				        + " avionCantCombustible, avionEnCampoEnemigo, "
 				        + "FK_base_id from AVIONES";
 		return query;
 	}
-
+    //Revisado ok
 	// Se insertan Aviones
 	public String insertarAvion() {
-		String query = "insert into AVIONES values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "insert into AVIONES(avionCoordX,avionCoordY,avionCoordZ,avionEstado,avionVida,avionHayEnemigo,avionRangoVision,avionTieneBomba,avionCantBombas,avionCantCombustible,avionEnCampoEnemigo,FK_base_id) "
+				      + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Se listan todos los aviones
 	public String listarAviones() {
 		String query = "Select PK_avion_id, avionCoordX, avionCoordY, avionCoordZ, avionEstado, avionVida, avionHayEnemigo, avionRangoVision, avionTieneBomba, "
 				        + "avionCantBombas,avionCantCombustible, avionEnCampoEnemigo, FK_base_id  From AVIONES;";
 		return query;
 	}
-
+     //Revisado ok
 	// Se listan toda la artilleria
 	public String listarArtilleros() {
 		String query = "Select PK_artillero_id,artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,"
@@ -127,75 +129,75 @@ public class consultas {
 				      + "from ARTILLEROS;";
 		return query;
 	}
-
+    //Revisado ok
 	// Se valida si hay bases
 	public String existeBase() {
 		String query = "Select PK_base_id, FK_depBombas_id, FK_depCombustible_id, FK_torreControl_id"
 				       + "From BASES";
 		return query;
 	}
-
+    //Revisado ok
 	// Se ingresa una base
 	public String insertarBase() {
-		String query = "insert into BASES values(?,?,?,?)";
+		String query = "insert into BASES(FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id) values(?,?,?)";
 		return query;
 	}
-
+    //Revisado ok
 	// Se obtiene una base dado su ID
 	public String obtenerBase() {
 		String query = "Select PK_base_id,FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id"
 				       + " From BASES where PK_base_id=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	// Borra una base dado su id
 	public String borrarbase() {
 		String query = "DELETE FROM BASES WHERE  PK_base_id=(?);";
 		return query;
 	}
-
+	//Revisado ok
 	public String listarBase() {
 		String query = "Select PK_base_id,FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id, "
 				      + "From BASES;";
 		return query;
 	}
-
+	//Revisado ok
 	public String cantidadTotalBases() {
 		String query = "Select count(PK_base_id) From BASES;";
 		return query;
 	}
-
+	//Revisado ok
 	public String existenJugadores() {
 		String query = "Select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado "
 				     + "From JUGADORES;";
 		return query;
 	}
-
+    //Revisado ok
 	public String insertarEquipo() {
-		String query = "insert into EQUIPOS values(?,?,?,?);";
+		String query = "insert into EQUIPOS(equipoBando,FK_partida_id,FK_base_id) values(?,?,?);";
 		return query;
 	}
-
+    //Revisado ok
 	public String cantidadEquipos() {
 		String query = "Select count(PK_equipo_id) From EQUIPOS;";
 		return query;
 	}
-
+    //Revisado ok
 	public String obtenerEquipoxIDPartida() {
 		String query = " select PK_equipo_id, equipoBando, FK_partida_id, FK_base_id from EQUIPOS where FK_partida_id =(?)";
 		return query;
 	}
-
+    //Revisado ok
 	public String listarEquipos() {
 		String query = "Select PK_equipo_id, equipoBando, FK_partida_id, FK_base_id From EQUIPOS;";
 		return query;
 	}
-
+    //Revisado ok
 	public String ultimoJugadorID() {
 		String query = "Select Max(idJugador) From JUGADORES;";
 		return query;
 	}
-
+    //Revisado ok
 	public String getJugadorIdByName() {
 		String query = "Select PK_jugador_id, jugadorUserName, jugadorPassword, jugadorIsOnline, jugadorPuntajeAcumulado "
 				     + "From JUGADORES where jugadorUserName=(?);";
@@ -210,7 +212,7 @@ public class consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    //Revisado ok
 	public String existenPartidas() {
 		String query="select PK_partida_id, partidaEstado ,partidaFechaUltimaActualizacion, "
 				   + "partidaGuardada, partidaNombre, partidaCantidadJugadores, FK_partidaCreador_id, partidaFechaCreada,partidaTermino " + 
@@ -218,32 +220,32 @@ public class consultas {
 	
 		return query;
 	}
-
+    //Revisado ok
 	public String ultimaPartidaID() {
 		String query = "Select Max(PK_partida_id) From PARTIDAS;";
 		return query;
 	}
-
+    //Revisado ok
 	public String ultimaBaseID() {
 		String query = "Select Max(PK_base_id) From BASES;";
 		return query;
 	}
-
+    //Revisado ok
 	public String ultimaEquipoId() {
 		String query = "Select Max(PK_equipo_id) From EQUIPOS;";
 		return query;
 	}
-
+  //Revisado ok
 	public String ultimaTorreId() {
 		String query = "Select Max(PK_torreControl_id) From TORRES_DE_CONTROL;";
 		return query;
 	}
-
+  //Revisado ok
 	public String ultimaTanqueId() {
 		String query = "Select Max(PK_depCombustible_id) From DEPOSITO_DE_COMBUSTIBLE;";
 		return query;
 	}
-
+ //Revisado ok
 	public String ultimaDepositoId() {
 		String query = "Select Max(PK_depBombas_id) From DEPOSITOS_DE_BOMBAS;";
 		return query;
@@ -274,14 +276,14 @@ public class consultas {
 					+ "from TORRES_DE_CONTROL where PK_torreControl_id=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	public String obtenerAvionXBase() {
 		String query = "Select PK_avion_id, avionCoordX, avionCoordY, avionCoordZ, avionEstado, avionVida, avionHayEnemigo, "
 				    + " avionRangoVision, avionAngulo, avionTieneBomba, avionCantBombas, avionCantCombustible, avionEnCampoEnemigo, FK_base_id "
 				     + " from AVIONES where FK_base_id=(?);";
 		return query;
 	}
-
+    //Revisado ok
 	public String listarArtillerosXBase() {
 		String query = "Select PK_artillero_id, artilleroCoordX, artilleroCoordY, artilleroEstado, artilleroVida,"
 				        + " artilleroHayEnemigo, artilleroRangoVision, artilleroAngulo, FK_base_id "

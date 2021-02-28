@@ -6,7 +6,6 @@ import Utilitarios.SystemProperties;
 
 public class Avion extends Objeto {
 	
-	private float avionAngle;
 	private boolean avionBomba;
 	private int  cantidadBombas;
 	private int avionAltura;
@@ -14,31 +13,25 @@ public class Avion extends Objeto {
 	private boolean  hayEnemigo;
 	private boolean enCampoEnemigo;
 	private int rangoDeVision;
+	private int Baseid;
 	
 
-	public Avion(int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, float in_avionAngle, boolean in_avionBomba,int  in_cantidadBombas, int in_avionAltura, int in_avionCombustible,boolean in_hayEnemigo,boolean in_enCampoEnemigo,int in_rangoDeVision) {
-		super(in_id, in_coordX, in_coordY, in_estado, in_vida);
-		this.setAvionAngle(in_avionAngle);
+	public Avion(int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,int in_rangoDeVision ,boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid) {
+		super(in_PK_avion_id, in_avionCoordX, in_avionCoordY, in_estado, in_vida);
 		this.setAvionBomba(in_avionBomba);
 		this.setCantidadBombas(in_cantidadBombas);
-		this.setAvionAltura(in_avionAltura);
+		this.setAvionAltura(in_avionCoordZ);
 		this.setAvionCombustible(in_avionCombustible);
 		this.setHayEnemigo(in_hayEnemigo);
 		this.setEnCampoEnemigo(in_enCampoEnemigo);
 		this.setRangoDeVision(in_rangoDeVision);
+		this.setBaseid(in_baseid);
 		
 		
 	}
 
 
-	public float getAvionAngle() {
-		return this.avionAngle;
-	}
 
-
-	public void setAvionAngle(float in_avionAngle) {
-		this.avionAngle = in_avionAngle;
-	}
 
 
 	public boolean getAvionBomba() {
@@ -108,6 +101,16 @@ public class Avion extends Objeto {
 
 	public void setRangoDeVision(int in_rangoDeVision) {
 		this.rangoDeVision = in_rangoDeVision;
+	}
+
+
+	public int getBaseid() {
+		return Baseid;
+	}
+
+
+	public void setBaseid(int baseid) {
+		Baseid = baseid;
 	}
 	
 }

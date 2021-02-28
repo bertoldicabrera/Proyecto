@@ -47,26 +47,24 @@ public class DaoDeAviones {
 		return esta;
 	}
 
-	public void insback(int idbase, Avion in_Avion, IConexion con) throws PersistenciaException {
+	public void insback(int in_idbase, Avion in_Avion, IConexion con) throws PersistenciaException {
 		try {
 			consultas cons = new consultas();
 			String insert = cons.insertarAvion();
 
 			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
-			pstmt.setInt(1, idbase);
-			pstmt.setInt(2, in_Avion.GetId());
-			pstmt.setInt(3, in_Avion.getCoordX());
-			pstmt.setInt(4, in_Avion.getCoordY());
-			pstmt.setBoolean(5, in_Avion.getEstado());
-			pstmt.setInt(6, in_Avion.getVida());
-			pstmt.setFloat(7, in_Avion.getAvionAngle());
+			pstmt.setInt(1, in_Avion.getCoordX());
+			pstmt.setInt(2, in_Avion.getCoordY());
+			pstmt.setInt(3, in_Avion.getAvionAltura());
+			pstmt.setBoolean(4, in_Avion.getEstado());
+			pstmt.setInt(5, in_Avion.getVida());
+			pstmt.setBoolean(6, in_Avion.getHayEnemigo());
+			pstmt.setInt(7, in_Avion.getRangoDeVision());
 			pstmt.setBoolean(8, in_Avion.getAvionBomba());
 			pstmt.setInt(9, in_Avion.getCantidadBombas());
-			pstmt.setInt(10, in_Avion.getAvionAltura());
-			pstmt.setInt(11, in_Avion.getAvionCombustible());
-			pstmt.setBoolean(12, in_Avion.getHayEnemigo());
-			pstmt.setBoolean(13, in_Avion.getEnCampoEnemigo());
-			pstmt.setInt(14, in_Avion.getRangoDeVision());
+			pstmt.setInt(10, in_Avion.getAvionCombustible());
+			pstmt.setBoolean(11, in_Avion.getEnCampoEnemigo());
+			pstmt.setInt(12, in_idbase);
 
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -84,8 +82,8 @@ public class DaoDeAviones {
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
 			while ((rs.next()) && (i < tope)) {
-				Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5),
-						rs.getFloat(6), rs.getBoolean(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getBoolean(11),
+				Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5),
+						rs.getInt(6), rs.getBoolean(7), rs.getInt(8), rs.getBoolean(9), rs.getInt(10), rs.getInt(11),
 						rs.getBoolean(12), rs.getInt(13));
 				arreavion[i] = out_av;
 				i++;
@@ -108,8 +106,8 @@ public class DaoDeAviones {
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
 			while ((rs.next()) && (i < tope)) {
-				Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5),
-						rs.getFloat(6), rs.getBoolean(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getBoolean(11),
+				Avion out_av = new Avion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5),
+						rs.getInt(6), rs.getBoolean(7), rs.getInt(8), rs.getBoolean(9), rs.getInt(10), rs.getInt(11),
 						rs.getBoolean(12), rs.getInt(13));
 				arreavion[i] = out_av;
 				i++;
@@ -126,14 +124,14 @@ public class DaoDeAviones {
 	public Avion kesimo(int index, IConexion con) throws PersistenciaException {
 		Avion avion = null;
 		int id = 0;
+		int baseoid;
 		int coordX = 0;
 		int coordY = 0;
+		int coordZ;
 		boolean estado = false;
 		int vida = 0;
-		float avionAngle = 0;
 		boolean avionBomba = false;
 		int cantidadBombas = 0;
-		int avionAltura = 0;
 		int avionCombustible = 0;
 		boolean hayEnemigo = false;
 		boolean enCampoEnemigo = false;
@@ -148,21 +146,26 @@ public class DaoDeAviones {
 			pstmt1.setInt(1, this.baseId);
 			ResultSet rs1 = pstmt1.executeQuery();
 			while ((rs1.next()) && (ind < tope)) {
+				
+				
+				
 				id = rs1.getInt(1);
-				coordX = rs1.getInt(2);
+				coordX =  rs1.getInt(2);
 				coordY = rs1.getInt(3);
-				estado = rs1.getBoolean(4);
-				vida = rs1.getInt(5);
-				avionAngle = rs1.getFloat(6);
-				avionBomba = rs1.getBoolean(7);
-				cantidadBombas = rs1.getInt(8);
-				avionAltura = rs1.getInt(9);
-				avionCombustible = rs1.getInt(10);
-				hayEnemigo = rs1.getBoolean(11);
+				coordZ = rs1.getInt(4);
+				estado=  rs1.getBoolean(5);
+				vida = rs1.getInt(6);
+				hayEnemigo = rs1.getBoolean(7);
+				rangoDeVision = rs1.getInt(8);
+				avionBomba=rs1.getBoolean(9);
+				cantidadBombas = rs1.getInt(10);
+				avionCombustible = rs1.getInt(11);
 				enCampoEnemigo = rs1.getBoolean(12);
-				rangoDeVision = rs1.getInt(13);
-				avion = new Avion(id, coordX, coordY, estado, vida, avionAngle, avionBomba, cantidadBombas, avionAltura,
-						avionCombustible, hayEnemigo, enCampoEnemigo, rangoDeVision);
+				baseoid = rs1.getInt(13);
+				
+				
+				avion = new Avion(id, coordX, coordY, coordZ, estado, vida, hayEnemigo,rangoDeVision ,avionBomba, cantidadBombas,
+						avionCombustible,enCampoEnemigo ,baseoid );
 				arregavion[ind] = avion;
 
 			}

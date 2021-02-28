@@ -57,15 +57,14 @@ public class DaoArtilleria {
 			consultas cons = new consultas();
 			String insert = cons.insertarArtillero();
 			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
-			pstmt.setInt(1, in_idBase);
-			pstmt.setInt(2, in_Artillero.GetId());
-			pstmt.setInt(3, in_Artillero.getCoordX());
-			pstmt.setInt(4, in_Artillero.getCoordY());
-			pstmt.setBoolean(5, in_Artillero.getEstado());
-			pstmt.setInt(6, in_Artillero.getVida());
-			pstmt.setBoolean(7, in_Artillero.getHayEnemigo());
-			pstmt.setInt(8, in_Artillero.getRangoDeVision());
-			pstmt.setFloat(9, in_Artillero.getAvionAngle());
+			pstmt.setInt(1, in_Artillero.getCoordX());
+			pstmt.setInt(2, in_Artillero.getCoordY());
+			pstmt.setBoolean(3, in_Artillero.getEstado());
+			pstmt.setInt(4, in_Artillero.getVida());
+			pstmt.setBoolean(5, in_Artillero.getHayEnemigo());
+			pstmt.setInt(6, in_Artillero.getRangoDeVision());
+			pstmt.setInt(7, in_Artillero.getAvionAngle());
+			pstmt.setInt(8, in_idBase);
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -84,7 +83,8 @@ public class DaoArtilleria {
 		int out_vida = 0;
 		boolean out_hayEnemigo = false;
 		int out_rangoDeVision = 0;
-		float out_avionAngle = 0;
+		int out_avionAngle = 0;
+		int baseid;
 
 		try {
 			consultas cons = new consultas();
@@ -97,15 +97,14 @@ public class DaoArtilleria {
 				out_id = rs1.getInt(1);
 				out_coordX = rs1.getInt(2);
 				out_coordY = rs1.getInt(3);
-
-				out_estado = rs1.getBoolean(4);
+                out_estado = rs1.getBoolean(4);
 				out_vida = rs1.getInt(5);
 				out_hayEnemigo = rs1.getBoolean(6);
-
-				out_rangoDeVision = rs1.getInt(7);
-				out_avionAngle = rs1.getFloat(8);
+                out_rangoDeVision = rs1.getInt(7);
+				out_avionAngle = rs1.getInt(8);
+				baseid=rs1.getInt(9);
 				out_Artillero = new Artillero(out_id, out_coordX, out_coordY, out_estado, out_vida, out_hayEnemigo,
-						out_rangoDeVision, out_avionAngle);
+						out_rangoDeVision, out_avionAngle,baseid);
 				arreArtilleria[ind] = out_Artillero;
 
 			}
@@ -131,7 +130,7 @@ public class DaoArtilleria {
 			while (rs.next()) {
 
 				Artillero out_av = new Artillero(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4),
-						rs.getInt(5), rs.getBoolean(6), rs.getInt(7), rs.getFloat(8));
+						rs.getInt(5), rs.getBoolean(6), rs.getInt(7), rs.getInt(8),rs.getInt(9));
 				secuenciaArtilleria[i] = out_av;
 				i++;
 			}
@@ -157,7 +156,7 @@ public class DaoArtilleria {
 			while ((rs.next()) && (i < tope)) {
 
 				Artillero out_av = new Artillero(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4),
-						rs.getInt(5), rs.getBoolean(6), rs.getInt(7), rs.getFloat(8));
+						rs.getInt(5), rs.getBoolean(6), rs.getInt(7), rs.getInt(8),rs.getInt(9));
 				secuenciaArtilleria[i] = out_av;
 				i++;
 			}

@@ -13,8 +13,8 @@ public class Partida {
 	private Date partidaFechaUltimaActualizacion; 
 
 	private boolean partidaGuardada;
+	private boolean partidaTermino;
 
-	private int ganadorEquipoID;
 
 	private String  partidaNombre;
 
@@ -34,18 +34,18 @@ public Partida() {
 }
 
 public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
-boolean in_PartidaGuardada, int in_ganadorEquipoID, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-int in_PartidaCreador, Date in_PartidaFechaCreada, DaoEquipo in_Equi)
+boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
+int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, DaoEquipo in_Equi)
 {
 	this.setPartidaId(in_PartidaId);
 	this.setPartidaEstado(in_PartidaEstado);
 	this.setPartidaFechaUltimaActualizacion(in_PartidaFechaUltimaActualizacion); 
 	this.setPartidaGuardada(in_PartidaGuardada);
-	this.setGanadorEquipoID(in_ganadorEquipoID);
 	this.setPartidaNombre(in_PartidaNombre);
 	this.setPartidaCantidadJugadores(in_PartidaCantidadJugadores);
 	this.setPartidaCreador(in_PartidaCreador);
 	this.setPartidaFechaCreada(in_PartidaFechaCreada);
+	this.setPartidaTermino(in_partidaTermino);
 	this.setEquipos(in_Equi);
 }
 
@@ -81,13 +81,7 @@ public void setPartidaGuardada(boolean in_partidaGuardada) {
 	this.partidaGuardada = in_partidaGuardada;
 }
 
-public int getGanadorEquipoID() {
-	return ganadorEquipoID;
-}
 
-public void setGanadorEquipoID(int in_ganadorEquipoID) {
-	this.ganadorEquipoID = in_ganadorEquipoID;
-}
 
 public String getPartidaNombre() {
 	return partidaNombre;
@@ -127,6 +121,14 @@ public DaoEquipo getEquipos() {
 
 public void setEquipos(DaoEquipo equipos) {
 	Equipos = equipos;
+}
+
+public boolean getPartidaTermino() {
+	return partidaTermino;
+}
+
+public void setPartidaTermino(boolean partidaTermino) {
+	this.partidaTermino = partidaTermino;
 }
 
 

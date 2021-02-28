@@ -95,11 +95,9 @@ public class DaoBase {
 			pstmt1.close();
 			String insertBase = cons.insertarBase();
 			PreparedStatement pstmt4 = ((Conexion) con).getConnection().prepareStatement(insertBase);
-			pstmt4.setInt(1, idBase);
-			pstmt4.setInt(2, torreid);
-			pstmt4.setInt(3, tanqueId);
-			pstmt4.setInt(4, depositoId);
-			pstmt4.setInt(5, in_idEquipo);
+			pstmt4.setInt(1, depositoId);
+			pstmt4.setInt(2, tanqueId);
+			pstmt4.setInt(3, torreid);
 			pstmt4.executeUpdate();
 			pstmt4.close();
 		} catch (SQLException e) {
@@ -127,10 +125,9 @@ public class DaoBase {
 			pstmt1.setInt(1, in_idBase);
 			ResultSet rs1 = pstmt1.executeQuery();
 			if (rs1.next()) {
-
-				out_torrecontrol = findTorreControl(rs1.getInt(2), con);
+				out_deposito = findDeposito(rs1.getInt(2), con);
 				out_tanquecombustible = findTanqueCombustible(rs1.getInt(3), con);
-				out_deposito = findDeposito(rs1.getInt(4), con);
+				out_torrecontrol = findTorreControl(rs1.getInt(4), con);
 				out_aviones = new DaoDeAviones(in_idBase);
 				arreavion = out_aviones.listarAvionesXBase(con);
 				out_aviones.setArreAviones(arreavion);
@@ -202,9 +199,9 @@ public class DaoBase {
 			ResultSet rs = prstm.executeQuery();
 			while (rs.next()) {
 				int idBase = rs.getInt(1);
-				out_torrecontrol = findTorreControl(rs.getInt(2), con);
+				out_deposito = findDeposito(rs.getInt(2), con);
 				out_tanquecombustible = findTanqueCombustible(rs.getInt(3), con);
-				out_deposito = findDeposito(rs.getInt(4), con);
+				out_torrecontrol = findTorreControl(rs.getInt(4), con);
 				out_aviones = new DaoDeAviones(rs.getInt(1));
 				arreavion = out_aviones.listarAvionesXBase(con);
 				out_aviones.setArreAviones(arreavion);

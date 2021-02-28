@@ -85,11 +85,10 @@ public void insert(Jugador in_jugador, IConexion con) throws PersistenciaExcepti
 		consultas cons = new consultas();
 		String insert = cons.insertarJugador();
 		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-		pstmt.setInt(1, 0);
-		pstmt.setString (2, in_jugador.getJugadorUserName());
-		pstmt.setString (3, in_jugador.getJugadorPassword());
-		pstmt.setBoolean(4, in_jugador.isJugadorIsOnline());
-		pstmt.setInt (5, in_jugador.getPuntajeAcumulado());
+		pstmt.setString (1, in_jugador.getJugadorUserName());
+		pstmt.setString (2, in_jugador.getJugadorPassword());
+		pstmt.setBoolean(3, in_jugador.isJugadorIsOnline());
+		pstmt.setInt (4, in_jugador.getPuntajeAcumulado());
 		pstmt.executeUpdate ();
 		pstmt.close ();
 	}

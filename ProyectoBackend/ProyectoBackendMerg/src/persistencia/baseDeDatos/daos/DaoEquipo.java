@@ -53,10 +53,11 @@ public class DaoEquipo {
 			     try {
 			    	 //Inserto Equipo
 				pstmt1 = ((Conexion) con).getConnection().prepareStatement (insertEquipo);
-				pstmt1.setInt(1,equipoID);
-				pstmt1.setInt(2,jugAux[i].getJugadorId());
-				pstmt1.setString(3,bando);
-				pstmt1.setInt(4,in_idPartida);
+				
+				
+				pstmt1.setString(1,bando);
+				pstmt1.setInt(2,in_idPartida);
+				pstmt1.setInt(3,in_Equipo.getBase().getIdDabse());
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
 				//Inserto EquipoJugador
