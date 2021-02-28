@@ -12,16 +12,16 @@ import persistencia.excepciones.PersistenciaException;
 
 public interface IFachada extends Remote{
 	
-	public void registrarJugador(VOJugador in_voJug) throws PersistenciaException, LogicaException;
+	public void registrarJugador(VOJugador in_voJug) throws PersistenciaException, LogicaException, RemoteException;
 	
 	public VOJugador Login(String in_userName, String in_userPassword)throws RemoteException, LogicaException, PersistenciaException;
 	
-	public TreeMap<Integer, Partida> listarPartidasAReanudar(String in_Nickname)throws PersistenciaException, LogicaException;
+	public TreeMap<Integer, Partida> listarPartidasAReanudar(String in_Nickname)throws PersistenciaException, LogicaException, RemoteException;
 	
-	public void guardarPartida(voPartida in_voPartida) throws LogicaException;
+	public void guardarPartida(voPartida in_voPartida) throws LogicaException, RemoteException;
 	
-	public void logout(String in_userName)throws LogicaException;
+	public void logout(String in_userName)throws LogicaException, RemoteException;
 	
-	public boolean jugadorIsOnline(String in_name) throws LogicaException;
+	public boolean jugadorIsOnline(String in_name) throws LogicaException, RemoteException;
 	
 }

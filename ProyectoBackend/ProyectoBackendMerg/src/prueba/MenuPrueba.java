@@ -42,20 +42,8 @@ public class MenuPrueba {
                 {
                     case 1:
                         System.out.println("Has seleccionado la opcion 1 Loguearse para jugar:");
-                     
-                        /* try {                                             	
-                        	sin.Loguearse(IngreseUsuarioContrasenia());
-                        	
-                		} catch (JugadorException  e) 
-                        {
-                			System.out.println(e.getMensajeJugadoresExcep());
-                		}
-		                catch (PartidaException  e) 
-                        {
-		        			System.out.println(e.getMensajePartidaExcep());
-		        			}
-		        			
-		        		*/                                             
+                      
+                                                        
                         break;
                     case 2:
                     	System.out.println("Has seleccionado la opcion 2 Registrarse:");  

@@ -74,7 +74,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return instancia;
 	}
 
-	public void registrarJugador(VOJugador in_voJug) throws PersistenciaException, LogicaException {
+	public void registrarJugador(VOJugador in_voJug) throws RemoteException,PersistenciaException, LogicaException {
 		IConexion icon = ipool.obtenerConexion(true);
 
 		try {
@@ -86,8 +86,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				throw new LogicaException(mensg.errorFachadaYaExisteUsuario);
 			} else {
 
-				int ultimoId = daoJ.getUltimoJugadorID(icon);
-				Jugador jug = new Jugador(0,in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
+				
+				Jugador jug = new Jugador(daoJ.getUltimoJugadorID(icon)+1,in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
 						in_voJug.isJugadorIsOnline(), in_voJug.getPuntajeAcumulado());
 
 				daoJ.insert(jug, icon);
@@ -126,7 +126,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	// PRE:Jugador Logueado
 	public TreeMap<Integer, Partida> listarPartidasAReanudar(String in_Nickname)
-			throws PersistenciaException, LogicaException {
+			throws PersistenciaException, LogicaException, RemoteException {
 		IConexion icon = ipool.obtenerConexion(false);
 		TreeMap<Integer, Partida> listarPartidasDelJugador = null;
 
@@ -155,7 +155,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return listarPartidasDelJugador;
 	}
 
-	public void guardarPartida(voPartida in_voPartida) throws LogicaException {
+	public void guardarPartida(voPartida in_voPartida) throws LogicaException, RemoteException {
 
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
@@ -199,7 +199,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	// precondicion jugador logueado
 	
-	public void logout(String in_userName) throws LogicaException {
+	public void logout(String in_userName) throws LogicaException, RemoteException {
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
 			int id = daoJ.geIdbyName(in_userName, icon);
@@ -213,7 +213,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		}
 	}
 
-	public boolean jugadorIsOnline(String in_name) throws LogicaException {
+	public boolean jugadorIsOnline(String in_name) throws LogicaException, RemoteException {
 		IConexion icon = ipool.obtenerConexion(true);
 		boolean out_es = false;
 
