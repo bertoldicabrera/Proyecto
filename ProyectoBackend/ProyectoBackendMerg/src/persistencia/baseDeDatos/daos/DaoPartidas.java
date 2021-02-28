@@ -183,8 +183,6 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 {
 	DaoEquipo daoEq = null,daoEqaux=null;
 	consultas cons = new consultas();
-	//Consultamos tabla auxiliar con relacion
-	//Metemos en una lista todos los id de la partida del jugador
 	TreeMap<Integer, Partida> listaDePartidas = new TreeMap<Integer, Partida>();
 	String sqlToExecute = cons.listarPartidasDeUnJugador();
 	PreparedStatement prstm;

@@ -207,10 +207,10 @@ public class consultas {
 	public String listarPartidasDeUnJugador() {
 
 		String query = "SELECT P.PK_partida_id, P.partidaEstado, P.partidaFechaUltimaActualizacion, "
-				      + "P.partidaGuardada,P.partidaNombre, P.partidaCantidadJugadores,"
-				      + "P.FK_partidaCreador_id,P.partidaFechaCreada,P.partidaTermino" + 
-				       "FROM EQUIPOS_JUGADORES EJ,EQUIPOS E, PARTIDAS P" + 
-				       "WHERE EJ.PK_jugador_id=(?) and EJ.PK_equipo_id=E.PK_equipo_id and E.FK_partida_id=P.PK_partida_id" + 
+				      + "P.partidaGuardada,P.partidaNombre, P.partidaCantidadJugadores, "
+				      + "P.FK_partidaCreador_id,P.partidaFechaCreada,P.partidaTermino " + 
+				       "FROM EQUIPOS_JUGADORES EJ,EQUIPOS E, PARTIDAS P " + 
+				       "WHERE EJ.PK_jugador_id=(?) and EJ.PK_equipo_id=E.PK_equipo_id and E.FK_partida_id=P.PK_partida_id " + 
 				       "ORDER BY P.PK_partida_id";
 		return query;
 	}

@@ -1,5 +1,6 @@
 package prueba;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -17,15 +18,26 @@ public class MenuPrueba {
 	public IFachada modelo;
 	static SystemProperties sp;
 	
-	public MenuPrueba() throws IOException, NotBoundException {
+	public MenuPrueba() throws IOException, NotBoundException,FileNotFoundException {
 		System.out.println("Antes iFachada");
 		sp = new SystemProperties();
 		String ip = sp.getIpServidor();
 		String puerto = sp.getPuertoServidor();
-		String ruta = "//" + ip + ":" + puerto + "/"+ sp.getNombreAPublicar();
+		String nombreAPublicar = sp.getNombreAPublicar();
+		int port = Integer.parseInt(puerto);
+		String ruta = "//" + ip + ":" + port + "/"+nombreAPublicar ;
+		
+		
+
+		
 		System.out.println("Look");
 		modelo  = (IFachada) Naming.lookup(ruta);
-		System.out.println("Levanta iFachada");
+		if(modelo !=null) {
+			 System.out.println("Levanta iFachada");
+		}else
+			System.out.println("No levanto iFachada");
+		
+		
 	}
 	
 	
@@ -52,9 +64,7 @@ public class MenuPrueba {
                    		
                    		
                    		System.out.println("Has seleccionado la opcion 1 Registrarse:");  
-                      	 VOJugador x = new
-                                   VOJugador(1,  "in_JugadorUserName" , "in_JugadorPassword", 
-                              			 true, 1);
+                      	 VOJugador x = new VOJugador(1,  "in_JugadorUserName" , "in_JugadorPassword", true, 1);
 						modelo.registrarJugador(x);
 						
 						System.out.println("ingresado"); 
