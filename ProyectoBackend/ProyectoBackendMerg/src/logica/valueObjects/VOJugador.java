@@ -1,8 +1,12 @@
 package logica.valueObjects;
 
-import logica.Jugador;
+import java.io.Serializable;
 
-public class VOJugador {
+public class VOJugador implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int jugadorId;
 	 private String jugadorUserName;
 	 private String jugadorPassword;

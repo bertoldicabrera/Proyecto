@@ -1,13 +1,19 @@
 package logica.valueObjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import persistencia.baseDeDatos.daos.DaoEquipo;
 
-public class voPartida {
+public class voPartida implements Serializable {
 	
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private int partidaId;
 
 	private String partidaEstado;

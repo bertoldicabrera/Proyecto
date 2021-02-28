@@ -50,6 +50,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			String poolConcreto = sp.getpool_className();
 			System.out.println(poolConcreto + "*************#########*********");
 			ipool = (IPoolConexiones) Class.forName(poolConcreto.trim()).newInstance();
+			System.out.println( "*************##3333######*********");
 			daoP = new DaoPartidas();
 			daoJ = new DaoJugador();
 			daoE = new DaoEquipo();

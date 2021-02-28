@@ -1,5 +1,6 @@
 package persistencia.baseDeDatos.daos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,12 @@ import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
-public class DaoDeAviones {
+public class DaoDeAviones implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 
 	private int tope = 4;

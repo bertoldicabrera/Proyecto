@@ -3,10 +3,14 @@ package prueba;
 import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 import Utilitarios.SystemProperties;
 import logica.IFachada;
+import logica.excepciones.LogicaException;
+import logica.valueObjects.VOJugador;
+import persistencia.excepciones.PersistenciaException;
 
 public class MenuPrueba {
 
@@ -41,23 +45,49 @@ public class MenuPrueba {
                 switch (opcion) 
                 {
                     case 1:
-                        System.out.println("Has seleccionado la opcion 1 Loguearse para jugar:");
-                      
+                    	
+                    	
+                   	 
+                   	try {
+                   		
+                   		
+                   		System.out.println("Has seleccionado la opcion 1 Registrarse:");  
+                      	 VOJugador x = new
+                                   VOJugador(1,  "in_JugadorUserName" , "in_JugadorPassword", 
+                              			 true, 1);
+						modelo.registrarJugador(x);
+						
+						System.out.println("ingresado"); 
+						
+						
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (PersistenciaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (LogicaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                        
                                                         
                         break;
                     case 2:
-                    	System.out.println("Has seleccionado la opcion 2 Registrarse:");  
-                    	/*
-                      try {
-                    	  sin.IniciarNuevaPartida(IngreseUsuarioContrasenia());
-              			} 
-	              		catch (JugadorException  e) {
-	              			System.out.println(e.getMensajeJugadoresExcep());
-	              		}
-	              		catch ( PartidaException e) {
-	              			System.out.println(e.getMensajePartidaExcep());
-	              		}  
-	              		*/                  
+                    	System.out.println("Has seleccionado la opcion 2 Loguearse para jugar:");
+                        
+					try {
+						modelo.Login("in_JugadorUserName" , "in_JugadorPassword");
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (LogicaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (PersistenciaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                         break;
                     case 3:
                         System.out.println("Has seleccionado la opcion 3 Iniciar nueva partida:");                       
@@ -128,8 +158,9 @@ public class MenuPrueba {
 	private void MenuJuga()
 	{
 			System.out.println("");
-	    	System.out.println("1. Loguearse para jugar:");
-	    	System.out.println("2. Registrarse:");
+	    	
+	    	System.out.println("1. Registrarse:");
+	    	System.out.println("2. Loguearse para jugar:");
 	        System.out.println("3. Iniciar nueva partida:");
 	        System.out.println("4. Listar partidas Pausadas:");
 	        System.out.println("5. Guardar una partida:");

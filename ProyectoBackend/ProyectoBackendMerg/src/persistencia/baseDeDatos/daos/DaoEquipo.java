@@ -1,5 +1,6 @@
 package persistencia.baseDeDatos.daos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,11 @@ import persistencia.baseDeDatos.poolDeConexiones.Conexion;
 import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
-public class DaoEquipo {
+public class DaoEquipo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idpartida;
 	private int tope=2;
 	private Equipo[] equipos;
