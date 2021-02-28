@@ -49,7 +49,7 @@ public class DaoBase {
 
 	}
 
-	public void insert(int idBase, int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
+	public void insert(int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
 			TorreControl in_TorreControl, IConexion con) throws PersistenciaException {
 		
 		try {

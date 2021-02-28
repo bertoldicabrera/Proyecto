@@ -87,7 +87,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			} else {
 
 				int ultimoId = daoJ.getUltimoJugadorID(icon);
-				Jugador jug = new Jugador(ultimoId++, in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
+				Jugador jug = new Jugador(0,in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
 						in_voJug.isJugadorIsOnline(), in_voJug.getPuntajeAcumulado());
 
 				daoJ.insert(jug, icon);
@@ -170,8 +170,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			Equipo[] auxEquipo = null;
 			auxEquipo = part.getEquipos().listarEquipos(icon);// Esto es un arreglo con los N equipos
 			int largoArreglo = auxEquipo.length;
-			int idbase = daoB.getUltimaIsBase(icon);
-			idbase++;
 			for (int i = 0; i < largoArreglo; i++) {
 
 				daoE.insBack(idpartida, auxEquipo[i], icon);
@@ -179,18 +177,17 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				Deposito auxDep = auxBase.getDeposito();
 				TanqueCombustible auxTC = auxBase.getTanque();
 				TorreControl auxTControl = auxBase.getTorre();
-				daoB.insert(idbase, auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
+				daoB.insert( auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
 				Avion[] auxAviones = auxBase.getAviones().listarAviones(icon);
 				int largoAviones = auxAviones.length;
 				for (int j = 0; i < largoAviones; j++) {
-					daoAvion.insback(idbase, auxAviones[j], icon);
+					daoAvion.insback(daoB.getUltimaIsBase(icon), auxAviones[j], icon);
 				}
 				Artillero[] auxArtilleria = auxBase.getArtilleros().listarArtilleria(icon);
 				int largoArtillero = auxArtilleria.length;
 				for (int x = 0; i < largoArtillero; x++) {
-					daoArti.insBack(idbase, auxArtilleria[x], icon);
+					daoArti.insBack(daoB.getUltimaIsBase(icon), auxArtilleria[x], icon);
 				}
-				idbase++;
 				icon = ipool.obtenerConexion(true);
 			}
 		} catch (PersistenciaException e) {
