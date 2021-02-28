@@ -12,6 +12,7 @@ public class Base {
  private TanqueCombustible tanque; 
  private TorreControl torre;
 
+
 	public Base() {
 	}
 	public Base(int in_idDabse,DaoDeAviones in_aviones,  
@@ -23,6 +24,7 @@ public class Base {
 		this.setDeposito(in_deposito);
 		this.setTanque(in_tanque);
 		this.setTorre(in_torre);
+		
 		
 	}
 	
@@ -76,6 +78,7 @@ public class Base {
 	public void setTorre(TorreControl in_torre) {
 		this.torre = in_torre;
 	}
+	
 	
 	
 	

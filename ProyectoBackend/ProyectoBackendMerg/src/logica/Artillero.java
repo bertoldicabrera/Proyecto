@@ -7,7 +7,9 @@ public class Artillero extends Objeto{
 
 	private float avionAngle;
 	
-	public Artillero(int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, boolean in_hayEnemigo, int in_rangoDeVision, float in_avionAngle) {
+	public Artillero(int in_id, int in_coordX, int in_coordY, 
+			boolean in_estado, int in_vida, boolean in_hayEnemigo,
+			int in_rangoDeVision, float in_avionAngle) {
 		super(in_id, in_coordX, in_coordY, in_estado, in_vida);
 		this.setHayEnemigo(in_hayEnemigo);
 		this.setRangoDeVision(in_rangoDeVision);

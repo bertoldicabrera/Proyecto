@@ -3,8 +3,11 @@ package persistencia.baseDeDatos.daos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Utilitarios.MensajesPersonalizados;
+import logica.Artillero;
 import logica.Base;
 import logica.Equipo;
 import logica.Jugador;
@@ -14,50 +17,67 @@ import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 public class DaoEquipo {
-	
-	
+	private int idpartida;
+	private int tope=2;
+	private Equipo[] equipos;
+	DaoJugador DaoJ;
+	DaoBase   DaoB;
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
+	
+	
 
 	public DaoEquipo() {
-		// TODO Auto-generated constructor stub
+		equipos = new Equipo[tope];
 		
 	}
 	
-	public void  insBack (Equipo in_Equipo, IConexion con) {
-		try{
-			
-			 int equipoID;
-			 int idJugador;
-			 int baseId;
-			 String bando;
-			
-			
-			
-			consultas cons = new consultas();
-			String insert = cons.insertarEquipo();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
-			
-			pstmt.setInt(1, in_Equipo.getEquipoID());
-			pstmt.setInt (2, in_Equipo.getJugador().getJugadorId());
-			pstmt.setInt (3, in_Equipo.getBase().getIdDabse());
-			pstmt.setString(4, in_Equipo.getBando());
-			
-			pstmt.executeUpdate ();
-			pstmt.close ();
-		}
-		catch (SQLException e)
-		{
-		throw new PersistenciaException (mensg.errorSQLInsertEquipos);
-		}
+	public DaoEquipo(int in_idpartida, Equipo[] in_EQS) {
+		this.idpartida=in_idpartida;
+		this.equipos = in_EQS;
 		
+	}
+	
+	
+	
+	public void  insBack ( int in_idPartida,Equipo in_Equipo, IConexion con) throws PersistenciaException {
+		 int equipoID=getUltimoEquipoId(con);
+		 Jugador[] jugAux=in_Equipo.getJugadores();
+		 consultas cons = new consultas();
+		 String insertEquipo = cons.insertarEquipo();
+		 String insertEquipoJugadores=cons.InsertarEquipoJugador();
+		 String bando=in_Equipo.getBando();
+		 
+		for(int i=0;i<jugAux.length;i++) {
+			
+			     PreparedStatement pstmt1,pstmt2;
+			     try {
+			    	 //Inserto Equipo
+				pstmt1 = ((Conexion) con).getConnection().prepareStatement (insertEquipo);
+				pstmt1.setInt(1,equipoID);
+				pstmt1.setInt(2,jugAux[i].getJugadorId());
+				pstmt1.setString(3,bando);
+				pstmt1.setInt(4,in_idPartida);
+                pstmt1.executeUpdate ();
+				pstmt1.close ();
+				//Inserto EquipoJugador
+				pstmt2 = ((Conexion) con).getConnection().prepareStatement (insertEquipoJugadores);
+				pstmt2.setInt(1,jugAux[i].getJugadorId());
+				pstmt2.setInt(2,equipoID);
+				pstmt2.executeUpdate ();
+				pstmt2.close ();
 		
+			} catch (SQLException e) {
+				throw new PersistenciaException (mensg.errorSQLInsertEquipos);
+			}
+			
+		}
 		
 	}
 
 	
 	
 	
-	public int largo ( IConexion con)
+	public int largo ( IConexion con) throws PersistenciaException
 	{
 		int cant=0;
 		consultas cons = new consultas();
@@ -79,23 +99,138 @@ public class DaoEquipo {
 		
 	}
 	
-	public Equipo kesimo (int in_equipoID, IConexion con)
-	{
-		return null;
+	public Equipo kesimo (int in_indexEQ, IConexion con) throws PersistenciaException
+	{    DaoJ=new  DaoJugador();
+	     DaoB=new DaoBase();
+		Equipo out_Equipo = null;
+		Jugador out_Jugador=null;
+		Base out_base= null;
+	    Jugador [] arreJugador=new Jugador [1] ;
+	    String out_bando="";
+	    List<Equipo> out_Equipos = new ArrayList<Equipo>();
+		
+		
+		try{
+			consultas cons = new consultas ();
+		
+			String query = cons.listarEquiposDeUnaPartida();
+			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			pstmt1.setInt (1, this.idpartida);
+			ResultSet rs1 = pstmt1.executeQuery ();
+		
+			int ind=0;
+			while (rs1.next ()){
+ 				int out_idEquipo= rs1.getInt(1);
+ 				out_Jugador=DaoJ.find(rs1.getInt(2), con);
+ 				arreJugador[ind]=out_Jugador;
+ 				DaoB = new DaoBase();
+				out_base=DaoB.find(rs1.getInt(3), con);
+				out_bando=rs1.getString(4);
+				out_Equipo=new Equipo(out_idEquipo,arreJugador,out_base,out_bando);
+				out_Equipos.add(out_Equipo);
+				ind++;
+				}
+			rs1.close ();
+			pstmt1.close ();
+			
+			}
+		catch (SQLException e){
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return out_Equipos.get(in_indexEQ);
 	}
 	
 
 
-	public Equipo[]  listarEquipos( IConexion con)
-	{
-		return null;
-	}
-	public void  borrarEquipos( IConexion con)
-	{
+	public Equipo[]  listarEquipos( IConexion con) throws PersistenciaException
 	
+	{
+        consultas cons = new consultas();
+		
+		String sqlToExecute = cons.listarEquipos();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			int i=0;
+			while (rs.next()) {
+
+				Equipo out_av = new Equipo();
+				equipos[i]=out_av ;	
+			 i++;               
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return equipos;
+	}
+
+	public int getIdpartida() {
+		return idpartida;
+	}
+
+	public void setIdpartida(int idpartida) {
+		this.idpartida = idpartida;
+	}
+
+	
+	
+
+	
+	
+	public int getUltimoEquipoId(IConexion con) throws PersistenciaException {
+		int cant=0;
+		consultas cons = new consultas();
+		
+		String sqlToExecute = cons.ultimaEquipoId();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			if (rs.next()) {
+				cant=rs.getInt(1);
+			}
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		return cant;
 		
 	}
 
+public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) throws PersistenciaException
+	{
+	
+	    DaoEquipo aux=null;
+        consultas cons = new consultas();
+        Equipo[] out_Equipos=new  Equipo[tope];
+        
+		
+		String sqlToExecute = cons.listarEquiposDeUnaPartida();
+		PreparedStatement prstm;
+		try {
+			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			ResultSet rs = prstm.executeQuery();
+			int i=0;
+			while (rs.next()) {
+
+				Equipo out_av = new Equipo();
+				out_Equipos[i]=out_av ;	
+			 i++;               
+			}
+			aux=new DaoEquipo(in_idpartida,out_Equipos);
+			
+			rs.close();
+			prstm.close();
+		} catch (SQLException e) {
+			throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		}
+		
+		return aux;
+	}
 	
 
 

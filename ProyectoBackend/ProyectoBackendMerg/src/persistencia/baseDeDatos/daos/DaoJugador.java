@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+
 import Utilitarios.MensajesPersonalizados;
 import logica.Jugador;
 import persistencia.baseDeDatos.consultas.consultas;
@@ -56,8 +58,8 @@ public Jugador find(int in_JugadorID, IConexion con) throws PersistenciaExceptio
 	try{
 		consultas cons = new consultas ();
 	
-		String queryNin = cons.obtenerJugador();
-		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (queryNin);
+		String query = cons.obtenerJugador();
+		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
 		pstmt1.setInt(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();
 		if (rs1.next ()){
@@ -113,9 +115,10 @@ public void delete(int in_JugadorID, IConexion con) throws PersistenciaException
 }
 
 
-public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException {
+public TreeMap<Integer, Jugador> listarJugadores(IConexion con) throws PersistenciaException {
+	
 	consultas cons = new consultas();
-	List<Jugador> lista_out = new ArrayList<Jugador>();
+	TreeMap<Integer, Jugador> tree_out = new TreeMap<Integer, Jugador>();
 	String sqlToExecute = cons.listarJugadores();
 	PreparedStatement prstm;
 	try {
@@ -124,16 +127,20 @@ public List<Jugador> listarJugadores(IConexion con) throws PersistenciaException
 		while (rs.next()) {
 			
 			Jugador nuevoJ = new Jugador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getInt(5));
-			lista_out.add(nuevoJ);
+			tree_out.put(nuevoJ.getJugadorId(),nuevoJ);
+			
 		}
 		rs.close();
 		prstm.close();
 	} catch (SQLException e) {
-		throw new PersistenciaException (mensg.errorSQLListarUsuarios);
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
 	
 	
-	return lista_out;
+	return tree_out;
+
+	
+
 }
 
 public int  cantidadJugadores(IConexion con) throws PersistenciaException {
@@ -229,12 +236,110 @@ public String getNameById(String in_JugadorID, IConexion con) throws Persistenci
 	return nombre;
 	
 }
+
+
+public int geIdbyName(String in_name, IConexion con) throws PersistenciaException {
+	
+	int out_id= 0;
+
+	try{
+		consultas cons = new consultas ();
+	
+		String query = cons.getJugadorIdByName();
+		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		pstmt1.setString(1, in_name);
+		ResultSet rs1 = pstmt1.executeQuery ();
+		if (rs1.next ()){
+			out_id = rs1.getInt(1);
+		}
+		rs1.close ();
+		pstmt1.close ();
+		}
+	catch (SQLException e){
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return out_id;
+	
+}
+
+
+public boolean estaVacia(IConexion con) throws PersistenciaException {
+	boolean esta = false;
+	try{
+		consultas cons = new consultas();
+		String query = cons.existenJugadores();
+		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		ResultSet rs = pstmt.executeQuery ();
+		if (rs.next ())
+			esta = true;
+		rs.close ();
+		pstmt.close ();
+	}catch (SQLException e){
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return esta;
+} 
 	    
 	   
 	 
-	    
+public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
+	int cant=0;
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.ultimoJugadorID();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		if (rs.next()) {
+			cant=rs.getInt(1);
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLFindUsuario);
+	}
+	return cant;
+}
+	
+	 public boolean  estaOnline(String in_name,IConexion con) throws PersistenciaException {
+			
+			boolean out_es=false;
+			consultas cons = new consultas();
+			
+			String sqlToExecute = cons.isOnLineJugador();
+			PreparedStatement prstm;
+			try {
+				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+				prstm.setString(1, in_name);;
+				ResultSet rs = prstm.executeQuery();
+				if (rs.next()) {
+					out_es=rs.getBoolean(1);
+				}
+				rs.close();
+				prstm.close();
+			} catch (SQLException e) {
+				throw new PersistenciaException (mensg.errorSQLCantidadUsuarios);
+			}
+			return out_es;
+	
+                     }
+
 	  
-	    
+	 public void logoutJugador(String in_name, IConexion con) throws PersistenciaException {
+			try{
+				consultas cons = new consultas ();
+			
+				String query = cons.logoutJugadorPorUserName(); 
+				PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+				pstmt.setString(1, in_name);
+				pstmt.executeUpdate ();
+				pstmt.close ();
+				}
+			catch (SQLException e){
+				throw new PersistenciaException (mensg.errorSQLAlHacerLogout);
+			}
+		}
 	    
 	    
 	    

@@ -35,7 +35,7 @@ public Partida() {
 
 public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 boolean in_PartidaGuardada, int in_ganadorEquipoID, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-int in_PartidaCreador, Date in_PartidaFechaCreada)
+int in_PartidaCreador, Date in_PartidaFechaCreada, DaoEquipo in_Equi)
 {
 	this.setPartidaId(in_PartidaId);
 	this.setPartidaEstado(in_PartidaEstado);
@@ -46,7 +46,7 @@ int in_PartidaCreador, Date in_PartidaFechaCreada)
 	this.setPartidaCantidadJugadores(in_PartidaCantidadJugadores);
 	this.setPartidaCreador(in_PartidaCreador);
 	this.setPartidaFechaCreada(in_PartidaFechaCreada);
-	
+	this.setEquipos(in_Equi);
 }
 
 public int getPartidaId() {
@@ -119,6 +119,14 @@ public Date getPartidaFechaCreada() {
 
 public void setPartidaFechaCreada(Date in_partidaFechaCreada) {
 	this.partidaFechaCreada = in_partidaFechaCreada;
+}
+
+public DaoEquipo getEquipos() {
+	return Equipos;
+}
+
+public void setEquipos(DaoEquipo equipos) {
+	Equipos = equipos;
 }
 
 
