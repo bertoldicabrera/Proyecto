@@ -89,7 +89,10 @@ public class MenuPrueba {
                     	System.out.println("Has seleccionado la opcion 2 Loguearse para jugar:");
                         
 					try {
-						modelo.Login("in_JugadorUserName" , "in_JugadorPassword");
+						
+						VOJugador y= modelo.Login("in_JugadorUserName" , "in_JugadorPassword");
+						System.out.println("id user"+y.getJugadorId());
+						
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -91,15 +91,12 @@ public class PoolConexiones implements IPoolConexiones {
 						try {
 							Connection conAux = DriverManager.getConnection(url, user, password); // var aux que se
 							if (modifica) {
-								System.out.println("Puto 94");
 								conAux.setTransactionIsolation(nivelTransaccionalidad);
 								//conAux.settra;
 								conAux.setAutoCommit(false);
 							}
-							System.out.println("Puto 98");
 							con = new Conexion(conAux);
 							creadas++;
-							System.out.println("Puto 101");
 						} catch (Exception e) {
 							try {
 								throw new ServidorException (mensg.errorPoolCrearIConexion + e.getMessage());
