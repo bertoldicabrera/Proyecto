@@ -244,9 +244,12 @@ public int geIdbyName(String in_name, IConexion con) throws PersistenciaExceptio
 		consultas cons = new consultas ();
 	
 		String query = cons.getJugadorIdByName();
+		System.out.println("la consulta es: 247 daojugador "+query);
 		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		
 		pstmt1.setString(1, in_name);
 		ResultSet rs1 = pstmt1.executeQuery ();
+		System.out.println("Despues de ejecutar ");
 		if (rs1.next ()){
 			out_id = rs1.getInt(1);
 		}
@@ -256,6 +259,7 @@ public int geIdbyName(String in_name, IConexion con) throws PersistenciaExceptio
 	catch (SQLException e){
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
+	System.out.println("El id es: "+out_id);
 	return out_id;
 	
 }

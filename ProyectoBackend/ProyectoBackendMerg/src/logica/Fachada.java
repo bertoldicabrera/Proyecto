@@ -100,11 +100,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		try {
 			 System.out.println("entra al try");
 			if (daoJ.member(in_userName, icon)) {
-				System.out.println("3");
+				System.out.println("es member");
 				int id = daoJ.geIdbyName(in_userName, icon);
-				
+				System.out.println("antes del find");
 				Jugador JuG = daoJ.find(id, icon);
-				if (JuG.getJugadorPassword() == in_userPassword) {
+				System.out.println("despues");
+				
+				if (JuG.getJugadorPassword().equals(in_userPassword)) {
+					System.out.println("la password es igual");
 					out_Voj = devolverVOJugador(JuG);
 				} else {
 					ipool.liberarConexion(icon, true);
