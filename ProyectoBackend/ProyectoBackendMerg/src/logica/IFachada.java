@@ -22,4 +22,6 @@ public interface IFachada extends Remote{
 	
 	public boolean jugadorIsOnline(String in_name) throws LogicaException, RemoteException;
 	
+	public String verConexion(String x) throws RemoteException;
+	
 }

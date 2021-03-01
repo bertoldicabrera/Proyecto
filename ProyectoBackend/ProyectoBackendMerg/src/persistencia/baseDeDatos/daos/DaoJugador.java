@@ -27,13 +27,22 @@ public DaoJugador(){
 public boolean member(String in_JugadorNombre, IConexion con) throws PersistenciaException {
 	boolean existe = false;
 	try{
+		System.out.println("entro al member 30");
 		consultas cons = new consultas();
 		String query = cons.existeJugador();
+		System.out.println("33"+query);
+		if(con==null)
+			System.out.println("34 con en null");
 		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
-		pstmt.setString(1, in_JugadorNombre); 
-		ResultSet rs = pstmt.executeQuery ();
-		if (rs.next ())
+		System.out.println("despues del pstm");
+		pstmt.setString(1, in_JugadorNombre.trim()); 
+		System.out.println("que"+ in_JugadorNombre.trim());
+		ResultSet rs = pstmt.executeQuery();
+		System.out.println("pasa la consulta");
+		if (rs.next())
 			existe = true;
+		
+		System.out.println(existe);
 		rs.close ();
 		pstmt.close ();
 	}catch (SQLException e){

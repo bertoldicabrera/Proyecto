@@ -65,25 +65,29 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			instancia = new Fachada();
 		return instancia;
 	}
-
+   public String verConexion(String x) throws RemoteException {
+	   System.out.println("Servidor :"+x);
+	   return x+"Server";
+   }
 	public void registrarJugador(VOJugador in_voJug) throws RemoteException,PersistenciaException, LogicaException {
 		IConexion icon = ipool.obtenerConexion(true);
 
 		try {
 			String userName = in_voJug.getJugadorUserName();
-
+			 System.out.println("77");
 			if (daoJ.member(userName, icon)) {
-
-				ipool.liberarConexion(icon, true);
+				 System.out.println("79");
+				ipool.liberarConexion(icon, false);
 				throw new LogicaException(mensg.errorFachadaYaExisteUsuario);
 			} else {
-
+				System.out.println("entro al else no es miembro 83");
 				
-				Jugador jug = new Jugador(daoJ.getUltimoJugadorID(icon)+1,in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
+				Jugador jug = new Jugador(0,in_voJug.getJugadorUserName(), in_voJug.getJugadorPassword(),
 						in_voJug.isJugadorIsOnline(), in_voJug.getPuntajeAcumulado());
-
+				 System.out.println("87");
 				daoJ.insert(jug, icon);
 				ipool.liberarConexion(icon, true);
+				 System.out.println("90");
 			}
 		} catch (Exception e) {
 			ipool.liberarConexion(icon, false);

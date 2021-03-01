@@ -10,6 +10,7 @@ import Utilitarios.SystemProperties;
 import Utilitarios.Utilitarios;
 import logica.excepciones.ServidorException;
 import logica.interfaces.IPoolConexiones;
+import persistencia.excepciones.PersistenciaException;
 
 public class PoolConexiones implements IPoolConexiones {
 
@@ -35,7 +36,7 @@ public class PoolConexiones implements IPoolConexiones {
 		}
 		if (Utilitarios.isPoolEnabled()) { // if la propiedad pool_enabled esta en =0 entonces no uso memoria
 			try {
-				driver = sp.getMysql_driver();
+				String driver = sp.getMysql_driver();
 				Class.forName(driver);
 				url = sp.getMysql_url();
 				user = sp.getMysql_user();
@@ -90,14 +91,18 @@ public class PoolConexiones implements IPoolConexiones {
 						try {
 							Connection conAux = DriverManager.getConnection(url, user, password); // var aux que se
 							if (modifica) {
+								System.out.println("Puto 94");
 								conAux.setTransactionIsolation(nivelTransaccionalidad);
+								//conAux.settra;
 								conAux.setAutoCommit(false);
 							}
+							System.out.println("Puto 98");
 							con = new Conexion(conAux);
 							creadas++;
+							System.out.println("Puto 101");
 						} catch (Exception e) {
 							try {
-								throw new ServidorException (mensg.errorPoolCrearIConexion);
+								throw new ServidorException (mensg.errorPoolCrearIConexion + e.getMessage());
 							} catch (ServidorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

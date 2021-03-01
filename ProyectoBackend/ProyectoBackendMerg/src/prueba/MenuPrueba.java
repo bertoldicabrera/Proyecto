@@ -37,6 +37,8 @@ public class MenuPrueba {
 		}else
 			System.out.println("No levanto iFachada");
 		
+		String x=modelo.verConexion("Menu");
+		System.out.println(x);
 		
 	}
 	
