@@ -73,14 +73,12 @@ public class MenuPrueba {
 						
 						
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
+						 
 					} catch (PersistenciaException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
 					} catch (LogicaException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
 					}
                         
                                                         
@@ -94,14 +92,11 @@ public class MenuPrueba {
 						System.out.println("id user"+y.getJugadorId());
 						
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
 					} catch (LogicaException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
 					} catch (PersistenciaException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println(e.toString());
 					}
                         break;
                     case 3:
