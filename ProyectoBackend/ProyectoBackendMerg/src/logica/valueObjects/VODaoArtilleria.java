@@ -42,7 +42,6 @@ public class VODaoArtilleria implements Serializable{
 		
 		secuenciaArtilleria[tope]=in_Artillero;
 		tope--;
-		
 	}
 	public VOArtillero kesimo(int index) {
 		return secuenciaArtilleria[index];

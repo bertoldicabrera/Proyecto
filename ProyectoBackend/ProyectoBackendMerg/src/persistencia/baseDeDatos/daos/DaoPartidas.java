@@ -139,6 +139,7 @@ public class DaoPartidas implements Serializable {
 		
 	}
 	
+	 
 //	public TreeMap<Integer, Partida> listarPartidas(IConexion con) throws PersistenciaException
 //	{
 //		consultas cons = new consultas();

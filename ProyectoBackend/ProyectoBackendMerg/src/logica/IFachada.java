@@ -25,4 +25,5 @@ public interface IFachada extends Remote{
 	
 	public String verConexion(String x) throws RemoteException, InterruptedException;
 	
+	
 }

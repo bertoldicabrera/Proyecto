@@ -7,11 +7,7 @@ import persistencia.baseDeDatos.daos.DaoEquipo;
 
 public class VOPartida implements Serializable {
 	
-	
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private int partidaId;
@@ -25,7 +21,6 @@ public class VOPartida implements Serializable {
     private Date partidaFechaCreada;
 	private DaoEquipo Equipos;
 	
-
 
 
 	public VOPartida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,

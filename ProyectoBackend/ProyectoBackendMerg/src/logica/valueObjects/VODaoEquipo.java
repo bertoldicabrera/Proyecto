@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 public class VODaoEquipo implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int idpartida;
 	private int tope=2;

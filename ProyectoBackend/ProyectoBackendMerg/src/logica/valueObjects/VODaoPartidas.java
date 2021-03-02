@@ -6,9 +6,6 @@ import java.util.TreeMap;
 
 public class VODaoPartidas implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	 TreeMap<Integer, VOPartida> partidas;
 

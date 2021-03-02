@@ -29,7 +29,6 @@ public class DaoEquipo implements Serializable{
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 	
 	
-
 	public DaoEquipo() {
 		equipos = new Equipo[tope];
 		

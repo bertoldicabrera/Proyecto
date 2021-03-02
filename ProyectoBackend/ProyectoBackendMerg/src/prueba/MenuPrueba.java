@@ -158,6 +158,7 @@ public class MenuPrueba {
         }sn2.close();
     }
 	
+	
 	private void MenuJuga()
 	{
 			System.out.println("");
