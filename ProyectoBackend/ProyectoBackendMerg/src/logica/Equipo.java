@@ -1,7 +1,13 @@
 package logica;
 
-public class Equipo {
+import java.io.Serializable;
 
+public class Equipo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int equipoID;
 	private int tope=1;
 	private Jugador[] jugadores; 

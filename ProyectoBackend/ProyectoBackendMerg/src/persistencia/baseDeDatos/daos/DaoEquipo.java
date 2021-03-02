@@ -24,8 +24,8 @@ public class DaoEquipo implements Serializable{
 	private int idpartida;
 	private int tope=2;
 	private Equipo[] equipos;
-	DaoJugador DaoJ;
-	DaoBase   DaoB;
+	private DaoJugador DaoJ;
+	private DaoBase   DaoB;
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 	
 	

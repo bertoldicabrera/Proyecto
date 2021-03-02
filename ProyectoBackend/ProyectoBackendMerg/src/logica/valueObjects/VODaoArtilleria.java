@@ -38,7 +38,7 @@ public class VODaoArtilleria implements Serializable{
 	return esta;
 		
 	}
-	public void insBack(int in_idBase, VOArtillero in_Artillero) {
+	public void insBack( VOArtillero in_Artillero) {
 		
 		secuenciaArtilleria[tope]=in_Artillero;
 		tope--;
