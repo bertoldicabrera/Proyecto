@@ -31,7 +31,7 @@ public class DaoPartidas implements Serializable {
 		try{
 			consultas cons = new consultas();
 			String query = cons.existePartida();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 			pstmt.setInt (1, in_PartidaId);
 			ResultSet rs = pstmt.executeQuery ();
 			if (rs.next ())
@@ -61,7 +61,7 @@ public class DaoPartidas implements Serializable {
 			consultas cons = new consultas ();
 		
 			String query =cons.existePartida();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement (query);
 			pstmt1.setInt (1, in_PartidaId);
 			ResultSet rs1 = pstmt1.executeQuery ();
 			if (rs1.next ()){
@@ -99,7 +99,7 @@ public class DaoPartidas implements Serializable {
 		try{
 			consultas cons = new consultas();
 			String insert = cons.insertarPartida();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (insert);
 			pstmt.setString (1, in_part.getPartidaEstado());
 			//ver si esto no rompe!!!!!
 			pstmt.setDate(2, (java.sql.Date) in_part.getPartidaFechaUltimaActualizacion());
@@ -129,7 +129,7 @@ public class DaoPartidas implements Serializable {
 			String deletPart = cons.borrarPartida();
 			
 			PreparedStatement prstm;
-			prstm = ((Conexion) con).getConnection().prepareStatement(deletPart);
+			prstm = ((Conexion) con).getConexion().prepareStatement(deletPart);
 			prstm.setInt(1, in_PartidaId);
 			prstm.executeUpdate();
 			prstm.close();
@@ -187,7 +187,7 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 	String sqlToExecute = cons.listarPartidasDeUnJugador();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		prstm.setInt(1, in_IdJugador);
 		ResultSet rs = prstm.executeQuery();
 		
@@ -223,7 +223,7 @@ public boolean estaVacio( IConexion con) throws PersistenciaException {
 	try{
 		consultas cons = new consultas();
 		String query = cons.existenPartidas();
-		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 		ResultSet rs = pstmt.executeQuery ();
 		if (rs.next ())
 			esta = true;
@@ -242,7 +242,7 @@ public int getUltimaPartidaID(IConexion con) throws PersistenciaException {
 	String sqlToExecute = cons.ultimaPartidaID();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);

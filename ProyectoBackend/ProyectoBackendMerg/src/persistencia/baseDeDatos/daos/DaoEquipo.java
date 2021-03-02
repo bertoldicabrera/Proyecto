@@ -56,7 +56,7 @@ public class DaoEquipo implements Serializable{
 			     PreparedStatement pstmt1,pstmt2;
 			     try {
 			    	 //Inserto Equipo
-				pstmt1 = ((Conexion) con).getConnection().prepareStatement (insertEquipo);
+				pstmt1 = ((Conexion) con).getConexion().prepareStatement (insertEquipo);
 				
 				
 				pstmt1.setString(1,bando);
@@ -65,7 +65,7 @@ public class DaoEquipo implements Serializable{
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
 				//Inserto EquipoJugador
-				pstmt2 = ((Conexion) con).getConnection().prepareStatement (insertEquipoJugadores);
+				pstmt2 = ((Conexion) con).getConexion().prepareStatement (insertEquipoJugadores);
 				pstmt2.setInt(1,jugAux[i].getJugadorId());
 				pstmt2.setInt(2,equipoID);
 				pstmt2.executeUpdate ();
@@ -90,7 +90,7 @@ public class DaoEquipo implements Serializable{
 		String sqlToExecute = cons.cantidadEquipos();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant=rs.getInt(1);
@@ -119,7 +119,7 @@ public class DaoEquipo implements Serializable{
 			consultas cons = new consultas ();
 		
 			String query = cons.listarEquiposDeUnaPartida();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement (query);
 			pstmt1.setInt (1, this.idpartida);
 			ResultSet rs1 = pstmt1.executeQuery ();
 		
@@ -155,7 +155,7 @@ public class DaoEquipo implements Serializable{
 		String sqlToExecute = cons.listarEquipos();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			int i=0;
 			while (rs.next()) {
@@ -192,7 +192,7 @@ public class DaoEquipo implements Serializable{
 		String sqlToExecute = cons.ultimaEquipoId();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant=rs.getInt(1);
@@ -217,7 +217,7 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 		String sqlToExecute = cons.listarEquiposDeUnaPartida();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			int i=0;
 			while (rs.next()) {

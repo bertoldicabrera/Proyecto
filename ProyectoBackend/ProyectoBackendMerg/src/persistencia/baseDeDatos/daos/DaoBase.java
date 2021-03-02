@@ -37,7 +37,7 @@ public class DaoBase implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String query = cons.obtenerBase();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt.setInt(1, key);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
@@ -59,7 +59,7 @@ public class DaoBase implements Serializable {
 			consultas cons = new consultas();
 			// Inserto depostio
 			String insertDep = cons.insertarDeposito();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(insertDep);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(insertDep);
 			pstmt1.setInt(1, in_Deposito.getCoordX());
 			pstmt1.setInt(2, in_Deposito.getCoordY());
 			pstmt1.setBoolean(3, in_Deposito.getEstado());
@@ -70,7 +70,7 @@ public class DaoBase implements Serializable {
 			pstmt1.close();
 			// Inserto TanqueCombustible
 			String insertTC = cons.insertarTanqueCombustible();
-			PreparedStatement pstmt2 = ((Conexion) con).getConnection().prepareStatement(insertTC);
+			PreparedStatement pstmt2 = ((Conexion) con).getConexion().prepareStatement(insertTC);
 		
 			pstmt1.setInt(1, in_TanqueCombustible.getCoordX());
 			pstmt1.setInt(2, in_TanqueCombustible.getCoordY());
@@ -82,7 +82,7 @@ public class DaoBase implements Serializable {
 			pstmt1.close();
 			// Inserto TorreControl
 			String insertTControl = cons.insertarTorreControl();
-			PreparedStatement pstmt3 = ((Conexion) con).getConnection().prepareStatement(insertTControl);
+			PreparedStatement pstmt3 = ((Conexion) con).getConexion().prepareStatement(insertTControl);
 			pstmt1.setInt(1, in_TorreControl.getCoordX());
 			pstmt1.setInt(2, in_TorreControl.getCoordY());
 			pstmt1.setBoolean(3, in_TorreControl.getEstado());
@@ -92,7 +92,7 @@ public class DaoBase implements Serializable {
 			pstmt1.executeUpdate();
 			pstmt1.close();
 			String insertBase = cons.insertarBase();
-			PreparedStatement pstmt4 = ((Conexion) con).getConnection().prepareStatement(insertBase);
+			PreparedStatement pstmt4 = ((Conexion) con).getConexion().prepareStatement(insertBase);
 			pstmt4.setInt(1, getUltimoTorreId(con));
 			pstmt4.setInt(2, getTanqueId(con));
 			pstmt4.setInt(3, getUltimoTorreId(con));
@@ -119,7 +119,7 @@ public class DaoBase implements Serializable {
 			consultas cons = new consultas();
 
 			String query = cons.obtenerBase();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, in_idBase);
 			ResultSet rs1 = pstmt1.executeQuery();
 			if (rs1.next()) {
@@ -149,7 +149,7 @@ public class DaoBase implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String query = cons.existeBase();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				esta = true;
@@ -168,7 +168,7 @@ public class DaoBase implements Serializable {
 			String borrarBase = cons.borrarbase();
 
 			PreparedStatement prstm;
-			prstm = ((Conexion) con).getConnection().prepareStatement(borrarBase);
+			prstm = ((Conexion) con).getConexion().prepareStatement(borrarBase);
 			prstm.setInt(1, key);
 			prstm.executeUpdate();
 			prstm.close();
@@ -193,7 +193,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.listarBase();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			while (rs.next()) {
 				int idBase = rs.getInt(1);
@@ -229,7 +229,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.cantidadTotalBases();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant = rs.getInt(1);
@@ -249,7 +249,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.ultimaTorreId();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant = rs.getInt(1);
@@ -270,7 +270,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.ultimaTanqueId();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant = rs.getInt(1);
@@ -291,7 +291,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.ultimaDepositoId();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant = rs.getInt(1);
@@ -312,7 +312,7 @@ public class DaoBase implements Serializable {
 		String sqlToExecute = cons.ultimaBaseID();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			if (rs.next()) {
 				cant = rs.getInt(1);
@@ -338,7 +338,7 @@ public class DaoBase implements Serializable {
 
 		try {
 			String query = cons.obtenerDepositobyId();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, in_depositoId);
 			ResultSet rs1;
 			rs1 = pstmt1.executeQuery();
@@ -375,7 +375,7 @@ public class DaoBase implements Serializable {
 
 		try {
 			String query = cons.obtenerTanquebyId();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, in_tanqueCombustibleId);
 			ResultSet rs1;
 			rs1 = pstmt1.executeQuery();
@@ -410,7 +410,7 @@ public class DaoBase implements Serializable {
 
 		try {
 			String query = cons.obtenerTorreControlbyId();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, in_torreControlId);
 			ResultSet rs1;
 			rs1 = pstmt1.executeQuery();

@@ -37,7 +37,7 @@ public class DaoArtilleria implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String query = cons.estaVaciaArtillero();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				existe = true;
@@ -55,7 +55,7 @@ public class DaoArtilleria implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String insert = cons.insertarArtillero();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(insert);
 			pstmt.setInt(1, in_Artillero.getCoordX());
 			pstmt.setInt(2, in_Artillero.getCoordY());
 			pstmt.setBoolean(3, in_Artillero.getEstado());
@@ -89,7 +89,7 @@ public class DaoArtilleria implements Serializable {
 			consultas cons = new consultas();
 
 			String queryArt = cons.listarArtillerosXBase();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(queryArt);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(queryArt);
 			pstmt1.setInt(1, this.baseid);
 			ResultSet rs1 = pstmt1.executeQuery();
 			if (rs1.next() && (ind < tope)) {
@@ -123,7 +123,7 @@ public class DaoArtilleria implements Serializable {
 		String sqlToExecute = cons.listarArtilleros();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
 			while (rs.next()) {
@@ -148,7 +148,7 @@ public class DaoArtilleria implements Serializable {
 		String sqlToExecute = cons.listarArtillerosXBase();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			prstm.setInt(1, this.baseid);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;

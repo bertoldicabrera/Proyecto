@@ -29,7 +29,7 @@ public boolean member(String in_JugadorNombre, IConexion con) throws Persistenci
 	try{
 		consultas cons = new consultas();
 		String query = cons.existeJugador();
-		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 		pstmt.setString(1, in_JugadorNombre.trim()); 
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next())
@@ -58,7 +58,7 @@ public Jugador find(int in_JugadorID, IConexion con) throws PersistenciaExceptio
 		consultas cons = new consultas ();
 	
 		String query = cons.obtenerJugador();
-		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement (query);
 		pstmt1.setInt(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();
 		if (rs1.next ()){
@@ -83,7 +83,7 @@ public void insert(Jugador in_jugador, IConexion con) throws PersistenciaExcepti
 	try{
 		consultas cons = new consultas();
 		String insert = cons.insertarJugador();
-		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (insert);
+		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (insert);
 		pstmt.setString (1, in_jugador.getJugadorUserName());
 		pstmt.setString (2, in_jugador.getJugadorPassword());
 		pstmt.setBoolean(3, in_jugador.isJugadorIsOnline());
@@ -103,7 +103,7 @@ public void delete(int in_JugadorID, IConexion con) throws PersistenciaException
 		String deletJUGADOR = cons.borrarJugador();
 		
 		PreparedStatement prstm;
-		prstm = ((Conexion) con).getConnection().prepareStatement(deletJUGADOR);
+		prstm = ((Conexion) con).getConexion().prepareStatement(deletJUGADOR);
 		prstm.setInt(1, in_JugadorID);
 		prstm.executeUpdate();
 		prstm.close();
@@ -120,7 +120,7 @@ public TreeMap<Integer, Jugador> listarJugadores(IConexion con) throws Persisten
 	String sqlToExecute = cons.listarJugadores();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		while (rs.next()) {
 			
@@ -149,7 +149,7 @@ public int  cantidadJugadores(IConexion con) throws PersistenciaException {
 	String sqlToExecute = cons.cantidadTotalJugadores();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);
@@ -171,7 +171,7 @@ public int cantidadJugadoresEnLinea(IConexion con) throws PersistenciaException 
 	String sqlToExecute = cons.cantidadJugadoresOnLine();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);
@@ -195,7 +195,7 @@ public boolean isAcountExists(String in_JugadorUserName, String in_JugadorPasswo
 	try{
 		consultas cons = new consultas();
 		String query = cons.acountExists();
-		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 		pstmt.setString(1, in_JugadorUserName);
 		pstmt.setString(2, in_JugadorPassword);
 		ResultSet rs = pstmt.executeQuery ();
@@ -219,7 +219,7 @@ public String getNameById(String in_JugadorID, IConexion con) throws Persistenci
 		consultas cons = new consultas ();
 	
 		String query = cons.getName();
-		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement (query);
 		pstmt1.setString(1, in_JugadorID);
 		ResultSet rs1 = pstmt1.executeQuery ();
 		if (rs1.next ()){
@@ -245,7 +245,7 @@ public int geIdbyName(String in_name, IConexion con) throws PersistenciaExceptio
 	
 		String query = cons.getJugadorIdByName();
 		System.out.println("la consulta es: 247 daojugador "+query);
-		PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement (query);
 		
 		pstmt1.setString(1, in_name);
 		ResultSet rs1 = pstmt1.executeQuery ();
@@ -270,7 +270,7 @@ public boolean estaVacia(IConexion con) throws PersistenciaException {
 	try{
 		consultas cons = new consultas();
 		String query = cons.existenJugadores();
-		PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 		ResultSet rs = pstmt.executeQuery ();
 		if (rs.next ())
 			esta = true;
@@ -291,7 +291,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 	String sqlToExecute = cons.ultimoJugadorID();
 	PreparedStatement prstm;
 	try {
-		prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 		ResultSet rs = prstm.executeQuery();
 		if (rs.next()) {
 			cant=rs.getInt(1);
@@ -312,7 +312,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 			String sqlToExecute = cons.isOnLineJugador();
 			PreparedStatement prstm;
 			try {
-				prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+				prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 				prstm.setInt(1, in_id);;
 				ResultSet rs = prstm.executeQuery();
 				if (rs.next()) {
@@ -333,7 +333,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 				consultas cons = new consultas ();
 			
 				String query = cons.logoutJugadorPorUserName(); 
-				PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement (query);
+				PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 				pstmt.setInt(1, in_id);
 				pstmt.executeUpdate ();
 				pstmt.close ();

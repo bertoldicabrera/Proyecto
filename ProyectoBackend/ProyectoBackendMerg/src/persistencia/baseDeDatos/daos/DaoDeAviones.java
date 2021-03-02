@@ -37,7 +37,7 @@ public class DaoDeAviones implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String query = cons.existenAviones();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				esta = true;
@@ -54,7 +54,7 @@ public class DaoDeAviones implements Serializable {
 			consultas cons = new consultas();
 			String insert = cons.insertarAvion();
 
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(insert);
 			pstmt.setInt(1, in_Avion.getCoordX());
 			pstmt.setInt(2, in_Avion.getCoordY());
 			pstmt.setInt(3, in_Avion.getAvionAltura());
@@ -80,7 +80,7 @@ public class DaoDeAviones implements Serializable {
 		String sqlToExecute = cons.listarAviones();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
 			while ((rs.next()) && (i < tope)) {
@@ -103,7 +103,7 @@ public class DaoDeAviones implements Serializable {
 		String sqlToExecute = cons.obtenerAvionXBase();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			prstm.setInt(1, this.baseId);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
@@ -144,7 +144,7 @@ public class DaoDeAviones implements Serializable {
 			int ind = 0;
 			consultas cons = new consultas();
 			String query = cons.obtenerAvionXBase();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, this.baseId);
 			ResultSet rs1 = pstmt1.executeQuery();
 			while ((rs1.next()) && (ind < tope)) {

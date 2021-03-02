@@ -2,19 +2,22 @@ package persistencia.baseDeDatos.poolDeConexiones;
 
 import java.sql.Connection;
 
-public class Conexion implements IConexion{
+import java.io.Serializable;
 
-	private Connection con;
+public class Conexion implements IConexion,Serializable  {
+
+	private static final long serialVersionUID = 4649443822404914037L;
+	Connection con;
+
+	public Conexion () {
+		con=null;
+	};
 	
-	public Conexion(Connection con) {
-		this.con = con;
-
-		
-	}
-
-	public Connection getConnection() {
+	public Conexion (Connection c) {
+		con=c;
+	};
+	
+	public Connection getConexion () {
 		return con;
 	}
-	
-	
 }

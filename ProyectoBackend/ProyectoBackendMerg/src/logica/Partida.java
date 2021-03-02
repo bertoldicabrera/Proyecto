@@ -7,23 +7,14 @@ import persistencia.baseDeDatos.daos.DaoEquipo;
 public class Partida {
 
 	private int partidaId;
-
-	private String partidaEstado;
-
-	private Date partidaFechaUltimaActualizacion; 
-
-	private boolean partidaGuardada;
+    private String partidaEstado;
+    private Date partidaFechaUltimaActualizacion; 
+    private boolean partidaGuardada;
 	private boolean partidaTermino;
-
-
-	private String  partidaNombre;
-
-	private int partidaCantidadJugadores;
-
-	private int partidaCreador;
-
-	private Date partidaFechaCreada;
-	
+    private String  partidaNombre;
+    private int partidaCantidadJugadores;
+    private int partidaCreador;
+     private Date partidaFechaCreada;
 	private DaoEquipo Equipos;
 
 
