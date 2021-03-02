@@ -18,7 +18,7 @@ public class MenuPrueba {
 	public IFachada modelo;
 	static SystemProperties sp;
 	
-	public MenuPrueba() throws IOException, NotBoundException,FileNotFoundException {
+	public MenuPrueba() throws IOException, NotBoundException,FileNotFoundException, InterruptedException {
 		System.out.println("Antes iFachada");
 		sp = new SystemProperties();
 		String ip = sp.getIpServidor();
@@ -60,8 +60,6 @@ public class MenuPrueba {
                 {
                     case 1:
                     	
-                    	
-                   	 
                    	try {
                    		
                    		
@@ -89,7 +87,7 @@ public class MenuPrueba {
 					try {
 						
 						VOJugador y= modelo.Login("in_JugadorUserName" , "in_JugadorPassword");
-						System.out.println("id user"+y.getJugadorId());
+						System.out.println("Menu prueba linea 92, el usuario logreado es el id:    "+y.getJugadorId());
 						
 					} catch (RemoteException e) {
 						System.out.println(e.toString());
@@ -102,33 +100,28 @@ public class MenuPrueba {
                     case 3:
                         System.out.println("Has seleccionado la opcion 3 Iniciar nueva partida:");                       
                        
-                        /*try {
-                        	
-                        	//mostrar este vo
-                        	ListarVOPartida(sin.VisualizarPartida(IngreseUsuarioContrasenia()));
-                        	// esto devuelve un vo partida
-                		} catch (JugadorException  e) {
-                			System.out.println(e.getMensajeJugadoresExcep());
-                		}
-                		catch ( PartidaException e) {
-                			System.out.println(e.getMensajePartidaExcep());
-                		}
-                		*/
+                        
+                        
+                        
+                        
                         break;
                     case 4:
                         System.out.println("Has seleccionado la opcion 4 Listar partidas Pausadas:");
-                        /*
-                        try {
-                        	System.out.println("Complete los campos, Usuario, contrasenia y numero:");
-                        	
-                        	sin.RealizarNuevoIntento(IngreseUsuarioContrasenia(), IngreseNumeroPorTeclado());
-                		} catch (JugadorException  e) {
-                			System.out.println(e.getMensajeJugadoresExcep());
-                		}
-                		catch ( PartidaException e) {
-                			System.out.println(e.getMensajePartidaExcep());
-                		}
-                        */
+                       
+					try {
+						
+						
+						modelo.listarPartidasAReanudar("in_JugadorUserName");
+						
+						
+						
+					} catch (RemoteException e) {
+						System.out.println(e.toString());
+					} catch (PersistenciaException e) {
+						System.out.println(e.toString());
+					} catch (LogicaException e) {
+						System.out.println(e.toString());
+					}
                         break;
                     
                     case 5:
