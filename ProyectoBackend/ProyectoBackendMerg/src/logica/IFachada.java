@@ -15,9 +15,9 @@ public interface IFachada extends Remote{
 	
 	public VOJugador Login(String in_userName, String in_userPassword)throws RemoteException, LogicaException, PersistenciaException , InterruptedException;
 	
-	public ArrayList<voPartida> listarPartidasAReanudar(String in_Nickname)throws PersistenciaException, LogicaException, RemoteException, InterruptedException;
+	public ArrayList<VOPartida> listarPartidasAReanudar(String in_Nickname)throws PersistenciaException, LogicaException, RemoteException, InterruptedException;
 	
-	public void guardarPartida(voPartida in_voPartida) throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
+	public void guardarPartida(VOPartida in_voPartida) throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
 	
 	public void logout(String in_userName)throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
 	

@@ -21,7 +21,7 @@ public class DaoDeAviones implements Serializable {
 
 	private int tope = 4;
 	private Avion[] arreavion;
-	int baseId;
+	private int baseId;
 
 	public DaoDeAviones() {
 		arreavion = new Avion[tope];

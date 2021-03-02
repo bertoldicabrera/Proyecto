@@ -13,7 +13,7 @@ import Utilitarios.SystemProperties;
 import logica.excepciones.LogicaException;
 import logica.interfaces.IPoolConexiones;
 import logica.valueObjects.VOJugador;
-import logica.valueObjects.voPartida;
+import logica.valueObjects.VOPartida;
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoBase;
 import persistencia.baseDeDatos.daos.DaoDeAviones;
@@ -124,11 +124,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 
 	// PRE:Jugador Logueado
-	public ArrayList<voPartida> listarPartidasAReanudar(String in_Nickname)
+	public ArrayList<VOPartida> listarPartidasAReanudar(String in_Nickname)
 			throws PersistenciaException, LogicaException, RemoteException , InterruptedException{
 		IConexion icon = ipool.obtenerConexion(false);
 		
-		ArrayList<voPartida> voPartidas = null;
+		ArrayList<VOPartida> voPartidas = null;
 		TreeMap<Integer, Partida> aux = null;
 
 		try {
@@ -140,11 +140,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 					aux =  daoP.listarPartidasDeJugador(id, icon);
 					
 					
-						voPartidas = new ArrayList<voPartida>();
+						voPartidas = new ArrayList<VOPartida>();
 						Iterator<Partida> Itr = aux.values().iterator();
 						while (Itr.hasNext()) {
 							Partida auxiliar = Itr.next();
-							voPartida parti = new voPartida(
+							VOPartida parti = new VOPartida(
 									auxiliar.getPartidaId() 
 									, auxiliar.getPartidaEstado() 
 									, auxiliar.getPartidaFechaUltimaActualizacion()  
@@ -180,7 +180,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return voPartidas;
 	}
 
-	public void guardarPartida(voPartida in_voPartida) throws LogicaException, RemoteException , InterruptedException, PersistenciaException {
+	public void guardarPartida(VOPartida in_voPartida) throws LogicaException, RemoteException , InterruptedException, PersistenciaException {
 
 		IConexion icon = ipool.obtenerConexion(true);
 		try {
@@ -265,7 +265,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	}
 
-	private Partida devolverPartidaDadoVO(voPartida in_aux, int in_ultimoIdPartida) {
+	private Partida devolverPartidaDadoVO(VOPartida in_aux, int in_ultimoIdPartida) {
 		Partida out_aux = null;
 
 		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),in_aux.getPartidaFechaUltimaActualizacion(),

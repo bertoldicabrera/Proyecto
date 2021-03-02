@@ -5,7 +5,7 @@ import java.util.Date;
 
 import persistencia.baseDeDatos.daos.DaoEquipo;
 
-public class voPartida implements Serializable {
+public class VOPartida implements Serializable {
 	
 	
 	
@@ -28,7 +28,7 @@ public class voPartida implements Serializable {
 
 
 
-	public voPartida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
+	public VOPartida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
 			int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, DaoEquipo in_Equi) {
 		

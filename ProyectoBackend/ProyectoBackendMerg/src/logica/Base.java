@@ -1,11 +1,17 @@
 package logica;
 
+import java.io.Serializable;
+
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoDeAviones;
 
-public class Base {
+public class Base  implements Serializable{
 	
- private int idBase;
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int idBase;
  private DaoDeAviones aviones;
  private DaoArtilleria artilleros; 
  private Deposito deposito;
