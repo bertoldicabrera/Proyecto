@@ -35,10 +35,20 @@ public class DaoEquipo implements Serializable{
 	}
 	
 	public DaoEquipo(int in_idpartida, Equipo[] in_EQS) {
+		
 		this.idpartida=in_idpartida;
 		this.equipos = in_EQS;
 		
 	}
+public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBase   in_DaoB ) {
+		
+		this.idpartida=in_idpartida;
+		this.equipos = in_Equipos;
+		this.DaoJ= in_DaoJ;
+		this.DaoB = in_DaoB;
+		
+	}
+	
 	
 	
 	

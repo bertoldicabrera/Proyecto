@@ -22,6 +22,7 @@ import logica.valueObjects.VOCollectionBase;
 import logica.valueObjects.VOCollectionEquipo;
 import logica.valueObjects.VOCollectionJugador;
 import logica.valueObjects.VODeposito;
+import logica.valueObjects.VOEquipo;
 import logica.valueObjects.VOJugador;
 import logica.valueObjects.VOPartida;
 import logica.valueObjects.VOTanqueCombustible;
@@ -149,7 +150,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 					int id = daoJ.geIdbyName(in_Nickname, icon);
 					aux =  daoP.listarPartidasDeJugador(id, icon);
 					
-					
+					//ArrayList<VOPartida> voPartidas = null;
 						voPartidas = new ArrayList<VOPartida>();
 						Iterator<Partida> Itr = aux.values().iterator();
 						while (Itr.hasNext()) {
@@ -320,7 +321,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		Artillero artilleroAux= new Artillero(in_Artillero.GetId(),in_Artillero.getCoordX(),in_Artillero.getCoordY(),
 				in_Artillero.getEstado(),in_Artillero.getVida(),in_Artillero.getHayEnemigo(),
 				in_Artillero.getRangoDeVision(),in_Artillero.getArtilleroAngulo(),in_Artillero.getbase_id());
-		return null;
+		return artilleroAux;
 		
 		
 	}
@@ -415,7 +416,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 		Base auxBase=new Base(in_Base.getIdBase(),devolverDaoAvionesDadoVO(in_Base.getAviones()),
 				             devolverDaoArtilleriaDadoVO(in_Base.getArtilleros()),
-				          devolverDepositoDadoVO(in_Base.getDeposito()),devolverTanqueCombustibleDadoVO(in_Base.getTanque()),devolverTorreControlDadoVO(in_Base.getTorre()));
+				          devolverDepositoDadoVO(in_Base.getDeposito()),
+				          devolverTanqueCombustibleDadoVO(in_Base.getTanque()),
+				          devolverTorreControlDadoVO(in_Base.getTorre()));
 		return auxBase;
 		
 		
@@ -423,29 +426,104 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	
+	
+	private DaoJugador  devolverDaoJugadorDadoVO(VOCollectionJugador in_DaoJugador)
+	{
+		
+		DaoJugador daoJugador= new DaoJugador();
+		TreeMap<Integer, Jugador>  aux=new TreeMap<Integer, Jugador>();
+		
+		Iterator<VOJugador> Itr =  in_DaoJugador.listarJugadores().values().iterator();
+		while (Itr.hasNext()) {
+			VOJugador auxiliar = Itr.next();
+			aux.put(devolverJugadordadoVO(auxiliar).getJugadorId(), devolverJugadordadoVO(auxiliar));
+			
+		}
+		daoJugador.setJugadores(aux);
+		return daoJugador;
+
+	}
 
 	
 	
 	private DaoBase  devolverDaoBaseDadoVO(VOCollectionBase in_DaoBase)
 	{
 		
+		DaoBase daoBases= new DaoBase();
+		TreeMap<Integer, Base>  aux=new TreeMap<Integer, Base>();
 		
-		
-		
-		return null;
-		
+		Iterator<VOBase> Itr = in_DaoBase.getBases().values().iterator();
+		while (Itr.hasNext()) {
+			VOBase auxiliar = Itr.next();
+			aux.put(devolverBaseDadoVO(auxiliar).getIdDabse(), devolverBaseDadoVO(auxiliar));
+		}
+		daoBases.setBases(aux);
+		return daoBases;
 		
 	}
-	private DaoEquipo  devolverDaoEquipoDadoVO(VOCollectionEquipo in_DaoEquipo)
-	{
-		return null;
+	
+	
+	private Jugador devolverJugadordadoVO(VOJugador in_aux) {
+
+		Jugador out_aux = null;
+		out_aux = new Jugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), in_aux.getJugadorPassword(),
+				in_aux.isJugadorIsOnline(), in_aux.getPuntajeAcumulado());
+
+		return out_aux;
+
+	}
+	
+	private Equipo devolverArreDadoVO(VOEquipo in_voEquipo) {
+		//int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando
+		Equipo out = new Equipo(in_voEquipo.getEquipoID(),
+				devolverArreDadoVO(in_voEquipo.getJugadores()), 
+				
+				devolverBaseDadoVO(in_voEquipo.getBase()),
+				
+				in_voEquipo.getBando() );
+		
+		return out;
 		
 		
 	}
 	
-	private DaoJugador  devolverDaoJugadorDadoVO(VOCollectionJugador in_DaoJugador)
+	private Jugador[] devolverArreDadoVO(VOJugador[] in_Jugador) {
+		Jugador[] aux= new Jugador[in_Jugador.length];
+		
+		for (int i=0; i<in_Jugador.length; i++) {
+			aux[i]= devolverJugadordadoVO(in_Jugador[i]);
+		}
+		
+		return aux;
+		
+	}
+	
+	
+	
+	
+	private Equipo[] devolverArreDadoVO(VOEquipo[] in_voEquipo) {
+		Equipo[] aux= new Equipo[in_voEquipo.length];
+		
+		for (int i=0; i<in_voEquipo.length; i++) {
+			aux[i]=devolverArreDadoVO( in_voEquipo[i]);
+		}
+		
+		return aux;
+		
+	}
+
+	
+	private DaoEquipo  devolverDaoEquipoDadoVO(VOCollectionEquipo in_DaoEquipo)
 	{
-		return null;
+		//int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBase   in_DaoB
+		
+		
+		DaoEquipo auxDaoEquipo= new DaoEquipo(in_DaoEquipo.getIdpartida(),devolverArreDadoVO( in_DaoEquipo.getequipos()),
+				 devolverDaoJugadorDadoVO(in_DaoEquipo.getDaoJ()), devolverDaoBaseDadoVO(in_DaoEquipo.getDaoB() ));
+		
+		
+		
+		return	auxDaoEquipo;
 		
 		
 	}

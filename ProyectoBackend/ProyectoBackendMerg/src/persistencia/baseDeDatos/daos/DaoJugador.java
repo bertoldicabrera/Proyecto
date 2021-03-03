@@ -19,8 +19,10 @@ public class DaoJugador implements  Serializable {
 private static final long serialVersionUID = 1L;
 
 public static MensajesPersonalizados mensg = new MensajesPersonalizados();
-public DaoJugador(){
 
+private TreeMap<Integer, Jugador> jugadores;
+public DaoJugador(){
+	setJugadores(new TreeMap<Integer, Jugador>());
 }
 
 //VoJugador
@@ -342,6 +344,14 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 				throw new PersistenciaException (mensg.errorSQLAlHacerLogout);
 			}
 		}
+
+	public TreeMap<Integer, Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public void setJugadores(TreeMap<Integer, Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
 	    
 	    
 	    

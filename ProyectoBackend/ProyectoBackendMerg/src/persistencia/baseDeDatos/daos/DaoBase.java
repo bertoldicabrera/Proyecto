@@ -29,8 +29,12 @@ public class DaoBase implements Serializable {
 	private TreeMap<Integer, Base> bases;
 
 	public DaoBase() {
-		bases = new TreeMap<Integer, Base>();
+		setBases(new TreeMap<Integer, Base>());
 	}
+	public DaoBase(Integer id,Base bas ) {
+		setBases(new TreeMap<Integer, Base>());
+	}
+	
 
 	public boolean member(Integer key, IConexion con) throws PersistenciaException {
 		boolean existe = false;
@@ -430,6 +434,12 @@ public class DaoBase implements Serializable {
 			throw new PersistenciaException(mensg.errorSQLFindTorreControl);
 		}
 		return TC;
+	}
+	public TreeMap<Integer, Base> getBases() {
+		return bases;
+	}
+	public void setBases(TreeMap<Integer, Base> bases) {
+		this.bases = bases;
 	}
 
 }
