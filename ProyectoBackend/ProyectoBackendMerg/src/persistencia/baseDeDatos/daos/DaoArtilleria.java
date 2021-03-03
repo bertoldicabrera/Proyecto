@@ -171,7 +171,10 @@ public class DaoArtilleria implements Serializable {
 	public void setArreArtilleria(Artillero[] in_arreArtilleria) {
 		this.secuenciaArtilleria = in_arreArtilleria;
 	}
-
+	public int getBaseid() {
+		
+		return this.baseid;
+	}
 	
 
 }

@@ -60,5 +60,10 @@ public class VODaoArtilleria implements Serializable{
 		this.secuenciaArtilleria = secuenciaArtilleria;
 	}
 	
+	public int getBaseid() {
+		
+		return this.baseid;
+	}
+	
 
 }

@@ -29,7 +29,7 @@ public class DaoDeAviones implements Serializable {
 
 	public DaoDeAviones(int in_idBase) {
 		this.baseId = in_idBase;
-		this.arreavion = new Avion[tope];
+		this.arreavion =  new Avion[tope];
 	}
 
 	public boolean estaVacia(IConexion con) throws PersistenciaException {

@@ -22,9 +22,9 @@ public class VODaoBase implements Serializable {
 
 	}
 
-	public void insert(int key, VOBase jug) {
+	public void insert(int key, VOBase bas) {
 
-		bases.put(key, jug);
+		bases.put(key, bas);
 	}
 
 	public VOBase find(int key) {

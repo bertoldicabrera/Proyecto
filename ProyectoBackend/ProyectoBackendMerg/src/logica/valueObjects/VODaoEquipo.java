@@ -48,12 +48,10 @@ public class VODaoEquipo implements Serializable {
 		return equipos[index];
 	}
 
-	public VOEquipo[] listarArtilleria() {
-		return equipos;
-	}
 	
 	
-	public VOEquipo[] getSecuenciaArtilleria() {
+	
+	public VOEquipo[] getequipos() {
 		return equipos;
 	}
 	public int getIdpartida() {

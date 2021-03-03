@@ -19,13 +19,13 @@ public class VOPartida implements Serializable {
     private int partidaCantidadJugadores;
     private int partidaCreador;
     private Date partidaFechaCreada;
-	private DaoEquipo Equipos;
+	private VODaoEquipo Equipos;
 	
 
 
 	public VOPartida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
 			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-			int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, DaoEquipo in_Equi) {
+			int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi) {
 		
 		this.setPartidaId(in_PartidaId);
 		this.setPartidaEstado(in_PartidaEstado);
@@ -142,14 +142,14 @@ public class VOPartida implements Serializable {
 
 
 
-	public DaoEquipo getEquipos() {
+	public VODaoEquipo getEquipos() {
 		return Equipos;
 	}
 
 
 
-	public void setEquipos(DaoEquipo equipos) {
-		Equipos = equipos;
+	public void setEquipos(VODaoEquipo in_Equi) {
+		Equipos = in_Equi;
 	}
 
 

@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
 
@@ -12,8 +13,19 @@ import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
 import logica.excepciones.LogicaException;
 import logica.interfaces.IPoolConexiones;
+import logica.valueObjects.VOArtillero;
+import logica.valueObjects.VOAvion;
+import logica.valueObjects.VOBase;
+import logica.valueObjects.VODaoArtilleria;
+import logica.valueObjects.VODaoAviones;
+import logica.valueObjects.VODaoBase;
+import logica.valueObjects.VODaoEquipo;
+import logica.valueObjects.VODaoJugador;
+import logica.valueObjects.VODeposito;
 import logica.valueObjects.VOJugador;
 import logica.valueObjects.VOPartida;
+import logica.valueObjects.VOTanqueCombustible;
+import logica.valueObjects.VOTorreControl;
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoBase;
 import persistencia.baseDeDatos.daos.DaoDeAviones;
@@ -142,19 +154,19 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 						Iterator<Partida> Itr = aux.values().iterator();
 						while (Itr.hasNext()) {
 							Partida auxiliar = Itr.next();
-							VOPartida parti = new VOPartida(
-									auxiliar.getPartidaId() 
-									, auxiliar.getPartidaEstado() 
-									, auxiliar.getPartidaFechaUltimaActualizacion()  
-									, auxiliar.isPartidaGuardada() 
-									, auxiliar.getPartidaNombre() 
-									, auxiliar.getPartidaCantidadJugadores() 
-									, auxiliar.getPartidaCreador() 
-									, auxiliar.getPartidaFechaCreada() 
-									, auxiliar.getPartidaTermino() 
-									, auxiliar.getEquipos() 
-									);
-							voPartidas.add(parti);
+//							VOPartida parti = new VOPartida(
+//									auxiliar.getPartidaId() 
+//									, auxiliar.getPartidaEstado() 
+//									, auxiliar.getPartidaFechaUltimaActualizacion()  
+//									, auxiliar.isPartidaGuardada() 
+//									, auxiliar.getPartidaNombre() 
+//									, auxiliar.getPartidaCantidadJugadores() 
+//									, auxiliar.getPartidaCreador() 
+//									, auxiliar.getPartidaFechaCreada() 
+//									, auxiliar.getPartidaTermino() 
+//									, auxiliar.getEquipos() 
+//									);
+//							voPartidas.add(parti);
 					}
 						
 						
@@ -266,13 +278,176 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	private Partida devolverPartidaDadoVO(VOPartida in_aux, int in_ultimoIdPartida) {
 		Partida out_aux = null;
 
-		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),in_aux.getPartidaFechaUltimaActualizacion(),
-				in_aux.isPartidaGuardada(),in_aux.getPartidaNombre(),in_aux.getPartidaCantidadJugadores(),  in_aux.getPartidaCreador(),
-				in_aux.getPartidaFechaCreada(),in_aux.isPartidaGuardada(),  in_aux.getEquipos() );
+	
+		
+		
+		//int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
+		//boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
+		//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
+		
+		
+		
+		
+//		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),in_aux.getPartidaFechaUltimaActualizacion(),
+//				      in_aux.isPartidaGuardada(),in_aux.getPartidaNombre(),in_aux.getPartidaCantidadJugadores(),in_aux.getPartidaCreador(),
+//				      in_aux.getPartidaFechaCreada(),in_aux.isPartidaGuardada(),);
 				
 		return out_aux;
 
 	}
+	
+	
+	
+	private Avion  devolverAvionDadoVO(VOAvion in_Avion)
+	{   
+		//int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,
+		//int in_rangoDeVision ,boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid)
+		
+		Avion avionAux=new Avion(in_Avion.GetId(),in_Avion.getCoordX(),in_Avion.getCoordY(),in_Avion.getAvionAltura(),in_Avion.getEstado(),in_Avion.getVida(),in_Avion.getHayEnemigo(),
+				in_Avion.getRangoDeVision(),in_Avion.getAvionBomba(),in_Avion.getCantidadBombas(),
+				in_Avion.getAvionCombustible(),in_Avion.getEnCampoEnemigo(),in_Avion.getBaseid());
+		        
+		
+		return avionAux;
+	}
+	
+	private Artillero  devolverArtilleroDadoVO(VOArtillero in_Artillero)
+	{    
+		//int in_id, int in_coordX, int in_coordY, 
+		//boolean in_estado, int in_vida, boolean in_hayEnemigo,
+		//int in_rangoDeVision, int in_ArtilleroAngulo,int in_base_id
+		
+		Artillero artilleroAux= new Artillero(in_Artillero.GetId(),in_Artillero.getCoordX(),in_Artillero.getCoordY(),
+				in_Artillero.getEstado(),in_Artillero.getVida(),in_Artillero.getHayEnemigo(),
+				in_Artillero.getRangoDeVision(),in_Artillero.getArtilleroAngulo(),in_Artillero.getbase_id());
+		return null;
+		
+		
+	}
+	
+	private Deposito  devolverDepositoDadoVO(VODeposito in_Deposito)
+	{
+	//	int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,int in_cantidadBombas,boolean in_enUso) {
+		Deposito depaux=new Deposito(in_Deposito.GetId(),in_Deposito.getCoordX(),in_Deposito.getCoordY(),
+				in_Deposito.getEstado(),in_Deposito.getVida(),in_Deposito.getCantidaBombas(),in_Deposito.getEnUso());
+		
+		return depaux;
+	}
+	
+	private TanqueCombustible  devolverTanqueCombustibleDadoVO(VOTanqueCombustible in_TanqueCombustible)
+	{
+		//int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, int in_cantidadCombustible, boolean in_enUso
+		
+		TanqueCombustible auxDepTanque=new TanqueCombustible(in_TanqueCombustible.GetId(),in_TanqueCombustible.getCoordX(),
+				                                           in_TanqueCombustible.getCoordY(),in_TanqueCombustible.getEstado(),
+				                                               in_TanqueCombustible.getVida(),in_TanqueCombustible.getCantidadCombustible(),
+				                                               in_TanqueCombustible.getEnUso());
+		return auxDepTanque;
+	}
+	
+	private TorreControl  devolverTorreControlDadoVO(VOTorreControl in_TorreControl)
+	{
+		//int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,boolean in_hayEnemigo, int in_rangoDeVision
+		TorreControl auxTorreControl=new TorreControl(in_TorreControl.GetId(),in_TorreControl.getCoordX()
+				                      ,in_TorreControl.getCoordY(),in_TorreControl.getEstado(),in_TorreControl.getVida(),
+				                      in_TorreControl.getHayEnemigo(),in_TorreControl.getRangoDeVision());
+		return auxTorreControl;
+	}
+	
+	private DaoDeAviones  devolverDaoAvionesDadoVO(VODaoAviones in_DaoAviones)
+	{
+		
+		DaoDeAviones auxDaoAviones= new DaoDeAviones(in_DaoAviones.getBaseId());
+		int max=in_DaoAviones.getArreavion().length;
+		Avion[] aviones=new Avion[max];
+		VOAvion[] voAviones=in_DaoAviones.getArreavion();
+		for(int i=0;i<max;i++)
+		{   
+			//int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,
+			//int in_rangoDeVision ,boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid)
+			Avion av=new Avion(voAviones[i].GetId(),voAviones[i].getCoordX(),voAviones[i].getCoordY(),voAviones[i].getAvionAltura(),voAviones[i].getEstado(),
+					          voAviones[i].getVida(),voAviones[i].getHayEnemigo(),voAviones[i].getRangoDeVision(),voAviones[i].getAvionBomba(),
+					          voAviones[i].getCantidadBombas(),voAviones[i].getAvionCombustible(),voAviones[i].getEnCampoEnemigo(),voAviones[i].getBaseid());
+			aviones[i]=av;
+		}
+		auxDaoAviones.setArreAviones(aviones);
+		
+			
+			
+		return	auxDaoAviones;
+		}
+		
+		
+		
+	private DaoArtilleria  devolverDaoArtilleriaDadoVO(VODaoArtilleria in_DaoArtilleria)
+	{
+		
+//		int in_id, int in_coordX, int in_coordY, 
+//		boolean in_estado, int in_vida, boolean in_hayEnemigo,
+//		int in_rangoDeVision, int in_ArtilleroAngulo,int in_base_id
+//		
+		DaoArtilleria auxDaoArtilleria= new DaoArtilleria(in_DaoArtilleria.getBaseid());
+		int max=in_DaoArtilleria.getSecuenciaArtilleria().length;
+		Artillero[] artillerias=new Artillero[max];
+		VOArtillero[] VOartillerias=in_DaoArtilleria.getSecuenciaArtilleria();
+		
+		for (int i=0; i<max;i++)
+		{
+			Artillero ar= new Artillero(VOartillerias[i].GetId(),VOartillerias[i].getCoordX(),VOartillerias[i].getCoordY(),VOartillerias[i].getEstado(),
+					VOartillerias[i].getVida(),VOartillerias[i].getHayEnemigo(),VOartillerias[i].getRangoDeVision(),VOartillerias[i].getArtilleroAngulo(),
+					VOartillerias[i].getbase_id());
+			      artillerias[i]=ar;
+		}
+			
+		auxDaoArtilleria.setArreArtilleria(artillerias);
+		return	auxDaoArtilleria;
+		
+	}
+		
+		
+	
+	
+	private Base  devolverBaseDadoVO(VOBase in_Base)
+	{
+		//int in_idDabse,DaoDeAviones in_aviones,  
+		//DaoArtilleria in_artilleros, Deposito in_deposito, 
+		//TanqueCombustible in_tanque,TorreControl in_torre
+		
+		Base auxBase=new Base(in_Base.getIdBase(),devolverDaoAvionesDadoVO(in_Base.getAviones()),
+				             devolverDaoArtilleriaDadoVO(in_Base.getArtilleros()),
+				          devolverDepositoDadoVO(in_Base.getDeposito()),devolverTanqueCombustibleDadoVO(in_Base.getTanque()),devolverTorreControlDadoVO(in_Base.getTorre()));
+		return auxBase;
+		
+		
+	}
+	
+	
+	
+
+	
+	
+	private DaoBase  devolverDaoBaseDadoVO(VODaoBase in_DaoBase)
+	{
+		return null;
+		
+		
+	}
+	private DaoEquipo  devolverDaoEquipoDadoVO(VODaoEquipo in_DaoEquipo)
+	{
+		return null;
+		
+		
+	}
+	
+	private DaoJugador  devolverDaoJugadorDadoVO(VODaoJugador in_DaoJugador)
+	{
+		return null;
+		
+		
+	}
+	
+	
+
 	
 	
 

@@ -14,7 +14,7 @@ public class Partida {
     private String  partidaNombre;
     private int partidaCantidadJugadores;
     private int partidaCreador;
-     private Date partidaFechaCreada;
+    private Date partidaFechaCreada;
 	private DaoEquipo Equipos;
 
 
