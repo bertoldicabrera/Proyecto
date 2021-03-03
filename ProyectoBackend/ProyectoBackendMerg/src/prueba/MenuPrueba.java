@@ -14,11 +14,11 @@ import logica.excepciones.LogicaException;
 import logica.valueObjects.VOArtillero;
 import logica.valueObjects.VOAvion;
 import logica.valueObjects.VOBase;
-import logica.valueObjects.VODaoArtilleria;
-import logica.valueObjects.VODaoAviones;
-import logica.valueObjects.VODaoBase;
-import logica.valueObjects.VODaoEquipo;
-import logica.valueObjects.VODaoJugador;
+import logica.valueObjects.VOCollectionArtilleria;
+import logica.valueObjects.VOCollectionAviones;
+import logica.valueObjects.VOCollectionBase;
+import logica.valueObjects.VOCollectionEquipo;
+import logica.valueObjects.VOCollectionJugador;
 import logica.valueObjects.VODeposito;
 import logica.valueObjects.VOEquipo;
 import logica.valueObjects.VOJugador;
@@ -140,13 +140,13 @@ public class MenuPrueba {
                     
                     case 5:
                         System.out.println("Has seleccionado la opcion 5 Guardar una partida:");
-                        VODaoEquipo equipos= new VODaoEquipo();
+                        VOCollectionEquipo equipos= new VOCollectionEquipo();
                         for(int k=0;k<2;k++)
                         {
                        
-                        VODaoAviones aviones=new VODaoAviones();
-                        VODaoArtilleria artillerias= new VODaoArtilleria();
-                        VODaoBase   DaoB = new VODaoBase() ;
+                        VOCollectionAviones aviones=new VOCollectionAviones();
+                        VOCollectionArtilleria artillerias= new VOCollectionArtilleria();
+                        VOCollectionBase   DaoB = new VOCollectionBase() ;
                         VOJugador[] coleccionJug=null;
                          for (int i=0;i<4;i++)
                          {  //(int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,

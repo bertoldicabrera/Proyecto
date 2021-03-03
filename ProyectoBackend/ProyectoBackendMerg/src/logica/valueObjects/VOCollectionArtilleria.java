@@ -2,7 +2,7 @@ package logica.valueObjects;
 
 import java.io.Serializable;
 
-public class VODaoArtilleria implements Serializable{
+public class VOCollectionArtilleria implements Serializable{
 	/**
 	 * 
 	 */
@@ -11,12 +11,12 @@ public class VODaoArtilleria implements Serializable{
 	private VOArtillero[] secuenciaArtilleria;
 	int baseid;
 
-	public VODaoArtilleria() {
+	public VOCollectionArtilleria() {
 		setSecuenciaArtilleria(new VOArtillero[tope]);
 	}
 	
 	
-	public VODaoArtilleria(int in_baseid) {
+	public VOCollectionArtilleria(int in_baseid) {
 		secuenciaArtilleria = new VOArtillero[tope];
 		this.baseid = in_baseid;
 	}

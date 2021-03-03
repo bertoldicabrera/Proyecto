@@ -16,11 +16,11 @@ import logica.interfaces.IPoolConexiones;
 import logica.valueObjects.VOArtillero;
 import logica.valueObjects.VOAvion;
 import logica.valueObjects.VOBase;
-import logica.valueObjects.VODaoArtilleria;
-import logica.valueObjects.VODaoAviones;
-import logica.valueObjects.VODaoBase;
-import logica.valueObjects.VODaoEquipo;
-import logica.valueObjects.VODaoJugador;
+import logica.valueObjects.VOCollectionArtilleria;
+import logica.valueObjects.VOCollectionAviones;
+import logica.valueObjects.VOCollectionBase;
+import logica.valueObjects.VOCollectionEquipo;
+import logica.valueObjects.VOCollectionJugador;
 import logica.valueObjects.VODeposito;
 import logica.valueObjects.VOJugador;
 import logica.valueObjects.VOPartida;
@@ -354,7 +354,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return auxTorreControl;
 	}
 	
-	private DaoDeAviones  devolverDaoAvionesDadoVO(VODaoAviones in_DaoAviones)
+	private DaoDeAviones  devolverDaoAvionesDadoVO(VOCollectionAviones in_DaoAviones)
 	{
 		
 		DaoDeAviones auxDaoAviones= new DaoDeAviones(in_DaoAviones.getBaseId());
@@ -379,7 +379,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 		
 		
-	private DaoArtilleria  devolverDaoArtilleriaDadoVO(VODaoArtilleria in_DaoArtilleria)
+	private DaoArtilleria  devolverDaoArtilleriaDadoVO(VOCollectionArtilleria in_DaoArtilleria)
 	{
 		
 //		int in_id, int in_coordX, int in_coordY, 
@@ -426,20 +426,24 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	
 	
-	private DaoBase  devolverDaoBaseDadoVO(VODaoBase in_DaoBase)
+	private DaoBase  devolverDaoBaseDadoVO(VOCollectionBase in_DaoBase)
 	{
+		
+		
+		
+		
 		return null;
 		
 		
 	}
-	private DaoEquipo  devolverDaoEquipoDadoVO(VODaoEquipo in_DaoEquipo)
+	private DaoEquipo  devolverDaoEquipoDadoVO(VOCollectionEquipo in_DaoEquipo)
 	{
 		return null;
 		
 		
 	}
 	
-	private DaoJugador  devolverDaoJugadorDadoVO(VODaoJugador in_DaoJugador)
+	private DaoJugador  devolverDaoJugadorDadoVO(VOCollectionJugador in_DaoJugador)
 	{
 		return null;
 		

@@ -2,20 +2,20 @@ package logica.valueObjects;
 
 import java.io.Serializable;
 
-public class VODaoEquipo implements Serializable {
+public class VOCollectionEquipo implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
 	private int idpartida;
 	private int tope=2;
 	private VOEquipo[] equipos;
-	private VODaoJugador DaoJ;
-	private VODaoBase   DaoB;
+	private VOCollectionJugador DaoJ;
+	private VOCollectionBase   DaoB;
 
-	public VODaoEquipo() {
+	public VOCollectionEquipo() {
 		equipos = new VOEquipo[tope];
 	}
-	public VODaoEquipo(int in_idpartida, VOEquipo[] in_EQS) {
+	public VOCollectionEquipo(int in_idpartida, VOEquipo[] in_EQS) {
 		this.setIdpartida(in_idpartida);
 		this.equipos = in_EQS;
 		}
@@ -60,16 +60,16 @@ public class VODaoEquipo implements Serializable {
 	public void setIdpartida(int idpartida) {
 		this.idpartida = idpartida;
 	}
-	public VODaoJugador getDaoJ() {
+	public VOCollectionJugador getDaoJ() {
 		return DaoJ;
 	}
-	public void setDaoJ(VODaoJugador daoJ) {
+	public void setDaoJ(VOCollectionJugador daoJ) {
 		DaoJ = daoJ;
 	}
-	public VODaoBase getDaoB() {
+	public VOCollectionBase getDaoB() {
 		return DaoB;
 	}
-	public void setDaoB(VODaoBase daoB) {
+	public void setDaoB(VOCollectionBase daoB) {
 		DaoB = daoB;
 	}
 

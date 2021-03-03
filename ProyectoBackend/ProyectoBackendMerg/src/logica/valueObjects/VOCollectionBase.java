@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.TreeMap;
 
 
-public class VODaoBase implements Serializable {
+public class VOCollectionBase implements Serializable {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class VODaoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private TreeMap<Integer, VOBase> bases;
 
-	public VODaoBase() {
+	public VOCollectionBase() {
 		setBases(new TreeMap<Integer, VOBase>());
 	}
 	

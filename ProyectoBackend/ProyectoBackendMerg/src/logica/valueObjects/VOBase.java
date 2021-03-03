@@ -3,8 +3,8 @@ package logica.valueObjects;
 public class VOBase {
 	
 	private int idBase;
-	 private VODaoAviones aviones;
-	 private VODaoArtilleria artilleros; 
+	 private VOCollectionAviones aviones;
+	 private VOCollectionArtilleria artilleros; 
 	 private VODeposito deposito;
 	 private VOTanqueCombustible tanque; 
 	 private VOTorreControl torre;
@@ -12,7 +12,7 @@ public class VOBase {
 	public VOBase() {
 		// TODO Auto-generated constructor stub
 	}
-	public VOBase(int in_idDabse,VODaoAviones in_aviones,VODaoArtilleria in_artilleros, VODeposito in_deposito, 
+	public VOBase(int in_idDabse,VOCollectionAviones in_aviones,VOCollectionArtilleria in_artilleros, VODeposito in_deposito, 
 			VOTanqueCombustible in_tanque,VOTorreControl in_torre) {
 			this.setIdBase(in_idDabse);
 			this.setAviones(in_aviones);
@@ -27,16 +27,16 @@ public class VOBase {
 	public void setIdBase(int idBase) {
 		this.idBase = idBase;
 	}
-	public VODaoAviones getAviones() {
+	public VOCollectionAviones getAviones() {
 		return aviones;
 	}
-	public void setAviones(VODaoAviones aviones) {
+	public void setAviones(VOCollectionAviones aviones) {
 		this.aviones = aviones;
 	}
-	public VODaoArtilleria getArtilleros() {
+	public VOCollectionArtilleria getArtilleros() {
 		return artilleros;
 	}
-	public void setArtilleros(VODaoArtilleria artilleros) {
+	public void setArtilleros(VOCollectionArtilleria artilleros) {
 		this.artilleros = artilleros;
 	}
 	public VODeposito getDeposito() {

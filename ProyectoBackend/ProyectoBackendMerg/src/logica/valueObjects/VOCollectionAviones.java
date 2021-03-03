@@ -3,7 +3,7 @@ package logica.valueObjects;
 import java.io.Serializable;
 
 
-public class VODaoAviones implements Serializable{
+public class VOCollectionAviones implements Serializable{
 
 	/**
 	 * 
@@ -13,10 +13,10 @@ public class VODaoAviones implements Serializable{
 	private VOAvion[] arreavion;
 	private int baseId;
 
-	public VODaoAviones() {
+	public VOCollectionAviones() {
 		setArreavion(new VOAvion[tope]);
 	}
-	public VODaoAviones(int in_idBase) {
+	public VOCollectionAviones(int in_idBase) {
 		this.baseId = in_idBase;
 		this.arreavion = new VOAvion[tope];
 	}

@@ -4,11 +4,11 @@ import java.util.TreeMap;
 
 
 
-public class VODaoJugador {
+public class VOCollectionJugador {
 
 TreeMap<Integer, VOJugador> jugadores;
  
-	public VODaoJugador() {
+	public VOCollectionJugador() {
 		
 		jugadores= new TreeMap<Integer, VOJugador>();
 	}

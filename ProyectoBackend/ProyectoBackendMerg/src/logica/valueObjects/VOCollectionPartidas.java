@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.TreeMap;
 
 
-public class VODaoPartidas implements Serializable {
+public class VOCollectionPartidas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	 TreeMap<Integer, VOPartida> partidas;
 
-	public VODaoPartidas() {
+	public VOCollectionPartidas() {
 		partidas= new  TreeMap<Integer, VOPartida>();
 	}
 
