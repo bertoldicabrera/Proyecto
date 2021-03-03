@@ -200,7 +200,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			// para cada jugador de la partida crear en la tabla relacion
 			int idpartida = daoP.getUltimaPartidaID(icon);
 
-			Partida part = devolverPartidaDadoVO(in_voPartida, idpartida++);
+			Partida part = devolverPartidaDadoVO(in_voPartida);
 			daoP.insert(part, icon);
 			// Creo los equipos e inserto los equipos con el id de la partida
 			Equipo[] auxEquipo = null;
@@ -276,22 +276,19 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	}
 
-	private Partida devolverPartidaDadoVO(VOPartida in_aux, int in_ultimoIdPartida) {
-		Partida out_aux = null;
+	private Partida devolverPartidaDadoVO(VOPartida in_aux) {
+		Partida out_aux = new Partida
+				(in_aux.getPartidaId(), 
+						in_aux.getPartidaEstado(), 
+						in_aux.getPartidaFechaUltimaActualizacion(),
+						in_aux.isPartidaGuardada(), 
+						in_aux.getPartidaNombre(),
+						in_aux.getPartidaCantidadJugadores(),
+						in_aux.getPartidaCreador(), 
+						in_aux.getPartidaFechaCreada(),
+						in_aux.isPartidaTermino(), 
+						devolverDaoEquipoDadoVO(in_aux.getEquipos()));
 
-	
-		
-		
-		//int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
-		//boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-		//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
-		
-		
-		
-		
-//		out_aux = new Partida(in_ultimoIdPartida, in_aux.getPartidaEstado(),in_aux.getPartidaFechaUltimaActualizacion(),
-//				      in_aux.isPartidaGuardada(),in_aux.getPartidaNombre(),in_aux.getPartidaCantidadJugadores(),in_aux.getPartidaCreador(),
-//				      in_aux.getPartidaFechaCreada(),in_aux.isPartidaGuardada(),);
 				
 		return out_aux;
 
