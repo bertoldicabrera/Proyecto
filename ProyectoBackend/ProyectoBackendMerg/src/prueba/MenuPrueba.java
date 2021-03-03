@@ -187,7 +187,17 @@ public class MenuPrueba {
               			//boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
               			//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
                         Date in_PartidaFechaCreada=new Date(2021,03,02);
-                        VOPartida prueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,0,in_PartidaFechaCreada,true,equipos);
+                        VOPartida vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,0,in_PartidaFechaCreada,true,equipos);
+					try {
+						modelo.guardarPartida(vopartidaprueba);
+					} catch (RemoteException e) {
+						System.out.println(e.toString());
+					} catch (LogicaException e) {
+						System.out.println(e.toString());
+					} catch (PersistenciaException e) {
+						System.out.println(e.toString());
+					}
+                        
                         break;
                     case 6:
                         System.out.println("Has seleccionado la opcion 6 Listar todas las partidas de todos los jugadores:");                
