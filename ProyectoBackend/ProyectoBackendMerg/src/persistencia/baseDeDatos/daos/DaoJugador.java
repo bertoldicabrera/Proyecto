@@ -35,9 +35,10 @@ public boolean member(String in_JugadorNombre, IConexion con) throws Persistenci
 		pstmt.setString(1, in_JugadorNombre.trim()); 
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next())
+		{
 			existe = true;
-		
-		System.out.println(existe);
+		}
+			
 		rs.close ();
 		pstmt.close ();
 	}catch (SQLException e){
@@ -286,7 +287,7 @@ public boolean estaVacia(IConexion con) throws PersistenciaException {
 	    
 	   
 	 
-public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
+public int getUltimoJugadorIDMas1(IConexion con) throws PersistenciaException {
 	int cant=0;
 	consultas cons = new consultas();
 	
@@ -303,6 +304,7 @@ public int getUltimoJugadorID(IConexion con) throws PersistenciaException {
 	} catch (SQLException e) {
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
+	cant=cant+1;
 	return cant;
 }
 	

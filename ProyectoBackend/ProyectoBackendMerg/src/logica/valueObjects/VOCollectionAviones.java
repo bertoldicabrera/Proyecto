@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 public class VOCollectionAviones implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int tope = 4;
 	private VOAvion[] arreavion;
@@ -15,7 +12,7 @@ public class VOCollectionAviones implements Serializable{
 
 	public VOCollectionAviones() {
 		this.arreavion=new VOAvion[tope];
-//		setArreavion(new VOAvion[tope]);
+
 	}
 	public VOCollectionAviones(int in_idBase) {
 		this.baseId = in_idBase;
@@ -35,6 +32,7 @@ public class VOCollectionAviones implements Serializable{
 	return esta;
 	}
 	public void insback(VOAvion in_avion) {
+		System.out.println("entro insback avion");
 		this.arreavion[tope-1]=in_avion;
     	tope--;
 	}

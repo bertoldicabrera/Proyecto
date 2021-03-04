@@ -20,10 +20,13 @@ public class VOCollectionEquipo implements Serializable {
 		this.equipos = in_EQS;
 		}
 	
-	public void  insBack ( VOEquipo in_Equipo)
+	public void  insBack (int in_idpartida ,VOEquipo in_Equipo,VOCollectionJugador in_DaoJ, VOCollectionBase   in_DaoB  )
 	{
+		this.idpartida=in_idpartida;
 		equipos[tope-1]=in_Equipo;
 		tope--;
+		this.DaoJ=in_DaoJ;
+		this.DaoB=in_DaoB;
 	}
 	
 	public boolean estaVacia()  {

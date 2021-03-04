@@ -236,7 +236,7 @@ public boolean estaVacio( IConexion con) throws PersistenciaException {
 	return esta;
 }
 
-public int getUltimaPartidaID(IConexion con) throws PersistenciaException {
+public int getUltimaPartidaIDMas1(IConexion con) throws PersistenciaException {
 	int cant=0;
 	consultas cons = new consultas();
 	
@@ -253,6 +253,7 @@ public int getUltimaPartidaID(IConexion con) throws PersistenciaException {
 	} catch (SQLException e) {
 		throw new PersistenciaException (mensg.errorSQLListarPartidas);
 	}
+	cant=cant+1;
 	return cant;
 	
 }

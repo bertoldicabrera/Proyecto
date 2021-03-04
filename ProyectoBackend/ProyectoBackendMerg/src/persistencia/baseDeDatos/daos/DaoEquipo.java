@@ -53,7 +53,7 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 	
 	
 	public void  insBack ( int in_idPartida,Equipo in_Equipo, IConexion con) throws PersistenciaException {
-		 int equipoID=getUltimoEquipoId(con);
+		 int equipoID=getUltimoEquipoIdMas1(con);
 		 Jugador[] jugAux=in_Equipo.getJugadores();
 		 consultas cons = new consultas();
 		 String insertEquipo = cons.insertarEquipo();
@@ -194,7 +194,7 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 
 	
 	
-	public int getUltimoEquipoId(IConexion con) throws PersistenciaException {
+	public int getUltimoEquipoIdMas1(IConexion con) throws PersistenciaException {
 		int cant=0;
 		consultas cons = new consultas();
 		
@@ -211,6 +211,7 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 		} catch (SQLException e) {
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
+		cant=cant+1;
 		return cant;
 		
 	}

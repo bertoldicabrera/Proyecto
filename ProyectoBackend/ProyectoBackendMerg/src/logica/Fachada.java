@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
-
 import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
 import logica.excepciones.LogicaException;
@@ -62,6 +59,9 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			daoB = new DaoBase();
 			daoAvion = new DaoDeAviones();
 			daoArti = new DaoArtilleria();
+			
+			
+			
 
 		} catch (IOException e) {
 			throw new PersistenciaException(mensg.errorIO);
@@ -107,18 +107,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	public VOJugador Login(String in_userName, String in_userPassword)
 			throws RemoteException, LogicaException, PersistenciaException, InterruptedException {
-		System.out.println("Login fachada     0");
 		IConexion icon = ipool.obtenerConexion(true);
 		VOJugador out_Voj = null;
-        System.out.println("antes del try");
 		try {
-			 System.out.println("entra al try");
 			if (daoJ.member(in_userName, icon)) {
-				System.out.println("es member");
 				int id = daoJ.geIdbyName(in_userName, icon);
-				System.out.println("antes del find");
 				Jugador JuG = daoJ.find(id, icon);
-				System.out.println("despues");
 				
 				if (JuG.getJugadorPassword().equals(in_userPassword)) {
 					out_Voj = devolverVOJugador(JuG);
@@ -134,7 +128,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return out_Voj;
 	}
 
-	// PRE:Jugador Logueado
+	
+	// PRE:Jugador Logueado y registrado
 	public ArrayList<VOPartida> listarPartidasAReanudar(String in_Nickname)
 			throws PersistenciaException, LogicaException, RemoteException , InterruptedException{
 		IConexion icon = ipool.obtenerConexion(false);
@@ -191,6 +186,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return voPartidas;
 	}
 
+	
+	//precondicion jugador logueado y registrado
 	public void guardarPartida(VOPartida in_voPartida) throws LogicaException, RemoteException , InterruptedException, PersistenciaException {
 		 System.out.println("Entro guardar partida 195");
 		IConexion icon = ipool.obtenerConexion(true);
@@ -198,10 +195,23 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			// pedimos el ultimo idpartida
 			// creamos la partida con ese id
 			// para cada jugador de la partida crear en la tabla relacion
-			int idpartida = daoP.getUltimaPartidaID(icon);
-            System.out.println("Entro guardar partida 202");
+			int idpartida = daoP.getUltimaPartidaIDMas1(icon);
+            System.out.println("Entro guardar partida 202 y el idultima partina contiene****"+idpartida);
             Partida part=new Partida();
-			 part = devolverPartidaDadoVO(in_voPartida);
+            
+            if (in_voPartida==null)
+            {
+            	System.out.println("linea 207 in_voPartida en null******");
+            }else
+            {
+            	System.out.println("linea 210 no es null***");
+            }
+            System.out.println(" 212 La cantidad de jugadores de una vo es:"+in_voPartida.getPartidaCantidadJugadores());
+            
+			 part = devolverPartidaDadoVO(in_voPartida);// el problema está acá dentro
+			 
+			 System.out.println(" 215 La cantidad de jugadores de una partida es:"+part.getPartidaCantidadJugadores());
+			 
 			daoP.insert(part, icon);
 			// Creo los equipos e inserto los equipos con el id de la partida
 			Equipo[] auxEquipo = null;
@@ -281,22 +291,21 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	private Partida devolverPartidaDadoVO(VOPartida in_aux) {
 		System.out.println("devolverPartidaDadoVO 281");
 		Partida out_aux=null;
-	System.out.println("Entro 280");
-	if (in_aux.getEquipos()!=null)
-	{
-		System.out.println("Entro 283");
-	}
+	
+	VOCollectionEquipo equipos = in_aux.getEquipos();
+	System.out.println("El id DE LA PARTIDA ES: ******"+equipos.getIdpartida());
+	
 	
 	 out_aux = new Partida
-				(in_aux.getPartidaId(), 
-						in_aux.getPartidaEstado(), 
-						in_aux.getPartidaFechaUltimaActualizacion(),
-						in_aux.isPartidaGuardada(), 
-						in_aux.getPartidaNombre(),
-						in_aux.getPartidaCantidadJugadores(),
-						in_aux.getPartidaCreador(), 
-						in_aux.getPartidaFechaCreada(),
-						in_aux.isPartidaTermino(), 
+				(in_aux.getPartidaId(), //ok
+						in_aux.getPartidaEstado(), //ok
+						in_aux.getPartidaFechaUltimaActualizacion(),//ok
+						in_aux.isPartidaGuardada(), //ok
+						in_aux.getPartidaNombre(),//ok
+						in_aux.getPartidaCantidadJugadores(),//ok
+						in_aux.getPartidaCreador(), //ok
+						in_aux.getPartidaFechaCreada(),//ok
+						in_aux.isPartidaTermino(), //ok
 						devolverDaoEquipoDadoVO(in_aux.getEquipos()));
 
 				
@@ -476,7 +485,22 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Jugador devolverJugadordadoVO(VOJugador in_aux) {
-		   System.out.println("evolverJugadordadoVO 477"); 
+		   System.out.println("evolverJugadordadoVO 477 en la fachada se rompe"); 
+		   
+		   
+		   if(in_aux==null)
+		   {
+			   System.out.println("494 null ver que pasa");
+			   
+			   System.out.println("LINEA 494"+in_aux.getJugadorId()+ in_aux.getJugadorUserName()+ 
+						in_aux.getJugadorPassword()+in_aux.isJugadorIsOnline()+ in_aux.getPuntajeAcumulado());
+			   
+		   }else
+		   {
+			   System.out.println("497 no es  null");
+		   }
+		   
+		   
 		Jugador out_aux = new Jugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), 
 				in_aux.getJugadorPassword(),in_aux.isJugadorIsOnline(), in_aux.getPuntajeAcumulado());
 //				
@@ -488,7 +512,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private Equipo devolverEquipoDadoVO(VOEquipo in_voEquipo) {
-		System.out.println("devolverEquipoDadoVO 491");
+		System.out.println("devolverEquipoDadoVO 491 y el id es"+in_voEquipo.getEquipoID());
 		//int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando
 		Equipo out = new Equipo(in_voEquipo.getEquipoID(),
 				devolverArreJugadorDadoVO(in_voEquipo.getJugadores()), 
@@ -503,7 +527,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private Jugador[] devolverArreJugadorDadoVO(VOJugador[] in_Jugador) {
-		System.out.println("devolverArreJugadorDadoVO 506"); 
+		System.out.println("devolverArreJugadorDadoVO 506 y el id es"+in_Jugador[1].getJugadorId()); 
+		if(in_Jugador==null)
+		{
+			System.out.println("viene en null fachada 533"); 
+		}
 		Jugador[] aux= new Jugador[in_Jugador.length];
 		
 		for (int i=0; i<in_Jugador.length; i++) {
@@ -518,7 +546,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Equipo[] devolverArreEquipoDadoVO(VOEquipo[] in_voEquipo) {
-		System.out.println("devolverArreEquipoDadoVO 521"); 
+		System.out.println("devolverArreEquipoDadoVO 521 y el id es"+in_voEquipo[1].getEquipoID()); 
 		Equipo[] aux= new Equipo[in_voEquipo.length];
 		
 		for (int i=0; i<in_voEquipo.length; i++) {
@@ -531,7 +559,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	
 	private DaoEquipo  devolverDaoEquipoDadoVO(VOCollectionEquipo in_DaoEquipo)
-	{   System.out.println("devolverDaoEquipoDadoVO 531"); 
+	{   System.out.println("devolverDaoEquipoDadoVO 531 y el id es"+in_DaoEquipo.getIdpartida()); 
 		//int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBase   in_DaoB
 		
 		
