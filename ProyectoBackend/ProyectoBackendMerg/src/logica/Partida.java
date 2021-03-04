@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import persistencia.baseDeDatos.daos.DaoEquipo;
@@ -8,13 +9,13 @@ public class Partida {
 
 	private int partidaId;
     private String partidaEstado;
-    private Date partidaFechaUltimaActualizacion; 
+    private LocalDate partidaFechaUltimaActualizacion; 
     private boolean partidaGuardada;
 	private boolean partidaTermino;
     private String  partidaNombre;
     private int partidaCantidadJugadores;
     private int partidaCreador;
-    private Date partidaFechaCreada;
+    private LocalDate partidaFechaCreada;
 	private DaoEquipo Equipos;
 
 
@@ -24,9 +25,9 @@ public class Partida {
 public Partida() {
 }
 
-public Partida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
+public Partida(int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
 boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, DaoEquipo in_Equi)
+int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, DaoEquipo in_Equi)
 {
 	this.setPartidaId(in_PartidaId);
 	this.setPartidaEstado(in_PartidaEstado);
@@ -56,11 +57,11 @@ public void setPartidaEstado(String in_partidaEstado) {
 	this.partidaEstado = in_partidaEstado;
 }
 
-public Date getPartidaFechaUltimaActualizacion() {
+public LocalDate getPartidaFechaUltimaActualizacion() {
 	return partidaFechaUltimaActualizacion;
 }
 
-public void setPartidaFechaUltimaActualizacion(Date in_partidaFechaUltimaActualizacion) {
+public void setPartidaFechaUltimaActualizacion(LocalDate in_partidaFechaUltimaActualizacion) {
 	this.partidaFechaUltimaActualizacion = in_partidaFechaUltimaActualizacion;
 }
 
@@ -98,11 +99,11 @@ public void setPartidaCreador(int in_partidaCreador) {
 	this.partidaCreador = in_partidaCreador;
 }
 
-public Date getPartidaFechaCreada() {
+public LocalDate getPartidaFechaCreada() {
 	return partidaFechaCreada;
 }
 
-public void setPartidaFechaCreada(Date in_partidaFechaCreada) {
+public void setPartidaFechaCreada(LocalDate in_partidaFechaCreada) {
 	this.partidaFechaCreada = in_partidaFechaCreada;
 }
 

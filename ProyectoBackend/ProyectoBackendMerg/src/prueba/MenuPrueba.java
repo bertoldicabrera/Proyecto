@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -162,7 +163,7 @@ public class MenuPrueba {
           //para crear un equipo
                         	VOCollectionAviones aviones=new VOCollectionAviones();//ok
                             VOCollectionArtilleria artillerias= new VOCollectionArtilleria(); //ok
-                            VOJugador[] arregloJugadores=new VOJugador[3];//ok una equipo tiene 1 jugador
+                            VOJugador[] arregloJugadores=new VOJugador[1];//ok na equipo tiene 1 jugador
                            // VOAvion[] arreavion = new VOAvion [4]; //ok
                             
                             
@@ -207,7 +208,7 @@ public class MenuPrueba {
                         
                          VOJugador nuevo= new VOJugador(k,"in_JugadorUserName"+k,"in_JugadorPassword"+k,true,1);
                          System.out.println("creo jugador  en menu linea 209****"+ nuevo.getJugadorId());
-                         arregloJugadores[k]=nuevo;
+                         arregloJugadores[0]=nuevo;
                          
                      	coleccionJug.insert(nuevo.getJugadorId(), nuevo);
                          
@@ -240,7 +241,9 @@ public class MenuPrueba {
                      	 // int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
               			//boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
               			//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
-                        Date in_PartidaFechaCreada=new Date(2021,03,02);
+                        LocalDate in_PartidaFechaCreada= LocalDate.of(2021,03,02) ;
+                      //  Date in_PartidaFechaCreada=new Date(2021,03,02);
+                        System.out.println("************"+in_PartidaFechaCreada.toString());
                         
                          vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,0,in_PartidaFechaCreada,true,equipos);
                         

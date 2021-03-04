@@ -63,5 +63,9 @@ public class VOEquipo implements Serializable{
 	public void setBando(String bando) {
 		this.bando = bando;
 	}
+	
+	public void mostrarPorPantallaVoEquipo() {
+		System.out.println("|El id de equipo es: "+this.getEquipoID());
+	}
 
 }

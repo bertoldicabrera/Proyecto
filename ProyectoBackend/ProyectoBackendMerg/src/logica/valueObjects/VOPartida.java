@@ -1,6 +1,7 @@
 package logica.valueObjects;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import persistencia.baseDeDatos.daos.DaoEquipo;
@@ -12,20 +13,20 @@ public class VOPartida implements Serializable {
 
 	private int partidaId;
     private String partidaEstado;
-    private Date partidaFechaUltimaActualizacion; 
+    private LocalDate  partidaFechaUltimaActualizacion; 
     private boolean partidaGuardada;
 	private boolean partidaTermino;
     private String  partidaNombre;
     private int partidaCantidadJugadores;
     private int partidaCreador;
-    private Date partidaFechaCreada;
+    private LocalDate partidaFechaCreada;
 	private VOCollectionEquipo Equipos;
 	
 
 
-	public VOPartida(int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
+	public VOPartida(int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
 			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-			int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi) {
+			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi) {
 		
 		this.setPartidaId(in_PartidaId);
 		this.setPartidaEstado(in_PartidaEstado);
@@ -67,13 +68,13 @@ public class VOPartida implements Serializable {
 
 
 
-	public Date getPartidaFechaUltimaActualizacion() {
+	public LocalDate getPartidaFechaUltimaActualizacion() {
 		return partidaFechaUltimaActualizacion;
 	}
 
 
 
-	public void setPartidaFechaUltimaActualizacion(Date partidaFechaUltimaActualizacion) {
+	public void setPartidaFechaUltimaActualizacion(LocalDate partidaFechaUltimaActualizacion) {
 		this.partidaFechaUltimaActualizacion = partidaFechaUltimaActualizacion;
 	}
 
@@ -130,13 +131,13 @@ public class VOPartida implements Serializable {
 
 
 
-	public Date getPartidaFechaCreada() {
+	public LocalDate getPartidaFechaCreada() {
 		return partidaFechaCreada;
 	}
 
 
 
-	public void setPartidaFechaCreada(Date partidaFechaCreada) {
+	public void setPartidaFechaCreada(LocalDate partidaFechaCreada) {
 		this.partidaFechaCreada = partidaFechaCreada;
 	}
 
@@ -162,6 +163,19 @@ public class VOPartida implements Serializable {
 
 	public void setPartidaTermino(boolean partidaTermino) {
 		this.partidaTermino = partidaTermino;
+	}
+	
+	public void mostrarPartidaPorPantalla()
+	{
+		System.out.println(this.getPartidaId()+"|"+
+		this.getPartidaEstado()+"|"+
+		this.getPartidaFechaUltimaActualizacion()+"|"+
+		this.isPartidaGuardada()+"|"+
+		this.getPartidaNombre()+"|"+
+		this.getPartidaCantidadJugadores()+"|"+
+		this.getPartidaCreador()+"|"+
+		this.getPartidaFechaCreada()+"|"+
+		this.isPartidaTermino()+"| meter otras cosas " );
 	}
 
 }

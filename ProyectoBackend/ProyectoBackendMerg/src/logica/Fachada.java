@@ -199,14 +199,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
             System.out.println("Entro guardar partida 202 y el idultima partina contiene****"+idpartida);
             Partida part=new Partida();
             
-            if (in_voPartida==null)
-            {
-            	System.out.println("linea 207 in_voPartida en null******");
-            }else
-            {
-            	System.out.println("linea 210 no es null***");
-            }
-            System.out.println(" 212 La cantidad de jugadores de una vo es:"+in_voPartida.getPartidaCantidadJugadores());
+           
+            System.out.println(" 203 vamos a mostrar toda la partida para ver que viene en el vopartida");
+            
+            in_voPartida.mostrarPartidaPorPantalla();
+            
+            
             
 			 part = devolverPartidaDadoVO(in_voPartida);// el problema está acá dentro
 			 
@@ -214,6 +212,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			 
 			daoP.insert(part, icon);
 			// Creo los equipos e inserto los equipos con el id de la partida
+			System.out.println(" 215 despues del insert");
 			Equipo[] auxEquipo = null;
 			auxEquipo = part.getEquipos().listarEquipos(icon);// Esto es un arreglo con los N equipos
 			int largoArreglo = auxEquipo.length;
@@ -239,7 +238,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			}
 		} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaListPartidas);
+			System.out.println("se rompe y sale por acá");
+			throw new LogicaException(mensg.errorFachadaGuardarPartidas);
 		}
 
 	}
@@ -316,7 +316,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Avion  devolverAvionDadoVO(VOAvion in_Avion)
-	{    System.out.println("devolverAvionDadoVO 308");
+	{    //System.out.println("devolverAvionDadoVO 308");
 		//int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,
 		//int in_rangoDeVision ,boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid)
 		
@@ -329,7 +329,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private Artillero  devolverArtilleroDadoVO(VOArtillero in_Artillero)
-	{      System.out.println("devolverArtilleroDadoVO 321");
+	{     // System.out.println("devolverArtilleroDadoVO 321");
 		//int in_id, int in_coordX, int in_coordY, 
 		//boolean in_estado, int in_vida, boolean in_hayEnemigo,
 		//int in_rangoDeVision, int in_ArtilleroAngulo,int in_base_id
@@ -343,7 +343,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private Deposito  devolverDepositoDadoVO(VODeposito in_Deposito)
-	{   System.out.println("devolverDepositoDadoVO 335");
+	{   //System.out.println("devolverDepositoDadoVO 335");
 	//	int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,int in_cantidadBombas,boolean in_enUso) {
 		Deposito depaux=new Deposito(in_Deposito.GetId(),in_Deposito.getCoordX(),in_Deposito.getCoordY(),
 				in_Deposito.getEstado(),in_Deposito.getVida(),in_Deposito.getCantidaBombas(),in_Deposito.getEnUso());
@@ -352,7 +352,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private TanqueCombustible  devolverTanqueCombustibleDadoVO(VOTanqueCombustible in_TanqueCombustible)
-	{   System.out.println("devolverTanqueCombustibleDadoVO 344"); 
+	{  // System.out.println("devolverTanqueCombustibleDadoVO 344"); 
 		//int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, int in_cantidadCombustible, boolean in_enUso
 		
 		TanqueCombustible auxDepTanque=new TanqueCombustible(in_TanqueCombustible.GetId(),in_TanqueCombustible.getCoordX(),
@@ -363,7 +363,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private TorreControl  devolverTorreControlDadoVO(VOTorreControl in_TorreControl)
-	{  System.out.println("devolverTorreControlDadoVO 355"); 
+	{  //System.out.println("devolverTorreControlDadoVO 355"); 
 		//int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,boolean in_hayEnemigo, int in_rangoDeVision
 		TorreControl auxTorreControl=new TorreControl(in_TorreControl.GetId(),in_TorreControl.getCoordX()
 				                      ,in_TorreControl.getCoordY(),in_TorreControl.getEstado(),in_TorreControl.getVida(),
@@ -372,7 +372,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private DaoDeAviones  devolverDaoAvionesDadoVO(VOCollectionAviones in_DaoAviones)
-	{  System.out.println("devolverDaoAvionesDadoVO 364"); 
+	{ // System.out.println("devolverDaoAvionesDadoVO 364"); 
 		
 		DaoDeAviones auxDaoAviones= new DaoDeAviones(in_DaoAviones.getBaseId());
 		int max=in_DaoAviones.getArreavion().length;
@@ -397,7 +397,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 		
 	private DaoArtilleria  devolverDaoArtilleriaDadoVO(VOCollectionArtilleria in_DaoArtilleria)
-	{    System.out.println("devolverDaoArtilleriaDadoVO 389"); 
+	{   // System.out.println("devolverDaoArtilleriaDadoVO 389"); 
 		
 //		int in_id, int in_coordX, int in_coordY, 
 //		boolean in_estado, int in_vida, boolean in_hayEnemigo,
@@ -425,7 +425,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Base  devolverBaseDadoVO(VOBase in_Base)
-	{   System.out.println("devolverBaseDadoVO 417"); 
+	{  // System.out.println("devolverBaseDadoVO 417"); 
 		//int in_idDabse,DaoDeAviones in_aviones,  
 		//DaoArtilleria in_artilleros, Deposito in_deposito, 
 		//TanqueCombustible in_tanque,TorreControl in_torre
@@ -444,22 +444,21 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private DaoJugador  devolverDaoJugadorDadoVO(VOCollectionJugador in_DaoJugador)
-	{  System.out.println("devolverDaoJugadorDadoVO 436"); 
+	{  
+		//System.out.println("devolverDaoJugadorDadoVO 436"); 
 		
 		DaoJugador daoJugador= new DaoJugador();
 		TreeMap<Integer, Jugador> aux= new TreeMap<Integer, Jugador>();
-		System.out.println("null 440");
+		////System.out.println("null 440");
 
 		Iterator<VOJugador> Itr =  in_DaoJugador.listarJugadores().values().iterator();
-		System.out.println("null 442");
+		//System.out.println("null 442");
 		while (Itr.hasNext()) {
 			VOJugador auxiliar = Itr.next();
 			aux.put(devolverJugadordadoVO(auxiliar).getJugadorId(), devolverJugadordadoVO(auxiliar));
 			
 		}
-		if (aux ==null) {
-			System.out.println("null 447");
-		}
+		
 		daoJugador.setJugadores(aux);
 		return daoJugador;
 
@@ -469,7 +468,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	private DaoBase  devolverDaoBaseDadoVO(VOCollectionBase in_DaoBase)
 	{
-		 System.out.println("devolverDaoBaseDadoVO 461"); 
+		 //System.out.println("devolverDaoBaseDadoVO 461"); 
 		DaoBase daoBases= new DaoBase();
 		TreeMap<Integer, Base>  aux=new TreeMap<Integer, Base>();
 		
@@ -485,20 +484,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Jugador devolverJugadordadoVO(VOJugador in_aux) {
-		   System.out.println("evolverJugadordadoVO 477 en la fachada se rompe"); 
+		  // System.out.println("evolverJugadordadoVO 477 en la fachada se rompe"); 
 		   
 		   
-		   if(in_aux==null)
-		   {
-			   System.out.println("494 null ver que pasa");
-			   
-			   System.out.println("LINEA 494"+in_aux.getJugadorId()+ in_aux.getJugadorUserName()+ 
-						in_aux.getJugadorPassword()+in_aux.isJugadorIsOnline()+ in_aux.getPuntajeAcumulado());
-			   
-		   }else
-		   {
-			   System.out.println("497 no es  null");
-		   }
+		  
 		   
 		   
 		Jugador out_aux = new Jugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), 
@@ -506,14 +495,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 //				
 //		out_aux = new Jugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), in_aux.getJugadorPassword(),
 //				in_aux.isJugadorIsOnline(), in_aux.getPuntajeAcumulado());
-       System.out.println("Creo jugador");
+     //  System.out.println("Creo jugador");
 		return out_aux;
 
 	}
 	
 	private Equipo devolverEquipoDadoVO(VOEquipo in_voEquipo) {
-		System.out.println("devolverEquipoDadoVO 491 y el id es"+in_voEquipo.getEquipoID());
 		//int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando
+		//System.out.println("mostrar los jugadores acá, está llegando con un largo de:"+in_voEquipo.getJugadores().length);
 		Equipo out = new Equipo(in_voEquipo.getEquipoID(),
 				devolverArreJugadorDadoVO(in_voEquipo.getJugadores()), 
 				
@@ -527,11 +516,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 	
 	private Jugador[] devolverArreJugadorDadoVO(VOJugador[] in_Jugador) {
-		System.out.println("devolverArreJugadorDadoVO 506 y el id es"+in_Jugador[1].getJugadorId()); 
-		if(in_Jugador==null)
-		{
-			System.out.println("viene en null fachada 533"); 
-		}
+		
 		Jugador[] aux= new Jugador[in_Jugador.length];
 		
 		for (int i=0; i<in_Jugador.length; i++) {
@@ -546,7 +531,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	private Equipo[] devolverArreEquipoDadoVO(VOEquipo[] in_voEquipo) {
-		System.out.println("devolverArreEquipoDadoVO 521 y el id es"+in_voEquipo[1].getEquipoID()); 
 		Equipo[] aux= new Equipo[in_voEquipo.length];
 		
 		for (int i=0; i<in_voEquipo.length; i++) {
@@ -559,7 +543,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 
 	
 	private DaoEquipo  devolverDaoEquipoDadoVO(VOCollectionEquipo in_DaoEquipo)
-	{   System.out.println("devolverDaoEquipoDadoVO 531 y el id es"+in_DaoEquipo.getIdpartida()); 
+	{   
 		//int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBase   in_DaoB
 		
 		

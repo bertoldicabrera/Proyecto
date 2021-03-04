@@ -43,7 +43,7 @@ public class MensajesPersonalizados {
 	public String errorSQLInsertEquipos;
 	public String errorSQLFindEquipos;
 	public String errorFachadaListaVacia;
-	public String errorFachadaListPartidas;
+	public String errorFachadaListPartidas, errorFachadaGuardarPartidas;
 	public String errorSQLFindDeposito;
 	public String errorSQLFindTanqueCombustible;
 	public String errorSQLFindTorreControl;
@@ -126,6 +126,7 @@ public class MensajesPersonalizados {
 		errorFachadaEstaOnline = p.getProperty("errorFachadaEstaOnline");
 		errorSQLAlHacerLogout = p.getProperty("errorSQLAlHacerLogout");
 		errorFachadaAlHacerLogout = p.getProperty("errorFachadaAlHacerLogout");
+		errorFachadaGuardarPartidas= p.getProperty("errorFachadaGuardarPartidas");
 	}
 
 }

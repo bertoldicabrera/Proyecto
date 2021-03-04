@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.TreeMap;
 
@@ -48,12 +49,12 @@ public class DaoPartidas implements Serializable {
 		Partida out_Part = null;
 		int out_PartidaId=0;
 		String out_PartidaEstado = null;
-		Date out_PartidaFechaUltimaActualizacio = null;
+		LocalDate out_PartidaFechaUltimaActualizacio = null;
 		boolean out_PartidaGuardada = false;
 		String  out_PartidaNombre = null;
 		int out_PartidaCantidadJugadores = 0;
 		int out_PartidaCreador = 0;
-		Date out_PartidaFechaCreada = null;
+		LocalDate out_PartidaFechaCreada = null;
 		boolean out_terminoPartida=false;
 		
 		
@@ -67,13 +68,13 @@ public class DaoPartidas implements Serializable {
 			if (rs1.next ()){
 				 out_PartidaId= rs1.getInt(1);
 				 out_PartidaEstado= rs1.getString(2);
-				 out_PartidaFechaUltimaActualizacio= rs1.getDate(3);
+				 out_PartidaFechaUltimaActualizacio= rs1.getDate(3).toLocalDate();
 				 out_PartidaGuardada= rs1.getBoolean(4);
 
 				 out_PartidaNombre= rs1.getString(5);
 				 out_PartidaCantidadJugadores= rs1.getInt(6);
 				 out_PartidaCreador= rs1.getInt(7);
-				 out_PartidaFechaCreada= rs1.getDate(8);
+				 out_PartidaFechaCreada= rs1.getDate(8).toLocalDate();
 				 out_terminoPartida=rs1.getBoolean(9);
 				
 			}
@@ -97,19 +98,34 @@ public class DaoPartidas implements Serializable {
 	
 	public void insert (Partida in_part, IConexion con) throws PersistenciaException{
 		try{
+			System.out.println("dentro del try insert de daopartida");
 			consultas cons = new consultas();
 			String insert = cons.insertarPartida();
+			
 			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (insert);
 			pstmt.setString (1, in_part.getPartidaEstado());
 			//ver si esto no rompe!!!!!
-			pstmt.setDate(2, (java.sql.Date) in_part.getPartidaFechaUltimaActualizacion());
+			System.out.println("antes del date");
+			
+			//Date date = Date.valueOf(in_part.getPartidaFechaUltimaActualizacion());
+			int dia=in_part.getPartidaFechaUltimaActualizacion().getDayOfYear();
+			int mes=in_part.getPartidaFechaUltimaActualizacion().getDayOfMonth();
+			int anio=in_part.getPartidaFechaUltimaActualizacion().getYear();
+			java.sql.Date date1 = new java.sql.Date(dia,mes,anio);
+			//System.out.println("la fecha es"+date1.toString());
+			
+			pstmt.setDate(2,  date1 );
 			pstmt.setBoolean(3, in_part.isPartidaGuardada());
 			pstmt.setString (4, in_part.getPartidaNombre());
 			pstmt.setInt(5, in_part.getPartidaCantidadJugadores());
 			pstmt.setInt(6, in_part.getPartidaCreador());
-			pstmt.setDate(7, (java.sql.Date) in_part.getPartidaFechaCreada());
+			int dia2=in_part.getPartidaFechaCreada().getDayOfYear();
+			int mes2=in_part.getPartidaFechaCreada().getDayOfMonth();
+			int anio2=in_part.getPartidaFechaCreada().getYear();
+			java.sql.Date date2 = new java.sql.Date(dia2, mes2,anio2);
+			pstmt.setDate(7, date2);
 			pstmt.setBoolean(8,in_part.getPartidaTermino());
-			
+			System.out.println("antes de ejecutar el update");
 			pstmt.executeUpdate ();
 			pstmt.close ();
 		}
@@ -198,12 +214,14 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 			Partida nuevaPartida = new Partida(
 					rs.getInt(1),
 					rs.getString (2),
-					rs.getDate(3),
+					
+					rs.getDate(3).toLocalDate(),
+					
 					rs.getBoolean(4),
 					rs.getString (5),
 					rs.getInt(6),
 					rs.getInt(7),
-					rs.getDate(8),
+					rs.getDate(8).toLocalDate(),
 					rs.getBoolean(9),
 					daoEqaux
 					);
