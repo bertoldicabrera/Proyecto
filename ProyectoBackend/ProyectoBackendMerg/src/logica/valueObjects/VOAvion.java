@@ -1,8 +1,8 @@
 package logica.valueObjects;
 
+import java.io.Serializable;
 
-
-public class VOAvion extends VOObjeto {
+public class VOAvion extends VOObjeto  implements Serializable {
 
 	
 	/**

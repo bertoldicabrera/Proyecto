@@ -1,11 +1,16 @@
 package logica.valueObjects;
 
+import java.io.Serializable;
 import java.util.TreeMap;
 
 
 
-public class VOCollectionJugador {
+public class VOCollectionJugador  implements Serializable  {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 TreeMap<Integer, VOJugador> jugadores;
  
 	public VOCollectionJugador() {

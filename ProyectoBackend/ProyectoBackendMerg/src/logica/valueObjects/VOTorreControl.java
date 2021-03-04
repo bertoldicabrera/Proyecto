@@ -1,6 +1,8 @@
 package logica.valueObjects;
 
-public class VOTorreControl extends VOObjeto {
+import java.io.Serializable;
+
+public class VOTorreControl extends VOObjeto  implements Serializable{
 	
 	/**
 	 * 

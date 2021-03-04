@@ -1,8 +1,8 @@
 package logica.valueObjects;
 
+import java.io.Serializable;
 
-
-public class VODeposito extends VOObjeto {
+public class VODeposito extends VOObjeto  implements Serializable {
 
 	/**
 	 * 

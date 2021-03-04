@@ -147,12 +147,16 @@ public class MenuPrueba {
                         VOCollectionAviones aviones=new VOCollectionAviones();
                         VOCollectionArtilleria artillerias= new VOCollectionArtilleria();
                         VOCollectionBase   DaoB = new VOCollectionBase() ;
-                        VOJugador[] coleccionJug=null;
+                        VOJugador[] coleccionJug=new VOJugador[2];
+                        VOAvion [] arreavion = new VOAvion [4];
                          for (int i=0;i<4;i++)
                          {  //(int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, int in_vida,boolean in_hayEnemigo,
                         	// int in_rangoDeVision ,boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid)
                         	 VOAvion avion=new VOAvion(i,i,i,i,true,i,true,i,true,i,i,true,k);
-                        	  aviones.insback(avion);
+                        	 arreavion[i]=avion;
+                        	 System.out.println("antes "+i);
+                        	 aviones.insback(avion);
+                        	  System.out.println("Entro "+i);
                          }
                          for (int j=0;j<12;j++)
                          {  
@@ -178,16 +182,19 @@ public class MenuPrueba {
                          
                        //  int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
             			// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
+                         System.out.println("creo jugador 185");
                          coleccionJug[k]= new VOJugador(k,"jug"+k,"Jugpass"+k,true,k);
+                         System.out.println("creo jugador 187");
                          //int in_equipoID, VOJugador[]  in_Jugadores, VOBase  in_base, String  in_bando
                     	 VOEquipo eq= new VOEquipo(k,coleccionJug,base,"bando"+k);
-                           equipos.insBack(eq); ;
+                           equipos.insBack(eq); 
                         }
                      	 // int in_PartidaId, String in_PartidaEstado, Date in_PartidaFechaUltimaActualizacion,
               			//boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
               			//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
                         Date in_PartidaFechaCreada=new Date(2021,03,02);
                         VOPartida vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,0,in_PartidaFechaCreada,true,equipos);
+                        System.out.println();
 					try {
 						modelo.guardarPartida(vopartidaprueba);
 					} catch (RemoteException e) {

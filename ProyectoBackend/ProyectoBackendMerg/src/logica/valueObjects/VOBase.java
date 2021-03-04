@@ -1,7 +1,13 @@
 package logica.valueObjects;
 
-public class VOBase {
+import java.io.Serializable;
+
+public class VOBase  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idBase;
 	 private VOCollectionAviones aviones;
 	 private VOCollectionArtilleria artilleros; 

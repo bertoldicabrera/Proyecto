@@ -22,7 +22,7 @@ public class VOCollectionEquipo implements Serializable {
 	
 	public void  insBack ( VOEquipo in_Equipo)
 	{
-		equipos[tope]=in_Equipo;
+		equipos[tope-1]=in_Equipo;
 		tope--;
 	}
 	

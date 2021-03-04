@@ -1,6 +1,8 @@
 package logica.valueObjects;
 
-public class VOTanqueCombustible extends VOObjeto {
+import java.io.Serializable;
+
+public class VOTanqueCombustible extends VOObjeto  implements Serializable {
 
 	/**
 	 * 

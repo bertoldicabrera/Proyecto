@@ -1,8 +1,8 @@
 package logica.valueObjects;
 
+import java.io.Serializable;
 
-
-public class VOArtillero extends VOObjeto {
+public class VOArtillero extends VOObjeto  implements Serializable{
 	
 	/**
 	 * 

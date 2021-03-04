@@ -14,7 +14,8 @@ public class VOCollectionAviones implements Serializable{
 	private int baseId;
 
 	public VOCollectionAviones() {
-		setArreavion(new VOAvion[tope]);
+		this.arreavion=new VOAvion[tope];
+//		setArreavion(new VOAvion[tope]);
 	}
 	public VOCollectionAviones(int in_idBase) {
 		this.baseId = in_idBase;
@@ -34,8 +35,8 @@ public class VOCollectionAviones implements Serializable{
 	return esta;
 	}
 	public void insback(VOAvion in_avion) {
-		arreavion[tope]=in_avion;
-		tope--;
+		this.arreavion[tope-1]=in_avion;
+    	tope--;
 	}
 	public VOAvion[] listarAviones(){
 		return arreavion;
