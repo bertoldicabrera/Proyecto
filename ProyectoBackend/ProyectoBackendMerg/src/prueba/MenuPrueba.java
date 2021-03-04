@@ -245,7 +245,7 @@ public class MenuPrueba {
                       //  Date in_PartidaFechaCreada=new Date(2021,03,02);
                         System.out.println("************"+in_PartidaFechaCreada.toString());
                         
-                         vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,0,in_PartidaFechaCreada,true,equipos);
+                         vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,1,in_PartidaFechaCreada,true,equipos);
                         
                          System.out.println("partida creada con los dos equipos y tiene el id de partida: "+vopartidaprueba.getPartidaId());
 					try {

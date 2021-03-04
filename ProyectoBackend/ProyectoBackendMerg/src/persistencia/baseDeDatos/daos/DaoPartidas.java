@@ -127,7 +127,9 @@ public class DaoPartidas implements Serializable {
 			pstmt.setBoolean(8,in_part.getPartidaTermino());
 			System.out.println("antes de ejecutar el update");
 			pstmt.executeUpdate ();
+			System.out.println("despues de ejecutar el update");
 			pstmt.close ();
+			System.out.println("despues del close");
 		}
 		catch (SQLException e)
 		{

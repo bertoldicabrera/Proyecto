@@ -215,14 +215,20 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			System.out.println(" 215 despues del insert");
 			Equipo[] auxEquipo = null;
 			auxEquipo = part.getEquipos().listarEquipos(icon);// Esto es un arreglo con los N equipos
+			System.out.println(" Salio de listar");
 			int largoArreglo = auxEquipo.length;
+			System.out.println("El largo es:"+largoArreglo);
+			
 			for (int i = 0; i < largoArreglo; i++) {
 
 				daoE.insBack(idpartida, auxEquipo[i], icon);
+				System.out.println(" Salio del isback");
 				Base auxBase = auxEquipo[i].getBase();
+				System.out.println(" despues de cargar la base");
 				Deposito auxDep = auxBase.getDeposito();
 				TanqueCombustible auxTC = auxBase.getTanque();
 				TorreControl auxTControl = auxBase.getTorre();
+				System.out.println(" pasa los objetos chicos");
 				daoB.insert( auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
 				Avion[] auxAviones = auxBase.getAviones().listarAviones(icon);
 				int largoAviones = auxAviones.length;
@@ -234,7 +240,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				for (int x = 0; i < largoArtillero; x++) {
 					daoArti.insBack(daoB.getUltimaIsBase(icon), auxArtilleria[x], icon);
 				}
-				icon = ipool.obtenerConexion(true);
+				ipool.liberarConexion(icon, true);
 			}
 		} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
