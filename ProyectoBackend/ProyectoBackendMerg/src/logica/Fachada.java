@@ -234,13 +234,16 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				Avion[] auxAviones = auxBase.getAviones().listarAviones(icon);
 				int largoAviones = auxAviones.length;
 				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
-				for (int j = 0; i < largoAviones-1; j++) {
+				for (int j = 0; j < largoAviones; j++) {
 					System.out.println("j:"+j);
 					daoAvion.insback(daoB.getUltimaIsBase(icon), auxAviones[j], icon);
 				}
+				
 				Artillero[] auxArtilleria = auxBase.getArtilleros().listarArtilleria(icon);
 			     int largoArtillero = auxArtilleria.length;
-				for (int x = 0; i < largoArtillero; x++) {
+			     System.out.println("int largoArtillero = auxArtilleria.length::"+largoArtillero);
+				for (int x = 0; x < largoArtillero; x++) {
+					System.out.println("x:"+x);
 					daoArti.insBack(daoB.getUltimaIsBase(icon), auxArtilleria[x], icon);
 				}
 			     daoE.insBack(idpartida, auxEquipo[0], icon);

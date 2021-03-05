@@ -70,6 +70,7 @@ public class DaoDeAviones implements Serializable {
 
 			pstmt.executeUpdate();
 			pstmt.close();
+			System.out.println("73 sale del close");
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertAvion);
 		}

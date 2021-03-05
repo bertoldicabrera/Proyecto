@@ -66,6 +66,7 @@ public class DaoArtilleria implements Serializable {
 			pstmt.setInt(8, in_idBase);
 			pstmt.executeUpdate();
 			pstmt.close();
+			System.out.println("69 sale del close artillero");
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertArtillero);
 		}
