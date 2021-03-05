@@ -211,17 +211,18 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			 System.out.println(" 215 La cantidad de jugadores de una partida es:"+part.getPartidaCantidadJugadores());
 			 
 			daoP.insert(part, icon);
-			// Creo los equipos e inserto los equipos con el id de la partida
-			System.out.println(" 215 despues del insert");
-			Equipo[] auxEquipo = null;
+//			 Creo los equipos e inserto los equipos con el id de la partida
+		   System.out.println(" 215 despues del insert");
+		     Equipo[] auxEquipo = null;
 			auxEquipo = part.getEquipos().listarEquipos(icon);// Esto es un arreglo con los N equipos
 			System.out.println(" Salio de listar");
-			int largoArreglo = auxEquipo.length;
+		    int largoArreglo = auxEquipo.length;
 			System.out.println("El largo es:"+largoArreglo);
+			
 			
 			for (int i = 0; i < largoArreglo; i++) {
 
-				daoE.insBack(idpartida, auxEquipo[i], icon);
+			
 				System.out.println(" Salio del isback");
 				Base auxBase = auxEquipo[i].getBase();
 				System.out.println(" despues de cargar la base");
@@ -229,20 +230,24 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				TanqueCombustible auxTC = auxBase.getTanque();
 				TorreControl auxTControl = auxBase.getTorre();
 				System.out.println(" pasa los objetos chicos");
-				daoB.insert( auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
+			    daoB.insert( auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
 				Avion[] auxAviones = auxBase.getAviones().listarAviones(icon);
 				int largoAviones = auxAviones.length;
-				for (int j = 0; i < largoAviones; j++) {
+				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
+				for (int j = 0; i < largoAviones-1; j++) {
+					System.out.println("j:"+j);
 					daoAvion.insback(daoB.getUltimaIsBase(icon), auxAviones[j], icon);
 				}
 				Artillero[] auxArtilleria = auxBase.getArtilleros().listarArtilleria(icon);
-				int largoArtillero = auxArtilleria.length;
+			     int largoArtillero = auxArtilleria.length;
 				for (int x = 0; i < largoArtillero; x++) {
 					daoArti.insBack(daoB.getUltimaIsBase(icon), auxArtilleria[x], icon);
 				}
-				ipool.liberarConexion(icon, true);
-			}
-		} catch (PersistenciaException e) {
+			     daoE.insBack(idpartida, auxEquipo[0], icon);
+			    ipool.liberarConexion(icon, true);
+			
+		}
+			} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
 			System.out.println("se rompe y sale por acá");
 			throw new LogicaException(mensg.errorFachadaGuardarPartidas);

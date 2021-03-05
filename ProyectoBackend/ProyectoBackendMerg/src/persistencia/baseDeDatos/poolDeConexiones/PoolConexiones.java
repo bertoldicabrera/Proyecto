@@ -71,7 +71,7 @@ public class PoolConexiones implements IPoolConexiones, Serializable {
 					try {
 						Connection con_aux = DriverManager.getConnection(url, user, pass);
 						con_aux.setAutoCommit(auto_Commit);
-						con_aux.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+						con_aux.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 						icon = (IConexion) new Conexion(con_aux);
 						creadas++;
 					} catch (SQLException e) {

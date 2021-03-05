@@ -273,7 +273,7 @@ public int getUltimaPartidaIDMas1(IConexion con) throws PersistenciaException {
 	} catch (SQLException e) {
 		throw new PersistenciaException (mensg.errorSQLListarPartidas);
 	}
-	cant=cant+1;
+//	cant=cant+1;
 	return cant;
 	
 }

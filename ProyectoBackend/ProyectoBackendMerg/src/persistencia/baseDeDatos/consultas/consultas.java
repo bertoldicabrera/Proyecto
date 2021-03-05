@@ -3,7 +3,7 @@ package persistencia.baseDeDatos.consultas;
 public class consultas {
     //Revisado ok
 	public String InsertarEquipoJugador() {
-		String query = "insert into EQUIPOS_JUGADORES values(?,?);";
+		String query = "insert into EQUIPOS_JUGADORES(PK_jugador_id,PK_equipo_id) values(?,?)";
 		return query;
 	}
     //Revisado ok

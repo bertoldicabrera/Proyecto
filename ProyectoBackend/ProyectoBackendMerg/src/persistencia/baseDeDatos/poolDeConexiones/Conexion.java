@@ -6,7 +6,10 @@ import java.io.Serializable;
 
 public class Conexion implements IConexion,Serializable  {
 
-	private static final long serialVersionUID = 4649443822404914037L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Connection con;
 
 	public Conexion () {

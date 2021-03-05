@@ -76,32 +76,45 @@ public class DaoBase implements Serializable {
 			String insertTC = cons.insertarTanqueCombustible();
 			PreparedStatement pstmt2 = ((Conexion) con).getConexion().prepareStatement(insertTC);
 		
-			pstmt1.setInt(1, in_TanqueCombustible.getCoordX());
-			pstmt1.setInt(2, in_TanqueCombustible.getCoordY());
-			pstmt1.setBoolean(3, in_TanqueCombustible.getEstado());
-			pstmt1.setInt(4, in_TanqueCombustible.getVida());
-			pstmt1.setInt(5, in_TanqueCombustible.getCantidadCombustible());
-			pstmt1.setBoolean(6, in_TanqueCombustible.getEnUso());
-			pstmt1.executeUpdate();
-			pstmt1.close();
+			pstmt2.setInt(1, in_TanqueCombustible.getCoordX());
+			pstmt2.setInt(2, in_TanqueCombustible.getCoordY());
+			pstmt2.setBoolean(3, in_TanqueCombustible.getEstado());
+			pstmt2.setInt(4, in_TanqueCombustible.getVida());
+			pstmt2.setInt(5, in_TanqueCombustible.getCantidadCombustible());
+			pstmt2.setBoolean(6, in_TanqueCombustible.getEnUso());
+			pstmt2.executeUpdate();
+			pstmt2.close();
 			// Inserto TorreControl
 			String insertTControl = cons.insertarTorreControl();
 			PreparedStatement pstmt3 = ((Conexion) con).getConexion().prepareStatement(insertTControl);
-			pstmt1.setInt(1, in_TorreControl.getCoordX());
-			pstmt1.setInt(2, in_TorreControl.getCoordY());
-			pstmt1.setBoolean(3, in_TorreControl.getEstado());
-			pstmt1.setInt(4, in_TorreControl.getVida());
-			pstmt1.setBoolean(5, in_TorreControl.getHayEnemigo());
-			pstmt1.setInt(6, in_TorreControl.getRangoDeVision());
-			pstmt1.executeUpdate();
-			pstmt1.close();
+			pstmt3.setInt(1, in_TorreControl.getCoordX());
+			pstmt3.setInt(2, in_TorreControl.getCoordY());
+			pstmt3.setBoolean(3, in_TorreControl.getEstado());
+			pstmt3.setInt(4, in_TorreControl.getVida());
+			pstmt3.setBoolean(5, in_TorreControl.getHayEnemigo());
+			pstmt3.setInt(6, in_TorreControl.getRangoDeVision());
+			pstmt3.executeUpdate();
+			pstmt3.close();
+			System.out.println("Creo todo 98");
 			String insertBase = cons.insertarBase();
 			PreparedStatement pstmt4 = ((Conexion) con).getConexion().prepareStatement(insertBase);
-			pstmt4.setInt(1, getUltimoTorreId(con));
-			pstmt4.setInt(2, getTanqueId(con));
-			pstmt4.setInt(3, getUltimoTorreId(con));
+			
+			/// BASES(FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id) values(?,?,?)
+			int FK_depBombas_id = getDepositoId(con);
+			int FK_depCombustible_id = getTanqueId(con);
+			int FK_torreControl_id = getUltimoTorreId(con);
+					
+			System.out.println("FK_depBombas_id::"+FK_depBombas_id);
+			System.out.println("FK_depCombustible_id::"+FK_depCombustible_id);
+			System.out.println("FK_torreControl_id::"+FK_torreControl_id);
+					
+			pstmt4.setInt(1, FK_depBombas_id);
+			pstmt4.setInt(2, FK_depCombustible_id);
+			pstmt4.setInt(3, FK_torreControl_id);
+			
 			pstmt4.executeUpdate();
 			pstmt4.close();
+			System.out.println("Creo todo");
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertBase);
 		}
