@@ -96,7 +96,7 @@ public class consultas {
     //Revisado ok
 	// Se insertan artilleros
 	public String insertarArtillero() {
-		String query = "insert into ARTILLEROS(artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,artilleroHayEnemigo,artilleroRangoVision,artilleroAngulo,FK_base_id) values(?,?,?,?,?,?)";
+		String query = "insert into ARTILLEROS(artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,artilleroHayEnemigo,artilleroRangoVision,artilleroAngulo,FK_base_id) values(?,?,?,?,?,?,?,?)";
 		return query;
 	}
     //Revisado ok

@@ -94,11 +94,11 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 				System.out.println("Esta intentando insertar en equipo:"+"bando: "+bando+"id partida: "+in_idPartida +"idbase: "+idbase);
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
-				
+			
 				//Inserto EquipoJugador
 				pstmt2 = ((Conexion)con).getConexion().prepareStatement (insertEquipoJugadores);
 				pstmt2.setInt(1,jugAux[i].getJugadorId());
-				pstmt2.setInt(2,in_Equipo.getEquipoID());
+				pstmt2.setInt(2,getUltimoEquipoIdMas1(con));
 				System.out.println(insertEquipoJugadores);
 				System.out.println("Esta intentando insertar en tabla equipo jugador:"+"id jugador: "+jugAux[i].getJugadorId() +"id equipo: "+in_Equipo.getEquipoID());
 				pstmt2.executeUpdate ();

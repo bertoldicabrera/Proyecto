@@ -233,35 +233,35 @@ System.out.println("Inserto la base:");
 		         System.out.println("Obtengo el id de la partida insertada "+idpartida);
 		        
 		         System.out.println("Hasta la 242 de la fachada hace bien");
-		         int idbase = daoB.getUltimaBaseID(icon);
-		         System.out.println("fachada prueba 235 Obtengo el id de la ULTIMA base insertada "+idbase);
+		       
 		         
 			    daoE.insBack(idpartida, auxEquipo[0], icon); // ver que va antes si el equipo o los aviones y torretas
 			    
-			    
-//			    System.out.println("Voy a crear los aviones");
-//				Avion[] auxAviones = auxBase.getAviones().getArreAvionesEnMemoria(); 
-//				int largoAviones = auxAviones.length;
-//				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
-//				
-//				int idBaseAInsertar=0;
-//				idBaseAInsertar= i+1;
-//				System.out.println("Cual es el id de la Base a que pertenece este avion: "+idBaseAInsertar);
-//				for (int j = 0; j < largoAviones; j++) {
-//					System.out.println("j:"+j);
-//					
-//					daoAvion.insback(idBaseAInsertar, auxAviones[j], icon); 
-//				}
-//				
-//				Artillero[] auxArtilleria = auxBase.getArtilleros().getArreArtilleriaEnMemoria(); 
-//			     int largoArtillero = auxArtilleria.length;
-//			     System.out.println("int largoArtillero = auxArtilleria.length::"+largoArtillero);
-//				for (int x = 0; x < largoArtillero; x++) {
-//					System.out.println("x:"+x);
-//					daoArti.insBack(idBaseAInsertar, auxArtilleria[x], icon);
-//				}
-//				System.out.println(" fachada con respecto a un equipo lo que intentará insertar es: id"+auxEquipo[0].getEquipoID()+"bando"+auxEquipo[0].getBando());
-//				
+			    int idbase = daoB.getUltimaBaseID(icon);
+		         System.out.println("fachada prueba 235 Obtengo el id de la ULTIMA base insertada "+idbase);
+		         
+			    System.out.println("Voy a crear los aviones");
+				Avion[] auxAviones = auxBase.getAviones().getArreAvionesEnMemoria(); 
+				int largoAviones = auxAviones.length;
+				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
+				
+				
+				System.out.println("Cual es el id de la Base a que pertenece este avion: "+idbase);
+				for (int j = 0; j < largoAviones; j++) {
+					System.out.println("j:"+j);
+					
+					daoAvion.insback(idbase, auxAviones[j], icon); 
+				}
+				
+				Artillero[] auxArtilleria = auxBase.getArtilleros().getArreArtilleriaEnMemoria(); 
+			     int largoArtillero = auxArtilleria.length;
+			     System.out.println("int largoArtillero = auxArtilleria.length::"+largoArtillero);
+				for (int x = 0; x < largoArtillero; x++) {
+					System.out.println("x:"+x);
+					daoArti.insBack(idbase, auxArtilleria[x], icon);
+				}
+			//	System.out.println(" fachada con respecto a un equipo lo que intentará insertar es: id"+auxEquipo[0].getEquipoID()+"bando"+auxEquipo[0].getBando());
+				
 				
 			    ipool.liberarConexion(icon, true);
 			
