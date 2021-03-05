@@ -25,5 +25,11 @@ public class Deposito extends Objeto {
 	public void setEnUso(boolean in_enUso) {
 		this.enUso = in_enUso;
 	}
+	
+	public void mostrarDepositoPorPanatalla()
+	{
+		System.out.println(" Id deposito:"+this.GetId());
+	}
+	
 
 }

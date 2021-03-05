@@ -68,7 +68,8 @@ public class DaoArtilleria implements Serializable {
 			pstmt.close();
 			System.out.println("69 sale del close artillero");
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLInsertArtillero);
+			throw new PersistenciaException(e.toString());
+			//throw new PersistenciaException(mensg.errorSQLInsertArtillero);
 		}
 	}
 
@@ -176,6 +177,10 @@ public class DaoArtilleria implements Serializable {
 		
 		return this.baseid;
 	}
+	public Artillero[] getArreArtilleriaEnMemoria() {
+		return this.secuenciaArtilleria;
+	}
+	
 	
 
 }

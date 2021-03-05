@@ -48,7 +48,7 @@ public abstract class Objeto {
     	 this.vida=in_vida;
      }
      
-	 public int GetId()
+     public int GetId()
 	 {
 		 return this.id;
 	 }

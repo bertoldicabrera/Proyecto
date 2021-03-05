@@ -40,6 +40,17 @@ public class DaoEquipo implements Serializable{
 		this.equipos = in_EQS;
 		
 	}
+	
+	public Equipo[] getEquiposEnMemoria() {
+		return this.equipos;
+		
+	}
+	
+	
+	
+	
+	
+	
 public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBase   in_DaoB ) {
 		
 		this.idpartida=in_idpartida;
@@ -77,8 +88,8 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 				
 				pstmt1.setString(1,bando);
 				pstmt1.setInt(2,in_idPartida);
-				pstmt1.setInt(3,in_Equipo.getBase().getIdDabse());
-				System.out.println("bando 81 ::"+bando+" "+in_idPartida+" "+in_Equipo.getBase().getIdDabse());
+				pstmt1.setInt(3,in_Equipo.getBase().getIdBase());
+				System.out.println("bando 81 ::"+bando+" "+in_idPartida+" "+in_Equipo.getBase().getIdBase());
 				
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
@@ -154,6 +165,7 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 				out_Equipo=new Equipo(out_idEquipo,arreJugador,out_base,out_bando);
 				out_Equipos.add(out_Equipo);
 				ind++;
+				System.out.println("Ver dentro de DaoEquipo linea 168 esto esta raro");
 				}
 			rs1.close ();
 			pstmt1.close ();
@@ -258,6 +270,7 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 		return aux;
 	}
 	
+
 
 
 	

@@ -57,7 +57,7 @@ public class DaoBase implements Serializable {
 
 	public void insert(int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
 			TorreControl in_TorreControl, IConexion con) throws PersistenciaException {
-		
+		System.out.println("Entro al insert de daobase linea 60");
 		try {
 
 			consultas cons = new consultas();
@@ -72,10 +72,11 @@ public class DaoBase implements Serializable {
 			pstmt1.setBoolean(6, in_Deposito.getEnUso());
 			pstmt1.executeUpdate();
 			pstmt1.close();
+			System.out.println("Creado el deposito");
+			
 			// Inserto TanqueCombustible
 			String insertTC = cons.insertarTanqueCombustible();
 			PreparedStatement pstmt2 = ((Conexion) con).getConexion().prepareStatement(insertTC);
-		
 			pstmt2.setInt(1, in_TanqueCombustible.getCoordX());
 			pstmt2.setInt(2, in_TanqueCombustible.getCoordY());
 			pstmt2.setBoolean(3, in_TanqueCombustible.getEstado());
@@ -84,6 +85,9 @@ public class DaoBase implements Serializable {
 			pstmt2.setBoolean(6, in_TanqueCombustible.getEnUso());
 			pstmt2.executeUpdate();
 			pstmt2.close();
+			System.out.println("Creada el tanque");
+			
+			
 			// Inserto TorreControl
 			String insertTControl = cons.insertarTorreControl();
 			PreparedStatement pstmt3 = ((Conexion) con).getConexion().prepareStatement(insertTControl);
@@ -95,26 +99,26 @@ public class DaoBase implements Serializable {
 			pstmt3.setInt(6, in_TorreControl.getRangoDeVision());
 			pstmt3.executeUpdate();
 			pstmt3.close();
-			System.out.println("Creo todo 98");
+			System.out.println("Creada la torre");
+			
+			
 			String insertBase = cons.insertarBase();
 			PreparedStatement pstmt4 = ((Conexion) con).getConexion().prepareStatement(insertBase);
-			
 			/// BASES(FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id) values(?,?,?)
 			int FK_depBombas_id = getDepositoId(con);
 			int FK_depCombustible_id = getTanqueId(con);
 			int FK_torreControl_id = getUltimoTorreId(con);
-					
 			System.out.println("FK_depBombas_id::"+FK_depBombas_id);
 			System.out.println("FK_depCombustible_id::"+FK_depCombustible_id);
 			System.out.println("FK_torreControl_id::"+FK_torreControl_id);
-					
 			pstmt4.setInt(1, FK_depBombas_id);
 			pstmt4.setInt(2, FK_depCombustible_id);
 			pstmt4.setInt(3, FK_torreControl_id);
-			
 			pstmt4.executeUpdate();
 			pstmt4.close();
-			System.out.println("Creo todo");
+			System.out.println("Creada la base");
+			
+			
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertBase);
 		}
@@ -226,7 +230,7 @@ public class DaoBase implements Serializable {
 
 				out_base = new Base(idBase, out_aviones, out_artilleros, out_deposito, out_tanquecombustible,
 						out_torrecontrol);
-				tree_out.put(out_base.getIdDabse(), out_base);
+				tree_out.put(out_base.getIdBase(), out_base);
 			}
 			rs.close();
 			prstm.close();
@@ -274,7 +278,7 @@ public class DaoBase implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindEquipos);
+			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
 		return cant;
 
@@ -295,7 +299,7 @@ public class DaoBase implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindEquipos);
+			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
 		return cant;
 
@@ -316,13 +320,13 @@ public class DaoBase implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindEquipos);
+			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
 		return cant;
 
 	}
 
-	public int getUltimaIsBase(IConexion con) throws PersistenciaException {
+	public int getUltimaBaseID(IConexion con) throws PersistenciaException {
 		int cant = 0;
 		consultas cons = new consultas();
 
@@ -337,8 +341,9 @@ public class DaoBase implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindEquipos);
+			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
+		System.out.println("dentro de daobase linea 346 el id de la ultima base ingresada es:"+cant);
 		return cant;
 
 	}

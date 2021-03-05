@@ -37,7 +37,7 @@ private int idBase;
 	
 	
 
-	public int getIdDabse() {
+	public int getIdBase() {
 		return idBase;
 	}
 
@@ -85,7 +85,10 @@ private int idBase;
 		this.torre = in_torre;
 	}
 	
-	
+	public void mostrarBasePorPanatalla()
+	{
+		System.out.println(" id de la base: "+this.getIdBase());
+	}
 	
 	
 

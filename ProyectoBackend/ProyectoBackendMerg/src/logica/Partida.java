@@ -123,6 +123,21 @@ public void setPartidaTermino(boolean partidaTermino) {
 	this.partidaTermino = partidaTermino;
 }
 
+public void mostrarPartidaPorPantalla()
+{
+	System.out.println(this.getPartidaId()+"|"+
+	this.getPartidaEstado()+"|"+
+	this.getPartidaFechaUltimaActualizacion()+"|"+
+	this.isPartidaGuardada()+"|"+
+	this.getPartidaNombre()+"|"+
+	this.getPartidaCantidadJugadores()+"|"+
+	this.getPartidaCreador()+"|"+
+	this.getPartidaFechaCreada()+"|"+
+	this.getPartidaTermino()+"| meter otras cosas "		
+			);
+	
+}
+
 
 
 

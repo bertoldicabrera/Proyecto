@@ -168,7 +168,7 @@ public class VOPartida implements Serializable {
 	
 	public void mostrarPartidaPorPantalla()
 	{
-		System.out.println(this.getPartidaId()+"|"+
+		System.out.println("El vopartidatiene"+this.getPartidaId()+"|"+
 		this.getPartidaEstado()+"|"+
 		this.getPartidaFechaUltimaActualizacion()+"|"+
 		this.isPartidaGuardada()+"|"+
@@ -177,6 +177,7 @@ public class VOPartida implements Serializable {
 		this.getPartidaCreador()+"|"+
 		this.getPartidaFechaCreada()+"|"+
 		this.isPartidaTermino()+"| meter otras cosas " );
+		
 	}
 
 }

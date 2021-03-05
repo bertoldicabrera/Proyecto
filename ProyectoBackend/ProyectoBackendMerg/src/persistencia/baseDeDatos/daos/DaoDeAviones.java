@@ -12,9 +12,7 @@ import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 public class DaoDeAviones implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
@@ -66,13 +64,14 @@ public class DaoDeAviones implements Serializable {
 			pstmt.setInt(9, in_Avion.getCantidadBombas());
 			pstmt.setInt(10, in_Avion.getAvionCombustible());
 			pstmt.setBoolean(11, in_Avion.getEnCampoEnemigo());
+			System.out.println(" 67 El ide de la base que intenta meter en daodeaviones es:"+in_idbase);
 			pstmt.setInt(12, in_idbase);
 
 			pstmt.executeUpdate();
 			pstmt.close();
-			System.out.println("73 sale del close");
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLInsertAvion);
+			throw new PersistenciaException(e.toString());
+			//throw new PersistenciaException(mensg.errorSQLInsertAvion);
 		}
 	}
 
@@ -183,6 +182,9 @@ public class DaoDeAviones implements Serializable {
 
 	public void setArreAviones(Avion[] in_arreavion) {
 		this.arreavion = in_arreavion;
+	}
+	public Avion[] getArreAvionesEnMemoria() {
+		return this.arreavion;
 	}
 
 }

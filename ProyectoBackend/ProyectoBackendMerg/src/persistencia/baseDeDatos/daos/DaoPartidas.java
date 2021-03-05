@@ -98,14 +98,12 @@ public class DaoPartidas implements Serializable {
 	
 	public void insert (Partida in_part, IConexion con) throws PersistenciaException{
 		try{
-			System.out.println("dentro del try insert de daopartida");
 			consultas cons = new consultas();
 			String insert = cons.insertarPartida();
 			
 			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (insert);
 			pstmt.setString (1, in_part.getPartidaEstado());
-			//ver si esto no rompe!!!!!
-			System.out.println("antes del date");
+			
 			
 			//Date date = Date.valueOf(in_part.getPartidaFechaUltimaActualizacion());
 			int dia=in_part.getPartidaFechaUltimaActualizacion().getDayOfYear();
@@ -125,14 +123,12 @@ public class DaoPartidas implements Serializable {
 			java.sql.Date date2 = new java.sql.Date(dia2, mes2,anio2);
 			pstmt.setDate(7, date2);
 			pstmt.setBoolean(8,in_part.getPartidaTermino());
-			System.out.println("antes de ejecutar el update");
 			pstmt.executeUpdate ();
-			System.out.println("despues de ejecutar el update");
 			pstmt.close ();
-			System.out.println("despues del close");
 		}
 		catch (SQLException e)
 		{
+		//	throw new PersistenciaException (mensg.errorSQLInsertPartida);
 		throw new PersistenciaException (mensg.errorSQLInsertPartida);
 		}
 	}
