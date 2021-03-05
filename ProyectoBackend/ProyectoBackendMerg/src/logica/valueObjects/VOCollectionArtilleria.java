@@ -39,7 +39,6 @@ public class VOCollectionArtilleria implements Serializable{
 		
 	}
 	public void insBack( VOArtillero in_Artillero) {
-		System.out.println("entro insback artillero");
 		secuenciaArtilleria[tope-1]=in_Artillero;
 		tope--;
 	}

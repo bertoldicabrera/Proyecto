@@ -108,9 +108,6 @@ public class DaoBase implements Serializable {
 			int FK_depBombas_id = getDepositoId(con);
 			int FK_depCombustible_id = getTanqueId(con);
 			int FK_torreControl_id = getUltimoTorreId(con);
-			System.out.println("FK_depBombas_id::"+FK_depBombas_id);
-			System.out.println("FK_depCombustible_id::"+FK_depCombustible_id);
-			System.out.println("FK_torreControl_id::"+FK_torreControl_id);
 			pstmt4.setInt(1, FK_depBombas_id);
 			pstmt4.setInt(2, FK_depCombustible_id);
 			pstmt4.setInt(3, FK_torreControl_id);
@@ -134,6 +131,8 @@ public class DaoBase implements Serializable {
 		TorreControl out_torrecontrol = null;
 		DaoDeAviones out_aviones = null;
 		DaoArtilleria out_artilleros = null;
+		
+		System.out.println("135 daobase Ver si se rompe acá, falta el equipo..");
 		Equipo out_equipo = null;
 
 		try {
@@ -343,7 +342,7 @@ public class DaoBase implements Serializable {
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
-		System.out.println("dentro de daobase linea 346 el id de la ultima base ingresada es:"+cant);
+		//System.out.println("dentro de daobase linea 346 el id de la ultima base ingresada es:"+cant);
 		return cant;
 
 	}

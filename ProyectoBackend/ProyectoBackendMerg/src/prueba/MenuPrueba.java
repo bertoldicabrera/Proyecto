@@ -34,7 +34,6 @@ public class MenuPrueba {
 	static SystemProperties sp;
 	
 	public MenuPrueba() throws IOException, NotBoundException,FileNotFoundException, InterruptedException {
-		System.out.println("Antes iFachada");
 		sp = new SystemProperties();
 		String ip = sp.getIpServidor();
 		String puerto = sp.getPuertoServidor();
@@ -45,7 +44,6 @@ public class MenuPrueba {
 		
 
 		
-		System.out.println("Look");
 		modelo  = (IFachada) Naming.lookup(ruta);
 		if(modelo !=null) {
 			 System.out.println("Levanta iFachada");
@@ -207,7 +205,7 @@ public class MenuPrueba {
      //creo el jugador                    
                         
                          VOJugador nuevo= new VOJugador(k,"in_JugadorUserName"+k,"in_JugadorPassword"+k,true,1);
-                         System.out.println("creo jugador  en menu linea 209****"+ nuevo.getJugadorId());
+                         //System.out.println("creo jugador  en menu linea 209****"+ nuevo.getJugadorId());
                          arregloJugadores[0]=nuevo;
                          
                      	coleccionJug.insert(nuevo.getJugadorId(), nuevo);
@@ -218,12 +216,12 @@ public class MenuPrueba {
                          
     //creo el equipo            
                          
-                         System.out.println("Antes de VOEQUIPO 223 Y LA BASE TIENE ID "+base.getIdBase() );
+                      //   System.out.println("Antes de VOEQUIPO 223 Y LA BASE TIENE ID "+base.getIdBase() );
                          
                          // acá entra un arreglo de jugadores
                     	eq= new VOEquipo(k,arregloJugadores,base,"bando"+k);
                     	
-                    	System.out.println("despues de equipo "+eq.getEquipoID() );
+                    	//System.out.println("despues de equipo "+eq.getEquipoID() );
                     	
     // lo pongo dentro de su "coleccion de equipos"
                     	//( VOEquipo in_Equipo,VOCollectionJugador in_DaoJ, VOCollectionBase   in_DaoB  )
@@ -243,11 +241,11 @@ public class MenuPrueba {
               			//int in_PartidaCreador, Date in_PartidaFechaCreada,boolean in_partidaTermino, VODaoEquipo in_Equi
                         LocalDate in_PartidaFechaCreada= LocalDate.of(2021,03,02) ;
                       //  Date in_PartidaFechaCreada=new Date(2021,03,02);
-                        System.out.println("************"+in_PartidaFechaCreada.toString());
+                       // System.out.println("************"+in_PartidaFechaCreada.toString());
                         
                          vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,1,in_PartidaFechaCreada,true,equipos);
                         
-                         System.out.println("partida creada con los dos equipos y tiene el id de partida: "+vopartidaprueba.getPartidaId());
+                        // System.out.println("partida creada con los dos equipos y tiene el id de partida: "+vopartidaprueba.getPartidaId());
 					try {
 						modelo.guardarPartida(vopartidaprueba);
 					} catch (RemoteException e) {

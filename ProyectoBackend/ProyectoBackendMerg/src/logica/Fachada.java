@@ -195,88 +195,80 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			// pedimos el ultimo idpartida
 			// creamos la partida con ese id
 			// para cada jugador de la partida crear en la tabla relacion
-			int idpartida = daoP.getUltimaPartidaIDMas1(icon);
-            System.out.println("Entro guardar partida 202 y el idultima partina contiene****"+idpartida);
             Partida part=new Partida();
-            
-           
-            System.out.println(" 203  vopartida antes de transformar en Partida:");
-            in_voPartida.mostrarPartidaPorPantalla();
-            
-            
             
 			 part = devolverPartidaDadoVO(in_voPartida);// el problema está acá dentro
 
-			 System.out.println(" 215 Cero la partida y la inserto:");
-			 part.mostrarPartidaPorPantalla();
-			daoP.insert(part, icon);
-			//
-//			 Creo los equipos e inserto los equipos con el id de la partida
-		   
-		   
-		   
-		   
-		   
-		   
-			System.out.println(" Creo el EqUIPO");
+			 
+			 
+			 
+			 System.out.println(" 205 Creo la partida y la inserto:");
+			 daoP.insert(part, icon);
+			
+	
+			System.out.println(" Pido el equipo de la memoria");
 		     Equipo[] auxEquipo = null;
-		     
-		   //  auxEquipo= in_voPartida.getEquipos(); //este get devuelve un arreglo con todos los equipos
-		    // devolverDaoEquipoDadoVO(in_voPartida.getEquipos());
-		     //hay que pasarlo a un aux para hacerlo
-		     
 			auxEquipo =part.getEquipos().getEquiposEnMemoria();// Esto es un arreglo con los N equipos
 			
-			System.out.println(" part.getEquipos().getEquiposEnMemoria()");
 		    int largoArreglo = auxEquipo.length;
-			System.out.println("El largo es:"+largoArreglo);
+			System.out.println("La cantida de equipos a insertar es:"+largoArreglo);
 			
 		
 			for (int i = 0; i < largoArreglo; i++) { // por cada equipo 
 
-			//	for (int i = largoArreglo--; i >= 0; i--) {
+			
 				
+System.out.println("Inserto la base:");
 				Base auxBase = auxEquipo[i].getBase();
-				System.out.println("** cargo la base:"+i);
 				Deposito auxDep = auxBase.getDeposito();
 				TanqueCombustible auxTC = auxBase.getTanque();
 				TorreControl auxTControl = auxBase.getTorre();
 			    daoB.insert( auxEquipo[i].getEquipoID(), auxDep, auxTC, auxTControl, icon);
-			    System.out.println("ya creo la base");
+			    System.out.println("se creo  la base id: "+auxEquipo[i].getBase().getIdBase());
 			    
 			    
+ System.out.println("Inserto el equipo");
+			    System.out.println("Despues de creada la base, creo el equipo: "+auxEquipo[i].getBase().getIdBase());
+			    int idpartida = daoP.getUltimaPartidaIDMas1(icon);
+		         System.out.println("Obtengo el id de la partida insertada "+idpartida);
+		        
+		         System.out.println("Hasta la 242 de la fachada hace bien");
+		         int idbase = daoB.getUltimaBaseID(icon);
+		         System.out.println("fachada prueba 235 Obtengo el id de la ULTIMA base insertada "+idbase);
+		         
+			    daoE.insBack(idpartida, auxEquipo[0], icon); // ver que va antes si el equipo o los aviones y torretas
 			    
 			    
-			    
-				Avion[] auxAviones = auxBase.getAviones().getArreAvionesEnMemoria(); 
-				int largoAviones = auxAviones.length;
-				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
+//			    System.out.println("Voy a crear los aviones");
+//				Avion[] auxAviones = auxBase.getAviones().getArreAvionesEnMemoria(); 
+//				int largoAviones = auxAviones.length;
+//				System.out.println("int largoAviones = auxAviones.length::"+largoAviones);
+//				
+//				int idBaseAInsertar=0;
+//				idBaseAInsertar= i+1;
+//				System.out.println("Cual es el id de la Base a que pertenece este avion: "+idBaseAInsertar);
+//				for (int j = 0; j < largoAviones; j++) {
+//					System.out.println("j:"+j);
+//					
+//					daoAvion.insback(idBaseAInsertar, auxAviones[j], icon); 
+//				}
+//				
+//				Artillero[] auxArtilleria = auxBase.getArtilleros().getArreArtilleriaEnMemoria(); 
+//			     int largoArtillero = auxArtilleria.length;
+//			     System.out.println("int largoArtillero = auxArtilleria.length::"+largoArtillero);
+//				for (int x = 0; x < largoArtillero; x++) {
+//					System.out.println("x:"+x);
+//					daoArti.insBack(idBaseAInsertar, auxArtilleria[x], icon);
+//				}
+//				System.out.println(" fachada con respecto a un equipo lo que intentará insertar es: id"+auxEquipo[0].getEquipoID()+"bando"+auxEquipo[0].getBando());
+//				
 				
-				int idBaseAInsertar=0;
-				idBaseAInsertar= i+1;
-				System.out.println("Cual es el id de la Base a que pertenece este avion: "+idBaseAInsertar);
-				for (int j = 0; j < largoAviones; j++) {
-					System.out.println("j:"+j);
-					
-					daoAvion.insback(idBaseAInsertar, auxAviones[j], icon); 
-				}
-				
-				Artillero[] auxArtilleria = auxBase.getArtilleros().getArreArtilleriaEnMemoria(); 
-			     int largoArtillero = auxArtilleria.length;
-			     System.out.println("int largoArtillero = auxArtilleria.length::"+largoArtillero);
-				for (int x = 0; x < largoArtillero; x++) {
-					System.out.println("x:"+x);
-					daoArti.insBack(idBaseAInsertar, auxArtilleria[x], icon);
-				}
-				System.out.println(" fachada con respecto a un equipo lo que intentará insertar es: id"+auxEquipo[0].getEquipoID()+"bando"+auxEquipo[0].getBando());
-				
-				daoE.insBack(idpartida, auxEquipo[0], icon);
 			    ipool.liberarConexion(icon, true);
 			
 		}
 			} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
-			System.out.println("se rompe y sale por acá");
+			System.out.println("se rompe y sale por acá linea 276 fachada");
 			throw new LogicaException(e.toString());
 			//throw new LogicaException(mensg.errorFachadaGuardarPartidas);
 		}
@@ -317,7 +309,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 
 	private VOJugador devolverVOJugador(Jugador in_aux) {
-		System.out.println("devolverVOJugador 271");
 
 		VOJugador out_aux = null;
 		out_aux = new VOJugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), in_aux.getJugadorPassword(),

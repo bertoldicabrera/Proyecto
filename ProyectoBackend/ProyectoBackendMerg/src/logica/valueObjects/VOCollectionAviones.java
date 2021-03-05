@@ -32,7 +32,6 @@ public class VOCollectionAviones implements Serializable{
 	return esta;
 	}
 	public void insback(VOAvion in_avion) {
-		System.out.println("entro insback avion");
 		this.arreavion[tope-1]=in_avion;
     	tope--;
 	}

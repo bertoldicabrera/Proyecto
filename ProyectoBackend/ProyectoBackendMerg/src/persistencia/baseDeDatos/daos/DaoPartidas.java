@@ -128,8 +128,8 @@ public class DaoPartidas implements Serializable {
 		}
 		catch (SQLException e)
 		{
-		//	throw new PersistenciaException (mensg.errorSQLInsertPartida);
-		throw new PersistenciaException (mensg.errorSQLInsertPartida);
+			throw new PersistenciaException (e.toString());
+		//throw new PersistenciaException (mensg.errorSQLInsertPartida);
 		}
 	}
 

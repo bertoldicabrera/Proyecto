@@ -34,7 +34,7 @@ public class VOPartida implements Serializable {
 		this.setPartidaGuardada(in_PartidaGuardada);
 		this.setPartidaNombre(in_PartidaNombre);
 		this.setPartidaCantidadJugadores(in_PartidaCantidadJugadores);
-		System.out.println("Constructor veo partida linea 37 Al momento de crear en vo jugador la pk de id creador es:"+in_PartidaCreador);
+		//System.out.println("Constructor veo partida linea 37 Al momento de crear en vo jugador la pk de id creador es:"+in_PartidaCreador);
 		this.setPartidaCreador(in_PartidaCreador);
 		this.setPartidaFechaCreada(in_PartidaFechaCreada);
 		this.setPartidaTermino(in_partidaTermino);

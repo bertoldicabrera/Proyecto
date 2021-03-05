@@ -64,46 +64,49 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 	
 	
 	public void  insBack ( int in_idPartida,Equipo in_Equipo, IConexion con) throws PersistenciaException {
-		System.out.println("Insback equipo in_idPartida" + in_idPartida);
-		 int equipoID=getUltimoEquipoIdMas1(con);
-			System.out.println("Insback equipo equipoID" + equipoID);
-
+	//	System.out.println("Insback equipo in_idPartida" + in_idPartida);
+		DaoBase aux= new DaoBase();
+		 int idbase = aux.getUltimaBaseID(con);
+	//	int equipoID=getUltimoEquipoIdMas1(con);
+		 System.out.println("Linea 71 daoequipo ");
+		 
 		 Jugador[] jugAux=in_Equipo.getJugadores();
-		 System.out.println("Cantidad jugadores"+ jugAux.length + jugAux[0].getJugadorUserName());
 		 
 		 consultas cons = new consultas();
 		 String insertEquipo = cons.insertarEquipo();
-		 System.out.println(insertEquipo);
+		 
 		 String insertEquipoJugadores=cons.InsertarEquipoJugador();
-		 System.out.println(insertEquipoJugadores);
+		 
 		 String bando=in_Equipo.getBando();
 		 
 		for(int i=0;i<jugAux.length;i++) {
+			
 			
 			     PreparedStatement pstmt1,pstmt2;
 			     try {
 			    	 //Inserto Equipo
 				pstmt1 = ((Conexion) con).getConexion().prepareStatement (insertEquipo);
-				
-				
 				pstmt1.setString(1,bando);
 				pstmt1.setInt(2,in_idPartida);
-				pstmt1.setInt(3,in_Equipo.getBase().getIdBase());
-				System.out.println("bando 81 ::"+bando+" "+in_idPartida+" "+in_Equipo.getBase().getIdBase());
-				
+				//pstmt1.setInt(3,in_Equipo.getBase().getIdBase());
+				pstmt1.setInt(3,idbase);
+				System.out.println(insertEquipo);
+				System.out.println("Esta intentando insertar en equipo:"+"bando: "+bando+"id partida: "+in_idPartida +"idbase: "+idbase);
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
+				
 				//Inserto EquipoJugador
 				pstmt2 = ((Conexion)con).getConexion().prepareStatement (insertEquipoJugadores);
 				pstmt2.setInt(1,jugAux[i].getJugadorId());
-				pstmt2.setInt(2,equipoID);
-				
-				System.out.println("Jugador 90::"+jugAux[i].getJugadorId()+" "+equipoID);
+				pstmt2.setInt(2,in_Equipo.getEquipoID());
+				System.out.println(insertEquipoJugadores);
+				System.out.println("Esta intentando insertar en tabla equipo jugador:"+"id jugador: "+jugAux[i].getJugadorId() +"id equipo: "+in_Equipo.getEquipoID());
 				pstmt2.executeUpdate ();
 				pstmt2.close ();
 		
 			} catch (SQLException e) {
-				throw new PersistenciaException (mensg.errorSQLInsertEquipos);
+				throw new PersistenciaException (e.toString());
+				//throw new PersistenciaException (mensg.errorSQLInsertEquipos);
 			}
 			
 		}
@@ -234,7 +237,7 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 		} catch (SQLException e) {
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
-		cant=cant+1;
+		
 		return cant;
 		
 	}
