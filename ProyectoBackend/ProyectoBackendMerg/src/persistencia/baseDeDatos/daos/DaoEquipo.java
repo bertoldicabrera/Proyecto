@@ -245,10 +245,11 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) throws PersistenciaException
 	{
 	
+		System.out.println("248");
 	    DaoEquipo aux=null;
         consultas cons = new consultas();
         Equipo[] out_Equipos=new  Equipo[tope];
-        
+        System.out.println("252 . daoequipo ");
 		
 		String sqlToExecute = cons.listarEquiposDeUnaPartida();
 		PreparedStatement prstm;

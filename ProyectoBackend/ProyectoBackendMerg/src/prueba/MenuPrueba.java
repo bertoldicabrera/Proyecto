@@ -78,16 +78,19 @@ public class MenuPrueba {
                    		
                    		
                    		System.out.println("Has seleccionado la opcion 1 Registrarse:");  
-                      	 VOJugador x = new VOJugador(1,  "in_JugadorUserName1" , "in_JugadorPassword1", true, 1);
-						modelo.registrarJugador(x);
+                      	// VOJugador x = new VOJugador(1,  "in_JugadorUserName1" , "in_JugadorPassword1", true, 1);
+						//modelo.registrarJugador(x);
 						
 						System.out.println("ingresado jugador 1"); 
 						
 						 
-                     	 VOJugador y = new VOJugador(2,  "in_JugadorUserName2" , "in_JugadorPassword2", true, 1);
-						modelo.registrarJugador(y);
+                     	// VOJugador y = new VOJugador(2,  "in_JugadorUserName2" , "in_JugadorPassword2", true, 1);
+						//modelo.registrarJugador(y);
 						
 						System.out.println("ingresado jugador 2"); 
+						
+						VOJugador z = new VOJugador(3,  "in_JugadorUserName3" , "in_JugadorPassword3", true, 1);
+						modelo.registrarJugador(z);
 						
 						
 					} catch (RemoteException e) {
@@ -133,8 +136,11 @@ public class MenuPrueba {
 					try {
 						
 						ArrayList<VOPartida> voPartidas = null;
-						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName");
-						//for()
+						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName3");
+						for(VOPartida out_partida:voPartidas)
+						{
+							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
+						}
 						
 						
 					} catch (RemoteException e) {
@@ -204,7 +210,7 @@ public class MenuPrueba {
             			// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
                          
      //creo el jugador                    
-                        
+                         
                          VOJugador nuevo= new VOJugador(k,"in_JugadorUserName"+k,"in_JugadorPassword"+k,true,1);
                          //System.out.println("creo jugador  en menu linea 209****"+ nuevo.getJugadorId());
                          arregloJugadores[0]=nuevo;

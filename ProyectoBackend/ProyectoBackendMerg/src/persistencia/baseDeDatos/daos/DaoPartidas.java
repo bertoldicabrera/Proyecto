@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.TreeMap;
 
+import org.omg.Messaging.SyncScopeHelper;
+
 import Utilitarios.MensajesPersonalizados;
 import logica.Partida;
 import persistencia.baseDeDatos.consultas.consultas;
@@ -194,6 +196,7 @@ public class DaoPartidas implements Serializable {
 
 
 
+@SuppressWarnings("null")
 public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, IConexion con) throws PersistenciaException
 {
 	DaoEquipo daoEq = null,daoEqaux=null;
@@ -203,16 +206,20 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 	PreparedStatement prstm;
 	try {
 		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
+		System.out.println("206" + sqlToExecute );
 		prstm.setInt(1, in_IdJugador);
 		ResultSet rs = prstm.executeQuery();
 		
 		while (rs.next()) {
+			System.out.println("ENTRAMOS WHILE 211    " );
+			System.out.println(rs.getInt(1));
 			
-			daoEqaux=daoEq.listarEquiposDeUnaPartida(rs.getInt(1), con);
+			//daoEqaux=daoEq.listarEquiposDeUnaPartida(rs.getInt(1), con);
+			
+			System.out.println(rs.getInt(1));
 			Partida nuevaPartida = new Partida(
 					rs.getInt(1),
 					rs.getString (2),
-					
 					rs.getDate(3).toLocalDate(),
 					
 					rs.getBoolean(4),
@@ -221,14 +228,14 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 					rs.getInt(7),
 					rs.getDate(8).toLocalDate(),
 					rs.getBoolean(9),
-					daoEqaux
+					null
 					);
 			listaDePartidas.put(nuevaPartida.getPartidaId(),nuevaPartida);
 		}
 		rs.close();
 		prstm.close();
 	} catch (SQLException e) {
-		throw new PersistenciaException (mensg.errorSQLListarPartidas);
+		throw new PersistenciaException (e.toString());
 	}
 	
 	
@@ -236,18 +243,22 @@ public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, ICone
 }
 
 public boolean estaVacio( IConexion con) throws PersistenciaException {
-	boolean esta = false;
+	boolean esta = true;
+	System.out.println("Esta vacio 240");
 	try{
 		consultas cons = new consultas();
 		String query = cons.existenPartidas();
 		PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 		ResultSet rs = pstmt.executeQuery ();
+		System.out.println(query);
 		if (rs.next ())
-			esta = true;
+			System.out.println("Entro al result set");
+			esta = false;
+		
 		rs.close ();
 		pstmt.close ();
 	}catch (SQLException e){
-		throw new PersistenciaException (mensg.errorSQLListarPartidas);
+		throw new PersistenciaException (e.toString());
 	}
 	return esta;
 }

@@ -139,21 +139,29 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 		ArrayList<VOPartida> voPartidas = null;
 		TreeMap<Integer, Partida> aux = null;
-
+       System.out.println(in_Nickname);
 		try {
 			if (daoJ.member(in_Nickname, icon)) {
-
-				if (!daoP.estaVacio(icon)) {
-
+                  System.out.println("Existe jugador 145");
+				if (daoP.estaVacio(icon)==false) {
+                    System.out.println("DAO P no esta vacio 147");
 					int id = daoJ.geIdbyName(in_Nickname, icon);
+					System.out.println("149"+id);
 					aux =  daoP.listarPartidasDeJugador(id, icon);
+//					if(aux.isEmpty())
+//					{
+//						System.out.println("arbol vacio");
+//					}
+						
+				
+					
 					
 					//ArrayList<VOPartida> voPartidas = null;
 						voPartidas = new ArrayList<VOPartida>();
 						Iterator<Partida> Itr = aux.values().iterator();
 						while (Itr.hasNext()) {
 							Partida auxiliar = Itr.next();
-							
+							 System.out.println("auxiliar 158" + auxiliar.getPartidaId());
 							
 							VOPartida parti = new VOPartida(
 									auxiliar.getPartidaId() 
@@ -167,26 +175,33 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 									, auxiliar.getPartidaTermino() 
 									, null
 									);
+							  if(parti==null) {
+								  System.out.println("parti es nulo");
+							  }
 							//atencion estamos pasando en null todo lo demas
 							//dado que solo le interesa al jugador listar las partidas a reanudar
 							//esto es el id, nombre de la partida y como muncho la fecha
 							voPartidas.add(parti);
+							System.out.println("Agrego partida 176");
 					}
 					
 					ipool.liberarConexion(icon, true);
 
 				} else {
 					ipool.liberarConexion(icon, false);
+					System.out.println("Entro a la exceptio 1185  DaoPestavacio");
 					throw new LogicaException(mensg.errorFachadaListaVacia);
 				}
 
 			} else {
 				ipool.liberarConexion(icon, false);
+				System.out.println("Entro a la exceptio 1185  no existe usuario");
 				throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
 			}
 		} catch (Exception e) {
 			ipool.liberarConexion(icon, false);
-			throw new LogicaException(mensg.errorFachadaListPartidas);
+//			throw new LogicaException(mensg.errorFachadaListPartidas);
+			throw new LogicaException(e.toString());
 		}
 		return voPartidas;
 	}
@@ -240,7 +255,7 @@ System.out.println("Inserto la base:");
 		         System.out.println("Hasta la 242 de la fachada hace bien");
 		       
 		         
-			    daoE.insBack(idpartida, auxEquipo[0], icon); // ver que va antes si el equipo o los aviones y torretas
+			    daoE.insBack(idpartida, auxEquipo[i], icon); // ver que va antes si el equipo o los aviones y torretas
 			    
 			    int idbase = daoB.getUltimaBaseID(icon);
 		         System.out.println("fachada prueba 235 Obtengo el id de la ULTIMA base insertada "+idbase);
