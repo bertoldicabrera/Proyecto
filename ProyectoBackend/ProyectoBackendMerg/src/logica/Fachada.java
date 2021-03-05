@@ -112,10 +112,13 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		try {
 			if (daoJ.member(in_userName, icon)) {
 				int id = daoJ.geIdbyName(in_userName, icon);
+				
 				Jugador JuG = daoJ.find(id, icon);
 				
 				if (JuG.getJugadorPassword().equals(in_userPassword)) {
+					daoJ.loginJugador(id, icon);
 					out_Voj = devolverVOJugador(JuG);
+					ipool.liberarConexion(icon, true);
 				} else {
 					ipool.liberarConexion(icon, true);
 					throw new LogicaException(mensg.errorFachadaNoExisteUsuario);
@@ -150,23 +153,25 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 						Iterator<Partida> Itr = aux.values().iterator();
 						while (Itr.hasNext()) {
 							Partida auxiliar = Itr.next();
-//							VOPartida parti = new VOPartida(
-//									auxiliar.getPartidaId() 
-//									, auxiliar.getPartidaEstado() 
-//									, auxiliar.getPartidaFechaUltimaActualizacion()  
-//									, auxiliar.isPartidaGuardada() 
-//									, auxiliar.getPartidaNombre() 
-//									, auxiliar.getPartidaCantidadJugadores() 
-//									, auxiliar.getPartidaCreador() 
-//									, auxiliar.getPartidaFechaCreada() 
-//									, auxiliar.getPartidaTermino() 
-//									, auxiliar.getEquipos() 
-//									);
-//							voPartidas.add(parti);
+							
+							
+							VOPartida parti = new VOPartida(
+									auxiliar.getPartidaId() 
+									, auxiliar.getPartidaEstado() 
+									, auxiliar.getPartidaFechaUltimaActualizacion()  
+									, auxiliar.isPartidaGuardada() 
+									, auxiliar.getPartidaNombre() 
+									, auxiliar.getPartidaCantidadJugadores() 
+									, auxiliar.getPartidaCreador() 
+									, auxiliar.getPartidaFechaCreada() 
+									, auxiliar.getPartidaTermino() 
+									, null
+									);
+							//atencion estamos pasando en null todo lo demas
+							//dado que solo le interesa al jugador listar las partidas a reanudar
+							//esto es el id, nombre de la partida y como muncho la fecha
+							voPartidas.add(parti);
 					}
-						
-						
-						
 					
 					ipool.liberarConexion(icon, true);
 
@@ -286,8 +291,8 @@ System.out.println("Inserto la base:");
 			ipool.liberarConexion(icon, true);
 		} catch (PersistenciaException e) {
 			ipool.liberarConexion(icon, false);
-
-			throw new LogicaException(mensg.errorFachadaAlHacerLogout);
+			throw new LogicaException(e.toString());
+			//throw new LogicaException(mensg.errorFachadaAlHacerLogout);
 		}
 	}
 

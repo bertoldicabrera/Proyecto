@@ -258,6 +258,7 @@ public int geIdbyName(String in_name, IConexion con) throws PersistenciaExceptio
 		pstmt1.close ();
 		}
 	catch (SQLException e){
+		System.out.println(e.toString());
 		throw new PersistenciaException (mensg.errorSQLFindUsuario);
 	}
 	System.out.println("El id es: "+out_id);
@@ -332,19 +333,37 @@ public int getUltimoJugadorIDMas1(IConexion con) throws PersistenciaException {
 	  
 	 public void logoutJugador(int in_id, IConexion con) throws PersistenciaException {
 			try{
-				consultas cons = new consultas ();
+				consultas cons = new consultas();
 			
-				String query = cons.logoutJugadorPorUserName(); 
+				String query = cons.logoutJugadorPorUserxID(); 
 				PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
 				pstmt.setInt(1, in_id);
-				pstmt.executeUpdate ();
-				pstmt.close ();
+				pstmt.executeUpdate();
+				pstmt.close();
 				}
 			catch (SQLException e){
+				System.out.println(e.toString());
 				throw new PersistenciaException (mensg.errorSQLAlHacerLogout);
 			}
 		}
 
+	 public void loginJugador(int in_id, IConexion con) throws PersistenciaException {
+			try{
+				consultas cons = new consultas();
+			
+				String query = cons.loginJugadorxID(); 
+				PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement (query);
+				pstmt.setInt(1, in_id);
+				pstmt.executeUpdate();
+				pstmt.close();
+				}
+			catch (SQLException e){
+				System.out.println(e.toString());
+				throw new PersistenciaException (mensg.errorSQLAlHacerLogout);
+			}
+		}
+	 
+	 
 	public TreeMap<Integer, Jugador> getJugadores() {
 		return jugadores;
 	}

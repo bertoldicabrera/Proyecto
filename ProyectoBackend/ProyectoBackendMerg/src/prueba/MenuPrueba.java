@@ -6,6 +6,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -131,9 +132,9 @@ public class MenuPrueba {
                        
 					try {
 						
-						
-						modelo.listarPartidasAReanudar("in_JugadorUserName");
-						
+						ArrayList<VOPartida> voPartidas = null;
+						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName");
+						//for()
 						
 						
 					} catch (RemoteException e) {
@@ -272,6 +273,52 @@ public class MenuPrueba {
                         //7salir = true;
                   //      MenuAdministrador();
                         break;  
+                        
+                    case 8:
+                    	
+                    	System.out.println("Desloguearse");
+                		
+    						
+					try {
+						modelo.logout("in_JugadorUserName1");
+						System.out.println("Menu prueba linea 92, el usuario logreado es el id:  in_JugadorUserName1");
+						modelo.logout("in_JugadorUserName2");
+						System.out.println("Menu prueba linea 112, el usuario logreado es el id:  in_JugadorUserName2");
+						
+					} catch (RemoteException e) {
+						System.out.println(e.toString());
+						 
+					} catch (PersistenciaException e) {
+						System.out.println(e.toString());
+					} catch (LogicaException e) {
+						System.out.println(e.toString());
+					}
+    						
+    				
+                    	break;
+                    case 9:
+					try {
+						
+						if(modelo.jugadorIsOnline("in_JugadorUserName1")==true)
+							System.out.println("ONLINE");
+						else
+							System.out.println("OFF");
+						
+						
+					} catch (RemoteException e) {
+						System.out.println(e.toString());
+						 
+					} catch (PersistenciaException e) {
+						System.out.println(e.toString());
+					} catch (LogicaException e) {
+						System.out.println(e.toString());
+					}
+						System.out.println("Menu prueba linea 92, el usuario logreado es el id:  in_JugadorUserName1");
+                    
+                    	
+                    break;
+                        
+                    
                     default:
                         System.out.println("Solo numero entre 1 y 7");
                 }
@@ -290,6 +337,8 @@ public class MenuPrueba {
 	        System.out.println("5. Guardar una partida:");
 	        System.out.println("6. Listar todas las partidas de todos los jugadores:");
 	        System.out.println("7. Volver a menu principal");
+	        System.out.println("8. DesLoguearse");
+	        System.out.println("9. Esta Online");
 	 }
 	
 	

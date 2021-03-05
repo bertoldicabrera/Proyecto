@@ -311,13 +311,17 @@ public class consultas {
 	//hay que desabilitar el modo seguro para poder hacer este tipo de modificacion
 	//por lo que se decidió llamar a get idbyUsername y cambiar la consulta
 	public String isOnLineJugador() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 1" + "WHERE PK_jugador_id=(?);";
+		String query = "select  * from JUGADORES where jugadorIsOnline = 1 AND PK_jugador_id=(?)";
 		return query;
 	}
 	//Revisado ok
 	//mismo caso que isonline
-	public String logoutJugadorPorUserName() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 0" + "WHERE PK_jugador_id=(?);";
+	public String logoutJugadorPorUserxID() {
+		String query = "UPDATE JUGADORES" + " SET jugadorIsOnline = 0    " + "WHERE PK_jugador_id=(?)";
+		return query;
+	}
+	public String loginJugadorxID() {
+		String query = "UPDATE JUGADORES SET jugadorIsOnline = 1 WHERE PK_jugador_id=(?)";
 		return query;
 	}
 	//Revisado ok
@@ -336,5 +340,6 @@ public class consultas {
 		String query = "insert into TORRES_DE_CONTROL(torreControlCoordX,torreControlCoordY,torreControlEstado,torreControlVida,torreControlHayEnemigo,torreControlRangoVision) values(?,?,?,?,?,?);";
 		return query;
 	}
+	
 
 }
