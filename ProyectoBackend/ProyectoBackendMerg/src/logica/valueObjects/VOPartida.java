@@ -45,6 +45,12 @@ public class VOPartida implements Serializable {
 
 
 
+	public VOPartida() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getPartidaId() {
 		return partidaId;
 	}

@@ -287,7 +287,7 @@ public class MenuPrueba {
                     case 7:
                     	System.out.println("Has selecionado Reanudar partida");
                     	
-                    	VOPartida voPartidas = null;
+                    	VOPartida voPartidas = new VOPartida();
 					try {
 						voPartidas=modelo.ReanudarPartida(1);
 						

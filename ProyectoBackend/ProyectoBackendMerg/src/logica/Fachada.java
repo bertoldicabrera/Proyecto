@@ -144,7 +144,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			System.out.println("linea 144 reanudarpartida");
 		    System.out.println("145 en fachada antes de entrar a transformar en veo partida");
 		    aux.mostrarPartidaPorPantalla();
-		    
+		    //aux.get
 			outVOPartida=DevolverVoPartidaDadoPartida(aux,icon );
 			System.out.println("linea 149 reanudarpartida");
 			ipool.liberarConexion(icon, true);
@@ -303,13 +303,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con) throws PersistenciaException
 	{  
+		
 		VOCollectionEquipo out=null;
 	   out= new VOCollectionEquipo(   
 	   in_Equipos.getIdpartida(),
 			  devolverArreEquipoDadoVO(in_Equipos.listarEquipos(con), con),
 			  devolverColletionJugadorDadoDao(in_Equipos.getDaoJugador(),con),
 			  devolverVOCollectionBaseDadoDao( in_Equipos.getDaoBase(), con));
-	
+	System.out.println("linea 313");
 	return out;
 		
 	}
@@ -367,7 +368,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	 private VOEquipo[] devolverArreEquipoDadoVO(Equipo[] in_Equipo, IConexion con) throws PersistenciaException {
 	 
-	 
+	 System.out.println("linea 371");
 		VOEquipo[] aux= new VOEquipo[in_Equipo.length];
 		
 		for (int i=0; i<in_Equipo.length; i++) {
