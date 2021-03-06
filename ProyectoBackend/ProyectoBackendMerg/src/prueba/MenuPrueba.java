@@ -44,7 +44,7 @@ public class MenuPrueba {
 		
 		
 
-		
+
 		modelo  = (IFachada) Naming.lookup(ruta);
 		if(modelo !=null) {
 			 System.out.println("Levanta iFachada");

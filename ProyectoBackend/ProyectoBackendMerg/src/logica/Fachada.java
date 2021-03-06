@@ -3,6 +3,7 @@ package logica;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -131,6 +132,191 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return out_Voj;
 	}
 
+	
+	public VOPartida ReanudarPartida(int in_partidaid) throws PersistenciaException, InterruptedException{
+		
+		VOPartida outVOPartida = null;
+		Partida aux = null;
+		IConexion icon = ipool.obtenerConexion(false);
+   
+		aux=daoP.find(in_partidaid, icon);
+		
+		
+       return outVOPartida;	
+		
+
+	}
+	/*
+	 * DE LA PARTIDA VOY A NECESITAR LOS AVIONES
+	 * DE LA PARTIDA VAMOS A NECESITAR SACAR LOS VO CHICOS (TANQUE,...)
+	 * LOS 2 VOEQUIPO Y LAS 2 VO BASES
+	*/
+	
+	
+	//int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,
+	//boolean in_estado, int in_vida,boolean in_hayEnemigo,int in_rangoDeVision ,
+	//boolean in_avionBomba,int  in_cantidadBombas, int in_avionCombustible,
+	//boolean in_enCampoEnemigo,int in_baseid) {
+	private VOAvion DevolverVOAvionesDadoAvion (Avion a)
+	{
+		VOAvion out = null;
+		
+		out = new VOAvion(a.GetId(),a.getCoordX(),a.getCoordY(),a.getAvionAltura(), a.getEstado(),
+				a.getVida(),a.getHayEnemigo(),a.getRangoDeVision(),a.getAvionBomba(),
+				a.getCantidadBombas(),a.getAvionCombustible(),a.getEnCampoEnemigo(),a.getBaseid());
+		return out;
+	}
+	
+	private VOCollectionAviones DevolverColeccionDeAvionesdesdeAviones(DaoDeAviones aviones, IConexion con) throws PersistenciaException
+	{
+		VOCollectionAviones out = new VOCollectionAviones();
+		Avion[] arreAV= null; 
+		arreAV =aviones.listarAviones(con);
+		for(int i=0; i<arreAV.length; i++)
+		{
+			VOAvion avionaux  = DevolverVOAvionesDadoAvion(arreAV[i]);
+			out.insback(avionaux);
+		}
+
+		return out;
+	}
+	
+	
+	
+	
+	private VOArtillero DevolverVOArtillerosDadoArtillero (Artillero a)
+	{
+		VOArtillero out = null;
+		out = new VOArtillero(a.GetId(),a.getCoordX(),a.getCoordY(),a.getEstado()
+				,a.getVida(),a.getHayEnemigo(),a.getRangoDeVision(),a.getArtilleroAngulo(),
+				a.getbase_id());
+		return out;
+	}
+	
+	private VOCollectionArtilleria DevolverColeccionDeArtillerodeArtillero(DaoArtilleria artilleria, IConexion con) throws PersistenciaException
+	{
+		VOCollectionArtilleria out = new VOCollectionArtilleria();
+		Artillero[] arreAr= null; 
+		arreAr =artilleria.listarArtilleria(con);
+		for(int i=0; i<arreAr.length; i++)
+		{
+			VOArtillero artilleriaaux  = DevolverVOArtillerosDadoArtillero(arreAr[i]);
+			out.insBack(artilleriaaux);
+		}
+		return out;
+	}
+	
+	
+		
+	private VOBase DevolverVOBaseDadoBase (Base b,IConexion con) throws PersistenciaException
+	{  /*int in_idDabse,VOCollectionAviones in_aviones,VOCollectionArtilleria in_artilleros, VODeposito in_deposito, 
+		VOTanqueCombustible in_tanque,VOTorreControl in_torre
+		*/
+		VOBase out = null;
+		out = new VOBase(b.getIdBase(),DevolverColeccionDeAvionesdesdeAviones(b.getAviones(),con),
+				 DevolverColeccionDeArtillerodeArtillero(b.getArtilleros(),con),
+				   DevolverVODepositoDadoDeposito (b.getDeposito()),
+				   DevolverVOTanqueCombusatibleDadoTanque (b.getTanque()),
+				   DevolverVOTorreDadoTorre (b.getTorre())
+				);
+		return out;
+		
+		//
+		//
+		//
+		
+	}
+	
+	private VOTorreControl DevolverVOTorreDadoTorre (TorreControl t)
+	{
+		VOTorreControl out = null;
+		out = new VOTorreControl(t.GetId(),t.getCoordX(),t.getCoordY(),t.getEstado(),
+				t.getVida(),t.getHayEnemigo(),t.getRangoDeVision());
+		return out;
+		
+	}
+	private VOTanqueCombustible DevolverVOTanqueCombusatibleDadoTanque (TanqueCombustible t)
+	{
+		VOTanqueCombustible out = null;
+		out = new VOTanqueCombustible(t.GetId(),t.getCoordX(),t.getCoordY(),t.getEstado(),
+				t.getVida(),t.getCantidadCombustible(),t.getEnUso());
+		return out;	
+	}
+	private VODeposito DevolverVODepositoDadoDeposito (Deposito t)
+	{
+		VODeposito out = null;
+		out = new VODeposito(t.GetId(),t.getCoordX(),t.getCoordY(),t.getEstado(),
+				t.getVida(),t.getCantidaBombas(),t.getEnUso());
+		return out;	
+	}
+	
+	private VOEquipo DevolverVoEquipoDadoEquipo(Equipo in_Equipo,IConexion con) throws PersistenciaException
+	{  //int in_equipoID, VOJugador[]  in_Jugadores, VOBase  in_base, String  in_bando
+		VOEquipo out = null;
+		out = new VOEquipo(in_Equipo.getEquipoID(),DevolverArreVoJugadorDadoJugadores(in_Equipo.getJugadores()),
+				DevolverVOBaseDadoBase(in_Equipo.getBase(),con),in_Equipo.getBando());
+		return out;
+		
+	}
+
+	
+	private VOJugador[] DevolverArreVoJugadorDadoJugadores (Jugador[] in_jugador) throws PersistenciaException
+	{   //t in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
+		// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
+		VOJugador [] out=null;
+		int tam=in_jugador.length;
+		 out = new VOJugador[tam];
+		for(int i=0;i<tam;i++)
+		{
+		  out [i]= new VOJugador(in_jugador[i].getJugadorId(),in_jugador[i].getJugadorUserName(),
+				  in_jugador[i].getJugadorPassword(),in_jugador[i].isJugadorIsOnline(),
+				  in_jugador[i].getPuntajeAcumulado());
+		}
+		return out;
+	}
+	
+	private VOPartida DevolverVoPartidaDadoPartida(Partida in_Partida, IConexion con)
+	{  VOPartida out=null;
+	   
+	/*
+	 * int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
+			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
+			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi
+	 */
+	  out= new VOPartida(in_Partida.getPartidaId(),in_Partida.getPartidaEstado(),in_Partida.getPartidaFechaUltimaActualizacion()
+			         ,in_Partida.isPartidaGuardada(),in_Partida.getPartidaNombre(),in_Partida.getPartidaCantidadJugadores()
+			         ,in_Partida.getPartidaCreador(),in_Partida.getPartidaFechaCreada(),
+			           in_Partida.getPartidaTermino(),in_Partida.getEquipos());    
+	
+	return out;
+		
+	}
+	
+	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con)
+	{  VOCollectionEquipo out=null;
+	   
+	/*
+	 * int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
+			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
+			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi
+			
+	 */
+	
+	VOEquipo [] out=null;
+	int tam=in_Equipos.largo(con);
+	 out = new VOEquipo[tam];
+	for(int i=0;i<tam;i++)
+	{
+	  out [i]= new VOEquipo(in_Equipos.kesimo(in_indexEQ, con),in_jugador[i].getJugadorUserName(),
+			  in_jugador[i].getJugadorPassword(),in_jugador[i].isJugadorIsOnline(),
+			  in_jugador[i].getPuntajeAcumulado());
+	}
+	  out= new VOCollectionEquipo(in_Equipos.getIdpartida(),in_Equipos.listarEquipos(con));    
+	
+	return out;
+		
+	}
+	
 	
 	// PRE:Jugador Logueado y registrado
 	public ArrayList<VOPartida> listarPartidasAReanudar(String in_Nickname)
@@ -606,6 +792,9 @@ System.out.println("Inserto la base:");
 		
 		
 	}
+
+
+
 	
 	
 
