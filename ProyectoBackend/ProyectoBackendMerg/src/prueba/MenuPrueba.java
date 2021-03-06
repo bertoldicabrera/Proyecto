@@ -78,20 +78,20 @@ public class MenuPrueba {
                    		
                    		
                    		System.out.println("Has seleccionado la opcion 1 Registrarse:");  
-                      	// VOJugador x = new VOJugador(1,  "in_JugadorUserName1" , "in_JugadorPassword1", true, 1);
-						//modelo.registrarJugador(x);
+                      	 VOJugador x = new VOJugador(1,  "in_JugadorUserName1" , "in_JugadorPassword1", true, 1);
+						modelo.registrarJugador(x);
 						
 						System.out.println("ingresado jugador 1"); 
 						
 						 
-                     	// VOJugador y = new VOJugador(2,  "in_JugadorUserName2" , "in_JugadorPassword2", true, 1);
-						//modelo.registrarJugador(y);
+                     	 VOJugador y = new VOJugador(2,  "in_JugadorUserName2" , "in_JugadorPassword2", true, 1);
+						modelo.registrarJugador(y);
 						
 						System.out.println("ingresado jugador 2"); 
 						
 						VOJugador z = new VOJugador(3,  "in_JugadorUserName3" , "in_JugadorPassword3", true, 1);
 						modelo.registrarJugador(z);
-						
+						System.out.println("ingresado jugador 3"); 
 						
 					} catch (RemoteException e) {
 						System.out.println(e.toString());
@@ -131,16 +131,26 @@ public class MenuPrueba {
                         
                         break;
                     case 4:
-                        System.out.println("Has seleccionado la opcion 4 Listar partidas Pausadas:");
+                        System.out.println("Has seleccionado la opcion 4 Listar partidas:");
                        
 					try {
 						
+						System.out.println("Las partidas del jugador in_JugadorUserName1 son:");
+						
 						ArrayList<VOPartida> voPartidas = null;
-						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName3");
+						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName1");
 						for(VOPartida out_partida:voPartidas)
 						{
 							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
 						}
+						System.out.println("Las partidas del jugador in_JugadorUserName3 son:");
+						ArrayList<VOPartida> voPartidas2 = null;
+						voPartidas2=modelo.listarPartidasAReanudar("in_JugadorUserName3");
+						for(VOPartida out_partida:voPartidas2)
+						{
+							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
+						}
+						
 						
 						
 					} catch (RemoteException e) {
@@ -275,9 +285,34 @@ public class MenuPrueba {
                    */
                         break;
                     case 7:
-                    	System.out.println("Volver");
-                        //7salir = true;
-                  //      MenuAdministrador();
+                    	System.out.println("Has selecionado Reanudar partida");
+                    	
+                    	VOPartida voPartidas = null;
+					try {
+						voPartidas=modelo.ReanudarPartida(1);
+						
+						System.out.println("El id de la partida es:"+voPartidas.getPartidaId()
+						
+								+"El estado de la partida es"+voPartidas.getPartidaEstado()
+								+"El nombre de la partida es:"+voPartidas.getPartidaNombre()
+								);
+						
+						
+						
+						
+					} catch (RemoteException e1) {
+						System.out.println(e1.toString());
+					} catch (PersistenciaException e1) {
+						System.out.println(e1.toString());
+					} catch (LogicaException e1) {
+						System.out.println(e1.toString());
+					}
+					
+                    	
+                    	
+                    	
+                    	
+                      
                         break;  
                         
                     case 8:
@@ -339,10 +374,10 @@ public class MenuPrueba {
 	    	System.out.println("1. Registrarse:");
 	    	System.out.println("2. Loguearse para jugar:");
 	        System.out.println("3. Iniciar nueva partida:");
-	        System.out.println("4. Listar partidas Pausadas:");
+	        System.out.println("4. Listar partidas:");
 	        System.out.println("5. Guardar una partida:");
 	        System.out.println("6. Listar todas las partidas de todos los jugadores:");
-	        System.out.println("7. Volver a menu principal");
+	        System.out.println("7. Reanudar partida");
 	        System.out.println("8. DesLoguearse");
 	        System.out.println("9. Esta Online");
 	 }

@@ -82,9 +82,11 @@ public class DaoPartidas implements Serializable {
 			}
 			rs1.close ();
 			pstmt1.close ();
-			DaoEquipo daoEq = null,daoEqaux=null;
 			
+			DaoEquipo daoEq = new DaoEquipo();
+			DaoEquipo daoEqaux=null;
 			daoEqaux=daoEq.listarEquiposDeUnaPartida(in_PartidaId, con);
+		
 			
 			out_Part = new Partida 
 					(out_PartidaId, out_PartidaEstado,
@@ -93,7 +95,9 @@ public class DaoPartidas implements Serializable {
 					out_PartidaCreador, out_PartidaFechaCreada,out_terminoPartida,daoEqaux );
 			}
 		catch (SQLException e){
-			throw new PersistenciaException (mensg.errorSQLFindPartida);
+			
+			throw new PersistenciaException (e.toString());
+			//throw new PersistenciaException (mensg.errorSQLFindPartida);
 		}
 		return out_Part;
 	}

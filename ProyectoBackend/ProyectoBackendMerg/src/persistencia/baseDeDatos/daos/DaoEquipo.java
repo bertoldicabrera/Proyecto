@@ -99,8 +99,6 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 				pstmt1.setInt(2,in_idPartida);
 				//pstmt1.setInt(3,in_Equipo.getBase().getIdBase());
 				pstmt1.setInt(3,idbase);
-				System.out.println(insertEquipo);
-				System.out.println("Esta intentando insertar en equipo:"+"bando: "+bando+"id partida: "+in_idPartida +"idbase: "+idbase);
                 pstmt1.executeUpdate ();
 				pstmt1.close ();
 			
@@ -108,8 +106,6 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 				pstmt2 = ((Conexion)con).getConexion().prepareStatement (insertEquipoJugadores);
 				pstmt2.setInt(1,jugAux[i].getJugadorId());
 				pstmt2.setInt(2,getUltimoEquipoIdMas1(con));
-				System.out.println(insertEquipoJugadores);
-				System.out.println("Esta intentando insertar en tabla equipo jugador:"+"id jugador: "+jugAux[i].getJugadorId() +"id equipo: "+in_Equipo.getEquipoID());
 				pstmt2.executeUpdate ();
 				pstmt2.close ();
 		
@@ -254,16 +250,18 @@ public DaoEquipo(int in_idpartida, Equipo[] in_Equipos, DaoJugador in_DaoJ,DaoBa
 public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) throws PersistenciaException
 	{
 	
-		System.out.println("248");
 	    DaoEquipo aux=null;
         consultas cons = new consultas();
         Equipo[] out_Equipos=new  Equipo[tope];
-        System.out.println("252 . daoequipo ");
 		
 		String sqlToExecute = cons.listarEquiposDeUnaPartida();
 		PreparedStatement prstm;
+		
+		
 		try {
+			
 			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
+			prstm.setInt (1, in_idpartida);
 			ResultSet rs = prstm.executeQuery();
 			int i=0;
 			while (rs.next()) {
@@ -277,6 +275,8 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
+			
+			System.out.println(e.toString());
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
 		

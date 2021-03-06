@@ -133,14 +133,28 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	}
 
 	
-	public VOPartida ReanudarPartida(int in_partidaid) throws PersistenciaException, InterruptedException{
-		
+	public VOPartida ReanudarPartida(int in_partidaid) throws PersistenciaException, InterruptedException  {
+		IConexion icon = ipool.obtenerConexion(false);
 		VOPartida outVOPartida = null;
 		Partida aux = null;
-		IConexion icon = ipool.obtenerConexion(false);
+		
+		try {
+			System.out.println("linea 142 antes del find");
+			aux=daoP.find(in_partidaid, icon);
+			System.out.println("linea 144 reanudarpartida");
+		    System.out.println("145 en fachada antes de entrar a transformar en veo partida");
+		    aux.mostrarPartidaPorPantalla();
+		    
+			outVOPartida=DevolverVoPartidaDadoPartida(aux,icon );
+			System.out.println("linea 149 reanudarpartida");
+			ipool.liberarConexion(icon, true);
+			
+			
+		} catch (PersistenciaException e) {
+			ipool.liberarConexion(icon, true);
+			System.out.println(e.toString());
+		}
    
-		aux=daoP.find(in_partidaid, icon);
-		outVOPartida=DevolverVoPartidaDadoPartida(aux,icon );
 		
        return outVOPartida;	
 		
@@ -273,11 +287,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	private VOPartida DevolverVoPartidaDadoPartida(Partida in_Partida, IConexion con) throws PersistenciaException
 	{  VOPartida out=null;
 	   
-	/*
-	 * int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
-			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi
-	 */
 	
 	  out= new VOPartida(in_Partida.getPartidaId(),
 			  in_Partida.getPartidaEstado(),
@@ -294,14 +303,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con) throws PersistenciaException
 	{  
-		
 		VOCollectionEquipo out=null;
-	
-	  out= new VOCollectionEquipo(   
+	   out= new VOCollectionEquipo(   
 	   in_Equipos.getIdpartida(),
 			  devolverArreEquipoDadoVO(in_Equipos.listarEquipos(con), con),
 			  devolverColletionJugadorDadoDao(in_Equipos.getDaoJugador(),con),
-			  
 			  devolverVOCollectionBaseDadoDao( in_Equipos.getDaoBase(), con));
 	
 	return out;
@@ -362,8 +368,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	 private VOEquipo[] devolverArreEquipoDadoVO(Equipo[] in_Equipo, IConexion con) throws PersistenciaException {
 	 
 	 
-	 
-	 
 		VOEquipo[] aux= new VOEquipo[in_Equipo.length];
 		
 		for (int i=0; i<in_Equipo.length; i++) {
@@ -374,7 +378,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		
 	}
 	 
-	
 	
 	
 	
