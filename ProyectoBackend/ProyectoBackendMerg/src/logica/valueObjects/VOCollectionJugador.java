@@ -3,6 +3,8 @@ package logica.valueObjects;
 import java.io.Serializable;
 import java.util.TreeMap;
 
+import logica.Jugador;
+
 
 
 public class VOCollectionJugador  implements Serializable  {
@@ -50,4 +52,10 @@ TreeMap<Integer, VOJugador> jugadores;
 		return jugadores.size();
 	}
 
+	public void setJugadores(TreeMap<Integer, VOJugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+	
+	
+	
 }

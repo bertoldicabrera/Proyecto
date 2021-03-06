@@ -140,7 +140,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		IConexion icon = ipool.obtenerConexion(false);
    
 		aux=daoP.find(in_partidaid, icon);
-		
+		outVOPartida=DevolverVoPartidaDadoPartida(aux,icon );
 		
        return outVOPartida;	
 		
@@ -209,9 +209,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 		
 	private VOBase DevolverVOBaseDadoBase (Base b,IConexion con) throws PersistenciaException
-	{  /*int in_idDabse,VOCollectionAviones in_aviones,VOCollectionArtilleria in_artilleros, VODeposito in_deposito, 
-		VOTanqueCombustible in_tanque,VOTorreControl in_torre
-		*/
+	{ 
 		VOBase out = null;
 		out = new VOBase(b.getIdBase(),DevolverColeccionDeAvionesdesdeAviones(b.getAviones(),con),
 				 DevolverColeccionDeArtillerodeArtillero(b.getArtilleros(),con),
@@ -221,9 +219,6 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 				);
 		return out;
 		
-		//
-		//
-		//
 		
 	}
 	
@@ -275,7 +270,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return out;
 	}
 	
-	private VOPartida DevolverVoPartidaDadoPartida(Partida in_Partida, IConexion con)
+	private VOPartida DevolverVoPartidaDadoPartida(Partida in_Partida, IConexion con) throws PersistenciaException
 	{  VOPartida out=null;
 	   
 	/*
@@ -283,39 +278,104 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
 			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi
 	 */
-	  out= new VOPartida(in_Partida.getPartidaId(),in_Partida.getPartidaEstado(),in_Partida.getPartidaFechaUltimaActualizacion()
-			         ,in_Partida.isPartidaGuardada(),in_Partida.getPartidaNombre(),in_Partida.getPartidaCantidadJugadores()
+	
+	  out= new VOPartida(in_Partida.getPartidaId(),
+			  in_Partida.getPartidaEstado(),
+			  in_Partida.getPartidaFechaUltimaActualizacion()
+			         ,in_Partida.isPartidaGuardada(),
+			         in_Partida.getPartidaNombre(),in_Partida.getPartidaCantidadJugadores()
 			         ,in_Partida.getPartidaCreador(),in_Partida.getPartidaFechaCreada(),
-			           in_Partida.getPartidaTermino(),in_Partida.getEquipos());    
+			           in_Partida.getPartidaTermino(),
+			           DevolverVOCollectionEquiposDesdeEquipos(in_Partida.getEquipos(), con));    // llamar a 
 	
 	return out;
 		
 	}
 	
-	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con)
-	{  VOCollectionEquipo out=null;
-	   
-	/*
-	 * int in_PartidaId, String in_PartidaEstado, LocalDate in_PartidaFechaUltimaActualizacion,
-			boolean in_PartidaGuardada, String  in_PartidaNombre, int in_PartidaCantidadJugadores,
-			int in_PartidaCreador, LocalDate in_PartidaFechaCreada,boolean in_partidaTermino, VOCollectionEquipo in_Equi
-			
-	 */
+	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con) throws PersistenciaException
+	{  
+		
+		VOCollectionEquipo out=null;
 	
-	VOEquipo [] out=null;
-	int tam=in_Equipos.largo(con);
-	 out = new VOEquipo[tam];
-	for(int i=0;i<tam;i++)
+	  out= new VOCollectionEquipo(   
+	   in_Equipos.getIdpartida(),
+			  devolverArreEquipoDadoVO(in_Equipos.listarEquipos(con), con),
+			  devolverColletionJugadorDadoDao(in_Equipos.getDaoJugador(),con),
+			  
+			  devolverVOCollectionBaseDadoDao( in_Equipos.getDaoBase(), con));
+	
+	return out;
+		
+	}
+	
+	
+	 
+	 private VOCollectionBase  devolverVOCollectionBaseDadoDao(DaoBase in_DaoBase, IConexion con) throws PersistenciaException
 	{
-	  out [i]= new VOEquipo(in_Equipos.kesimo(in_indexEQ, con),in_jugador[i].getJugadorUserName(),
-			  in_jugador[i].getJugadorPassword(),in_jugador[i].isJugadorIsOnline(),
-			  in_jugador[i].getPuntajeAcumulado());
-	}
-	  out= new VOCollectionEquipo(in_Equipos.getIdpartida(),in_Equipos.listarEquipos(con));    
-	
-	return out;
+		
+		VOCollectionBase daoBases= new VOCollectionBase();
+		TreeMap<Integer, VOBase>  aux=new TreeMap<Integer, VOBase>();
+		
+		Iterator<Base> Itr = in_DaoBase.getBases().values().iterator();
+		while (Itr.hasNext()) {
+			Base auxiliar = Itr.next();
+			aux.put(DevolverVOBaseDadoBase(auxiliar, con).getIdBase(), DevolverVOBaseDadoBase(auxiliar, con));
+		}
+		daoBases.setBases(aux);
+		return daoBases;
 		
 	}
+	 
+	
+	
+	
+	
+	
+	
+	
+	 private VOCollectionJugador   devolverColletionJugadorDadoDao(DaoJugador in_DaoJugador, IConexion con) throws PersistenciaException
+	{  
+		
+		VOCollectionJugador daoJugador= new  VOCollectionJugador();
+		TreeMap<Integer, VOJugador> aux= new TreeMap<Integer, VOJugador>();
+
+		Iterator<Jugador> Itr =  in_DaoJugador.listarJugadores(con).values().iterator();
+		while (Itr.hasNext()) {
+			Jugador auxiliar = Itr.next();
+			aux.put(devolverVOJugador(auxiliar).getJugadorId(), devolverVOJugador(auxiliar));
+			
+		}
+		
+		daoJugador.setJugadores(aux);
+		return daoJugador;
+
+	}
+	 
+	 
+	
+	
+	
+	
+	
+	
+	
+	 private VOEquipo[] devolverArreEquipoDadoVO(Equipo[] in_Equipo, IConexion con) throws PersistenciaException {
+	 
+	 
+	 
+	 
+		VOEquipo[] aux= new VOEquipo[in_Equipo.length];
+		
+		for (int i=0; i<in_Equipo.length; i++) {
+			aux[i]=DevolverVoEquipoDadoEquipo( in_Equipo[i],con );
+		}
+		
+		return aux;
+		
+	}
+	 
+	
+	
 	
 	
 	// PRE:Jugador Logueado y registrado
@@ -361,9 +421,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 									, auxiliar.getPartidaTermino() 
 									, null
 									);
-							  if(parti==null) {
-								  System.out.println("parti es nulo");
-							  }
+							 
 							//atencion estamos pasando en null todo lo demas
 							//dado que solo le interesa al jugador listar las partidas a reanudar
 							//esto es el id, nombre de la partida y como muncho la fecha
@@ -661,10 +719,7 @@ System.out.println("Inserto la base:");
 	
 	
 	private Base  devolverBaseDadoVO(VOBase in_Base)
-	{  // System.out.println("devolverBaseDadoVO 417"); 
-		//int in_idDabse,DaoDeAviones in_aviones,  
-		//DaoArtilleria in_artilleros, Deposito in_deposito, 
-		//TanqueCombustible in_tanque,TorreControl in_torre
+	{  
 		
 		Base auxBase=new Base(in_Base.getIdBase(),devolverDaoAvionesDadoVO(in_Base.getAviones()),
 				             devolverDaoArtilleriaDadoVO(in_Base.getArtilleros()),
@@ -681,14 +736,11 @@ System.out.println("Inserto la base:");
 	
 	private DaoJugador  devolverDaoJugadorDadoVO(VOCollectionJugador in_DaoJugador)
 	{  
-		//System.out.println("devolverDaoJugadorDadoVO 436"); 
 		
 		DaoJugador daoJugador= new DaoJugador();
 		TreeMap<Integer, Jugador> aux= new TreeMap<Integer, Jugador>();
-		////System.out.println("null 440");
 
 		Iterator<VOJugador> Itr =  in_DaoJugador.listarJugadores().values().iterator();
-		//System.out.println("null 442");
 		while (Itr.hasNext()) {
 			VOJugador auxiliar = Itr.next();
 			aux.put(devolverJugadordadoVO(auxiliar).getJugadorId(), devolverJugadordadoVO(auxiliar));
@@ -721,10 +773,6 @@ System.out.println("Inserto la base:");
 	
 	private Jugador devolverJugadordadoVO(VOJugador in_aux) {
 		  // System.out.println("evolverJugadordadoVO 477 en la fachada se rompe"); 
-		   
-		   
-		  
-		   
 		   
 		Jugador out_aux = new Jugador(in_aux.getJugadorId(), in_aux.getJugadorUserName(), 
 				in_aux.getJugadorPassword(),in_aux.isJugadorIsOnline(), in_aux.getPuntajeAcumulado());

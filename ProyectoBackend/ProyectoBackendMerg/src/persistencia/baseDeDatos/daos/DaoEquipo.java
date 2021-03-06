@@ -41,6 +41,15 @@ public class DaoEquipo implements Serializable{
 		
 	}
 	
+	public DaoJugador getDaoJugador() {
+		return this.DaoJ;
+	}
+	
+	public DaoBase getDaoBase() {
+		return this.DaoB;
+	}
+	
+	
 	public Equipo[] getEquiposEnMemoria() {
 		return this.equipos;
 		
