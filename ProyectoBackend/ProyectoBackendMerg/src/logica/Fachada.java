@@ -139,12 +139,12 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		Partida aux = null;
 		
 		try {
-			System.out.println("linea 142 antes del find");
+			System.out.println("linea 142cargo una partida con los datos basicos");
 			aux=daoP.find(in_partidaid, icon);
 			System.out.println("linea 144 reanudarpartida");
 		    System.out.println("145 en fachada antes de entrar a transformar en veo partida");
 		    aux.mostrarPartidaPorPantalla();
-		    
+		    //
 		   int ver= aux.getEquipos().largo(icon);
 		   System.out.println("Largo del equipo es:"+ver);
 			outVOPartida=DevolverVoPartidaDadoPartida(aux,icon );
@@ -183,11 +183,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return out;
 	}
 	
-	private VOCollectionAviones DevolverColeccionDeAvionesdesdeAviones(DaoDeAviones aviones, IConexion con) throws PersistenciaException
+	private VOCollectionAviones DevolverColeccionDeAvionesdesdeAviones(DaoDeAviones aviones) throws PersistenciaException
 	{
 		VOCollectionAviones out = new VOCollectionAviones();
 		Avion[] arreAV= null; 
-		arreAV =aviones.listarAviones(con);
+		arreAV =aviones.getArreAvionesEnMemoria();
 		for(int i=0; i<arreAV.length; i++)
 		{
 			VOAvion avionaux  = DevolverVOAvionesDadoAvion(arreAV[i]);
@@ -206,14 +206,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		out = new VOArtillero(a.GetId(),a.getCoordX(),a.getCoordY(),a.getEstado()
 				,a.getVida(),a.getHayEnemigo(),a.getRangoDeVision(),a.getArtilleroAngulo(),
 				a.getbase_id());
+		System.out.println("209 DevolverartiilleroDadoArtillero"+out.getbase_id());
 		return out;
 	}
 	
-	private VOCollectionArtilleria DevolverColeccionDeArtillerodeArtillero(DaoArtilleria artilleria, IConexion con) throws PersistenciaException
+	private VOCollectionArtilleria DevolverColeccionDeArtillerodeArtillero(DaoArtilleria artilleria) throws PersistenciaException
 	{
 		VOCollectionArtilleria out = new VOCollectionArtilleria();
 		Artillero[] arreAr= null; 
-		arreAr =artilleria.listarArtilleria(con);
+		arreAr =artilleria.getArreArtilleriaEnMemoria();
 		for(int i=0; i<arreAr.length; i++)
 		{
 			VOArtillero artilleriaaux  = DevolverVOArtillerosDadoArtillero(arreAr[i]);
@@ -224,12 +225,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 		
-	private VOBase DevolverVOBaseDadoBase (Base b,IConexion con) throws PersistenciaException
+	private VOBase DevolverVOBaseDadoBase (Base b) throws PersistenciaException
 	{ 
 		System.out.println("facahda 229");
 		VOBase out = null;
-		out = new VOBase(b.getIdBase(),DevolverColeccionDeAvionesdesdeAviones(b.getAviones(),con),
-				 DevolverColeccionDeArtillerodeArtillero(b.getArtilleros(),con),
+		out = new VOBase(
+				b.getIdBase(),
+				DevolverColeccionDeAvionesdesdeAviones(b.getAviones()),
+				 DevolverColeccionDeArtillerodeArtillero(b.getArtilleros()),
 				   DevolverVODepositoDadoDeposito (b.getDeposito()),
 				   DevolverVOTanqueCombusatibleDadoTanque (b.getTanque()),
 				   DevolverVOTorreDadoTorre (b.getTorre())
@@ -263,18 +266,18 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		return out;	
 	}
 	
-	private VOEquipo DevolverVoEquipoDadoEquipo(Equipo in_Equipo,IConexion con) throws PersistenciaException
+	private VOEquipo DevolverVoEquipoDadoEquipo(Equipo in_Equipo) throws PersistenciaException
 	{  //int in_equipoID, VOJugador[]  in_Jugadores, VOBase  in_base, String  in_bando
-		System.out.println("linea 266 fachada");
-		VOEquipo out = null;
-		System.out.println("270 el ide del equipo es"+in_Equipo.getEquipoID());
-		out = new VOEquipo(in_Equipo.getEquipoID(),
-				
+		System.out.println("268 el id del equipo es: "+in_Equipo.getEquipoID());
+		System.out.println("linea 269 fachada porque llega vacio el dao equipo y nunca sale?");
+		System.out.println("En que momento va a buscar a la base de datos los jugadores DevolverArreVoJugadorDadoJugadores(in_Equipo.getJugadores())");
+		VOEquipo out = new VOEquipo(
+				in_Equipo.getEquipoID(),
 				DevolverArreVoJugadorDadoJugadores(in_Equipo.getJugadores()),
-				DevolverVOBaseDadoBase(in_Equipo.getBase(),con),  
+				DevolverVOBaseDadoBase(in_Equipo.getBase()),  
 				in_Equipo.getBando());
-		
-		System.out.println("linea 271 fachada");
+		System.out.println("Equipo"+out.getEquipoID());
+		System.out.println("linea 276 fachada");
 		return out;
 		
 	}
@@ -284,9 +287,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	{   //t in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
 		// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
 		System.out.println("facahda 281");
-		
-		int tam=in_jugador.length;
-		
+		int tam=0;
+		tam=in_jugador.length;
 		
 		VOJugador [] out = new VOJugador[tam];
 		for(int i=0;i<tam;i++)
@@ -321,13 +323,17 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	private VOCollectionEquipo DevolverVOCollectionEquiposDesdeEquipos(DaoEquipo in_Equipos, IConexion con) throws PersistenciaException
 	{  
-		
+		// private int idpartida;
+//		private VOEquipo[] equipos;
+//		private VOCollectionJugador DaoJ;
+//		private VOCollectionBase   DaoB;
 		VOCollectionEquipo out=null;
 	   out= new VOCollectionEquipo(   
 	   in_Equipos.getIdpartida(),
-			  devolverArreEquipoDadoVO(in_Equipos.listarEquipos(con), con),
-			  devolverColletionJugadorDadoDao(in_Equipos.getDaoJugador(),con),
-			  devolverVOCollectionBaseDadoDao( in_Equipos.getDaoBase(), con));
+	   
+	   devolverArreVOEquipoDadoEquipo( in_Equipos.getEquiposEnMemoria()),   // tenia  in_Equipos.listarEquipos(con) devolverVoequipoDadoRquipos  
+			  devolverColletionJugadorDadoDao(in_Equipos.getDaoJugador()),
+			  devolverVOCollectionBaseDadoDao( in_Equipos.getDaoBase()));
 	System.out.println("linea 313");
 	return out;
 		
@@ -335,7 +341,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	 
-	 private VOCollectionBase  devolverVOCollectionBaseDadoDao(DaoBase in_DaoBase, IConexion con) throws PersistenciaException
+	 private VOCollectionBase  devolverVOCollectionBaseDadoDao(DaoBase in_DaoBase) throws PersistenciaException
 	{
 		
 		VOCollectionBase daoBases= new VOCollectionBase();
@@ -344,7 +350,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		Iterator<Base> Itr = in_DaoBase.getBases().values().iterator();
 		while (Itr.hasNext()) {
 			Base auxiliar = Itr.next();
-			aux.put(DevolverVOBaseDadoBase(auxiliar, con).getIdBase(), DevolverVOBaseDadoBase(auxiliar, con));
+			aux.put(DevolverVOBaseDadoBase(auxiliar).getIdBase(), DevolverVOBaseDadoBase(auxiliar));
 		}
 		daoBases.setBases(aux);
 		return daoBases;
@@ -358,20 +364,30 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	
-	 private VOCollectionJugador   devolverColletionJugadorDadoDao(DaoJugador in_DaoJugador, IConexion con) throws PersistenciaException
+	 private VOCollectionJugador   devolverColletionJugadorDadoDao(DaoJugador in_DaoJugador) throws PersistenciaException
 	{  
-		
+			
+               if (in_DaoJugador==null)
+               {
+            	   System.out.println("Daojugadores es nulo");
+               }
 		VOCollectionJugador daoJugador= new  VOCollectionJugador();
 		TreeMap<Integer, VOJugador> aux= new TreeMap<Integer, VOJugador>();
-
-		Iterator<Jugador> Itr =  in_DaoJugador.listarJugadores(con).values().iterator();
+		System.out.println("devolverColletionJugadorDadoDao(antes del iterator)");
+//		Iterator<Jugador> Itr =  in_DaoJugador.listarJugadores(con).values().iterator();
+		Iterator<Jugador> Itr =  in_DaoJugador.getJugadores().values().iterator();
+		System.out.println("devolverColletionJugadorDadoDao(Despues del iterator)");
 		while (Itr.hasNext()) {
+			System.out.println("devolverColletionJugadorDadoDao(while1)");
+
 			Jugador auxiliar = Itr.next();
 			aux.put(devolverVOJugador(auxiliar).getJugadorId(), devolverVOJugador(auxiliar));
-			
+			System.out.println("devolverColletionJugadorDadoDao(while2)"+auxiliar.getJugadorId());
 		}
 		
 		daoJugador.setJugadores(aux);
+		System.out.println("devolverColletionJugadorDadoDao(antes del return)");
+
 		return daoJugador;
 
 	}
@@ -384,17 +400,18 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	
 	
 	
-	 private VOEquipo[] devolverArreEquipoDadoVO(Equipo[] in_Equipo, IConexion con) throws PersistenciaException {
+	 private VOEquipo[] devolverArreVOEquipoDadoEquipo(Equipo[] in_Equipo) throws PersistenciaException {
 	 
 	 System.out.println("linea 371");
 		VOEquipo[] aux= new VOEquipo[in_Equipo.length];
 		
 		for (int i=0; i<in_Equipo.length; i++) {
 			System.out.println("El arreglo tiene equipos: "+in_Equipo.length);
-			aux[i]=DevolverVoEquipoDadoEquipo( in_Equipo[i],con );
 			System.out.println( in_Equipo[i].getEquipoID()+" linea 395 fachada");
+			aux[i]=DevolverVoEquipoDadoEquipo( in_Equipo[i]);
+			
 		}
-		
+		System.out.println("Devuelve los devolverArreVOEquipoDadoEquipo");
 		return aux;
 		
 	}
@@ -807,6 +824,9 @@ System.out.println("Inserto la base:");
 		return out_aux;
 
 	}
+	
+	
+	
 	
 	private Equipo devolverEquipoDadoVO(VOEquipo in_voEquipo) {
 		//int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando

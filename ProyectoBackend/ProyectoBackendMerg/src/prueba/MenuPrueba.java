@@ -78,20 +78,20 @@ public class MenuPrueba {
                    		
                    		
                    		System.out.println("Has seleccionado la opcion 1 Registrarse:");  
-                      	 VOJugador x = new VOJugador(1,  "in_JugadorUserName1" , "in_JugadorPassword1", true, 1);
+                      	 VOJugador x = new VOJugador(1,  "Jugador1" , "ContraJugador1", false, 100);
 						modelo.registrarJugador(x);
 						
 						System.out.println("ingresado jugador 1"); 
 						
 						 
-                     	 VOJugador y = new VOJugador(2,  "in_JugadorUserName2" , "in_JugadorPassword2", true, 1);
+                     	 VOJugador y = new VOJugador(2,  "Jugador2" , "ContraJugador2", false, 200);
 						modelo.registrarJugador(y);
 						
 						System.out.println("ingresado jugador 2"); 
 						
-						VOJugador z = new VOJugador(3,  "in_JugadorUserName3" , "in_JugadorPassword3", true, 1);
-						modelo.registrarJugador(z);
-						System.out.println("ingresado jugador 3"); 
+//						VOJugador z = new VOJugador(3,  "in_JugadorUserName3" , "in_JugadorPassword3", true, 1);
+//						modelo.registrarJugador(z);
+//						System.out.println("ingresado jugador 3"); 
 						
 					} catch (RemoteException e) {
 						System.out.println(e.toString());
@@ -109,9 +109,9 @@ public class MenuPrueba {
                         
 					try {
 						
-						VOJugador x= modelo.Login("in_JugadorUserName1" , "in_JugadorPassword1");
+						VOJugador x= modelo.Login("Jugador1" , "ContraJugador1");
 						System.out.println("Menu prueba linea 92, el usuario logreado es el id:    "+x.getJugadorId());
-						VOJugador y= modelo.Login("in_JugadorUserName2" , "in_JugadorPassword2");
+						VOJugador y= modelo.Login("Jugador2" , "ContraJugador2");
 						System.out.println("Menu prueba linea 112, el usuario logreado es el id:    "+y.getJugadorId());
 						
 					} catch (RemoteException e) {
@@ -138,18 +138,18 @@ public class MenuPrueba {
 						System.out.println("Las partidas del jugador in_JugadorUserName1 son:");
 						
 						ArrayList<VOPartida> voPartidas = null;
-						voPartidas=modelo.listarPartidasAReanudar("in_JugadorUserName1");
+						voPartidas=modelo.listarPartidasAReanudar("Jugador2");
 						for(VOPartida out_partida:voPartidas)
 						{
 							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
 						}
-						System.out.println("Las partidas del jugador in_JugadorUserName3 son:");
-						ArrayList<VOPartida> voPartidas2 = null;
-						voPartidas2=modelo.listarPartidasAReanudar("in_JugadorUserName3");
-						for(VOPartida out_partida:voPartidas2)
-						{
-							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
-						}
+//						System.out.println("Las partidas del jugador in_JugadorUserName3 son:");
+//						ArrayList<VOPartida> voPartidas2 = null;
+//						voPartidas2=modelo.listarPartidasAReanudar("in_JugadorUserName3");
+//						for(VOPartida out_partida:voPartidas2)
+//						{
+//							System.out.println("+++++"+ out_partida.getPartidaId()+"+++++++++"+out_partida.getPartidaNombre());
+//						}
 						
 						
 						
@@ -204,7 +204,7 @@ public class MenuPrueba {
     //creo las cosas pequeãs
                          
                          //int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,int in_cantidadBombas,boolean in_enUso
-                         VODeposito deposito= new VODeposito(1,1,1,true,1,1,true);
+                         VODeposito deposito= new VODeposito(1,2,1,false,1,1,true);
                          //int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,boolean in_hayEnemigo, int in_rangoDeVision
                          VOTorreControl torrecontro=new VOTorreControl(1,1,1,true,1,true,1);
                          //int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, int in_cantidadCombustible, boolean in_enUso
@@ -221,7 +221,7 @@ public class MenuPrueba {
                          
      //creo el jugador                    
                          
-                         VOJugador nuevo= new VOJugador(k,"in_JugadorUserName"+k,"in_JugadorPassword"+k,true,1);
+                         VOJugador nuevo= new VOJugador(k,"Jugador"+k,"ContraJugador"+k,true,100+k);
                          //System.out.println("creo jugador  en menu linea 209****"+ nuevo.getJugadorId());
                          arregloJugadores[0]=nuevo;
                          
@@ -260,7 +260,7 @@ public class MenuPrueba {
                       //  Date in_PartidaFechaCreada=new Date(2021,03,02);
                        // System.out.println("************"+in_PartidaFechaCreada.toString());
                         
-                         vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"mierda",2,1,in_PartidaFechaCreada,true,equipos);
+                         vopartidaprueba=new VOPartida(1,"abierta:",in_PartidaFechaCreada,true,"PartidaPrueba",2,1,in_PartidaFechaCreada,false,equipos);
                         
                         // System.out.println("partida creada con los dos equipos y tiene el id de partida: "+vopartidaprueba.getPartidaId());
 					try {
@@ -295,8 +295,40 @@ public class MenuPrueba {
 						
 								+"El estado de la partida es"+voPartidas.getPartidaEstado()
 								+"El nombre de la partida es:"+voPartidas.getPartidaNombre()
+								
 								);
-						
+						         VOEquipo Voe=voPartidas.getEquipos().kesimo(0);
+						       System.out.println("Bando::::"+Voe.getBando());  
+						       VOBase Vobase=Voe.getBase();
+						      
+						      VOAvion arreAviones[]= Vobase.getAviones().getArreavion();
+						       for(VOAvion out_Avion:arreAviones)
+								{
+						    	   //int in_PK_avion_id, int in_avionCoordX, int in_avionCoordY,int in_avionCoordZ ,boolean in_estado, 
+						    	   //int in_vida,boolean in_hayEnemigo,int in_rangoDeVision ,boolean in_avionBomba,
+						    	   //int  in_cantidadBombas, int in_avionCombustible,boolean in_enCampoEnemigo,int in_baseid)
+						    	   
+						    	   System.out.println("+++++ Avion"+ out_Avion.GetId()+"++++coordx"+out_Avion.getCoordX()+"++++coordy"+out_Avion.getCoordY()
+									+"++++avionaltura"+out_Avion.getAvionAltura()+"++++avionEstado"+out_Avion.getEstado()+"++++avionVida"+out_Avion.getVida()+"++++AvionHayEnemio"+out_Avion.getHayEnemigo()
+									+"++++vionRangoVision"+out_Avion.getRangoDeVision()+"++++avionBoba"+out_Avion.getAvionBomba()+"++++avioncantbombaa"+out_Avion.getCantidadBombas()
+									+"+++Cantidad Comb"+out_Avion.getAvionCombustible()+"En campo enemigo"+out_Avion.getEnCampoEnemigo()+"base"+out_Avion.getBaseid());
+								}
+						       
+						       VOArtillero arreArtilleria[]= Vobase.getArtilleros().listarArtilleria();
+						       for(VOArtillero out_Artilleria:arreArtilleria)
+								{
+									System.out.println("+++++ artilleria"+ out_Artilleria.GetId()+"++++coordx"+out_Artilleria.getCoordX()+"++++coordy"+out_Artilleria.getCoordY()
+									+"++++artAngulo"+out_Artilleria.getArtilleroAngulo()+"++++artRangoVision"+out_Artilleria.getRangoDeVision()+"++++artEstado"+out_Artilleria.getEstado()+"++++artHayEnemigo"+out_Artilleria.getHayEnemigo()
+									+"++++artvida"+out_Artilleria.getVida()+"++++artbase"+out_Artilleria.getbase_id()
+											          );
+								}
+						       
+						       VOJugador arreJugadores[]= Voe.getJugadores();
+						       for(VOJugador out_Jugador:arreJugadores)
+								{
+									System.out.println("+++++ jugadorId"+ out_Jugador.getJugadorId()+"++++JugPass"+out_Jugador.getJugadorPassword()+"++++JugName"+out_Jugador.getJugadorUserName()+
+									"++++Jugisonline"+out_Jugador.isJugadorIsOnline()+"++++JugadorPuntajeAc"+out_Jugador.getPuntajeAcumulado() );
+								}
 						
 						
 						

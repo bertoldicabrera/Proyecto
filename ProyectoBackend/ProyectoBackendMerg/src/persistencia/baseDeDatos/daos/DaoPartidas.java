@@ -92,7 +92,10 @@ public class DaoPartidas implements Serializable {
 					out_PartidaFechaUltimaActualizacio, out_PartidaGuardada,
 					out_PartidaNombre, out_PartidaCantidadJugadores, 
 					out_PartidaCreador, out_PartidaFechaCreada,out_terminoPartida,
-					daoEq.listarEquiposDeUnaPartida(in_PartidaId, con) );
+					daoEq.listarEquiposDeUnaPartidaXID(in_PartidaId, con) ); //acá estoy seteando el daoequipo
+			//en esa partida
+			
+		
 			}
 		
 		catch (SQLException e){
@@ -100,7 +103,7 @@ public class DaoPartidas implements Serializable {
 			throw new PersistenciaException (e.toString());
 			//throw new PersistenciaException (mensg.errorSQLFindPartida);
 		}
-		System.out.println("linea 103 de daopartida");
+		System.out.println("linea 103 sale de daopartida con la partida creada");
 		return out_Part;
 	}
 	
@@ -202,10 +205,10 @@ public class DaoPartidas implements Serializable {
 
 
 
-@SuppressWarnings("null")
+
 public TreeMap<Integer, Partida> listarPartidasDeJugador(int in_IdJugador, IConexion con) throws PersistenciaException
 {
-	DaoEquipo daoEq = null,daoEqaux=null;
+//	DaoEquipo daoEq = null,daoEqaux=null;
 	consultas cons = new consultas();
 	TreeMap<Integer, Partida> listaDePartidas = new TreeMap<Integer, Partida>();
 	String sqlToExecute = cons.listarPartidasDeUnJugador();

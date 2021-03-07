@@ -122,6 +122,8 @@ public class DaoBase implements Serializable {
 	}
 
 	public Base find(int in_idBase, IConexion con) throws PersistenciaException {
+		
+		System.out.println("Base find 126");
 		Base out_base = null;
 		Deposito out_deposito = null;
 		Avion[] arreavion = null;

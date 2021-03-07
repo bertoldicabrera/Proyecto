@@ -19,9 +19,6 @@ public class Partida {
 	private DaoEquipo Equipos;
 
 
-
-
-
 public Partida() {
 }
 
@@ -108,6 +105,7 @@ public void setPartidaFechaCreada(LocalDate in_partidaFechaCreada) {
 }
 
 public DaoEquipo getEquipos() {
+	
 	return Equipos;
 }
 

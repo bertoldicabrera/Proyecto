@@ -16,12 +16,12 @@ public class Equipo implements Serializable {
 	
 	
 	public Equipo() {
-		
+		this.setJugadores(new  Jugador[tope]);
 	}
 	
 	
 	public Equipo(int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando ) {
-		this.setJugadores(new  Jugador[tope]);
+		
 		this.setEquipoID( in_equipoID);
         this.setJugadores(in_Jugadores);
 		this.setBase(  in_base);
@@ -30,7 +30,7 @@ public class Equipo implements Serializable {
 
 
 	public int getEquipoID() {
-		return equipoID;
+		return this.equipoID;
 	}
 
 
@@ -38,17 +38,9 @@ public class Equipo implements Serializable {
 		this.equipoID =  in_equipoID;
 	}
 
-
-
-
-
 	public Base getBase() {
 		return base;
 	}
-
-
-
-
 
 	public void setBase(Base  in_base) {
 		this.base =  in_base;
@@ -58,7 +50,6 @@ public class Equipo implements Serializable {
 	public String getBando() {
 		return bando;
 	}
-
 
 	public void setBando(String  in_bando) {
 		this.bando =  in_bando;
@@ -74,10 +65,5 @@ public class Equipo implements Serializable {
 		this.jugadores = jugadores;
 	}
 
-
-
-
-
-	
 
 }

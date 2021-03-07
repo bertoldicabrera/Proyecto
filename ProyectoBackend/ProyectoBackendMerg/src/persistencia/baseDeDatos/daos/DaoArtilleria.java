@@ -92,6 +92,7 @@ public class DaoArtilleria implements Serializable {
 
 			String queryArt = cons.listarArtillerosXBase();
 			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(queryArt);
+			System.out.println("El id de bas eque this.id es:"+this.baseid);
 			pstmt1.setInt(1, this.baseid);
 			ResultSet rs1 = pstmt1.executeQuery();
 			if (rs1.next() && (ind < tope)) {
@@ -113,7 +114,8 @@ public class DaoArtilleria implements Serializable {
 			pstmt1.close();
 
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindArtilleros);
+			
+			throw new PersistenciaException(mensg.errorSQLFindArtilleros+e.toString());
 		}
 		return arreArtilleria[index];
 
@@ -121,6 +123,7 @@ public class DaoArtilleria implements Serializable {
 
 	public Artillero[] listarArtilleria(IConexion con) throws PersistenciaException {
 		consultas cons = new consultas();
+		System.out.println("No tendria de llamar a getArreArtilleriaEnMemoria() 126 daoartilleria");
 
 		String sqlToExecute = cons.listarArtilleros();
 		PreparedStatement prstm;
@@ -138,7 +141,8 @@ public class DaoArtilleria implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindArtilleros);
+			
+			throw new PersistenciaException(mensg.errorSQLFindArtilleros+e.toString());
 		}
 
 		return secuenciaArtilleria;
@@ -164,7 +168,7 @@ public class DaoArtilleria implements Serializable {
 			rs.close();
 			prstm.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindArtilleros);
+			throw new PersistenciaException(mensg.errorSQLFindArtilleros+e.toString());
 		}
 
 		return secuenciaArtilleria;
