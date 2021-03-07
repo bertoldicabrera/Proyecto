@@ -340,6 +340,10 @@ public class consultas {
 		String query = "insert into TORRES_DE_CONTROL(torreControlCoordX,torreControlCoordY,torreControlEstado,torreControlVida,torreControlHayEnemigo,torreControlRangoVision) values(?,?,?,?,?,?);";
 		return query;
 	}
+	public String jugadoresDeunEquipo() {
+		String query = "select j.PK_jugador_id, j.jugadorUserName, j.jugadorPassword, j.jugadorisOnline, j.jugadorPuntajeAcumulado from jugadores j, equipos_jugadores ej, equipos e where ej.Pk_equipo_id=(?) and ej.Pk_equipo_id=e.Pk_equipo_id and j.PK_jugador_id=ej.PK_jugador_id;";
+		return query;
+	}
 	
 
 }

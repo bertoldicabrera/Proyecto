@@ -264,9 +264,17 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 			prstm.setInt (1, in_idpartida);
 			ResultSet rs = prstm.executeQuery();
 			int i=0;
+			System.out.println("hay cosas mal entrar a daoequipo 267");
 			while (rs.next()) {
-
-				Equipo out_av = new Equipo();
+//int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando 
+				//sql trae PK_equipo_id, equipoBando, FK_partida_id, FK_base_id
+				
+				Equipo out_av = new Equipo(
+						rs.getInt(1),
+						devolverJugadoresDeunEquipo(rs.getInt(1),con), //jugadores de un equipo dado un id de equipo me devuel 777
+						DaoB.find(rs.getInt(4), con),
+						rs.getString(2)
+						); 
 				out_Equipos[i]=out_av ;	
 			 i++;               
 			}
@@ -283,7 +291,41 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 		return aux;
 	}
 	
-
+private  Jugador[] devolverJugadoresDeunEquipo(int in_EquipoId, IConexion con ) throws PersistenciaException {
+	 Jugador[] arreJug= new Jugador[1];
+	consultas cons = new consultas();
+	
+	String sqlToExecute = cons.jugadoresDeunEquipo();
+	PreparedStatement prstm;
+	try {
+		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
+		ResultSet rs = prstm.executeQuery();
+		int x=0;
+		while (rs.next()) {
+		
+			Jugador auxjugador= new Jugador( 
+					rs.getInt(1),
+					rs.getString(2),
+					rs.getString(3), 
+					rs.getBoolean(4),
+					rs.getInt(5)
+					
+					);
+			arreJug[x]=auxjugador;
+			
+			x++;
+			
+		}
+		rs.close();
+		prstm.close();
+	} catch (SQLException e) {
+		throw new PersistenciaException (mensg.errorSQLFindEquipos);
+	}
+	
+	return arreJug;
+	
+	
+}
 
 
 	

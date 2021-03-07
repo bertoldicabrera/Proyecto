@@ -66,7 +66,7 @@ public class Equipo implements Serializable {
 
 
 	public Jugador[] getJugadores() {
-		return jugadores;
+		return this.jugadores;
 	}
 
 
