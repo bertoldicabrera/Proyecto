@@ -265,14 +265,19 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 			ResultSet rs = prstm.executeQuery();
 			int i=0;
 			System.out.println("hay cosas mal entrar a daoequipo 267");
+			DaoBase auxdaobase= new DaoBase();
 			while (rs.next()) {
 //int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando 
 				//sql trae PK_equipo_id, equipoBando, FK_partida_id, FK_base_id
 				
+				
+				Base auxiliarbase= auxdaobase.find(rs.getInt(4), con);
+				
+				
 				Equipo out_av = new Equipo(
 						rs.getInt(1),
 						devolverJugadoresDeunEquipo(rs.getInt(1),con), //jugadores de un equipo dado un id de equipo me devuel 777
-						DaoB.find(rs.getInt(4), con),
+						auxiliarbase,
 						rs.getString(2)
 						); 
 				out_Equipos[i]=out_av ;	
@@ -282,12 +287,14 @@ public DaoEquipo listarEquiposDeUnaPartida(int in_idpartida, IConexion con) thro
 			
 			rs.close();
 			prstm.close();
+			
+		
 		} catch (SQLException e) {
 			
 			System.out.println(e.toString());
 			throw new PersistenciaException (mensg.errorSQLFindEquipos);
 		}
-		
+		System.out.println("salgo de la 292 daoequipo");
 		return aux;
 	}
 	
@@ -299,6 +306,7 @@ private  Jugador[] devolverJugadoresDeunEquipo(int in_EquipoId, IConexion con ) 
 	PreparedStatement prstm;
 	try {
 		prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
+		prstm.setInt(1, in_EquipoId);
 		ResultSet rs = prstm.executeQuery();
 		int x=0;
 		while (rs.next()) {
@@ -318,8 +326,9 @@ private  Jugador[] devolverJugadoresDeunEquipo(int in_EquipoId, IConexion con ) 
 		}
 		rs.close();
 		prstm.close();
+		System.out.println("sale de la 324");
 	} catch (SQLException e) {
-		throw new PersistenciaException (mensg.errorSQLFindEquipos);
+		throw new PersistenciaException (mensg.errorSQLFindEquipos+e.toString());
 	}
 	
 	return arreJug;

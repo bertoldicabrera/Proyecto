@@ -11,7 +11,6 @@ import logica.Artillero;
 import logica.Avion;
 import logica.Base;
 import logica.Deposito;
-import logica.Equipo;
 import logica.TanqueCombustible;
 import logica.TorreControl;
 import persistencia.baseDeDatos.consultas.consultas;
@@ -131,9 +130,9 @@ public class DaoBase implements Serializable {
 		TorreControl out_torrecontrol = null;
 		DaoDeAviones out_aviones = null;
 		DaoArtilleria out_artilleros = null;
-		
-		System.out.println("135 daobase Ver si se rompe acá, falta el equipo..");
-		Equipo out_equipo = null;
+//		
+//		System.out.println("135 daobase Ver si se rompe acá, falta el equipo..");
+//		Equipo out_equipo = null;
 
 		try {
 			consultas cons = new consultas();
@@ -157,8 +156,9 @@ public class DaoBase implements Serializable {
 			pstmt1.close();
 			out_base = new Base(in_idBase, out_aviones, out_artilleros, out_deposito, out_tanquecombustible,
 					out_torrecontrol);
+			
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindBase);
+			throw new PersistenciaException(mensg.errorSQLFindBase+e.toString());
 		}
 		return out_base;
 

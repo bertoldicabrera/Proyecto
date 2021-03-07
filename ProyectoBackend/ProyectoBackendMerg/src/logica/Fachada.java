@@ -392,6 +392,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		for (int i=0; i<in_Equipo.length; i++) {
 			System.out.println("El arreglo tiene equipos: "+in_Equipo.length);
 			aux[i]=DevolverVoEquipoDadoEquipo( in_Equipo[i],con );
+			System.out.println( in_Equipo[i].getEquipoID()+" linea 395 fachada");
 		}
 		
 		return aux;

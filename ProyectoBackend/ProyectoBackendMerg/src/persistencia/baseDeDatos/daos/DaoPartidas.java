@@ -84,21 +84,23 @@ public class DaoPartidas implements Serializable {
 			pstmt1.close ();
 			
 			DaoEquipo daoEq = new DaoEquipo();
-			DaoEquipo daoEqaux=null;
-			daoEqaux=daoEq.listarEquiposDeUnaPartida(in_PartidaId, con);
+			System.out.println("linea 87 de daopartida ya traje los datos de la partida");
 		
 			
 			out_Part = new Partida 
 					(out_PartidaId, out_PartidaEstado,
 					out_PartidaFechaUltimaActualizacio, out_PartidaGuardada,
 					out_PartidaNombre, out_PartidaCantidadJugadores, 
-					out_PartidaCreador, out_PartidaFechaCreada,out_terminoPartida,daoEqaux );
+					out_PartidaCreador, out_PartidaFechaCreada,out_terminoPartida,
+					daoEq.listarEquiposDeUnaPartida(in_PartidaId, con) );
 			}
+		
 		catch (SQLException e){
 			
 			throw new PersistenciaException (e.toString());
 			//throw new PersistenciaException (mensg.errorSQLFindPartida);
 		}
+		System.out.println("linea 103 de daopartida");
 		return out_Part;
 	}
 	
