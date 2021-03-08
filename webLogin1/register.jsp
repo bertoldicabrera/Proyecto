@@ -3,8 +3,6 @@
 <c:if test="${sessionScope['sessionEmail']!=null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,37 +35,30 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
 	<div class="limiter">
 		<div class="container-login100">
 		<div class="login100-more" style="background-image: url('images/bg-02.jpg');"></div>
-		
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-			
 				<form class="login100-form validate-form" action="Register" method="post">
 					<span class="login100-form-title p-b-59">
 						Registrarse
 						<p> ${sessionScope['error']}</p>
 					</span>
-						
 					<div class="wrap-input100 validate-input" data-validate="El nombre es requerido ">
 						<span class="label-input100">Usuario</span>
 						<input class="input100" type="text" name="Usuario" placeholder="Usuario">
 						<span class="focus-input100"></span>
 					</div>
-
 					<div class="wrap-input100 validate-input" data-validate = "La contraseña requerida">
 						<span class="label-input100">contraseña</span>
 						<input class="input100" type="password" name="password1" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
-
 					<div class="wrap-input100 validate-input" data-validate = "Repetir la contraseña requerida">
 						<span class="label-input100">Repita la contraseña</span>
 						<input class="input100" type="password" name="password2" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
-
 					<div class="flex-m w-full p-b-33">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
@@ -80,19 +71,14 @@
 								</span>
 							</label>
 						</div>
-
-						
 					</div>
-
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
 								Registrarme
-								
 							</button>
 						</div>
-
 						<a href="login.jsp" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
 							Loguearse
 							<i class="fa fa-long-arrow-right m-l-5"></i>

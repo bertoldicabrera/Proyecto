@@ -1,28 +1,29 @@
-package Logica;
+package logica;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
-
-import Logica.Excepciones.LogicaException;
-import Logica.Excepciones.PersistenciaException;
-import Logica.Vo.VOJugador;
+import java.util.ArrayList;
+import logica.excepciones.*;
+import logica.valueObjects.*;
+import persistencia.excepciones.PersistenciaException;
 
 public interface IFachada extends Remote{
 	
+	public void registrarJugador(VOJugador in_voJug) throws PersistenciaException, LogicaException, RemoteException , InterruptedException;
 	
-	public void nuevoJugador (VOJugador voN) throws LogicaException, PersistenciaException, RemoteException;
+	public VOJugador Login(String in_userName, String in_userPassword)throws RemoteException, LogicaException, PersistenciaException , InterruptedException;
+	
+	public ArrayList<VOPartida> listarPartidasAReanudar(String in_Nickname)throws PersistenciaException, LogicaException, RemoteException, InterruptedException;
+	
+	public VOPartida ReanudarPartida(int in_partidaid)throws PersistenciaException, LogicaException, RemoteException, InterruptedException;
+	
+	public void guardarPartida(VOPartida in_voPartida) throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
+	
+	public void logout(String in_userName)throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
+	
+	public boolean jugadorIsOnline(String in_name) throws LogicaException, RemoteException, InterruptedException, PersistenciaException;
+	
+	public String verConexion(String x) throws RemoteException, InterruptedException;
 	
 	
-	public List<VOJugador> listarJugadores () throws PersistenciaException, RemoteException, LogicaException;
-	
-	
-	public void borrarJugador (String email) throws LogicaException, PersistenciaException, RemoteException;
-	
-
-	public Jugador findJugador (String email) throws LogicaException , RemoteException;
-	public String darNombre(String email) throws LogicaException, RemoteException;
-	public boolean userRegistrado (String email) throws LogicaException, RemoteException;
-	public boolean validarCuenta(String mail, String pass) throws LogicaException, RemoteException;
-
 }

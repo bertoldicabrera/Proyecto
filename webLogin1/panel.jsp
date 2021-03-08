@@ -59,7 +59,7 @@ fin comentario--%>
 
 								<div class="inner-text">
 									<br>
-										Usuario ${sessionScope['sessionNombre']}
+										Usuario: ${sessionScope['sessionNombre']}
 									<br/>
 								</div>
 							</div>
