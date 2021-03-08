@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V17</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -66,7 +66,7 @@
 					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Loguearse
+							Loguearme
 						</button>
 						
 					</div>

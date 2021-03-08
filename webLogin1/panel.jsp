@@ -55,7 +55,7 @@ fin comentario--%>
 					<ul class="nav" id="main-menu">
 						<li>
 							<div class="user-img-div">
-								<img src="assets/img/user.png" class="img-thumbnail" />
+								<img src="images/jugador1.jpg" class="img-thumbnail" />
 
 								<div class="inner-text">
 									<br>
@@ -68,7 +68,7 @@ fin comentario--%>
 							
 							 <ul class="nav nav-second-level collapse in">
 								 <li>
-									<a class="active-menu" href="panel.jsp"><i class="fa fa-circle-o "></i>Progreso</a>
+									<a class="active-menu" href="panel.jsp"><i class="fa fa-circle-o "></i>Menu</a>
 								</li>
 							</ul>
 						</li>
@@ -78,62 +78,147 @@ fin comentario--%>
 			<!-- /. NAV SIDE  -->
 			<div id="page-wrapper">
 				<div id="page-inner">
-					<div class="row">
+				<!-- /. ROW  fila 0-->
+					<div class="row"> 
 						<div class="col-md-12">
-							<h1 class="page-head-line">Barra de Progreso</h1>
-							<h1 class="page-subhead-line">Acá puedes ver tu progreso </h1>
+							<h1 class="page-head-line">Menu general</h1>
+							<h1 class="page-subhead-line">Acá puedes crear una partida, unirte a una partida,  reanudar una partida guardada y ver tu progreso </h1>
 						</div>
 						
 						
-					<div class="col-md-12">
-					<button class="bt3">Crear partida</button>
-					<button class="bt3">Listar Partidas Guardadas</button>
-					<button class="bt3">Unirse a una partida</button>
+						<div class="col-md-12">
+						<button type="button" class="btn btn-info">Crear partida</button>
+						</div>
+						
+						 <label></label>
 					</div>
-					</div>
+					<!-- /. ROW  FIN fila 0-->
+					
 					<!-- /. ROW  fila 1-->
 					<div class="row">
+					
+					<div class="col-md-6 col-sm-6 col-xs-12">
+	               			<div class="panel panel-info">
+		                        <div class="panel-heading">
+		                           Unirse a una partida
+		                        </div>
+		                        
+		                        <div class="panel-body">
+		                            <form role="form">
+		                                        <div class="form-group">
+		                                            <label>Ingrese el id de la partida</label>
+		                                            <input class="form-control" type="text">
+		                                            <p class="help-block">Este número te lo brinda tu enemigo</p>
+		                                        </div>
+		                                        <button type="submit" class="btn btn-info">Unirme a una partida </button>
+		                             </form>
+		                        </div>
+	                        </div>
+                        </div>
+					
+					
+					
+					
+					
+					
 						<div class="col-md-6">
-						   <div class="panel panel-default">
-							<div class="panel-heading">
-								Puntaje total acumulado
-							</div>
-							<div class="panel-body">
-	<div class="progress">
-	  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-		<span class="sr-only">60% Complete</span>
-	  </div>
-	</div>
-							</div>
-						   
-						</div>
-						</div>
-						<div class="col-md-6">
-						   <div class="panel panel-default">
-							<div class="panel-heading">
-								Porcentaje de Partidas ganadas
-							</div>
-							<div class="panel-body">
-								<div class="progress">
-					 				 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-										50%
-								  </div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									Puntaje total acumulado
 								</div>
+								<div class="panel-body">
+									<div class="progress">
+									  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+										<span class="sr-only">60% Complete</span>
+									  </div>
+									</div>
+								</div>
+							   
 							</div>
-						   
-						</div>
 						</div>
 						
+						
+						
 				</div>
-				
-					<!-- /. ROW fin fila 1-->
-			
+					<!-- /. ROW FIN fila 1  -->
 					
-				</div>
+				
+		<!-- /. TABLE ROW  -->		
+		<div class="row">
+         <div class="col-md-12">
+		      <div class="panel panel-primary">
+		     		<!-- Default panel contents -->
+		      		<div class="panel-heading"><td><a href="#" class="btn btn-info">Listar partidas Guardadas</a></td></div>
+		
+		     					 <!-- Table -->
+						      <table class="table">
+						        <thead>
+						          <tr>
+						            <th>#</th>
+						            <th>Nombre</th>
+						            <th>Fecha</th>
+						            <th>Acción</th>
+						          </tr>
+						        </thead>
+						        <tbody>
+						          <tr class="list-group-item-success">
+						            <td>1</td>
+						            <td>Partida x</td>
+						            <td>23rd June </td>
+						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						          <tr class="list-group-item-danger">
+						            <td>2</td>
+						            <td>Partida x</td>
+						            <td>10th November </td>
+						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						          <tr class="list-group-item-info">
+						            <td>3</td>
+						            <td>Partida x</td>
+						            <td>2nd December </td>
+						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						            <tr class="list-group-item-warning">
+						            <td>4</td>
+						            <td>Partida x</td>
+						            <td>23rd June </td>
+						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						          <tr class="list-group-item-info">
+						            <td>5</td>
+						           <td>Partida x</td>
+						            <td>10th November </td>
+						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						          <tr class="list-group-item-danger">
+						            <td>6</td>
+						            <td>Partida x</td>
+						            <td>2nd December </td>
+						           <td><a href="#" class="btn btn-success">Reanudar</a></td>
+						          </tr>
+						        </tbody>
+						      </table>
+		      
+		      
+		      
+		    </div>
+        </div>
+     </div>		
+				
+				
+				
+				
+				
 				<!-- /. PAGE INNER  -->
 			</div>
 			<!-- /. PAGE WRAPPER  -->
 		</div>
+		
+		
+		
+		
+		
 		<!-- /. WRAPPER  -->
 		<div id="footer-sec">
 			&copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>
@@ -148,8 +233,6 @@ fin comentario--%>
 		<script src="assets/js/jquery.metisMenu.js"></script>
 		<!-- CUSTOM SCRIPTS -->
 		<script src="assets/js/custom.js"></script>
-
-
 	</body>
 </html>
 

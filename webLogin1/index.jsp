@@ -33,21 +33,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#test">Testigos</a>
                         </li>
-                    </ul>
-                    
-                     <li class="nav-item">
-                           <a class="nav-link" href="register.jsp">Registrarse</a>
+                     
+                     </ul>
+                     
+                      <li class="nav-item">
+                           <a  class="nav-link" href="register.jsp">Registrarse</a>
                      </li>
                      <li class="nav-item">
                           <a class="nav-link" href="login.jsp">Login</a>
                      </li>
-                     
-                     <li class="nav-item search">
-                            <a class="nav-link search-link" href=""><i class="fas fa-search"></i></a>
-                            <form>
-                                <input type="search">
-                            </form>
-                    </li>
+                    
                 </div>
             </div>
         </nav>
@@ -58,7 +53,7 @@
                     <h1>Bienvenidos a la<br> Aviación en la primera guerra mundial</h1>
                     <p>La victoria está reservada para aquellos que están dispuestos a pagar su precio.</p>
                     <a href="#">
-                        <span>read more</span>
+                        <span>Saber más</span>
                         <i class="fas fa-long-arrow-alt-right fa-2x"></i>
                     </a>
                 </div>
@@ -93,17 +88,17 @@
                 </div>
                 <div class="col-lg-6 col-12 text-right">
                     <div class="about-child">
-                        <h2 class="text-uppercase"><span>abo</span>ut us</h2>
+                        <h2 class="text-uppercase"><span>Sobre</span> Nosotros</h2>
                         <p>El mejor juego de guerra en el aire</p>
                         <p>Mucho tiro, bombas y aviones!! Destruye a tu enemigo, demuestra que sos el mejor!!! </p>
-                        <a href="#"><i class="fas fa-long-arrow-alt-left fa-2x"></i><span>Read more</span></a>
+                        <a href="#"><i class="fas fa-long-arrow-alt-left fa-2x"></i><span>Saber Más</span></a>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="services" id="service">
-            <div class="container"><h2 class="text-capitalize"><span>Our</span> services</h2></div>
+            <div class="container"><h2 class="text-capitalize"><span>Como</span> Jugar</h2></div>
             <div class="services-child">
                 <div class="container">
                     <div class="row">
@@ -117,7 +112,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div>
                                 <img src="imgs/pic1.jpg">
-                                <a href="#"><h4>Monta tu avión</h4></a>
+                                <a href="#"><h4>Elegí el color de tu avión</h4></a>
                                 <p>Puedes elegir el color y eso define tu equipo</p>
                             </div>
                         </div>
@@ -125,19 +120,17 @@
                             <div>
                                 <img src="imgs/pic2.jpg">
                                 <a href="#"><h4>Derriba el enemigo</h4></a>
-                                <p> Destruye los aviones y bases enemigas para ser el campeon</p>
+                                <p> Destruye los aviones y bases enemigas para ser el campeon!</p>
                             </div>
                         </div>
                     </div>
-                    <a href="#"><i class="fas fa-long-arrow-alt-left fa-2x"></i><span>Read more</span></a>
+                    <a href="#"><i class="fas fa-long-arrow-alt-left fa-2x"></i><span>Saber</span> Más</a>
                 </div>
             </div>
         </div>
-        
-              
        
         <div class="testimonial" id="test">
-            <div class="container"><h2 class="text-capitalize text-center"><span>test</span>imonial</h2></div>
+            <div class="container"><h2 class="text-capitalize text-center"><span>Testigos</span> </h2></div>
             <div class="test-child">
                 <div class="container">
                     <div class="row">
