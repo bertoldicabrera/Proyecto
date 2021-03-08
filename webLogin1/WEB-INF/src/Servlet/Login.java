@@ -93,11 +93,13 @@ public class Login extends HttpServlet {
 							 
                            
 						} catch (LogicaException e) {
-							System.out.println( "Error"+e.toString());
+							session.setAttribute( "error",e.toString());
 						} catch (PersistenciaException e) {
-							System.out.println( "Error"+e.toString());
+							session.setAttribute( "error",e.toString());
 						} catch (InterruptedException e) {
-							System.out.println( "Error"+e.toString());
+							session.setAttribute( "error",e.toString());
+						} catch (RemoteException e) {
+							session.setAttribute( "error",e.toString());
 						}
                          
  
