@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Workland Factory</title>
+        <title>Saviors of the somme</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/fontawesome.min.css">
         <link rel="stylesheet" href="css/style.css">
@@ -22,24 +22,24 @@
                 <div class="collapse navbar-collapse text-capitalize" id="nav-links">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#home">Inicio <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
+                            <a class="nav-link" href="#about">Acerca de</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#service">More</a>
+                            <a class="nav-link" href="#service">Mas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#test">Testimonial</a>
+                            <a class="nav-link" href="#test">Testigos</a>
                         </li>
                     </ul>
                     
                      <li class="nav-item">
-                           <a class="nav-link" href="register.jsp">Register</a>
+                           <a class="nav-link" href="register.jsp">Registrarse</a>
                      </li>
                      <li class="nav-item">
-                          <a class="nav-link" href="login.jsp">Log in</a>
+                          <a class="nav-link" href="login.jsp">Login</a>
                      </li>
                      
                      <li class="nav-item search">
