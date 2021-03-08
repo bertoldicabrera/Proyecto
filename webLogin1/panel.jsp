@@ -3,7 +3,7 @@
 <%-- inicio comentario
 
 si no esta logueado  volver a poner esto
-<c:if test="${sessionScope['sessionEmail']==null}">
+<c:if test="${sessionScope['sessionUserName']==null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if> 
 fin comentario--%>

@@ -5,11 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.TreeMap;
-
-import org.omg.Messaging.SyncScopeHelper;
-
 import Utilitarios.MensajesPersonalizados;
 import logica.Partida;
 import persistencia.baseDeDatos.consultas.consultas;

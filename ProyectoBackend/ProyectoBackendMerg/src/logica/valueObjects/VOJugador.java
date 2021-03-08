@@ -13,7 +13,9 @@ public class VOJugador implements Serializable{
 	 private boolean jugadorIsOnline;
 	 private int puntajeAcumulado;      
 	 
-	 
+	 public VOJugador() {
+			// TODO Auto-generated constructor stub
+		}
 	
 	
 	 

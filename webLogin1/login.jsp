@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%-- si exista sesion iniciada redirecciono a index.jsp. --%>
-<c:if test="${sessionScope['sessionEmail']!=null}">
+<%-- si exista sesion iniciada redirecciono a index.jsp. no tiene sentido crear una cuenta estando logueado --%>
+<c:if test="${sessionScope['UserName']!=null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if>
      
@@ -40,6 +40,12 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="Login" method="post">
+				
+					<span class="login100-form-title p-b-59">
+						<p> ${sessionScope['error']}</p>
+					</span>
+				
+				
 					<span class="login100-form-title p-b-34">
 						Login
 					</span>
@@ -68,11 +74,7 @@
 						<button class="login100-form-btn">
 							Loguearme
 						</button>
-						
 					</div>
-
-					
-
 					<div class="w-full text-center">
 						<a href="register.jsp" class="txt3">
 						<span class="txt1">

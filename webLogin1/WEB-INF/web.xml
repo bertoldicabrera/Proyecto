@@ -14,7 +14,15 @@
   <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>Servlet.Login</servlet-class>
-    
+     <init-param>
+			<param-name>ipServidor</param-name>
+			<param-value>localhost</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>puerto</param-name>
+			<param-value>8095</param-value>
+		</init-param>
    </servlet>
  
   <servlet-mapping>
@@ -25,6 +33,15 @@
   <servlet>
     <servlet-name>Register</servlet-name>
     <servlet-class>Servlet.Register</servlet-class>
+     <init-param>
+			<param-name>ipServidor</param-name>
+			<param-value>localhost</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>puerto</param-name>
+			<param-value>8095</param-value>
+		</init-param>
   </servlet>
  
   <servlet-mapping>

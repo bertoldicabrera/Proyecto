@@ -2,9 +2,6 @@ package logica.valueObjects;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-
-import persistencia.baseDeDatos.daos.DaoEquipo;
 
 public class VOPartida implements Serializable {
 	

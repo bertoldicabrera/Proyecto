@@ -13,8 +13,9 @@ public class VOJugador implements Serializable{
 	 private boolean jugadorIsOnline;
 	 private int puntajeAcumulado;      
 	 
-	 
-	
+	 public VOJugador() {
+			// TODO Auto-generated constructor stub
+		}
 	
 	 
 	 public VOJugador(int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
@@ -27,9 +28,6 @@ public class VOJugador implements Serializable{
 		 this.setPuntajeAcumulado(in_PuntajeAcumulado);
 	 }
 	 
-	
-	
-
 
 
 	public String getJugadorPassword() {

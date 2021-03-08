@@ -1,6 +1,9 @@
 package Servlet;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,16 +18,17 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import Logica.Validador;
-import Logica.Excepciones.LogicaException;
-import Logica.Excepciones.PersistenciaException;
-import Logica.Vo.VOJugador;
-import Logica.IFachada;
+
+import logica.IFachada;
+import logica.excepciones.LogicaException;
+import logica.valueObjects.VOJugador;
+import persistencia.excepciones.PersistenciaException;
+
  
 public class Login extends HttpServlet {
  
-	public IFachada fac;
 	
+	public IFachada fac;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -39,69 +43,67 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	
+    	conectar ();
     	
     		
         HttpSession session = request.getSession(true);
-        String email = request.getParameter("email");
+        String UserName = request.getParameter("UserName");
         String passwordPlana = request.getParameter("password");
       
-        Pattern p = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
-        Matcher m = p.matcher(email);
+        Pattern p = Pattern.compile("^([0-9a-zA-Z])$"); // solo acepto letras y numeros
+        Matcher m = p.matcher(UserName);
         Validador v = new Validador();
         session.setAttribute("error", null);
         boolean error=true;
         //campos vacios
-        if (email.isEmpty() || passwordPlana.isEmpty()) {
+        if (UserName.isEmpty() || passwordPlana.isEmpty()) {
         	
         	//error = true;
 			//msgError = "Los campos no pueden estar vacio";
         	session.setAttribute("error", "Hay campos vacios");
  
         } else {
-            //No hay campos vacios, veo que la direccion de email sea válida
+            //No hay campos vacios, veo que el nombre ingresado es valido
+        	//The find method scans the input sequence looking forthe next subsequence that matches the pattern. 
             if (m.find()) {
-            	//error = true;
-    			//msgError = "La direccion de email no es correcta";
-            	session.setAttribute("error", "La direccion de email no es correcta");
+            	error = true;
+    			//msgError = "El Username no es valido";
+            	session.setAttribute("error", "El Username no es valido, solo se permiten letras y numeros");
  
             } else {
             	
             	//tengo de encriptar la password antes de mandarla en este paso
             	//String password=DigestUtils.sha512Hex(passwordPlana);
-            	
-            	
                 //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
                 if (v.isUsernameOrPasswordValid(passwordPlana)) {
-                        try {
                            
-                            if (fac.validarCuenta(email, passwordPlana)) {
-                                //Significa que la cuenta si existe
-                                //OBTENGO EL NOMBRE DEL USUARIO Y LO GUARDO EN UNA SESION
-                            	String NombreUsuario=fac.darNombre(email);
-                                session.setAttribute("sessionNombre", NombreUsuario);
-                                session.setAttribute("sessionEmail", email);
-                          
-                                CargarArreglo(session, fac);
-
-                                error=false;
-                                
-                                
-                            } else {
-                            	
-                            	session.setAttribute("error", "Usuario o password incorrecto");
-                            }
- 
+                           try {
+							VOJugador jugador= new VOJugador();
+									
+							jugador=fac.Login(UserName, passwordPlana);
+						 if( jugador==null ) {
+							 error=true;
+						 }
+						 else
+						 {
+							 session.setAttribute("sessionNombre", jugador.getJugadorUserName());
+	                          //  CargarArreglo(session, fac);
+	                            error=false;
+						 }
+							 
                            
- 
-                        } catch (Exception e) {
-                        	
-                        	session.setAttribute("error", e.toString());
-                        }
+						} catch (LogicaException e) {
+							System.out.println( "Error"+e.toString());
+						} catch (PersistenciaException e) {
+							System.out.println( "Error"+e.toString());
+						} catch (InterruptedException e) {
+							System.out.println( "Error"+e.toString());
+						}
+                         
  
                 } else {
                 	
-                	session.setAttribute("error", "Contraseña no es válida");
+                	session.setAttribute("error", "Usuario o password incorrecto");
  
                 }
  
@@ -110,7 +112,7 @@ public class Login extends HttpServlet {
         }
         if(error==false)
         {
-        	
+        	// si no hay error puedo redirecionar
         	response.sendRedirect("panel.jsp");
         }else
         {
@@ -120,9 +122,38 @@ public class Login extends HttpServlet {
  
       
  
+    } // fin dopost
+    
+    
+    private void conectar ()
+    {
+    	
+    	/// Parametros van locales a un serverlet en el web.xml
+    			String ipServidor = super.getInitParameter("ipServidor");
+    			String puerto = super.getInitParameter("puerto");
+    			String nombreAPublicar = super.getInitParameter("nombreAPublicar");
+    			String ruta = "//" + ipServidor + ":" + puerto + "/" + nombreAPublicar;
+    			try {
+    				fac = (IFachada) Naming.lookup(ruta);
+    			} catch (MalformedURLException e) {
+    				System.out.println( "Error"+e.toString());
+    				
+    			} catch (RemoteException e) {
+    				System.out.println( "Error"+e.toString());
+    			} catch (NotBoundException e) {
+    				System.out.println( "Error"+e.toString());
+    			}
+    			
     }
     
-    private void CargarArreglo(HttpSession sessi,IFachada fachada) throws SQLException, RemoteException, PersistenciaException, LogicaException
+    
+    
+    
+    
+    
+    
+    
+    private void CargarArreglo(HttpSession sessi,IFachada fachada) throws SQLException, RemoteException, LogicaException
     {
     	
     	
@@ -131,14 +162,14 @@ public class Login extends HttpServlet {
 		if (arreVOR1 == null)
 		{
 			arreVOR1 = new ArrayList<VOJugador>();
-			for (int i=0;i<fachada.listarJugadores().size();i++)
-				arreVOR1.add(fachada.listarJugadores().get(i));
+		//	for (int i=0;i<fachada.listarJugadores().size();i++)
+		//		arreVOR1.add(fachada.listarJugadores().get(i));
 		}else
 		{
 			sessi.setAttribute("arre", null);
 			arreVOR1 = new ArrayList<VOJugador>();
-			for (int i=0;i<fachada.listarJugadores().size();i++)
-				arreVOR1.add(fachada.listarJugadores().get(i));
+		////	for (int i=0;i<fachada.listarJugadores().size();i++)
+			//	arreVOR1.add(fachada.listarJugadores().get(i));
 		}
 			
 	

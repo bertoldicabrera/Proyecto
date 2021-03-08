@@ -1,4 +1,4 @@
-package Logica;
+package Servlet;
 
 public class Validador {
 

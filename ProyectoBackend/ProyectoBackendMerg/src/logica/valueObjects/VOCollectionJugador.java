@@ -3,8 +3,6 @@ package logica.valueObjects;
 import java.io.Serializable;
 import java.util.TreeMap;
 
-import logica.Jugador;
-
 
 
 public class VOCollectionJugador  implements Serializable  {

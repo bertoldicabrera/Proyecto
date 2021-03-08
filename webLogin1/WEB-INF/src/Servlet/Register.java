@@ -16,26 +16,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import Logica.IFachada;
-import Logica.Validador;
-import Logica.Vo.VOJugador;
-import Utilitarios.SystemProperties;
+import logica.IFachada;
+import logica.valueObjects.VOJugador;
+
+
  
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static IFachada fa;
-	static SystemProperties sp; 
-	
-private void conectar () throws NotBoundException, IOException
-{
-	System.out.println( "*************####Entra a Register.java#####*********");
-	sp = new SystemProperties();
-		String ip = sp.getIpServidor();
-		String puerto = sp.getPuertoServidor();
-		String ruta = "//" + ip + ":" + puerto + "/"+ sp.getNombreAPublicar();
-		fa  = (IFachada) Naming.lookup(ruta);
-}
-	
+	public IFachada fac;
 	
 	
 
@@ -53,37 +41,33 @@ private void conectar () throws NotBoundException, IOException
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     	
     	
-    	try {
 			conectar ();
-		} catch (NotBoundException | IOException e1) {
-			System.out.println( "*************####Se rompio en el try#####*********");
-		}
     	
         HttpSession session = request.getSession(true);
         boolean registroexitoso= false;
         session.setAttribute("error", null);
         //Declaro e inicio las variables
         String nombreUsuario = request.getParameter("name");
-        String emailUsuario = request.getParameter("email");
         String password = request.getParameter("password1");
         String confirm_password = request.getParameter("password2");
         //Pattern Clase: define un patrón (para usar en una búsqueda)
         //https://www.w3schools.com/java/java_regex.asp
-        Pattern p = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
-        Matcher m = p.matcher(emailUsuario);
+        Pattern p = Pattern.compile("^([0-9a-zA-Z])$"); // solo acepto letras y numeros
+        Matcher m = p.matcher(nombreUsuario);
         Validador v = new Validador();
         
         //Comienzo con las validaciones
         
         
         //campos vacios
-        if(nombreUsuario.isEmpty() || emailUsuario.isEmpty() || password.isEmpty() || confirm_password.isEmpty()){
+        if(nombreUsuario.isEmpty() || password.isEmpty() || confirm_password.isEmpty()){
         	session.setAttribute("error", "Hay campos vacios");
             
         } else {
             //veo que la direccion de email sea válida
-            if(m.find()){
-            	session.setAttribute("error", "La direccion de email no es correcta");
+        //	The find method scans the input sequence looking forthe next subsequence that matches the pattern. 
+            if(m.find()){ 
+            	session.setAttribute("error", "El Username no es valido, solo se permiten letras y numeros");
                 
             } else {
                 //email correcto, verifico la contraseña
@@ -92,39 +76,22 @@ private void conectar () throws NotBoundException, IOException
                     if(password.equals(confirm_password)){
                         try {
                            
-                                if(fa.userRegistrado(emailUsuario)){
-                                	session.setAttribute("error", "Esta direccion de correo ya fue registrada");
-                                } else {
-                                    
-                                	
-                                	
-                                	//tengo de encriptar la password antes de mandarla en este paso
-                                	//String encriptPassword=DigestUtils.sha512Hex(password);
-                                	VOJugador vo= new VOJugador(nombreUsuario, 5, emailUsuario, password);
-                                	
-                                    //Llegado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
-                                	fa.nuevoJugador(vo);
-                                    
-                                    registroexitoso=true;
-                                }
-                            
-                           
-                             
-                        } catch (Exception e) 
-                        { session.setAttribute("error", e.toString()); }
-                        
+                        	//int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
+               			// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
+                        	VOJugador in_voJug= new VOJugador(0,nombreUsuario, password, true, 0);
+                            fac.registrarJugador(in_voJug); 
+                            registroexitoso=true;
+	                        } catch (Exception e) 
+	                        	{ 
+	                        	session.setAttribute("error", e.toString()); 
+	                        	}
                         
                         
                     } else {
-                    	session.setAttribute("error", "Las contraseñas no son iguales");
-                        
-                    }
+                    	session.setAttribute("error", "Las contraseñas no son iguales");}
                     
                 } else {
-                	session.setAttribute("error", "Contraseña no es válida");
-                   
-                }
-                
+                	session.setAttribute("error", "Contraseña no es válida");}
                 
             }
         }
@@ -146,5 +113,24 @@ private void conectar () throws NotBoundException, IOException
         }
         
         
+    }// fin do post
+    
+    private void conectar ()
+    {
+    	/// Parametros van locales a un serverlet en el web.xml
+    			String ipServidor = super.getInitParameter("ipServidor");
+    			String puerto = super.getInitParameter("puerto");
+    			String nombreAPublicar = super.getInitParameter("nombreAPublicar");
+    			String ruta = "//" + ipServidor + ":" + puerto + "/" + nombreAPublicar;
+    			try {
+    				fac = (IFachada) Naming.lookup(ruta);
+    			} catch (MalformedURLException e) {
+    				System.out.println( "Error"+e.toString());
+    				
+    			} catch (RemoteException e) {
+    				System.out.println( "Error"+e.toString());
+    			} catch (NotBoundException e) {
+    				System.out.println( "Error"+e.toString());
+    			}
     }
 }
