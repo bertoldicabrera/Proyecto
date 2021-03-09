@@ -38,13 +38,10 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
+    	conectar();
     	
-    	
-    	//conectar();	estava antes voy a probar si anda bien pasar una session al conectar.
-    	
+    		
         HttpSession session = request.getSession(true);
-        
-        conectar(session);
         String UserName = request.getParameter("UserName");
         String passwordPlana = request.getParameter("password");
       
@@ -88,6 +85,7 @@ public class Login extends HttpServlet {
 	                          //  CargarArreglo(session, fac);
 	                            error=false;
 						 }
+							 
                            
 						} catch (LogicaException e) {
 							session.setAttribute( "error",e.toString());
@@ -103,7 +101,10 @@ public class Login extends HttpServlet {
                 } else {
                 	
                 	session.setAttribute("error", "Usuario o password incorrecto");
+ 
                 }
+ 
+ 
             }
         }
         if(error==false)
@@ -112,7 +113,7 @@ public class Login extends HttpServlet {
         	response.sendRedirect("panel.jsp");
         }else
         {
-        	response.sendRedirect("login.jsp");
+        	response.sendRedirect("error.jsp");
         }
         
  
@@ -121,7 +122,7 @@ public class Login extends HttpServlet {
     } // fin dopost
     
     
-    private void conectar (HttpSession session)
+    private void conectar ()
     {
     	
     	/// Parametros van locales a un serverlet en el web.xml
@@ -132,15 +133,12 @@ public class Login extends HttpServlet {
     			try {
     				fac = (IFachada) Naming.lookup(ruta);
     			} catch (MalformedURLException e) {
-    				//System.out.println( "Error"+e.toString());
-   				session.setAttribute("error", "Error: contacte al administrador");
+    				System.out.println( "Error"+e.toString());
     				
     			} catch (RemoteException e) {
-    			//	System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
+    				System.out.println( "Error"+e.toString());
     			} catch (NotBoundException e) {
-    			//System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
+    				System.out.println( "Error: "+e.toString());
     			}
     			
     }

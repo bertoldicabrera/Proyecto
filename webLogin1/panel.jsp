@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%-- inicio comentario
 
-si no esta logueado  volver a poner estofin comentario--%>
-<c:if test="${sessionScope['sessionNombre']==null}">
+si no esta logueado  volver a poner esto
+<c:if test="${sessionScope['sessionUserName']==null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if> 
-
+fin comentario--%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -154,21 +154,19 @@ si no esta logueado  volver a poner estofin comentario--%>
 						      <table class="table">
 						        <thead>
 						          <tr>
-						            <th>Id</th>
+						            <th>#</th>
 						            <th>Nombre</th>
 						            <th>Fecha</th>
 						            <th>Acción</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						        <c:forEach items="${arre}" var="i">
 						          <tr class="list-group-item-success">
-						            <td>${i.GetId()}</td>
+						            <td>1</td>
 						            <td>Partida x</td>
 						            <td>23rd June </td>
 						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
 						          </tr>
-						          </c:forEach>
 						          <tr class="list-group-item-danger">
 						            <td>2</td>
 						            <td>Partida x</td>

@@ -1,7 +1,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%-- si no esta logueado --%>
-<c:if test="${sessionScope['sessionNombre']==null}">
+<c:if test="${sessionScope['sessionEmail']==null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if> 
 <!DOCTYPE html>
@@ -67,7 +67,7 @@
 										User ${sessionScope['sessionNombre']}
 									<br/>
 									<br>
-										Email ${sessionScope['sessionNombre']}
+										Email ${sessionScope['sessionEmail']}
 									<br/>
 									<small>Last Login : 2 Weeks Ago </small>
 								</div>
@@ -176,7 +176,7 @@
 						</li>
 						<li>
 							<form action="Logout" method="post" class="fa fa-square-o ">
-							<p><input type="submit" value="Salir" onClick="location.reload();"></p>
+							<p><input type="submit" value="Salir" onClick="location.reload();"</p>
 							</form>
 							
 						</li>
