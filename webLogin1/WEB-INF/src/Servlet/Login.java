@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import logica.IFachada;
 import logica.excepciones.LogicaException;
 import logica.valueObjects.VOJugador;
+import logica.valueObjects.VOPartida;
 import persistencia.excepciones.PersistenciaException;
 
  
@@ -85,7 +86,9 @@ public class Login extends HttpServlet {
 						 else
 						 {
 							 session.setAttribute("sessionNombre", jugador.getJugadorUserName());
-	                          //  CargarArreglo(session, fac);
+	                           
+							CargarArreglo(session, fac, jugador.getJugadorUserName());
+								
 	                            error=false;
 						 }
                            
@@ -97,6 +100,9 @@ public class Login extends HttpServlet {
 							session.setAttribute( "error",e.toString());
 						} catch (RemoteException e) {
 							session.setAttribute( "error",e.toString());
+						}
+		                 catch (SQLException e) {
+		                	 session.setAttribute( "error",e.toString());
 						}
                          
  
@@ -152,27 +158,34 @@ public class Login extends HttpServlet {
     
     
     
-    private void CargarArreglo(HttpSession sessi,IFachada fachada) throws SQLException, RemoteException, LogicaException
+    private void CargarArreglo(HttpSession session,IFachada fachada, String in_Nickname) throws SQLException, RemoteException, LogicaException
     {
     	
     	
 		
-    	ArrayList<VOJugador> arreVOR1 = (ArrayList<VOJugador>) sessi.getAttribute("arre");
-		if (arreVOR1 == null)
-		{
-			arreVOR1 = new ArrayList<VOJugador>();
-		//	for (int i=0;i<fachada.listarJugadores().size();i++)
-		//		arreVOR1.add(fachada.listarJugadores().get(i));
-		}else
-		{
-			sessi.setAttribute("arre", null);
-			arreVOR1 = new ArrayList<VOJugador>();
-		////	for (int i=0;i<fachada.listarJugadores().size();i++)
-			//	arreVOR1.add(fachada.listarJugadores().get(i));
+    	ArrayList<VOPartida> listadePartidas = (ArrayList<VOPartida>) session.getAttribute("listadePartidas");
+    	
+    	try {
+	    	if (listadePartidas == null)
+			{
+	    		listadePartidas = new ArrayList<VOPartida>();
+				listadePartidas=	fachada.listarPartidasAReanudar(in_Nickname);
+				
+			//		arreVOR1.add(fachada.listarJugadores().get(i));
+			}else
+			{
+				session.setAttribute("listadePartidas", null);
+				listadePartidas = new ArrayList<VOPartida>();
+				listadePartidas= fachada.listarPartidasAReanudar(in_Nickname);
+				
+			}
+		} catch (PersistenciaException e) {
+			session.setAttribute("error", "Error: contacte al administrador");
+		} catch (InterruptedException e) {
+			session.setAttribute("error", "Error: contacte al administrador");
 		}
-			
 	
-		sessi.setAttribute("arre", arreVOR1);
+		session.setAttribute("listadePartidas", listadePartidas);
     }
     
 }

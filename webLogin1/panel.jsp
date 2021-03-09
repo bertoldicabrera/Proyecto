@@ -133,16 +133,10 @@ si no esta logueado  volver a poner estofin comentario--%>
 									  </div>
 									</div>
 								</div>
-							   
 							</div>
 						</div>
-						
-						
-						
 				</div>
 					<!-- /. ROW FIN fila 1  -->
-					
-				
 		<!-- /. TABLE ROW  -->		
 		<div class="row">
          <div class="col-md-12">
@@ -157,48 +151,26 @@ si no esta logueado  volver a poner estofin comentario--%>
 						            <th>Id</th>
 						            <th>Nombre</th>
 						            <th>Fecha</th>
-						            <th>Acción</th>
+						            <th>Acción </th>
+						            
 						          </tr>
 						        </thead>
 						        <tbody>
-						        <c:forEach items="${arre}" var="i">
-						          <tr class="list-group-item-success">
-						            <td>${i.GetId()}</td>
-						            <td>Partida x</td>
-						            <td>23rd June </td>
-						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
-						          </c:forEach>
-						          <tr class="list-group-item-danger">
-						            <td>2</td>
-						            <td>Partida x</td>
-						            <td>10th November </td>
-						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
-						          <tr class="list-group-item-info">
-						            <td>3</td>
-						            <td>Partida x</td>
-						            <td>2nd December </td>
-						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
-						            <tr class="list-group-item-warning">
-						            <td>4</td>
-						            <td>Partida x</td>
-						            <td>23rd June </td>
-						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
-						          <tr class="list-group-item-info">
-						            <td>5</td>
-						           <td>Partida x</td>
-						            <td>10th November </td>
-						            <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
-						          <tr class="list-group-item-danger">
-						            <td>6</td>
-						            <td>Partida x</td>
-						            <td>2nd December </td>
-						           <td><a href="#" class="btn btn-success">Reanudar</a></td>
-						          </tr>
+							        <c:forEach items="${listadePartidas}" var="i">
+							          <tr class="list-group-item-success">
+							            <td>${i.getPartidaId()}</td>
+							            <td>${i.getPartidaNombre()}</td>
+							            <td>${i.getPartidaFechaCreada()}</td>
+							            <td>
+								            <c:if test="${i.isPartidaTermino()== true}" var="condition">
+										    <a href="#" class="btn btn-success" disabled="true">Reanudar</a>
+										</c:if>
+										<c:if test="${!condition}">
+										   <a href="#" class="btn btn-success" >Reanudar</a>
+										</c:if>
+							            </td>
+							          </tr>
+							          </c:forEach>
 						        </tbody>
 						      </table>
 		      

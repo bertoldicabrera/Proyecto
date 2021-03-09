@@ -7,19 +7,16 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import logica.IFachada;
+import logica.excepciones.LogicaException;
 import logica.valueObjects.VOJugador;
-
-
+import persistencia.excepciones.PersistenciaException;
  
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,12 +35,12 @@ public class Register extends HttpServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException  {
     	
     	
-			conectar ();
     	
-        HttpSession session = request.getSession(true);
+    	HttpSession session = request.getSession(true);
+    	conectar (session);
         boolean registroexitoso= false;
         session.setAttribute("error", null);
         //Declaro e inicio las variables
@@ -74,49 +71,54 @@ public class Register extends HttpServlet {
                 if(v.isUsernameOrPasswordValid(password)){
                     //verifico si la contraseña 1= 2 
                     if(password.equals(confirm_password)){
-                        try {
-                           
+                    
                         	//int in_JugadorID,  String in_JugadorUserName, String in_JugadorPassword, 
                			// boolean in_JugadorIsOnline, int in_PuntajeAcumulado
-                        	VOJugador in_voJug= new VOJugador(0,nombreUsuario, password, true, 0);
-                            fac.registrarJugador(in_voJug); 
-                            registroexitoso=true;
-	                        } catch (Exception e) 
-	                        	{ 
-	                        	session.setAttribute("error", e.toString()); 
-	                        	}
-                        
-                        
+                        	VOJugador in_voJug= new VOJugador(0,nombreUsuario, password, false, 0);
+                        	
+                            try {
+                            	System.out.println("Antes de llamar a la fachada");
+								fac.registrarJugador(in_voJug);
+								 registroexitoso=true;
+							} catch (PersistenciaException e) {
+								System.out.println("catch (PersistenciaException e)"+e.toString());
+								session.setAttribute("error", e.toString());
+								e.printStackTrace();
+							} catch (LogicaException e) {
+								System.out.println("catch (LogicaException e)"+e.toString());
+								session.setAttribute("error", e.toString());
+							} catch (InterruptedException e) {
+								System.out.println("catch (InterruptedException e)"+e.toString());
+								session.setAttribute("error", e.toString());
+							} catch (RemoteException e) {
+								System.out.println("catch (RemoteException e)"+e.toString());
+								session.setAttribute("error", e.toString());
+							} 
+                           
+	                       
                     } else {
                     	session.setAttribute("error", "Las contraseñas no son iguales");}
-                    
                 } else {
                 	session.setAttribute("error", "Contraseña no es válida");}
-                
             }
         }
         if (registroexitoso==true)
         {
-        	try {
+        	
         		session.setAttribute("error","Registro exitoso");
 				response.sendRedirect("login.jsp");
-			} catch (IOException e) {
-				session.setAttribute("error", e.toString());
-			}
+			
         }else
         {
-        	try {
     			response.sendRedirect("register.jsp");
-    		} catch (IOException e) {
-    			session.setAttribute("error", e.toString());
-    		}
+    		
         }
         
-        
-    }// fin do post
+    }// fin del post
     
-    private void conectar ()
+    private void conectar (HttpSession session)
     {
+    	System.out.println("Entra a conectar");
     	/// Parametros van locales a un serverlet en el web.xml
     			String ipServidor = super.getInitParameter("ipServidor");
     			String puerto = super.getInitParameter("puerto");
@@ -125,12 +127,16 @@ public class Register extends HttpServlet {
     			try {
     				fac = (IFachada) Naming.lookup(ruta);
     			} catch (MalformedURLException e) {
-    				System.out.println( "Error"+e.toString());
+    				//System.out.println( "Error"+e.toString());
+   				session.setAttribute("error", "Error: contacte al administrador");
     				
     			} catch (RemoteException e) {
-    				System.out.println( "Error"+e.toString());
+    			//	System.out.println( "Error"+e.toString());
+    				session.setAttribute("error", "Error: contacte al administrador");
     			} catch (NotBoundException e) {
-    				System.out.println( "Error"+e.toString());
+    			//System.out.println( "Error"+e.toString());
+    				session.setAttribute("error", "Error: contacte al administrador");
     			}
+    			System.out.println("sale de conectar");
     }
 }

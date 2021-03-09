@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- si exista sesion iniciada redirecciono a index.jsp. --%>
-<c:if test="${sessionScope['sessionEmail']!=null}">
+<c:if test="${sessionScope['sessionNombre']!=null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if>
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
 					</span>
 					<div class="wrap-input100 validate-input" data-validate="El nombre es requerido ">
 						<span class="label-input100">Usuario</span>
-						<input class="input100" type="text" name="Usuario" placeholder="Usuario">
+						<input class="input100" type="text" name="name" placeholder="Usuario">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "La contraseña requerida">
