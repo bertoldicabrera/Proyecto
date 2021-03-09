@@ -9,16 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
-
 import logica.IFachada;
 import logica.excepciones.LogicaException;
 import logica.valueObjects.VOJugador;
@@ -43,7 +38,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	conectar ();
+    	conectar();
     	
     		
         HttpSession session = request.getSession(true);
@@ -118,7 +113,7 @@ public class Login extends HttpServlet {
         	response.sendRedirect("panel.jsp");
         }else
         {
-        	response.sendRedirect("login.jsp");
+        	response.sendRedirect("error.jsp");
         }
         
  
@@ -143,7 +138,7 @@ public class Login extends HttpServlet {
     			} catch (RemoteException e) {
     				System.out.println( "Error"+e.toString());
     			} catch (NotBoundException e) {
-    				System.out.println( "Error"+e.toString());
+    				System.out.println( "Error: "+e.toString());
     			}
     			
     }

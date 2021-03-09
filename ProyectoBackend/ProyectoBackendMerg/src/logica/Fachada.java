@@ -75,6 +75,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	public static Fachada getInstancia() throws RemoteException, PersistenciaException {
 		if (instancia == null)
 			instancia = new Fachada();
+		
+		System.out.println("Estra a pedir una instancia");
 		return instancia;
 	}
 
@@ -88,6 +90,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		IConexion icon = ipool.obtenerConexion(true);
 
 		try {
+			System.out.println("Estra aregistrar en fachada");
 			String userName = in_voJug.getJugadorUserName();
 			if (daoJ.member(userName, icon)) {
 				ipool.liberarConexion(icon, false);
@@ -111,6 +114,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		IConexion icon = ipool.obtenerConexion(true);
 		VOJugador out_Voj = null;
 		try {
+			System.out.println("Estra a loguin fachada");
 			if (daoJ.member(in_userName, icon)) {
 				int id = daoJ.geIdbyName(in_userName, icon);
 

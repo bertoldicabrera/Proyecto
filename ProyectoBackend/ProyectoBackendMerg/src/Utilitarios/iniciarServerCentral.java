@@ -25,7 +25,6 @@ public class iniciarServerCentral {
 			String puerto = sp.getPuertoServidor();
 			String nombreAPublicar = sp.getNombreAPublicar();
 			int port = Integer.parseInt(puerto);
-
 			try {
 				LocateRegistry.createRegistry(port);
 			} catch (Exception e) {
