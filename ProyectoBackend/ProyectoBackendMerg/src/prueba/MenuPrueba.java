@@ -329,8 +329,25 @@ public class MenuPrueba {
 									System.out.println("+++++ jugadorId"+ out_Jugador.getJugadorId()+"++++JugPass"+out_Jugador.getJugadorPassword()+"++++JugName"+out_Jugador.getJugadorUserName()+
 									"++++Jugisonline"+out_Jugador.isJugadorIsOnline()+"++++JugadorPuntajeAc"+out_Jugador.getPuntajeAcumulado() );
 								}
-						
-						
+						       
+						       
+						       //int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, int in_cantidadBombas,
+								//boolean in_enUso
+						       VODeposito voD=Voe.getBase().getDeposito();
+						       System.out.println("///Deposito"+voD.GetId()+"///CoordX"+voD.getCoordX()+"///Coordy"
+						       +voD.getCoordY()+"//Estado"+voD.getEstado()+"///Vida"+voD.getVida()+"///cantidadBombas"+voD.getCantidaBombas()+"///En uso"+voD.getEnUso());
+						       //int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida, int in_cantidadCombustible, boolean in_enUso
+						       VOTanqueCombustible voC=Voe.getBase().getTanque();
+						       System.out.println("///TanqueComnustible"+voC.GetId()+"///CoordX"+voC.getCoordX()+"///Coordy"
+						       +voC.getCoordY()+"//Estado"+voC.getEstado()+"///Vida"+voC.getVida()+"///cantidadCombustible"+voC.getCantidadCombustible()+"///En uso"+voC.getEnUso());
+						   
+						       //  (int in_id, int in_coordX, int in_coordY, boolean in_estado, int in_vida,
+						   	//	boolean in_hayEnemigo, int in_rangoDeVision
+						       
+						       VOTorreControl voT=Voe.getBase().getTorre();
+						       System.out.println("///TanqueComnustible"+voT.GetId()+"///CoordX"+voT.getCoordX()+"///Coordy"
+								       +voT.getCoordY()+"//Estado"+voT.getEstado()+"///Vida"+voT.getVida()+"///hayenemigo"+voT.getHayEnemigo()+"///rangoVision"+voT.getRangoDeVision());
+								   
 						
 					} catch (RemoteException e1) {
 						System.out.println(e1.toString());

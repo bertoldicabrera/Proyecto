@@ -3,14 +3,13 @@ package logica.valueObjects;
 import java.io.Serializable;
 import java.util.TreeMap;
 
-
 public class VOCollectionPartidas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	 TreeMap<Integer, VOPartida> partidas;
+	TreeMap<Integer, VOPartida> partidas;
 
 	public VOCollectionPartidas() {
-		partidas= new  TreeMap<Integer, VOPartida>();
+		partidas = new TreeMap<Integer, VOPartida>();
 	}
 
 	public boolean member(int key) {
@@ -45,5 +44,5 @@ public class VOCollectionPartidas implements Serializable {
 
 		return partidas.size();
 	}
-	
+
 }

@@ -30,10 +30,10 @@ public class DaoBase implements Serializable {
 	public DaoBase() {
 		setBases(new TreeMap<Integer, Base>());
 	}
-	public DaoBase(Integer id,Base bas ) {
+
+	public DaoBase(Integer id, Base bas) {
 		setBases(new TreeMap<Integer, Base>());
 	}
-	
 
 	public boolean member(Integer key, IConexion con) throws PersistenciaException {
 		boolean existe = false;
@@ -56,7 +56,6 @@ public class DaoBase implements Serializable {
 
 	public void insert(int in_idEquipo, Deposito in_Deposito, TanqueCombustible in_TanqueCombustible,
 			TorreControl in_TorreControl, IConexion con) throws PersistenciaException {
-		System.out.println("Entro al insert de daobase linea 60");
 		try {
 
 			consultas cons = new consultas();
@@ -71,8 +70,7 @@ public class DaoBase implements Serializable {
 			pstmt1.setBoolean(6, in_Deposito.getEnUso());
 			pstmt1.executeUpdate();
 			pstmt1.close();
-			System.out.println("Creado el deposito");
-			
+
 			// Inserto TanqueCombustible
 			String insertTC = cons.insertarTanqueCombustible();
 			PreparedStatement pstmt2 = ((Conexion) con).getConexion().prepareStatement(insertTC);
@@ -84,9 +82,7 @@ public class DaoBase implements Serializable {
 			pstmt2.setBoolean(6, in_TanqueCombustible.getEnUso());
 			pstmt2.executeUpdate();
 			pstmt2.close();
-			System.out.println("Creada el tanque");
-			
-			
+
 			// Inserto TorreControl
 			String insertTControl = cons.insertarTorreControl();
 			PreparedStatement pstmt3 = ((Conexion) con).getConexion().prepareStatement(insertTControl);
@@ -98,9 +94,7 @@ public class DaoBase implements Serializable {
 			pstmt3.setInt(6, in_TorreControl.getRangoDeVision());
 			pstmt3.executeUpdate();
 			pstmt3.close();
-			System.out.println("Creada la torre");
-			
-			
+
 			String insertBase = cons.insertarBase();
 			PreparedStatement pstmt4 = ((Conexion) con).getConexion().prepareStatement(insertBase);
 			/// BASES(FK_depBombas_id,FK_depCombustible_id,FK_torreControl_id) values(?,?,?)
@@ -112,9 +106,7 @@ public class DaoBase implements Serializable {
 			pstmt4.setInt(3, FK_torreControl_id);
 			pstmt4.executeUpdate();
 			pstmt4.close();
-			System.out.println("Creada la base");
-			
-			
+
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLInsertBase);
 		}
@@ -122,8 +114,7 @@ public class DaoBase implements Serializable {
 	}
 
 	public Base find(int in_idBase, IConexion con) throws PersistenciaException {
-		
-		System.out.println("Base find 126");
+
 		Base out_base = null;
 		Deposito out_deposito = null;
 		Avion[] arreavion = null;
@@ -132,9 +123,6 @@ public class DaoBase implements Serializable {
 		TorreControl out_torrecontrol = null;
 		DaoDeAviones out_aviones = null;
 		DaoArtilleria out_artilleros = null;
-//		
-//		System.out.println("135 daobase Ver si se rompe acá, falta el equipo..");
-//		Equipo out_equipo = null;
 
 		try {
 			consultas cons = new consultas();
@@ -158,9 +146,9 @@ public class DaoBase implements Serializable {
 			pstmt1.close();
 			out_base = new Base(in_idBase, out_aviones, out_artilleros, out_deposito, out_tanquecombustible,
 					out_torrecontrol);
-			
+
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLFindBase+e.toString());
+			throw new PersistenciaException(mensg.errorSQLFindBase + e.toString());
 		}
 		return out_base;
 
@@ -344,7 +332,6 @@ public class DaoBase implements Serializable {
 		} catch (SQLException e) {
 			throw new PersistenciaException(mensg.errorSQLFindBase);
 		}
-		//System.out.println("dentro de daobase linea 346 el id de la ultima base ingresada es:"+cant);
 		return cant;
 
 	}
@@ -454,9 +441,11 @@ public class DaoBase implements Serializable {
 		}
 		return TC;
 	}
+
 	public TreeMap<Integer, Base> getBases() {
 		return bases;
 	}
+
 	public void setBases(TreeMap<Integer, Base> bases) {
 		this.bases = bases;
 	}

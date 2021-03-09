@@ -12,7 +12,7 @@ import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 public class DaoDeAviones implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
@@ -27,7 +27,7 @@ public class DaoDeAviones implements Serializable {
 
 	public DaoDeAviones(int in_idBase) {
 		this.baseId = in_idBase;
-		this.arreavion =  new Avion[tope];
+		this.arreavion = new Avion[tope];
 	}
 
 	public boolean estaVacia(IConexion con) throws PersistenciaException {
@@ -64,14 +64,13 @@ public class DaoDeAviones implements Serializable {
 			pstmt.setInt(9, in_Avion.getCantidadBombas());
 			pstmt.setInt(10, in_Avion.getAvionCombustible());
 			pstmt.setBoolean(11, in_Avion.getEnCampoEnemigo());
-			System.out.println(" 67 El ide de la base que intenta meter en daodeaviones es:"+in_idbase);
 			pstmt.setInt(12, in_idbase);
 
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
 			throw new PersistenciaException(e.toString());
-			//throw new PersistenciaException(mensg.errorSQLInsertAvion);
+			// throw new PersistenciaException(mensg.errorSQLInsertAvion);
 		}
 	}
 
@@ -148,26 +147,23 @@ public class DaoDeAviones implements Serializable {
 			pstmt1.setInt(1, this.baseId);
 			ResultSet rs1 = pstmt1.executeQuery();
 			while ((rs1.next()) && (ind < tope)) {
-				
-				
-				
+
 				id = rs1.getInt(1);
-				coordX =  rs1.getInt(2);
+				coordX = rs1.getInt(2);
 				coordY = rs1.getInt(3);
 				coordZ = rs1.getInt(4);
-				estado=  rs1.getBoolean(5);
+				estado = rs1.getBoolean(5);
 				vida = rs1.getInt(6);
 				hayEnemigo = rs1.getBoolean(7);
 				rangoDeVision = rs1.getInt(8);
-				avionBomba=rs1.getBoolean(9);
+				avionBomba = rs1.getBoolean(9);
 				cantidadBombas = rs1.getInt(10);
 				avionCombustible = rs1.getInt(11);
 				enCampoEnemigo = rs1.getBoolean(12);
 				baseoid = rs1.getInt(13);
-				
-				
-				avion = new Avion(id, coordX, coordY, coordZ, estado, vida, hayEnemigo,rangoDeVision ,avionBomba, cantidadBombas,
-						avionCombustible,enCampoEnemigo ,baseoid );
+
+				avion = new Avion(id, coordX, coordY, coordZ, estado, vida, hayEnemigo, rangoDeVision, avionBomba,
+						cantidadBombas, avionCombustible, enCampoEnemigo, baseoid);
 				arregavion[ind] = avion;
 
 			}
@@ -183,6 +179,7 @@ public class DaoDeAviones implements Serializable {
 	public void setArreAviones(Avion[] in_arreavion) {
 		this.arreavion = in_arreavion;
 	}
+
 	public Avion[] getArreAvionesEnMemoria() {
 		return this.arreavion;
 	}

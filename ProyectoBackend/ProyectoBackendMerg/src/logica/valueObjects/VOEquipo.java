@@ -2,26 +2,27 @@ package logica.valueObjects;
 
 import java.io.Serializable;
 
-public class VOEquipo implements Serializable{
+public class VOEquipo implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int equipoID;
-	private int tope=1;
-	private VOJugador[] jugadores; 
+	private int tope = 1;
+	private VOJugador[] jugadores;
 	private VOBase base;
 	private String bando;
-	
+
 	public VOEquipo() {
-		
+
 	}
-	public VOEquipo(int in_equipoID, VOJugador[]  in_Jugadores, VOBase  in_base, String  in_bando ) {
-		this.setJugadores(new  VOJugador[tope]);
-		this.setEquipoID( in_equipoID);
-        this.setJugadores(in_Jugadores);
-		this.setBase(  in_base);
-		this.setBando(  in_bando);
+
+	public VOEquipo(int in_equipoID, VOJugador[] in_Jugadores, VOBase in_base, String in_bando) {
+		this.setJugadores(new VOJugador[tope]);
+		this.setEquipoID(in_equipoID);
+		this.setJugadores(in_Jugadores);
+		this.setBase(in_base);
+		this.setBando(in_bando);
 	}
 
 	public int getEquipoID() {
@@ -63,9 +64,9 @@ public class VOEquipo implements Serializable{
 	public void setBando(String bando) {
 		this.bando = bando;
 	}
-	
+
 	public void mostrarPorPantallaVoEquipo() {
-		System.out.println("|El id de equipo es: "+this.getEquipoID());
+		System.out.println("|El id de equipo es: " + this.getEquipoID());
 	}
 
 }

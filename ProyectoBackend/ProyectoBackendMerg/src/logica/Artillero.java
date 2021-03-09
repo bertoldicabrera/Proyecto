@@ -45,7 +45,7 @@ public class Artillero extends Objeto{
 	}
 
 	public void setbase_id(int in_base_id) {
-		this.artilleroAngulo = in_base_id;
+		this.in_base_id = in_base_id;
 	}
 	public void mostrarArtilleroPorPanatalla()
 	{

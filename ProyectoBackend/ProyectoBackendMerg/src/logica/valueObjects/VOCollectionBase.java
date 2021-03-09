@@ -3,7 +3,6 @@ package logica.valueObjects;
 import java.io.Serializable;
 import java.util.TreeMap;
 
-
 public class VOCollectionBase implements Serializable {
 
 	/**
@@ -15,8 +14,7 @@ public class VOCollectionBase implements Serializable {
 	public VOCollectionBase() {
 		setBases(new TreeMap<Integer, VOBase>());
 	}
-	
-	
+
 	public boolean member(int key) {
 		return bases.containsKey(key);
 
@@ -49,7 +47,6 @@ public class VOCollectionBase implements Serializable {
 
 		return bases.size();
 	}
-	
 
 	public TreeMap<Integer, VOBase> getBases() {
 		return bases;

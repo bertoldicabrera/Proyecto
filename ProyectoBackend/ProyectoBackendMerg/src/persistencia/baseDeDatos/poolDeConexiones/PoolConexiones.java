@@ -14,16 +14,16 @@ import persistencia.excepciones.PersistenciaException;
 public class PoolConexiones implements IPoolConexiones, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String driver="";
-	private String url="";
-	private String user="";
-	private String pass="";
+	private String driver = "";
+	private String url = "";
+	private String user = "";
+	private String pass = "";
 	private Conexion arre_conexiones[];
 	private boolean auto_Commit;
 	private int tamanio;
 	private int creadas;
 	private int tope;
-	
+
 	private SystemProperties sp = new SystemProperties();
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 
@@ -32,12 +32,12 @@ public class PoolConexiones implements IPoolConexiones, Serializable {
 		 * Constructor de la clase. Realiza la carga del driver, solicita memoria para
 		 * el arreglo con tope e inicializa los distintos atributos.
 		 */
-//		Properties p = new Properties();
-//		String nomArch = "config/config.properties";
-//		p.load(new FileInputStream(nomArch));
+		// Properties p = new Properties();
+		// String nomArch = "config/config.properties";
+		// p.load(new FileInputStream(nomArch));
 		driver = sp.getMysql_driver();
-		System.out.println("imprime"+driver.toString());
-		
+		System.out.println("imprime" + driver.toString());
+
 		tamanio = Integer.parseInt(sp.getTamPool());
 		url = sp.getMysql_url();
 		user = sp.getMysql_user();

@@ -3,20 +3,19 @@ package logica.valueObjects;
 import java.io.Serializable;
 import java.util.TreeMap;
 
+public class VOCollectionJugador implements Serializable {
 
-
-public class VOCollectionJugador  implements Serializable  {
-
-/**
-	 * 
-	 */
+	/**
+		 * 
+		 */
 	private static final long serialVersionUID = 1L;
-TreeMap<Integer, VOJugador> jugadores;
- 
+	TreeMap<Integer, VOJugador> jugadores;
+
 	public VOCollectionJugador() {
-		
-		jugadores= new TreeMap<Integer, VOJugador>();
+
+		jugadores = new TreeMap<Integer, VOJugador>();
 	}
+
 	public boolean member(int key) {
 		return jugadores.containsKey(key);
 
@@ -53,7 +52,5 @@ TreeMap<Integer, VOJugador> jugadores;
 	public void setJugadores(TreeMap<Integer, VOJugador> jugadores) {
 		this.jugadores = jugadores;
 	}
-	
-	
-	
+
 }
