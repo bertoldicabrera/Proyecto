@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%-- si exista sesion iniciada redirecciono a index.jsp. no tiene sentido crear una cuenta estando logueado --%>
-<c:if test="${sessionScope['UserName']!=null}">
+<c:if test="${sessionScope['sessionNombre']!=null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if>
      
@@ -42,7 +42,7 @@
 				<form class="login100-form validate-form" action="Login" method="post">
 				
 					<span class="login100-form-title p-b-59">
-						<p> ${sessionScope['error']}</p>
+						<p> Error: ${sessionScope['error']}</p>
 					</span>
 				
 				
