@@ -23,6 +23,11 @@
 			<param-name>puerto</param-name>
 			<param-value>8095</param-value>
 		</init-param>
+		<init-param>
+			<param-name>nombreAPublicar</param-name>
+			<param-value>PROYECTO</param-value>
+		</init-param>
+		
    </servlet>
  
   <servlet-mapping>
