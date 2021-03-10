@@ -1,8 +1,5 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%-- inicio comentario
-
-si no esta logueado  volver a poner estofin comentario--%>
 <c:if test="${sessionScope['sessionNombre']==null}">
     <% response.sendRedirect("index.jsp");%>
 </c:if> 
@@ -14,13 +11,9 @@ si no esta logueado  volver a poner estofin comentario--%>
 
 .bt3{padding:6px;border-radius:10px;}
 </style>
-	
-	
-	
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Panel</title>
-
 		<!-- BOOTSTRAP STYLES-->
 		<link href="assets/css/bootstrap.css" rel="stylesheet" />
 		<!-- FONTAWESOME STYLES-->
@@ -33,6 +26,11 @@ si no esta logueado  volver a poner estofin comentario--%>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 	</head>
 	<body>
+	
+	
+	
+	
+	
 		<div id="wrapper">
 			<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
 				<div class="navbar-header">
@@ -48,7 +46,7 @@ si no esta logueado  volver a poner estofin comentario--%>
 					</a>
 				</div>
 			</nav>
-			
+		
 			<!-- /. NAV TOP  -->
 			<nav class="navbar-default navbar-side" role="navigation">
 				<div class="sidebar-collapse">
@@ -59,7 +57,10 @@ si no esta logueado  volver a poner estofin comentario--%>
 
 								<div class="inner-text">
 									<br>
-										Usuario: ${sessionScope['sessionNombre']}
+										 <c:forEach items="${Jugador}" var="i">
+							        Usuario:  ${i.getJugadorUserName()} 
+							          </c:forEach>
+										
 									<br/>
 								</div>
 							</div>
@@ -128,9 +129,11 @@ si no esta logueado  volver a poner estofin comentario--%>
 								</div>
 								<div class="panel-body">
 									<div class="progress">
-									  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-										<span class="sr-only">60% Complete</span>
+										 <c:forEach items="${Jugador}" var="i">
+									  <div class="progress-bar" role="progressbar" aria-valuenow="${i.getPuntajeAcumulado()}" aria-valuemin="0" aria-valuemax="10000" style="width: ${i.getPuntajeAcumulado()/10}%;">
+										<span class="sr-only">${i.getPuntajeAcumulado()/10}% Complete</span>
 									  </div>
+									   </c:forEach>
 									</div>
 								</div>
 							</div>
@@ -173,26 +176,14 @@ si no esta logueado  volver a poner estofin comentario--%>
 							          </c:forEach>
 						        </tbody>
 						      </table>
-		      
-		      
-		      
 		    </div>
         </div>
      </div>		
-				
-				
-				
-				
-				
 				<!-- /. PAGE INNER  -->
 			</div>
+				</div>
 			<!-- /. PAGE WRAPPER  -->
 		</div>
-		
-		
-		
-		
-		
 		<!-- /. WRAPPER  -->
 		<div id="footer-sec">
 			&copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>

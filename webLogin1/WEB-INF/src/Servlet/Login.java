@@ -24,7 +24,7 @@ import persistencia.excepciones.PersistenciaException;
 public class Login extends HttpServlet {
  
 	
-	public IFachada fac;
+	private IFachada fac;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -44,9 +44,10 @@ public class Login extends HttpServlet {
     	//conectar();	estava antes voy a probar si anda bien pasar una session al conectar.
     	
         HttpSession session = request.getSession(true);
+        ConexionCliente conect= new ConexionCliente();
+        fac=conect.getInstancia();
         
-        conectar(session);
-        String UserName = request.getParameter("UserName");
+        String UserName = request.getParameter("UserName"); // acá llamo a un parametro del html/jsp
         String passwordPlana = request.getParameter("password");
       
         Pattern p = Pattern.compile("^([0-9a-zA-Z])$"); // solo acepto letras y numeros
@@ -86,9 +87,8 @@ public class Login extends HttpServlet {
 						 else
 						 {
 							 session.setAttribute("sessionNombre", jugador.getJugadorUserName());
-	                           
+							CargarJugador(session,jugador );
 							CargarArreglo(session, fac, jugador.getJugadorUserName());
-								
 	                            error=false;
 						 }
                            
@@ -104,8 +104,6 @@ public class Login extends HttpServlet {
 		                 catch (SQLException e) {
 		                	 session.setAttribute( "error",e.toString());
 						}
-                         
- 
                 } else {
                 	
                 	session.setAttribute("error", "Usuario o password incorrecto");
@@ -126,33 +124,35 @@ public class Login extends HttpServlet {
  
     } // fin dopost
     
+   
     
-    private void conectar (HttpSession session)
-    {
-    	
-    	/// Parametros van locales a un serverlet en el web.xml
-    			String ipServidor = super.getInitParameter("ipServidor");
-    			String puerto = super.getInitParameter("puerto");
-    			String nombreAPublicar = super.getInitParameter("nombreAPublicar");
-    			String ruta = "//" + ipServidor + ":" + puerto + "/" + nombreAPublicar;
-    			try {
-    				fac = (IFachada) Naming.lookup(ruta);
-    			} catch (MalformedURLException e) {
-    				//System.out.println( "Error"+e.toString());
-   				session.setAttribute("error", "Error: contacte al administrador");
-    				
-    			} catch (RemoteException e) {
-    			//	System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
-    			} catch (NotBoundException e) {
-    			//System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
-    			}
-    			
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    private void  CargarJugador(HttpSession session,VOJugador jugador) {
+    	ArrayList<VOJugador> ArreJugador = (ArrayList<VOJugador>) session.getAttribute("Jugador");
+	    	if (ArreJugador == null)
+			{
+	    		ArreJugador = new ArrayList<VOJugador>();
+	    		ArreJugador.add(jugador);
+				}else
+				{
+				session.setAttribute("Jugador", null);
+				ArreJugador = new ArrayList<VOJugador>();
+	    		ArreJugador.add(jugador);
+				}
+	    	
+		session.setAttribute("Jugador", ArreJugador);
     }
-    
-    
-    
     
     
     

@@ -42,7 +42,7 @@
 				<form class="login100-form validate-form" action="Login" method="post">
 				
 					<span class="login100-form-title p-b-59">
-						<p> Error: ${sessionScope['error']}</p>
+						<p> ${sessionScope['error']}</p>
 					</span>
 				
 				

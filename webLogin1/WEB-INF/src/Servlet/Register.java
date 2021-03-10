@@ -40,7 +40,8 @@ public class Register extends HttpServlet {
     	
     	
     	HttpSession session = request.getSession(true);
-    	conectar (session);
+    	ConexionCliente conect= new ConexionCliente();
+    	fac=conect.getInstancia();
         boolean registroexitoso= false;
         session.setAttribute("error", null);
         //Declaro e inicio las variables
@@ -116,27 +117,5 @@ public class Register extends HttpServlet {
         
     }// fin del post
     
-    private void conectar (HttpSession session)
-    {
-    	System.out.println("Entra a conectar");
-    	/// Parametros van locales a un serverlet en el web.xml
-    			String ipServidor = super.getInitParameter("ipServidor");
-    			String puerto = super.getInitParameter("puerto");
-    			String nombreAPublicar = super.getInitParameter("nombreAPublicar");
-    			String ruta = "//" + ipServidor + ":" + puerto + "/" + nombreAPublicar;
-    			try {
-    				fac = (IFachada) Naming.lookup(ruta);
-    			} catch (MalformedURLException e) {
-    				//System.out.println( "Error"+e.toString());
-   				session.setAttribute("error", "Error: contacte al administrador");
-    				
-    			} catch (RemoteException e) {
-    			//	System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
-    			} catch (NotBoundException e) {
-    			//System.out.println( "Error"+e.toString());
-    				session.setAttribute("error", "Error: contacte al administrador");
-    			}
-    			System.out.println("sale de conectar");
-    }
+    
 }
