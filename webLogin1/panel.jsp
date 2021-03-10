@@ -87,13 +87,22 @@
 						</div>
 						
 						
-						<div class="col-md-12">
-						<button type="button" class="btn btn-info">Crear partida</button>
-						</div>
 						
-						 <label></label>
+					
 					</div>
 					<!-- /. ROW  FIN fila 0-->
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="col-md-12">
+							<button type="button" class="btn btn-info">Crear partida</button>
+							<p></p>
+							</div>
+						
+						
+						</div>
+					</div>
+					
+					
 					
 					<!-- /. ROW  fila 1-->
 					<div class="row">
@@ -130,9 +139,9 @@
 								<div class="panel-body">
 									<div class="progress">
 										 <c:forEach items="${Jugador}" var="i">
-									  <div class="progress-bar" role="progressbar" aria-valuenow="${i.getPuntajeAcumulado()}" aria-valuemin="0" aria-valuemax="10000" style="width: ${i.getPuntajeAcumulado()/10}%;">
-										<span class="sr-only">${i.getPuntajeAcumulado()/10}% Complete</span>
-									  </div>
+									 	 <div class="progress-bar" role="progressbar" aria-valuenow="${i.getPuntajeAcumulado()}" aria-valuemin="0" aria-valuemax="10000" style="width:  ${i.getPuntajeAcumulado()/10}%;">
+   										${i.getPuntajeAcumulado()} Puntos!
+ 										 </div>
 									   </c:forEach>
 									</div>
 								</div>
