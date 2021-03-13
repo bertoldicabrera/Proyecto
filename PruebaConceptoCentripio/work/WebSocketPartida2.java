@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,14 +20,14 @@ import javax.websocket.server.ServerEndpoint;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@ServerEndpoint("/webSocketEndPointPartida") ////PARA LA PARTIDA EN SI
-public class WebSocketPartida {
+@ServerEndpoint("/webSocketEndPointPartida2") ////PARA LA PARTIDA EN SI
+public class WebSocketPartida2 {
 //////	Este web socket será  el principal y el único que sera utilizado para jugar.
 //////	Este será  singleton, o sea existirá un único websocket para todos los jugadores y partidas que existan 
 //////	cuando se inicia el servidor web (que es donde vive este websocket)
 
 	////// SINGLETON
-	private static WebSocketPartida webSocketUnicaInstancia; 
+	private static WebSocketPartida2 webSocketUnicaInstancia; 
 	
 	////Colección de SESSION, para todo el websocket
 	private static Set<Session> webSocketAllSessions = new HashSet<>();
@@ -36,13 +35,9 @@ public class WebSocketPartida {
 	////Colección de {PARTIDA,{SESSION}} para guardar esa asociación, para todo el websocket
 	private static Map<String, ArrayList<Session>> webSocketAllPartidaSessions = new HashMap<String, ArrayList<Session>>();
 	
-
-	
-//	private static HashMap<String, ArrayList<Session>> webSocketAllPartidaSessions = new HashMap<String, ArrayList<Session>>();
-//    private static Set<Session> webSocketAllSessions = Collections.synchronizedSet(new HashSet<Session>());
 	
     @OnOpen
-	public static WebSocketPartida getInstancia(Session in_Session) {  ////antes era public void onOpen(Session session) {
+	public static WebSocketPartida2 getInstancia(Session in_Session) {  ////antes era public void onOpen(Session session) {
     	msgConsola("******** Entro al @OnOpen getInstancia(Session in_Session) in_Session::" + in_Session.getId() );
     	
     	////agrego la session nueva a una lista generica por las dudas
@@ -53,7 +48,7 @@ public class WebSocketPartida {
 		
 		////Singleton::
 		if (webSocketUnicaInstancia == null) {
-			webSocketUnicaInstancia = new WebSocketPartida();
+			webSocketUnicaInstancia = new WebSocketPartida2();
 		}		
 		msgConsola("******** Antes del return del Metodo:: getInstancia onOpen con in_Session" );
     	msgConsolaEspacios();
