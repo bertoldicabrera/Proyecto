@@ -1,0 +1,117 @@
+%!PS-Adobe-3.0
+%%Creator: GNU libplot drawing library 4.1
+%%For: (Unknown) (Unknown)
+%%Title: (Untitled)
+%%CreationDate: 
+%%BoundingBox: 0 0 512 512
+%%HiResBoundingBox: 0.0000 0.0000 512.00 512.00
+%%DocumentProcessColors: Cyan Magenta Yellow Black
+%%DocumentFonts: 
+%%DocumentNeededResources: procset Adobe_level2_AI5 1.0 0
+%%+ procset Adobe_typography_AI5 1.0 0
+%%+ procset Adobe_Illustrator_AI6_vars Adobe_Illustrator_AI6
+%%+ procset Adobe_Illustrator_AI5 1.0 0
+%AI5_FileFormat 3
+%AI3_ColorUsage: Color
+%AI7_ImageSettings: 0
+%AI3_DocumentPreview: None
+%AI5_ArtSize: 512 512
+%AI5_RulerUnits: 0
+%AI5_ArtFlags: 1 0 0 1 0 0 1 1 0
+%AI5_TargetResolution: 800
+%AI5_NumLayers: 1
+%AI5_OpenViewLayers: 7
+%%PageOrigin:0 0
+%%AI3_PaperRect:0 0512 512
+%%AI3_Margin:0 0 0 0
+%AI7_GridSettings: 72 8 72 8 1 0 0.8 0.8 0.8 0.9 0.9 0.9
+%%EndComments
+%%BeginProlog
+%%IncludeResource: procset Adobe_level2_AI5 1.0 0
+%%IncludeResource: procset Adobe_typography_AI5 1.0 0
+%%IncludeResource: procset Adobe_Illustrator_AI6_vars Adobe_Illustrator_AI6
+%%IncludeResource: procset Adobe_Illustrator_AI5 1.0 0
+%%EndProlog
+%%BeginSetup
+Adobe_level2_AI5 /initialize get exec
+Adobe_Illustrator_AI5_vars Adobe_Illustrator_AI5 Adobe_typography_AI5 /initialize get exec
+Adobe_ColorImage_AI6 /initialize get exec
+Adobe_Illustrator_AI5 /initialize get exec
+%%EndSetup
+%AI5_BeginLayer
+1 1 1 1 0 0 0 79 128 255 Lb
+(Layer 1) Ln
+10.43 M
+0.09375 w
+[] 0.0000 d
+u
+0.000 0.000 0.000 Xa
+115.91 450.10 m
+122.87 451.30 129.98 450.88 137.01 451.00  C
+175.68 451.00 214.34 451.00 253.01 451.00  C
+260.68 450.83 268.44 451.40 276.04 450.09  C
+279.72 449.59 283.34 447.30 284.42 443.58  C
+286.57 436.27 285.75 428.52 286.00 421.00  C
+291.00 421.00 296.00 421.00 301.00 421.00  C
+306.01 411.00 310.99 401.00 316.00 391.00  C
+376.00 391.00 436.00 391.00 496.00 391.00  C
+496.00 371.00 496.00 351.00 496.00 331.00  C
+436.00 331.00 376.00 331.00 316.00 331.00  C
+310.99 321.00 306.01 311.00 301.00 301.00  C
+296.00 301.00 291.00 301.00 286.00 301.00  C
+285.83 293.98 286.37 286.84 284.86 279.92  C
+284.22 276.59 281.91 273.57 278.59 272.58  C
+272.58 270.75 266.23 271.17 260.03 271.01  C
+217.00 271.00 173.97 270.98 130.94 271.02  C
+124.87 271.21 118.55 270.72 112.74 272.84  C
+109.39 274.06 107.49 277.45 106.93 280.81  C
+105.72 287.46 106.13 294.27 106.00 301.00  C
+96.00 301.00 86.00 301.00 76.00 301.00  C
+71.32 310.32 66.70 319.67 61.99 328.97  C
+61.36 330.18 60.94 331.51 60.99 332.89  C
+61.00 351.62 61.00 370.35 60.99 389.08  C
+60.87 391.51 62.30 393.57 63.31 395.66  C
+67.58 404.09 71.76 412.56 76.00 421.00  C
+86.00 421.00 96.00 421.00 106.00 421.00  C
+106.23 428.45 105.49 436.11 107.50 443.37  C
+108.51 447.20 112.16 449.56 115.91 450.10  C
+f
+0.000 0.000 0.000 Xa
+163.15 240.70 m
+166.09 241.16 169.07 241.00 172.03 241.01  C
+190.01 240.97 207.99 241.04 225.97 240.98  C
+233.98 241.17 241.14 234.03 240.97 226.03  C
+241.02 211.01 241.02 195.99 240.97 180.97  C
+241.12 172.98 233.99 165.86 226.00 166.03  C
+206.01 165.98 186.02 165.98 166.02 166.02  C
+158.03 165.85 150.86 172.97 151.03 180.97  C
+150.98 195.99 150.98 211.01 151.03 226.03  C
+150.91 233.00 156.31 239.48 163.15 240.70  C
+f
+0.000 0.000 0.000 Xa
+105.94 106.02 m
+115.02 122.29 131.57 136.15 151.01 135.99  C
+180.98 136.01 210.96 136.00 240.93 136.00  C
+251.55 136.07 261.92 131.90 270.07 125.21  C
+276.63 119.96 281.84 113.24 286.07 106.02  C
+293.98 105.79 302.44 106.45 309.71 102.76  C
+314.12 100.60 315.93 95.65 316.13 91.02  C
+336.08 85.96 356.05 81.05 376.00 76.01  C
+376.00 71.01 376.00 66.01 376.00 61.00  C
+256.00 61.00 136.00 61.00 16.00 61.00  C
+16.00 65.99 16.00 70.98 16.00 75.97  C
+35.95 80.99 55.92 85.92 75.87 90.97  C
+76.05 95.61 77.88 100.58 82.28 102.75  C
+89.55 106.46 98.03 105.78 105.94 106.02  C
+f
+U
+LB
+%AI5_EndLayer--
+%%PageTrailer
+gsave annotatepage grestore showpage
+%%Trailer
+Adobe_Illustrator_AI5 /terminate get exec
+Adobe_ColorImage_AI6 /terminate get exec
+Adobe_typography_AI5 /terminate get exec
+Adobe_level2_AI5 /terminate get exec
+%%EOF

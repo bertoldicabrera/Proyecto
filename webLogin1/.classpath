@@ -15,8 +15,6 @@
 	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/BD3 Persistencia/mysql-connector-java-5.1.21-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/BD3 Persistencia/org.eclipse.persistence.jpa.modelgen.source_2.5.0.v20130507-3faac2b.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/eclipse/BD3 Persistencia/org.eclipse.persistence.jpars_2.5.0.v20130507-3faac2b.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pepe/Desktop/RespaldoJuego/Finalizado/Por Separado/numeroSecretoWeb/WEB-INF/lib/jstl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pepe/Desktop/RespaldoJuego/Finalizado/Por Separado/numeroSecretoWeb/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pepe/Desktop/commons-codec-1.15/commons-codec-1.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pepe/Documents/GitHub/Proyecto/librerias jar/commons-beanutils-1.8.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pepe/Documents/GitHub/Proyecto/librerias jar/commons-codec-1.15.jar"/>

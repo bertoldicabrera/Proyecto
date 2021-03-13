@@ -1,0 +1,53 @@
+*{
+    position: relative;
+    color: rgb(179, 46, 46);
+} 
+
+	body {
+		margin: 0;
+		overflow: hidden;
+		/* border: 1px solid #EFE0BB;
+	 */
+		
+		background-color: #EFE0BB;
+		background-image: url("assets/images/texturas/background2.jpg");
+		background-repeat: no-repeat;
+  		background-size: cover;
+		background-position: center;
+		  
+		margin-top: 50px;
+		
+	}
+		
+
+
+
+	#phaser-app {
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		
+		width: 1000px;
+		height: 600px;
+	} 
+		
+	 canvas {
+		width: 100%;
+		height: 100%;
+	} 
+
+
+
+
+
+.s1_miCampo, 
+.s2_campoEnemigo, 
+.s3_vistaLateral, 
+.s4_tableroInfo,
+.s5_menu{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border: 1px solid black;
+    background-color: #e29191;
+} 
