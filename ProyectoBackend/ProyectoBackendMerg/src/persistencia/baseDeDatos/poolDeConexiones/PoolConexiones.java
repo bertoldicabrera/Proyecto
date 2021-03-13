@@ -1,147 +1,109 @@
 package persistencia.baseDeDatos.poolDeConexiones;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import Utilitarios.MensajesPersonalizados;
 import Utilitarios.SystemProperties;
-import Utilitarios.Utilitarios;
-import logica.excepciones.ServidorException;
 import logica.interfaces.IPoolConexiones;
+import persistencia.excepciones.PersistenciaException;
 
-public class PoolConexiones implements IPoolConexiones {
+public class PoolConexiones implements IPoolConexiones, Serializable {
 
-	private String driver;
-	private String url;
-	private String user;
-	private String password;
-
-	private int nivelTransaccionalidad;
+	private static final long serialVersionUID = 1L;
+	private String driver = "";
+	private String url = "";
+	private String user = "";
+	private String pass = "";
+	private Conexion arre_conexiones[];
+	private boolean auto_Commit;
 	private int tamanio;
 	private int creadas;
 	private int tope;
 
-	private Conexion[] conexiones;
-	private SystemProperties sp;
+	private SystemProperties sp = new SystemProperties();
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 
-	public PoolConexiones() {
-		try {
-			sp = new SystemProperties();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		if (Utilitarios.isPoolEnabled()) { // if la propiedad pool_enabled esta en =0 entonces no uso memoria
-			try {
-				driver = sp.getMysql_driver();
-				Class.forName(driver);
-				url = sp.getMysql_url();
-				user = sp.getMysql_user();
-				password = sp.getMysql_password();
-				tamanio = Integer.parseInt(sp.getTamPool());
-				nivelTransaccionalidad = Integer.parseInt(sp.getNivelTran());
-				tope = 0;
-				creadas = 0;
-				conexiones = new Conexion[tamanio];
+	public PoolConexiones() throws PersistenciaException, FileNotFoundException, IOException, ClassNotFoundException {
+		/*
+		 * Constructor de la clase. Realiza la carga del driver, solicita memoria para
+		 * el arreglo con tope e inicializa los distintos atributos.
+		 */
+		// Properties p = new Properties();
+		// String nomArch = "config/config.properties";
+		// p.load(new FileInputStream(nomArch));
+		driver = sp.getMysql_driver();
+		System.out.println("imprime" + driver.toString());
 
-			} catch (ClassNotFoundException e) {
-				try {
-					throw new ServidorException (mensg.errorPoolObtenerClass);
-				} catch (ServidorException e1) {
-					
-					e1.printStackTrace();
-				}
-				
-			}
+		tamanio = Integer.parseInt(sp.getTamPool());
+		url = sp.getMysql_url();
+		user = sp.getMysql_user();
+		pass = sp.getMysql_password();
+		// nivelTransaccionalidad=Integer.parseInt(p.getProperty("nivelTrans"));
+		auto_Commit = Boolean.parseBoolean(sp.getAuto_Commit());
+		creadas = 0;
+		tope = 0;
+		arre_conexiones = new Conexion[tamanio];
+
+		for (int i = 0; i < tamanio; i++) {
+			arre_conexiones[i] = new Conexion();
 		}
+		Class.forName(driver);
 	}
 
+	@Override
+	public synchronized IConexion obtenerConexion(boolean aux) throws PersistenciaException, InterruptedException {
+		/*
+		 * Solicita una conexión al pool. En caso de que todas estén actualmente en uso,
+		 * bloqueará al usuario hasta que otro usuario libere alguna
+		 */
+		IConexion icon = null;
+		while (icon == null) {
 
-	public synchronized IConexion obtenerConexion(boolean modifica) {
-		// Obtener COnexion
-		// -------------------
-		// 1)Tengo una conexion en el arreglo con tope disponible para prestar?
-		// Si es si la doy,
-		// 2)Le doy una del arreglo y bajo el tope
-		// 3)) si es no Puedo crear conexion?
-		// 4) Si es si La creeo
-		// Si es no la mando a dormir
-		IConexion con = null;
-		if (!Utilitarios.isPoolEnabled()) { // if la propiedad pool_enabled esta en =0 entonces no valido nada el pool y
-											// otrogo una IConexion que en el fondo es una Connection
-			try {
-				con = (IConexion) DriverManager.getConnection(url, user, password);
-				if (modifica) {
-					((Connection) con).setTransactionIsolation(nivelTransaccionalidad);
-					((Connection) con).setAutoCommit(false);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} else {
-			while (con == null) { //// espera indefinida
-				if (tope > 0) {
-					con = conexiones[tope - 1];
-					tope--;
-				} else {
-					if (creadas < tamanio) {
-						try {
-							Connection conAux = DriverManager.getConnection(url, user, password); // var aux que se
-							if (modifica) {
-								conAux.setTransactionIsolation(nivelTransaccionalidad);
-								conAux.setAutoCommit(false);
-							}
-							con = new Conexion(conAux);
-							creadas++;
-						} catch (Exception e) {
-							try {
-								throw new ServidorException (mensg.errorPoolCrearIConexion);
-							} catch (ServidorException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					} else {
-						try {
-							wait();
-						} catch (Exception e) {
-							 try {
-								throw new ServidorException (mensg.errorPoolWait);
-							} catch (ServidorException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-
-		}
-		return con;
-	}
-
-	public synchronized void liberarConexion(IConexion con, boolean ok) {
-//    	Liberar conexion
-//    	--------------
-//    	1)Hace comit o rolback segun corrersponda
-//    	2)Devuelve la conexion al arreglo y sube el tope
-//    	3)Notify
-		Connection conAux = (Connection) con.getConnection();
-		try {
-			if (ok) {
-				conAux.commit();
+			if (tope > 0) {
+				icon = (IConexion) arre_conexiones[tope - 1];
+				tope--;
 			} else {
-				conAux.rollback();
+				if (creadas < tamanio) {
+					try {
+						Connection con_aux = DriverManager.getConnection(url, user, pass);
+						con_aux.setAutoCommit(auto_Commit);
+						con_aux.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+						icon = (IConexion) new Conexion(con_aux);
+						creadas++;
+					} catch (SQLException e) {
+						String texto = "Error al acceder a la base";
+						throw new PersistenciaException(texto);
+					}
+				} else {
+					wait();
+				}
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		if (Utilitarios.isPoolEnabled()) { // if la propiedad pool_enabled esta en =0 entonces no modifico nada
-			conexiones[tope] = (Conexion) con;
+		return icon;
+	}
+
+	@Override
+	public synchronized void liberarConexion(IConexion ic, boolean aux) throws PersistenciaException {
+		/*
+		 * Devuelve una conexión al pool y avisa a posibles usuarios bloqueados. Si ok
+		 * vale true, hará commit al devolverla, sino hará rollback.
+		 */
+		try {
+			if (aux) {
+				(((Conexion) ic).getConexion()).commit();
+			} else {
+				(((Conexion) ic).getConexion()).rollback();
+			}
+			arre_conexiones[tope] = ((Conexion) ic);
 			tope++;
-			notifyAll();
+			notify();
+		} catch (SQLException e) {
+			String texto = "Error al acceder a la base";
+			throw new PersistenciaException(texto);
 		}
 	}
 }

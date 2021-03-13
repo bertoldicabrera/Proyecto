@@ -27,6 +27,7 @@ public class SystemProperties implements Serializable  {
 	private String daoNinios_className;
 	private String fabricaabstracta;
 	private String nombreDirectorioArchivos;
+	private String auto_Commit;
 	
 
 	public SystemProperties() throws IOException {
@@ -53,6 +54,7 @@ public class SystemProperties implements Serializable  {
 		daoNinios_className		= p.getProperty("daoNinios_className");
 		fabricaabstracta		=p.getProperty("fabricaabstracta");
 		nombreDirectorioArchivos=p.getProperty("nombreDirectorioArchivos");
+		auto_Commit           =p.getProperty("auto_Commit");
 		
 	}
 	
@@ -120,6 +122,12 @@ public class SystemProperties implements Serializable  {
 	public String getNombreDirectorioArchivos() {
 		return nombreDirectorioArchivos; 
 	}
+
+	public String getAuto_Commit() {
+		return auto_Commit;
+	}
+
+	
 	
 
 }

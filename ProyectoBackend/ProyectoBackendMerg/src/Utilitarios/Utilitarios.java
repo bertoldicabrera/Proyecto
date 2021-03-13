@@ -3,7 +3,6 @@ package Utilitarios;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -178,22 +177,7 @@ public class Utilitarios {
 		
 	}
 	
-	private static int rsCountRows(ResultSet rs) {
-		int size= 0;  
-		if (rs!= null)   
-		{  
-			try {
-				rs.beforeFirst();  
-				rs.last();  
-				size = rs.getRow();  
-				rs.beforeFirst();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		}
-		return size;
-	}
+	
 		
 	
 }

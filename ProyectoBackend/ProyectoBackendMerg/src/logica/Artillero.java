@@ -45,7 +45,11 @@ public class Artillero extends Objeto{
 	}
 
 	public void setbase_id(int in_base_id) {
-		this.artilleroAngulo = in_base_id;
+		this.in_base_id = in_base_id;
+	}
+	public void mostrarArtilleroPorPanatalla()
+	{
+		System.out.println(" id de la base del artillero: "+this.getbase_id()+" Id Artillero:"+this.GetId()+" Hay enemigo"+this.hayEnemigo);
 	}
 
 

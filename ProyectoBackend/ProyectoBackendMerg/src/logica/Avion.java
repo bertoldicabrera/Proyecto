@@ -104,4 +104,10 @@ public class Avion extends Objeto {
 		Baseid = baseid;
 	}
 	
+	public void mostrarAvionPorPanatalla()
+	{
+		System.out.println(" id de la base del avion: "+this.getBaseid()+" Id avion:"+this.GetId()+" Hay enemigo"+this.hayEnemigo);
+	}
+	
+	
 }

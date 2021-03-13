@@ -1,11 +1,17 @@
 package logica;
 
+import java.io.Serializable;
+
 import persistencia.baseDeDatos.daos.DaoArtilleria;
 import persistencia.baseDeDatos.daos.DaoDeAviones;
 
-public class Base {
+public class Base  implements Serializable{
 	
- private int idBase;
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int idBase;
  private DaoDeAviones aviones;
  private DaoArtilleria artilleros; 
  private Deposito deposito;
@@ -31,7 +37,7 @@ public class Base {
 	
 	
 
-	public int getIdDabse() {
+	public int getIdBase() {
 		return idBase;
 	}
 
@@ -79,7 +85,10 @@ public class Base {
 		this.torre = in_torre;
 	}
 	
-	
+	public void mostrarBasePorPanatalla()
+	{
+		System.out.println(" id de la base: "+this.getIdBase());
+	}
 	
 	
 

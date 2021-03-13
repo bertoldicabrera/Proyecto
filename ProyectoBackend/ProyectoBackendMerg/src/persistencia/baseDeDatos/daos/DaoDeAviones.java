@@ -12,16 +12,14 @@ import persistencia.baseDeDatos.poolDeConexiones.IConexion;
 import persistencia.excepciones.PersistenciaException;
 
 public class DaoDeAviones implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public static MensajesPersonalizados mensg = new MensajesPersonalizados();
 
 	private int tope = 4;
 	private Avion[] arreavion;
-	int baseId;
+	private int baseId;
 
 	public DaoDeAviones() {
 		arreavion = new Avion[tope];
@@ -37,7 +35,7 @@ public class DaoDeAviones implements Serializable {
 		try {
 			consultas cons = new consultas();
 			String query = cons.existenAviones();
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
 				esta = true;
@@ -54,7 +52,7 @@ public class DaoDeAviones implements Serializable {
 			consultas cons = new consultas();
 			String insert = cons.insertarAvion();
 
-			PreparedStatement pstmt = ((Conexion) con).getConnection().prepareStatement(insert);
+			PreparedStatement pstmt = ((Conexion) con).getConexion().prepareStatement(insert);
 			pstmt.setInt(1, in_Avion.getCoordX());
 			pstmt.setInt(2, in_Avion.getCoordY());
 			pstmt.setInt(3, in_Avion.getAvionAltura());
@@ -71,7 +69,8 @@ public class DaoDeAviones implements Serializable {
 			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
-			throw new PersistenciaException(mensg.errorSQLInsertAvion);
+			throw new PersistenciaException(e.toString());
+			// throw new PersistenciaException(mensg.errorSQLInsertAvion);
 		}
 	}
 
@@ -80,7 +79,7 @@ public class DaoDeAviones implements Serializable {
 		String sqlToExecute = cons.listarAviones();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
 			while ((rs.next()) && (i < tope)) {
@@ -103,7 +102,7 @@ public class DaoDeAviones implements Serializable {
 		String sqlToExecute = cons.obtenerAvionXBase();
 		PreparedStatement prstm;
 		try {
-			prstm = ((Conexion) con).getConnection().prepareStatement(sqlToExecute);
+			prstm = ((Conexion) con).getConexion().prepareStatement(sqlToExecute);
 			prstm.setInt(1, this.baseId);
 			ResultSet rs = prstm.executeQuery();
 			int i = 0;
@@ -144,30 +143,27 @@ public class DaoDeAviones implements Serializable {
 			int ind = 0;
 			consultas cons = new consultas();
 			String query = cons.obtenerAvionXBase();
-			PreparedStatement pstmt1 = ((Conexion) con).getConnection().prepareStatement(query);
+			PreparedStatement pstmt1 = ((Conexion) con).getConexion().prepareStatement(query);
 			pstmt1.setInt(1, this.baseId);
 			ResultSet rs1 = pstmt1.executeQuery();
 			while ((rs1.next()) && (ind < tope)) {
-				
-				
-				
+
 				id = rs1.getInt(1);
-				coordX =  rs1.getInt(2);
+				coordX = rs1.getInt(2);
 				coordY = rs1.getInt(3);
 				coordZ = rs1.getInt(4);
-				estado=  rs1.getBoolean(5);
+				estado = rs1.getBoolean(5);
 				vida = rs1.getInt(6);
 				hayEnemigo = rs1.getBoolean(7);
 				rangoDeVision = rs1.getInt(8);
-				avionBomba=rs1.getBoolean(9);
+				avionBomba = rs1.getBoolean(9);
 				cantidadBombas = rs1.getInt(10);
 				avionCombustible = rs1.getInt(11);
 				enCampoEnemigo = rs1.getBoolean(12);
 				baseoid = rs1.getInt(13);
-				
-				
-				avion = new Avion(id, coordX, coordY, coordZ, estado, vida, hayEnemigo,rangoDeVision ,avionBomba, cantidadBombas,
-						avionCombustible,enCampoEnemigo ,baseoid );
+
+				avion = new Avion(id, coordX, coordY, coordZ, estado, vida, hayEnemigo, rangoDeVision, avionBomba,
+						cantidadBombas, avionCombustible, enCampoEnemigo, baseoid);
 				arregavion[ind] = avion;
 
 			}
@@ -182,6 +178,10 @@ public class DaoDeAviones implements Serializable {
 
 	public void setArreAviones(Avion[] in_arreavion) {
 		this.arreavion = in_arreavion;
+	}
+
+	public Avion[] getArreAvionesEnMemoria() {
+		return this.arreavion;
 	}
 
 }

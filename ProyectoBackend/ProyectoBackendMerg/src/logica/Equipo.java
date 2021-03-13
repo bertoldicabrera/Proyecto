@@ -1,7 +1,13 @@
 package logica;
 
-public class Equipo {
+import java.io.Serializable;
 
+public class Equipo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int equipoID;
 	private int tope=1;
 	private Jugador[] jugadores; 
@@ -10,12 +16,12 @@ public class Equipo {
 	
 	
 	public Equipo() {
-		
+		this.setJugadores(new  Jugador[tope]);
 	}
 	
 	
 	public Equipo(int in_equipoID, Jugador[]  in_Jugadores, Base  in_base, String  in_bando ) {
-		this.setJugadores(new  Jugador[tope]);
+		
 		this.setEquipoID( in_equipoID);
         this.setJugadores(in_Jugadores);
 		this.setBase(  in_base);
@@ -24,7 +30,7 @@ public class Equipo {
 
 
 	public int getEquipoID() {
-		return equipoID;
+		return this.equipoID;
 	}
 
 
@@ -32,17 +38,9 @@ public class Equipo {
 		this.equipoID =  in_equipoID;
 	}
 
-
-
-
-
 	public Base getBase() {
 		return base;
 	}
-
-
-
-
 
 	public void setBase(Base  in_base) {
 		this.base =  in_base;
@@ -53,14 +51,13 @@ public class Equipo {
 		return bando;
 	}
 
-
 	public void setBando(String  in_bando) {
 		this.bando =  in_bando;
 	}
 
 
 	public Jugador[] getJugadores() {
-		return jugadores;
+		return this.jugadores;
 	}
 
 
@@ -68,10 +65,5 @@ public class Equipo {
 		this.jugadores = jugadores;
 	}
 
-
-
-
-
-	
 
 }

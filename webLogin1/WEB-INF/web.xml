@@ -11,10 +11,31 @@
   <description>WEB</description>
   <display-name>WEB</display-name>
 
+<servlet>
+    <servlet-name>ConexionCliente</servlet-name>
+    <servlet-class>Servlet.ConexionCliente</servlet-class>
+     <init-param>
+			<param-name>ipServidor</param-name>
+			<param-value>localhost</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>puerto</param-name>
+			<param-value>8095</param-value>
+		</init-param>
+		<init-param>
+			<param-name>nombreAPublicar</param-name>
+			<param-value>PROYECTO</param-value>
+		</init-param>
+		
+   </servlet>
+
+
+
   <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>Servlet.Login</servlet-class>
-    
+		
    </servlet>
  
   <servlet-mapping>
@@ -25,6 +46,7 @@
   <servlet>
     <servlet-name>Register</servlet-name>
     <servlet-class>Servlet.Register</servlet-class>
+     
   </servlet>
  
   <servlet-mapping>
@@ -59,6 +81,10 @@
 	<welcome-file>/index.jsp</welcome-file>
 	
   </welcome-file-list>
+
+ 
+
+
 
 
   <!-- Session Configuration -->

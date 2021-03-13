@@ -3,7 +3,7 @@ package persistencia.baseDeDatos.consultas;
 public class consultas {
     //Revisado ok
 	public String InsertarEquipoJugador() {
-		String query = "insert into EQUIPOS_JUGADORES values(?,?);";
+		String query = "insert into EQUIPOS_JUGADORES(PK_jugador_id,PK_equipo_id) values(?,?)";
 		return query;
 	}
     //Revisado ok
@@ -96,7 +96,7 @@ public class consultas {
     //Revisado ok
 	// Se insertan artilleros
 	public String insertarArtillero() {
-		String query = "insert into ARTILLEROS(artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,artilleroHayEnemigo,artilleroRangoVision,artilleroAngulo,FK_base_id) values(?,?,?,?,?,?)";
+		String query = "insert into ARTILLEROS(artilleroCoordX,artilleroCoordY,artilleroEstado,artilleroVida,artilleroHayEnemigo,artilleroRangoVision,artilleroAngulo,FK_base_id) values(?,?,?,?,?,?,?,?)";
 		return query;
 	}
     //Revisado ok
@@ -311,13 +311,17 @@ public class consultas {
 	//hay que desabilitar el modo seguro para poder hacer este tipo de modificacion
 	//por lo que se decidió llamar a get idbyUsername y cambiar la consulta
 	public String isOnLineJugador() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 1" + "WHERE PK_jugador_id=(?);";
+		String query = "select  * from JUGADORES where jugadorIsOnline = 1 AND PK_jugador_id=(?)";
 		return query;
 	}
 	//Revisado ok
 	//mismo caso que isonline
-	public String logoutJugadorPorUserName() {
-		String query = "UPDATE JUGADORES" + "SET jugadorIsOnline = 0" + "WHERE PK_jugador_id=(?);";
+	public String logoutJugadorPorUserxID() {
+		String query = "UPDATE JUGADORES" + " SET jugadorIsOnline = 0    " + "WHERE PK_jugador_id=(?)";
+		return query;
+	}
+	public String loginJugadorxID() {
+		String query = "UPDATE JUGADORES SET jugadorIsOnline = 1 WHERE PK_jugador_id=(?)";
 		return query;
 	}
 	//Revisado ok
@@ -336,5 +340,10 @@ public class consultas {
 		String query = "insert into TORRES_DE_CONTROL(torreControlCoordX,torreControlCoordY,torreControlEstado,torreControlVida,torreControlHayEnemigo,torreControlRangoVision) values(?,?,?,?,?,?);";
 		return query;
 	}
+	public String jugadoresDeunEquipo() {
+		String query = "select j.PK_jugador_id, j.jugadorUserName, j.jugadorPassword, j.jugadorisOnline, j.jugadorPuntajeAcumulado from jugadores j, equipos_jugadores ej, equipos e where ej.Pk_equipo_id=(?) and ej.Pk_equipo_id=e.Pk_equipo_id and j.PK_jugador_id=ej.PK_jugador_id;";
+		return query;
+	}
+	
 
 }
