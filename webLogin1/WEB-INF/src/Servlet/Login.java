@@ -86,9 +86,10 @@ public class Login extends HttpServlet {
 						 }
 						 else
 						 {
-							 session.setAttribute("sessionNombre", jugador.getJugadorUserName());
+							session.setAttribute("sessionNombre", jugador.getJugadorUserName());
 							CargarJugador(session,jugador );
 							CargarArreglo(session, fac, jugador.getJugadorUserName());
+							
 	                            error=false;
 						 }
                            
@@ -113,7 +114,9 @@ public class Login extends HttpServlet {
         if(error==false)
         {
         	// si no hay error puedo redirecionar
+        	//response.sendRedirect("JuegoContenedor.jsp"); 
         	response.sendRedirect("panel.jsp");
+        	
         }else
         {
         	response.sendRedirect("login.jsp");
@@ -152,6 +155,7 @@ public class Login extends HttpServlet {
 				}
 	    	
 		session.setAttribute("Jugador", ArreJugador);
+		
     }
     
     

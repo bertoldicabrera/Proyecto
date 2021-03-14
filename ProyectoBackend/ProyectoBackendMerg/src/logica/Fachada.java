@@ -79,11 +79,26 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		System.out.println("Estra a pedir una instancia");
 		return instancia;
 	}
+	
+	
+	
+	
 
 	public String verConexion(String x) throws RemoteException {
 		System.out.println("Servidor :" + x);
 		return x + "Server";
 	}
+	
+	public VOPartida crearPartida() {
+		
+		
+		
+		return null;
+		
+		
+		
+	}
+	
 
 	public void registrarJugador(VOJugador in_voJug)
 			throws RemoteException, PersistenciaException, LogicaException, InterruptedException {

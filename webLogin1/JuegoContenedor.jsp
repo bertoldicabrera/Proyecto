@@ -1,25 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%-- si exista sesion iniciada redirecciono a index.jsp. no tiene sentido crear una cuenta estando logueado --%>
+<c:if test="${sessionScope['sessionNombre']!=null}">
+    <% response.sendRedirect("index.jsp");%>
+</c:if>
+     
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="stylesContenedor.css">
-    <link rel="icon" href="./assets/images/web/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="FrontEnd/JuegoSaviorsOfTheSomme/stylesContenedor.css">
+    <link rel="icon" href="FrontEnd/JuegoSaviorsOfTheSomme/assets/images/web/favicon.ico">
     <title>Saviors of the Somme</title>
     
 </head>
     <body>
+	<div class="inner-text">
+		<br>
+		<c:forEach items="${JugadorContenedor}" var="i">
+		Usuario:  ${i.getJugadorUserName()} 
+		</c:forEach>
+		<br/>
+		</div>
+    	
+        <div id="phaser-app"></div>
         <div id="phaser-app"></div>
 
-        <script src="./node_modules/phaser/dist/phaser-arcade-physics.js"></script>
-        <script src="./node_modules/phaser/dist/phaser.js"></script>
+        <script src="FrontEnd/node_modules/phaser/dist/phaser-arcade-physics.js"></script>
+        <script src="FrontEnd/node_modules/phaser/dist/phaser.js"></script>
         
 
         <script>
-            
+            pepito=1;
             juego_var_sceneJuego = 0;
 
             juego_var_nav_width   = 1000;
@@ -87,7 +101,7 @@
         </script> 
 
 
-        <script src="./src/obj_bala.js"></script>
+        <script src="FrontEnd/JuegoSaviorsOfTheSomme/src/obj_bala.js"></script>
 <!-- 
 
         <script src="./src/obj_artillero.js"></script>
@@ -98,7 +112,7 @@
         <script src="./src/obj_base.js"></script>
         <script src="./src/obj_campo.js"></script> -->
 
-        <script src="./src/s7_campoBatalla.js"></script>
+        <script src="FrontEnd/JuegoSaviorsOfTheSomme/src/s7_campoBatalla.js"></script>
         <!--<script src="./src/s7_campoBatalla2.js"></script>
          <script src="./src/s6_lineaFrontera.js"></script>
         <script src="./src/s5_menu.js"></script>
@@ -106,7 +120,7 @@
         <script src="./src/s3_vistaLateral.js"></script>
         <script src="./src/s2_campoEnemigo.js"></script>
         <script src="./src/s1_miCampo.js"></script> -->
-        <script src="./src/juegoInit.js" type="module"></script>
+        <script src="FrontEnd/JuegoSaviorsOfTheSomme/src/juegoInit.js" type="module"></script>
 
 
     </body>
